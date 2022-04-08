@@ -1,42 +1,43 @@
-request_hmmer <- function(
-  seq = NULL,
-  aln = NULL,
-  seqdb = NULL,
-  hmmdb = NULL,
-  url,
-  verbose = FALSE,
-  fullseqfasta = FALSE,
-  alignment = FALSE){
-
-
-  curl.opts <- list(httpheader = "Expect:",
-                    httpheader = "Accept:text/xml",
-                    verbose = verbose,
-                    followlocation = TRUE
-  )
-
-  if (!is.null(seq)) {
-    input_query <- seq
-    }
-  if (!is.null(aln)) {
-    input_query <- aln
-  }
-
-  hmm <-RCurl::postForm(
+request_hmmer <- function(seq = NULL,
+    aln = NULL,
+    seqdb = NULL,
+    hmmdb = NULL,
     url,
-    seqdb=seqdb,
-    hmmdb = hmmdb,
-    seq= input_query,
-    style = "POST",
-    .opts = curl.opts,
-    .contentEncodeFun=RCurl::curlPercentEncode,
-    .checkParams=TRUE)
+    verbose = FALSE) {
+    curl.opts <- list(
+        httpheader = "Expect:",
+        httpheader = "Accept:text/xml",
+        verbose = verbose,
+        followlocation = TRUE
+    )
 
-  ## check results from the server
-  if(!grepl("results", hmm))
-    stop("Request to HMMER server failed")
-  if(verbose)
-    message(paste0("Content from HMMER server:\n",
-                   hmm))
-  return(hmm)
-  }
+    if (!is.null(seq)) {
+        input_query <- seq
+    }
+    if (!is.null(aln)) {
+        input_query <- aln
+    }
+
+    hmm <- RCurl::postForm(
+        url,
+        seqdb = seqdb,
+        hmmdb = hmmdb,
+        seq = input_query,
+        style = "POST",
+        .opts = curl.opts,
+        .contentEncodeFun = RCurl::curlPercentEncode,
+        .checkParams = TRUE
+    )
+
+    ## check results from the server
+    if (!grepl("results", hmm)) {
+        stop("Request to HMMER server failed")
+    }
+    if (verbose) {
+        message(paste0(
+            "Content from HMMER server:\n", hmm
+            )
+        )
+    }
+    return(hmm)
+}
