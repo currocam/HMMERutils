@@ -15,7 +15,15 @@ test_that("is_protein_seq is working", {
 
 
 test_that("parse_hash_xml is working", {
-  xml <- XML::xmlParse(file = "testing_xml.xml")
-  parse_hash_xml(xml, "///stats") %>%
-    expect_snapshot_output()
+    xml <- readr::read_file("testing_xml.txt") %>%
+        XML::xmlParse()
+    parse_hash_xml(xml, "///stats") %>%
+        expect_snapshot_output()
+})
+
+test_that("parse_uuid_xml is working", {
+    xml <- readr::read_file("testing_xml.txt") %>%
+        XML::xmlParse()
+    parse_uuid_xml(xml) %>%
+        expect_snapshot_output()
 })

@@ -18,6 +18,7 @@ Suggests:
     BiocStyle,
     covr,
     knitr,
+    readr,
     RefManageR,
     rmarkdown,
     sessioninfo,
