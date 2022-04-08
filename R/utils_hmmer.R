@@ -10,6 +10,27 @@ is_protein_seq <- function(x) {
     all(x.vc %in% AA_STANDARD)
 }
 
+AAMultipleAlignment_to_string <- function(alns){
+  if (class(alns)== "AAMultipleAlignment") {
+    alns <- c(alns)
+  }
+  alns %>%
+  purrr::map_chr(~{
+    aln.chr <- .x %>%
+      Biostrings::unmasked() %>%
+      as.character()
+    if (is.null(names(aln.chr))) {
+      n_seqs <- length(aln.chr)
+      names(aln.chr) <- paste0("seq", seq(n_seqs))
+    }
+    paste(collapse = "\n",
+      paste0(">", names(aln.chr)),
+      "\n", aln.chr
+      )
+    }
+  )
+}
+
 parse_hash_xml <- function(xml, hash) {
     xml %>%
         XML::xpathSApply(hash, XML::xpathSApply, "@*") %>%
@@ -23,6 +44,27 @@ parse_uuid_xml <- function(xml) {
         XML::xpathSApply("//data", XML::xpathSApply, "@*") %>%
         magrittr::extract("uuid", 1)
 }
+
+get_fullseqfasta_url <- function(uuid){
+  paste0(
+    "https://www.ebi.ac.uk/Tools/hmmer/download/",
+    uuid,
+    "/score?format=fullfasta")
+}
+get_alignment_url <- function(uuid){
+  paste0(
+    "https://www.ebi.ac.uk/Tools/hmmer/download/",
+    uuid,
+    "/score?format=afa")
+}
+get_results_url <- function(uuid){
+  paste0(
+    "http://www.ebi.ac.uk/Tools/hmmer/results/",
+    uuid)
+}
+
+
+
 
 numeric_values_in_hmmer_tbl <- function(df) {
     numeric_cols <- c(
@@ -41,3 +83,5 @@ numeric_values_in_hmmer_tbl <- function(df) {
     df %>%
         dplyr::mutate(dplyr::across(cols, as.numeric))
 }
+
+
