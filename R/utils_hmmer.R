@@ -33,10 +33,11 @@ AAMultipleAlignment_to_string <- function(alns){
 
 parse_hash_xml <- function(xml, hash) {
     xml %>%
-        XML::xpathSApply(hash, XML::xpathSApply, "@*") %>%
-        t() %>%
-        as.data.frame() %>%
-        dplyr::distinct()
+      XML::xpathSApply(hash, XML::xpathSApply, "@*") %>%
+      t() %>%
+      as.data.frame() %>%
+      dplyr::distinct() %>%
+      add_numeric_values_to_hmmer_tbl()
 }
 
 parse_uuid_xml <- function(xml) {
@@ -66,7 +67,7 @@ get_results_url <- function(uuid){
 
 
 
-numeric_values_in_hmmer_tbl <- function(df) {
+add_numeric_values_to_hmmer_tbl <- function(df) {
     numeric_cols <- c(
         "Z", "Z_setby", "domZ", "domZ_setby", "elapsed",
         "n_past_bias", "n_past_fwd", "n_past_msv", "n_past_vit",
