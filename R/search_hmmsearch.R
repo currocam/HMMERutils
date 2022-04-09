@@ -17,7 +17,8 @@
 #'  (HMMER temporary url), `hits`, `stats`, `domains` and, if selected,
 #'   `fullseq.fasta.` and `alignment`.
 #' @examples
-#' aln <- c(
+#' \donttest{
+#' #' aln <- c(
 #'     "MTEITAAMVKELR--TGAGMMDCKN",
 #'     "------AMVKELRESTGAGMMDCKN"
 #' ) %>%
@@ -28,6 +29,7 @@
 #'     verbose = FALSE,
 #'     timeout = 90
 #' )
+#' }
 #' @export
 
 search_hmmsearch <- function(alns,

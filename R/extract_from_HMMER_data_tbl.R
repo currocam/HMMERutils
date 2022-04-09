@@ -145,10 +145,11 @@ extract_from_HMMER_data_tbl <- function(HMMER_data_tbl,
                 )
         }
     )
-    if ("fullseqfasta" %in% names(HMMER_data_tbl)) {
-        seqs <- extract_sequences(HMMER_data_tbl,
-            seq_column = HMMER_data_tbl$fullseqfasta,
-            column_name = "fullseqfasta",
+    if ("fullseq.fasta" %in% names(HMMER_data_tbl)) {
+        seqs <- extract_sequences(
+            HMMER_data_tbl,
+            seq_column = HMMER_data_tbl$fullseq.fasta,
+            column_name = "fullseq.fasta",
             id_column = id_column
         )
         df <- df %>%

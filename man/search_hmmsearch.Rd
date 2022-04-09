@@ -41,7 +41,8 @@ A nested DataFrame with columns \code{alns}, \code{dbs}, \code{url}
 Perform a hmmsearch search of a protein alignment against a protein sequence database.
 }
 \examples{
-aln <- c(
+\donttest{
+#' aln <- c(
     "MTEITAAMVKELR--TGAGMMDCKN",
     "------AMVKELRESTGAGMMDCKN"
 ) \%>\%
@@ -52,4 +53,5 @@ hmmsearch_tbl <- search_hmmsearch(
     verbose = FALSE,
     timeout = 90
 )
+}
 }
