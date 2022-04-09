@@ -3,5 +3,6 @@
 export("%>%")
 export(search_hmmscan)
 export(search_hmmsearch)
+export(search_jackhmmer)
 export(search_phmmer)
 importFrom(magrittr,"%>%")
