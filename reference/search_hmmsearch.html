@@ -95,7 +95,8 @@ as a <code>AAMultipleAlignment</code>. Package <code>Biostrings</code> must be i
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">aln</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
+<span class="r-in"><span class="va">aln</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span class="r-in">    <span class="st">"MTEITAAMVKELR--TGAGMMDCKN"</span>,</span>
 <span class="r-in">    <span class="st">"------AMVKELRESTGAGMMDCKN"</span></span>
 <span class="r-in"><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
@@ -103,12 +104,12 @@ as a <code>AAMultipleAlignment</code>. Package <code>Biostrings</code> must be i
 <span class="r-in"><span class="va">hmmsearch_tbl</span> <span class="op">&lt;-</span> <span class="fu">search_hmmsearch</span><span class="op">(</span></span>
 <span class="r-in">    alns <span class="op">=</span> <span class="va">aln</span>,</span>
 <span class="r-in">    dbs <span class="op">=</span> <span class="st">"pdb"</span>,</span>
-<span class="r-in">    verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span class="r-in">    verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span class="r-in">    timeout <span class="op">=</span> <span class="fl">90</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Content from HMMER server:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> &lt;opt&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;data name="results" algo="hmmsearch" uuid="3A5EA6C8-B7FC-11EC-BED7-63BBDBC3747A"&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;data name="results" algo="hmmsearch" uuid="3CF9980C-B838-11EC-8622-C365F75AEC3D"&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;_internal highevalue="1.7e-11" lowevalue="0.00024" /&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="4pc3_C" acc="4pc3_C" arch="PF00889.22" archScore="2" archindex="158710124293725 83333" bias="1.6" desc="Elongation factor Ts" evalue="1.7e-11" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/4pc3_C" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-38.0097949688518" score="48.6" sindex="57516019" species="Escherichia coli K-12" taxid="83333" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.863636363636364" aliIdCount="19" aliL="282" aliM="25" aliN="22" aliSim="0.863636363636364" aliSimCount="19" aliaseq="EITASLVKELRERTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="3" alihmmname="Query" alihmmto="24" alimline="EitA  VKELRE TGAGMMDCK" alimmline="" alimodel="EitAAMVKELREsTGAGMMDCK" aliniseqs="5" alintseq="" alippline="9********************9" alirfline="" alisindex="57516019" alisqacc="4pc3_C" alisqdesc="Elongation factor Ts" alisqfrom="2" alisqname="4pc3_C" alisqto="23" bias="1.64" bitscore="48.611629486084" cevalue="3.4e-16" iali="2" ienv="1" ievalue="1.7e-11" is_included="1" is_reported="1" jali="23" jenv="24" oasc="0.97" /&gt;</span>
@@ -254,6 +255,7 @@ as a <code>AAMultipleAlignment</code>. Package <code>Biostrings</code> must be i
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;stats Z="546676" Z_setby="0" domZ="11" domZ_setby="0" elapsed="0.01" n_past_bias="2249" n_past_fwd="14" n_past_msv="2575" n_past_vit="211" nhits="11" nincluded="8" nmodels="1" nreported="11" nseqs="546676" page="1" sys="0" total="1" unpacked="11" user="0" /&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;/data&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> &lt;/opt&gt;</span>
+<span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
   </div>

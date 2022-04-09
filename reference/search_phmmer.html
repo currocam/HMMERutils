@@ -95,15 +95,16 @@ as a <code>AAMultipleAlignment</code>. Package <code>Biostrings</code> must be i
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">phmmer_tbl</span> <span class="op">&lt;-</span> <span class="fu">search_phmmer</span><span class="op">(</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
+<span class="r-in"><span class="va">phmmer_tbl</span> <span class="op">&lt;-</span> <span class="fu">search_phmmer</span><span class="op">(</span></span>
 <span class="r-in">    seqs <span class="op">=</span> <span class="st">"MTEITAAMVKELRTGAGMMDCKN"</span>,</span>
 <span class="r-in">    dbs <span class="op">=</span> <span class="st">"pdb"</span>,</span>
-<span class="r-in">    verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span class="r-in">    verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span class="r-in">    timeout <span class="op">=</span> <span class="fl">90</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Content from HMMER server:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> &lt;opt&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;data name="results" algo="phmmer" uuid="3C78BC6E-B7FC-11EC-BED7-63BBDBC3747A"&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;data name="results" algo="phmmer" uuid="4FACD568-B838-11EC-B532-52D353F04F9B"&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;_internal highevalue="4.5e-05" lowevalue="0.00024" /&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="4r71_A" acc="4r71_A" arch="PF00889.22 PF00009.30 PF03144.28 PF03143.20" archScore="5" archindex="118498722050600 83333" bias="0.3" desc="Elongation factor Ts, Elongation factor Tu" evalue="4.5e-05" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/4r71_A" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-23.2208827146136" score="26.0" sindex="57510549" species="Escherichia coli K-12" taxid="83333" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.863636363636364" aliIdCount="19" aliL="694" aliM="23" aliN="24" aliSim="0.954545454545455" aliSimCount="21" aliaseq="MAEITASLVKELRerTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="1" alihmmname="&amp;gt;Query" alihmmto="22" alimline="m eita++vkelr  tgagmmdck" alimmline="" alimodel="mteitaamvkelr..tgagmmdck" aliniseqs="2" alintseq="" alippline="78*********95449*******9" alirfline="" alisindex="57510549" alisqacc="4r71_A" alisqdesc="Elongation factor Ts, Elongation factor Tu" alisqfrom="1" alisqname="4r71_A" alisqto="24" bias="0.12" bitscore="21.6458969116211" cevalue="2.0e-08" iali="1" ienv="1" ievalue="0.0016" is_included="1" is_reported="1" jali="24" jenv="25" oasc="0.88" /&gt;</span>
@@ -201,9 +202,10 @@ as a <code>AAMultipleAlignment</code>. Package <code>Biostrings</code> must be i
 <span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4pc6_C&lt;/pdbs&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts" dn="4pc6_D" sp="Escherichia coli DH1" /&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;stats Z="546676" Z_setby="0" domZ="7" domZ_setby="0" elapsed="0.06" n_past_bias="1847" n_past_fwd="7" n_past_msv="1960" n_past_vit="61" nhits="7" nincluded="7" nmodels="1" nreported="7" nseqs="546676" page="1" sys="0" total="1" unpacked="7" user="0" /&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;stats Z="546676" Z_setby="0" domZ="7" domZ_setby="0" elapsed="0.02" n_past_bias="1847" n_past_fwd="7" n_past_msv="1960" n_past_vit="61" nhits="7" nincluded="7" nmodels="1" nreported="7" nseqs="546676" page="1" sys="0" total="1" unpacked="7" user="0" /&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;/data&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> &lt;/opt&gt;</span>
+<span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
   </div>

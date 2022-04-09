@@ -28,10 +28,34 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/ABL1_homologous.html</loc>
+  </url>
+  <url>
+    <loc>/reference/add_physicochemical_properties_to_HMMER_tbl.html</loc>
+  </url>
+  <url>
+    <loc>/reference/add_taxa_to_HMMER_tbl.html</loc>
+  </url>
+  <url>
+    <loc>/reference/annotate_with_NCBI_taxid.html</loc>
+  </url>
+  <url>
+    <loc>/reference/calculate_physicochemical_properties.html</loc>
+  </url>
+  <url>
+    <loc>/reference/extract_from_HMMER_data_tbl.html</loc>
+  </url>
+  <url>
+    <loc>/reference/hmmer_evalues_cleveland_dot_plot.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
     <loc>/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_hmmer_from_xml.html</loc>
   </url>
   <url>
     <loc>/reference/search_hmmscan.html</loc>

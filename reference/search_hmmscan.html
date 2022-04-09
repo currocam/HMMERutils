@@ -158,18 +158,20 @@ sequence(hmmscan).</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">hmmscan_tbl</span> <span class="op">&lt;-</span> <span class="fu">search_hmmscan</span><span class="op">(</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
+<span class="r-in"><span class="va">hmmscan_tbl</span> <span class="op">&lt;-</span> <span class="fu">search_hmmscan</span><span class="op">(</span></span>
 <span class="r-in">    seqs <span class="op">=</span> <span class="st">"MTEITAAMVKELRESTGAGMMDCKN"</span>,</span>
 <span class="r-in">    dbs <span class="op">=</span> <span class="st">"pfam"</span>,</span>
-<span class="r-in">    verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span class="r-in">    verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span class="r-in">    timeout <span class="op">=</span> <span class="fl">90</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Content from HMMER server:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> &lt;opt&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;data name="results" _internal="" uuid="39DF2B28-B7FC-11EC-BBF1-A363F75AEC3D"&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;data name="results" _internal="" uuid="3C49E3DA-B838-11EC-81F9-2F1DE976C163"&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;stats Z="19632" Z_setby="0" domZ="0" domZ_setby="0" elapsed="0.05" n_past_bias="122" n_past_fwd="0" n_past_msv="155" n_past_vit="3" nhits="0" nincluded="0" nmodels="19632" nreported="0" nseqs="1" sys="0" user="0" /&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;/data&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> &lt;/opt&gt;</span>
+<span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
   </div>
