@@ -23,6 +23,8 @@ Suggests:
     RefManageR,
     rmarkdown,
     sessioninfo,
+    taxize,
+    taxizedb,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
