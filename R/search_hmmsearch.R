@@ -15,7 +15,7 @@
 #'
 #' @return A nested DataFrame with columns `alns`, `dbs`, `url`
 #'  (HMMER temporary url), `hits`, `stats`, `domains` and, if selected,
-#'   `fullseq.fasta.`
+#'   `fullseq.fasta.` and `alignment`.
 #' @examples
 #' aln <- c(
 #'     "MTEITAAMVKELR--TGAGMMDCKN",

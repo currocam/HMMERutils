@@ -95,7 +95,6 @@ search_hmmscan <- function(seqs,
     verbose = TRUE,
     timeout = 90) {
     # Check
-
     seqs <- deal_with_input_sequences(seqs)
     # all combinations of inputs
     grid <- tidyr::expand_grid(seqs, dbs)
