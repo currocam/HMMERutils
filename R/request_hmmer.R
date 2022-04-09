@@ -36,8 +36,7 @@ request_hmmer <- function(seq = NULL,
     if (verbose) {
         message(paste0(
             "Content from HMMER server:\n", hmm
-            )
-        )
+        ))
     }
     return(hmm)
 }

@@ -26,6 +26,10 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
+    Biostrings,
     dplyr,
     magrittr,
+    purrr,
+    RCurl,
+    tidyr,
     XML
