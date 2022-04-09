@@ -44,7 +44,7 @@ Perform a phmmer search of a protein sequence against a protein sequence databas
 phmmer_tbl <- search_phmmer(
     seqs = "MTEITAAMVKELRTGAGMMDCKN",
     dbs = "pdb",
-    verbose = TRUE,
+    verbose = FALSE,
     timeout = 90
 )
 }

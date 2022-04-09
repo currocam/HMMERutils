@@ -20,7 +20,7 @@
 #' phmmer_tbl <- search_phmmer(
 #'     seqs = "MTEITAAMVKELRTGAGMMDCKN",
 #'     dbs = "pdb",
-#'     verbose = TRUE,
+#'     verbose = FALSE,
 #'     timeout = 90
 #' )
 #' @export

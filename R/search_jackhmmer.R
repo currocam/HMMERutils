@@ -21,7 +21,7 @@
 #' jackhmmer_tbl <- search_jackhmmer(
 #'     seqs = "MTEITAAMVKELRTGAGMMDCKN",
 #'     dbs = "pdb",
-#'     verbose = TRUE,
+#'     verbose = FALSE,
 #'     timeout = 90
 #' )
 #' @export

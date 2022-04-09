@@ -25,7 +25,7 @@
 #' hmmsearch_tbl <- search_hmmsearch(
 #'     alns = aln,
 #'     dbs = "pdb",
-#'     verbose = TRUE,
+#'     verbose = FALSE,
 #'     timeout = 90
 #' )
 #' @export

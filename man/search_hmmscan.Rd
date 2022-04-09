@@ -112,7 +112,7 @@ sequence(hmmscan).
 hmmscan_tbl <- search_hmmscan(
     seqs = "MTEITAAMVKELRESTGAGMMDCKN",
     dbs = "pfam",
-    verbose = TRUE,
+    verbose = FALSE,
     timeout = 90
 )
 }
