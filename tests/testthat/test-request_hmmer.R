@@ -18,8 +18,8 @@ test_that("hmmsearch works", {
         fullseqfasta = TRUE,
         alignment = TRUE
     ) %>%
-        write("hmmsearch_testing.txt")
-    expect_snapshot_file("hmmsearch_testing.txt")
+        write("files/hmmsearch_testing.txt")
+    expect_snapshot_file("files/hmmsearch_testing.txt")
 })
 
 
@@ -32,8 +32,8 @@ test_that("phmmer works", {
         fullseqfasta = TRUE,
         alignment = TRUE
     ) %>%
-        write("phmmer_testing.txt")
-    expect_snapshot_file("phmmer_testing.txt")
+        write("files/phmmer_testing.txt")
+    expect_snapshot_file("files/phmmer_testing.txt")
 })
 
 test_that("hmmscan works", {
@@ -43,8 +43,8 @@ test_that("hmmscan works", {
         url = "https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan",
         verbose = TRUE
     ) %>%
-        write("hmmscan_testing.txt")
-    expect_snapshot_file("hmmscan_testing.txt")
+        write("files/hmmscan_testing.txt")
+    expect_snapshot_file("files/hmmscan_testing.txt")
 })
 
 test_that("jackhammer works with seq", {
@@ -56,8 +56,8 @@ test_that("jackhammer works with seq", {
         fullseqfasta = TRUE,
         alignment = TRUE
     ) %>%
-        write("jackhammer_seq_testing.txt")
-    expect_snapshot_file("jackhammer_seq_testing.txt")
+        write("files/jackhammer_seq_testing.txt")
+    expect_snapshot_file("files/jackhammer_seq_testing.txt")
 })
 
 test_that("jackhammer works with aln", {
@@ -69,6 +69,6 @@ test_that("jackhammer works with aln", {
         fullseqfasta = TRUE,
         alignment = TRUE
     ) %>%
-        write("jackhammer_aln_testing.txt")
-    expect_snapshot_file("jackhammer_aln_testing.txt")
+        write("files/jackhammer_aln_testing.txt")
+    expect_snapshot_file("files/jackhammer_aln_testing.txt")
 })

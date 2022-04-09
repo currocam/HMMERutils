@@ -1,6 +1,0 @@
-<opt>
-  <data name="results" _internal="" uuid="B21EB3A0-B753-11EC-B55B-A0C853F04F9B">
-    <stats Z="19632" Z_setby="0" domZ="0" domZ_setby="0" elapsed="0.05" n_past_bias="122" n_past_fwd="0" n_past_msv="155" n_past_vit="3" nhits="0" nincluded="0" nmodels="19632" nreported="0" nseqs="1" sys="0" user="0" />
-  </data>
-</opt>
-

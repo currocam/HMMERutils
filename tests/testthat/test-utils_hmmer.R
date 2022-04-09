@@ -28,14 +28,14 @@ test_that("AAMultipleAlignment_to_string is working", {
 })
 
 test_that("parse_hash_xml is working", {
-    xml <- readr::read_file("testing_xml.txt") %>%
+    xml <- readr::read_file("files/testing_xml.txt") %>%
         XML::xmlParse()
     parse_hash_xml(xml, "///stats") %>%
         expect_snapshot_output()
 })
 
 test_that("parse_uuid_xml is working", {
-    xml <- readr::read_file("testing_xml.txt") %>%
+    xml <- readr::read_file("files/testing_xml.txt") %>%
         XML::xmlParse()
     parse_uuid_xml(xml) %>%
         expect_snapshot_output()
