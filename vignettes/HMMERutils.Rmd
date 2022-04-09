@@ -15,9 +15,9 @@ output:
 date: "`r doc_date()`"
 package: "`r pkg_ver('HMMERutils')`"
 vignette: >
-  %\VignetteIndexEntry{Introduction to HMMERutils}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}  
+    %\VignetteIndexEntry{Introduction to HMMERutils}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}  
 ---
 
 ```{r setup, include = FALSE}

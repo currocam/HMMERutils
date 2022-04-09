@@ -34,9 +34,9 @@ request_hmmer <- function(seq = NULL,
         stop("Request to HMMER server failed")
     }
     if (verbose) {
-        message(paste0(
-            "Content from HMMER server:\n", hmm
-            )
+        message(
+            "Content from HMMER server:\n",
+            hmm
         )
     }
     return(hmm)

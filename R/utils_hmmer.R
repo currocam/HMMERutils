@@ -10,34 +10,50 @@ is_protein_seq <- function(x) {
     all(x.vc %in% AA_STANDARD)
 }
 
-AAMultipleAlignment_to_string <- function(alns){
-  if (class(alns)== "AAMultipleAlignment") {
-    alns <- c(alns)
-  }
-  alns %>%
-  purrr::map_chr(~{
-    aln.chr <- .x %>%
-      Biostrings::unmasked() %>%
-      as.character()
-    if (is.null(names(aln.chr))) {
-      n_seqs <- length(aln.chr)
-      names(aln.chr) <- paste0("seq", seq(n_seqs))
+deal_with_input_sequences <- function(seqs) {
+    if (!is_protein_seq(seqs)) {
+        stop(
+            "`seq` must be a protein sequence.\n",
+            "Characters not belonging to the AA standar ",
+            "alphabet were found."
+        )
     }
-    paste(collapse = "\n",
-      paste0(">", names(aln.chr)),
-      "\n", aln.chr
-      )
+    old.names <- names(seqs)
+    seqs <- as.character(seqs)
+    if (!is.null(old.names)) {
+        names(seqs) <- old.names
     }
-  )
+    return(seqs)
+}
+
+AAMultipleAlignment_to_string <- function(alns) {
+    if (is(alns, "AAMultipleAlignment")) {
+        alns <- c(alns)
+    }
+    alns %>%
+        purrr::map_chr(~ {
+            aln.chr <- .x %>%
+                Biostrings::unmasked() %>%
+                as.character()
+            if (is.null(names(aln.chr))) {
+                n_seqs <- length(aln.chr)
+                names(aln.chr) <- paste0("seq", seq(n_seqs))
+            }
+            paste(
+                collapse = "\n",
+                paste0(">", names(aln.chr)),
+                "\n", aln.chr
+            )
+        })
 }
 
 parse_hash_xml <- function(xml, hash) {
     xml %>%
-      XML::xpathSApply(hash, XML::xpathSApply, "@*") %>%
-      t() %>%
-      as.data.frame() %>%
-      dplyr::distinct() %>%
-      add_numeric_values_to_hmmer_tbl()
+        XML::xpathSApply(hash, XML::xpathSApply, "@*") %>%
+        t() %>%
+        as.data.frame() %>%
+        dplyr::distinct() %>%
+        add_numeric_values_to_hmmer_tbl()
 }
 
 parse_uuid_xml <- function(xml) {
@@ -46,22 +62,25 @@ parse_uuid_xml <- function(xml) {
         magrittr::extract("uuid", 1)
 }
 
-get_fullseqfasta_url <- function(uuid){
-  paste0(
-    "https://www.ebi.ac.uk/Tools/hmmer/download/",
-    uuid,
-    "/score?format=fullfasta")
+get_fullseqfasta_url <- function(uuid) {
+    paste0(
+        "https://www.ebi.ac.uk/Tools/hmmer/download/",
+        uuid,
+        "/score?format=fullfasta"
+    )
 }
-get_alignment_url <- function(uuid){
-  paste0(
-    "https://www.ebi.ac.uk/Tools/hmmer/download/",
-    uuid,
-    "/score?format=afa")
+get_alignment_url <- function(uuid) {
+    paste0(
+        "https://www.ebi.ac.uk/Tools/hmmer/download/",
+        uuid,
+        "/score?format=afa"
+    )
 }
-get_results_url <- function(uuid){
-  paste0(
-    "http://www.ebi.ac.uk/Tools/hmmer/results/",
-    uuid)
+get_results_url <- function(uuid) {
+    paste0(
+        "http://www.ebi.ac.uk/Tools/hmmer/results/",
+        uuid
+    )
 }
 
 
@@ -82,7 +101,9 @@ add_numeric_values_to_hmmer_tbl <- function(df) {
     )
     cols <- intersect(numeric_cols, colnames(df))
     df %>%
-        dplyr::mutate(dplyr::across(cols, as.numeric))
+        dplyr::mutate(
+            dplyr::across(
+                dplyr::all_of(cols), as.numeric
+            )
+        )
 }
-
-
