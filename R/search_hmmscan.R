@@ -81,15 +81,18 @@
 #' * `alisqto`: 	End position on sequence.
 #' * `aliL`: 	Length of sequence.
 #'
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' hmmscan_tbl <- search_hmmscan(
 #'     seqs = "MTEITAAMVKELRESTGAGMMDCKN",
 #'     dbs = "pfam",
 #'     verbose = FALSE,
 #'     timeout = 90
 #' )
+#' }
 search_hmmscan <- function(seqs,
     dbs = "pfam",
     verbose = TRUE,

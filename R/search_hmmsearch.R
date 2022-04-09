@@ -18,7 +18,7 @@
 #'   `fullseq.fasta.` and `alignment`.
 #' @examples
 #' \donttest{
-#' #' aln <- c(
+#' aln <- c(
 #'     "MTEITAAMVKELR--TGAGMMDCKN",
 #'     "------AMVKELRESTGAGMMDCKN"
 #' ) %>%

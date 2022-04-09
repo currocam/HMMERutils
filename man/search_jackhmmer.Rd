@@ -47,7 +47,7 @@ a protein sequence database.
 }
 \examples{
 \donttest{
-#' jackhmmer_tbl <- search_jackhmmer(
+jackhmmer_tbl <- search_jackhmmer(
     seqs = "MTEITAAMVKELRTGAGMMDCKN",
     dbs = "pdb",
     verbose = FALSE,

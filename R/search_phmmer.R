@@ -18,7 +18,7 @@
 #'   `fullseq.fasta.` and `alignment`.
 #' @examples
 #' \donttest{
-#' #' phmmer_tbl <- search_phmmer(
+#' phmmer_tbl <- search_phmmer(
 #'     seqs = "MTEITAAMVKELRTGAGMMDCKN",
 #'     dbs = "pdb",
 #'     verbose = FALSE,

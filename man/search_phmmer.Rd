@@ -42,7 +42,7 @@ Perform a phmmer search of a protein sequence against a protein sequence databas
 }
 \examples{
 \donttest{
-#' phmmer_tbl <- search_phmmer(
+phmmer_tbl <- search_phmmer(
     seqs = "MTEITAAMVKELRTGAGMMDCKN",
     dbs = "pdb",
     verbose = FALSE,

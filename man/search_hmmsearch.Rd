@@ -42,7 +42,7 @@ Perform a hmmsearch search of a protein alignment against a protein sequence dat
 }
 \examples{
 \donttest{
-#' aln <- c(
+aln <- c(
     "MTEITAAMVKELR--TGAGMMDCKN",
     "------AMVKELRESTGAGMMDCKN"
 ) \%>\%
