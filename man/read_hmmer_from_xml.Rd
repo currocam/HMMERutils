@@ -47,3 +47,11 @@ reporting threshold
 }
 }
 
+\examples{
+xml_path <- system.file(
+    "/extdata/ABL_TYROSINE_KINASE.xml",
+    package = "HMMERutils"
+)
+data <- read_hmmer_from_xml(xml_path)
+
+}

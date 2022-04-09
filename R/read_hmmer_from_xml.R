@@ -25,6 +25,15 @@
 #'  (HMMER temporary url), `hits`, `stats`, `domains` and,
 #'   if selected, `fullseq.fasta.`
 #'
+#' @export
+#'
+#' @examples
+#' xml_path <- system.file(
+#'     "/extdata/ABL_TYROSINE_KINASE.xml",
+#'     package = "HMMERutils"
+#' )
+#' data <- read_hmmer_from_xml(xml_path)
+#'
 read_hmmer_from_xml <- function(xml_file_paths,
     fullseq_fasta_paths = NULL,
     alignment_fasta_paths = NULL) {
@@ -34,13 +43,13 @@ read_hmmer_from_xml <- function(xml_file_paths,
             "vector of paths to alignment fasta files."
         )
     }
-    if (!all(file.exists(fullseq_fasta_paths)) && !is.null(fullseq_fasta_paths)) {
+    if (!is.null(fullseq_fasta_paths) && !all(file.exists(fullseq_fasta_paths))) {
         stop(
             "`alignment_fasta_paths` must be a character ",
             "vector of paths to alignment fasta files."
         )
     }
-    if (!all(file.exists(alignment_fasta_paths)) && !is.null(alignment_fasta_paths)) {
+    if (!is.null(alignment_fasta_paths) && !all(file.exists(alignment_fasta_paths))) {
         stop(
             "`alignment_fasta_paths` must be a character ",
             "vector of paths to alignment fasta files."
@@ -93,5 +102,6 @@ read_hmmer_from_xml <- function(xml_file_paths,
                     purrr::map(~ Biostrings::readAAMultipleAlignment(.))
             )
     }
+    class(df) <- c("HMMER_data_tbl", class(df))
     return(df)
 }

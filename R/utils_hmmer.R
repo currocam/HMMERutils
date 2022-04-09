@@ -154,3 +154,31 @@ add_numeric_values_to_hmmer_tbl <- function(df) {
             )
         )
 }
+
+extract_sequences <- function(HMMER_data_tbl, seq_column,
+    column_name, id_column) {
+    names(seq_column) <- id_column
+    purrr::map2_dfr(
+        .x = HMMER_data_tbl$hits,
+        .y = seq_column,
+        .id = "id",
+        purrr::possibly(
+            otherwise = tibble::tibble("hits.name" = NA, "column_name" = NA),
+            .f = ~ {
+                fasta <- .y
+                hits <- .x %>%
+                    dplyr::filter(.data$name %in% names(fasta))
+                hits.name <- hits$name
+                tibble::tibble(
+                    "hits.name" = hits.name,
+                    "column_name" = as.character(fasta[hits.name])
+                )
+            }
+        )
+    ) %>%
+        magrittr::set_colnames(c(
+            "id",
+            "hits.name",
+            paste0("hits.", column_name)
+        ))
+}
