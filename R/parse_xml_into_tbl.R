@@ -19,7 +19,9 @@ parse_xml_into_tbl <- function(hmm) {
                         "stats" = parse_hash_xml(xml, "///stats"),
                         "hits" = parse_hash_xml(xml, "///hits"),
                         "domains" = parse_hash_xml(xml, "///domains") %>%
-                            purrr::flatten_dfr()
+                            {
+                                if (is(., "list")) purrr::flatten_dfr(.) else .
+                            }
                     )
                 }
             )

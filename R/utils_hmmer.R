@@ -26,10 +26,27 @@ deal_with_input_sequences <- function(seqs) {
     return(seqs)
 }
 
-AAMultipleAlignment_to_string <- function(alns) {
-    if (is(alns, "AAMultipleAlignment")) {
-        alns <- c(alns)
+deal_with_input_aln <- function(alns) {
+    if (!is.list(alns)) {
+        alns <- list(alns)
     }
+    areAAMultipleAlignment <- alns %>%
+        purrr::map_lgl(~ {
+            is(.x, "AAMultipleAlignment")
+        }) %>%
+        all()
+    if (!areAAMultipleAlignment) {
+        stop("`alns` must a list of AAMultipleAlignment")
+    }
+    old.names <- names(alns)
+    alns <- AAMultipleAlignment_to_string(alns)
+    if (!is.null(old.names)) {
+        names(alns) <- old.names
+    }
+    return(alns)
+}
+
+AAMultipleAlignment_to_string <- function(alns) {
     alns %>%
         purrr::map_chr(~ {
             aln.chr <- .x %>%
@@ -69,6 +86,21 @@ get_fullseqfasta_url <- function(uuid) {
         "/score?format=fullfasta"
     )
 }
+
+mutate_fullseqfasta <- function(df, uuid) {
+    df %>%
+        dplyr::mutate(
+            "fullseq.fasta" = uuid %>%
+                get_fullseqfasta_url() %>%
+                purrr::map(.f = purrr::possibly(
+                    .f = ~ {
+                        Biostrings::readAAStringSet(.)
+                    },
+                    otherwise = NA
+                ))
+        )
+}
+
 get_alignment_url <- function(uuid) {
     paste0(
         "https://www.ebi.ac.uk/Tools/hmmer/download/",
@@ -76,6 +108,21 @@ get_alignment_url <- function(uuid) {
         "/score?format=afa"
     )
 }
+
+mutate_alignment <- function(df, uuid) {
+    df %>%
+        dplyr::mutate(
+            "alignment" = uuid %>%
+                get_alignment_url() %>%
+                purrr::map(.f = purrr::possibly(
+                    .f = ~ {
+                        Biostrings::readAAMultipleAlignment(.)
+                    },
+                    otherwise = NA
+                ))
+        )
+}
+
 get_results_url <- function(uuid) {
     paste0(
         "http://www.ebi.ac.uk/Tools/hmmer/results/",

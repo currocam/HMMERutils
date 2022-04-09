@@ -2,4 +2,5 @@
 
 export("%>%")
 export(search_hmmscan)
+export(search_hmmsearch)
 importFrom(magrittr,"%>%")
