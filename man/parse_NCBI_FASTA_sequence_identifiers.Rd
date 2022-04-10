@@ -16,7 +16,9 @@ A vector of characters
 Extracts the sequence identifier from the recognized fasta sequence headers.
 }
 \examples{
-headers <- c("gb|M73307|AGMA13GT",
-             "gb|M73307|AGMA13GT")
+headers <- c(
+    "gb|M73307|AGMA13GT",
+    "gb|M73307|AGMA13GT"
+)
 parse_NCBI_FASTA_sequence_identifiers(headers)
 }
