@@ -41,12 +41,12 @@ A nested DataFrame with columns \code{seqs}, \code{dbs}, \code{url}
 Perform a phmmer search of a protein sequence against a protein sequence database.
 }
 \examples{
-\donttest{
+try(
 phmmer_tbl <- search_phmmer(
     seqs = "MTEITAAMVKELRTGAGMMDCKN",
     dbs = "pdb",
     verbose = FALSE,
-    timeout = 90
+    timeout = 15
 )
-}
+)
 }

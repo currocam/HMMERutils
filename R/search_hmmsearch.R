@@ -17,19 +17,19 @@
 #'  (HMMER temporary url), `hits`, `stats`, `domains` and, if selected,
 #'   `fullseq.fasta.` and `alignment`.
 #' @examples
-#' \donttest{
 #' aln <- c(
 #'     "MTEITAAMVKELR--TGAGMMDCKN",
 #'     "------AMVKELRESTGAGMMDCKN"
 #' ) %>%
 #'     Biostrings::AAMultipleAlignment()
+#' try(
 #' hmmsearch_tbl <- search_hmmsearch(
 #'     alns = aln,
 #'     dbs = "pdb",
 #'     verbose = FALSE,
-#'     timeout = 90
+#'     timeout = 15
 #' )
-#' }
+#' )
 #' @export
 
 search_hmmsearch <- function(alns,

@@ -17,14 +17,14 @@
 #'  (HMMER temporary url), `hits`, `stats`, `domains` and, if selected,
 #'   `fullseq.fasta.` and `alignment`.
 #' @examples
-#' \donttest{
+#' try(
 #' phmmer_tbl <- search_phmmer(
 #'     seqs = "MTEITAAMVKELRTGAGMMDCKN",
 #'     dbs = "pdb",
 #'     verbose = FALSE,
-#'     timeout = 90
+#'     timeout = 15
 #' )
-#' }
+#' )
 #' @export
 
 search_phmmer <- function(seqs,

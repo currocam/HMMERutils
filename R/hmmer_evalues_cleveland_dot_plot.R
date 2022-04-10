@@ -8,8 +8,9 @@
 #' @export
 #'
 #' @examples
+#' data("ABL1_homologous")
 #' hmmer_evalues_cleveland_dot_plot(
-#' HMMERutils::ABL1_homologous, threshold = 0.001)
+#'    ABL1_homologous, threshold = 0.001)
 #'
 hmmer_evalues_cleveland_dot_plot <- function(HMMER_tidy_tbl,
     threshold = 0.01) {

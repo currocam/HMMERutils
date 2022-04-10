@@ -18,14 +18,14 @@
 #'  (HMMER temporary url), `hits`, `stats`, `domains` and, if selected,
 #'   `fullseq.fasta.` and `alignment`.
 #' @examples
-#' \donttest{
+#' try(
 #' jackhmmer_tbl <- search_jackhmmer(
 #'     seqs = "MTEITAAMVKELRTGAGMMDCKN",
 #'     dbs = "pdb",
 #'     verbose = FALSE,
-#'     timeout = 90
+#'     timeout = 15
 #' )
-#' }
+#' )
 #' @export
 
 search_jackhmmer <- function(seqs = NULL,

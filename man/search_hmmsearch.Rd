@@ -41,17 +41,17 @@ A nested DataFrame with columns \code{alns}, \code{dbs}, \code{url}
 Perform a hmmsearch search of a protein alignment against a protein sequence database.
 }
 \examples{
-\donttest{
 aln <- c(
     "MTEITAAMVKELR--TGAGMMDCKN",
     "------AMVKELRESTGAGMMDCKN"
 ) \%>\%
     Biostrings::AAMultipleAlignment()
+try(
 hmmsearch_tbl <- search_hmmsearch(
     alns = aln,
     dbs = "pdb",
     verbose = FALSE,
-    timeout = 90
+    timeout = 15
 )
-}
+)
 }

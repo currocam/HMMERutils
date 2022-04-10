@@ -11,7 +11,7 @@ A data frame with 694 rows and 127 variables:
 \url{https://www.ebi.ac.uk/Tools/hmmer/search/}
 }
 \usage{
-ABL1_homologous
+data(ABL1_homologous)
 }
 \description{
 A dataset containing 694 sequences homologous to ABL1, a
@@ -33,28 +33,37 @@ there are domains identified, not per sequence. Therefore, these
 variables will be duplicated, for example, for a sequence in which 2
 domains are identified.
 \itemize{
-\item \code{hits.name}: 	Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan).
+\item \code{hits.name}: 	Name of the target (sequence for phmmer/hmmsearch,
+HMM for hmmscan).
 \item \code{hits.acc}: 	Accession of the target.
 \item \code{hits.acc2}: 	Secondary accession of the target.
 \item \code{hits.id}: 	Identifier of the target.
 \item \code{hits.desc}: 	Description of the target.
-\item \code{hits.score}: 	Bit score of the sequence (all domains, without correction)
+\item \code{hits.score}: 	Bit score of the sequence (all domains, without
+correction)
 \item \code{hits.pvalue}: 	P-value of the score.
 \item \code{hits.evalue}: 	E-value of the score.
 \item \code{hits.nregions}: 	Number of regions evaluated.
-\item \code{hits.nenvelopes}: 	Number of envelopes handed over for domain definition, null2, alignment, and scoring.
+\item \code{hits.nenvelopes}: 	Number of envelopes handed over for domain
+definition, null2, alignment, and scoring.
 \item \code{hits.ndom}: 	Total number of domains identified in this sequence.
-\item \code{hits.nreported}: 	Number of domains satisfying reporting thresholding.
-\item \code{hits.nincluded}: 	Number of domains satisfying inclusion thresholding.
-\item \code{hits.taxid}: 	The NCBI taxonomy identifier of the target (if applicable).
-\item \code{hits.species}: 	The species name of the target (if applicable).
-\item \code{hits.kg}: 	The kingdom of life that the target belongs to - based on placing in the NCBI taxonomy tree (if applicable).
+\item \code{hits.nreported}: 	Number of domains satisfying
+reporting thresholding.
+\item \code{hits.nincluded}: 	Number of domains satisfying
+inclusion thresholding.
+\item \code{hits.taxid}: 	The NCBI taxonomy identifier of the
+target (if applicable).
+\item \code{hits.species}: 	The species name of the target
+(if applicable).
+\item \code{hits.kg}: 	The kingdom of life that the target belongs
+to - based on placing in the NCBI taxonomy tree (if applicable).
 }
 }
 
 \section{Domain data structure}{
 
-Variables beginning with "domains." have been extracted from the hash domains.
+Variables beginning with "domains." have been extracted from
+the hash domains.
 \itemize{
 \item \code{domains.ienv}: 	Envelope start position.
 \item \code{domains.jenv}: 	Envelope end position.
@@ -62,13 +71,20 @@ Variables beginning with "domains." have been extracted from the hash domains.
 \item \code{domains.jali}: 	Alignment end position.
 \item \code{domains.bias}: 	null2 score contribution.
 \item \code{domains.oasc}: 	Optimal alignment accuracy score.
-\item \code{domains.bitscore}: 	Overall score in bits, null corrected, if this were the only domain in seq.
-\item \code{domains.cevalue}: 	Conditional E-value based on the domain correction.
-\item \code{domains.ievalue}: 	Independent E-value based on the domain correction.
-\item \code{domains.is_reported}: 	1 if domain meets reporting thresholds.
-\item \code{domains.is_included}: 	1 if domain meets inclusion thresholds.
-\item \code{domains.alimodel}: 	Aligned query consensus sequence phmmer and hmmsearch, target hmm for hmmscan.
-\item \code{domains.alimline}: 	Match line indicating identities, conservation +’s, gaps.
+\item \code{domains.bitscore}: 	Overall score in bits, null corrected,
+if this were the only domain in seq.
+\item \code{domains.cevalue}: 	Conditional E-value based on the
+domain correction.
+\item \code{domains.ievalue}: 	Independent E-value based on the
+domain correction.
+\item \code{domains.is_reported}: 	1 if domain meets reporting
+thresholds.
+\item \code{domains.is_included}: 	1 if domain meets inclusion
+thresholds.
+\item \code{domains.alimodel}: 	Aligned query consensus sequence phmmer
+and hmmsearch, target hmm for hmmscan.
+\item \code{domains.alimline}: 	Match line indicating identities,
+conservation +’s, gaps.
 \item \code{domains.aliaseq}: 	Aligned target sequence for phmmer and hmmsearch, query for hmmscan.
 \item \code{domains.alippline}: 	Posterior probability annotation.
 \item \code{domains.alihmmname}: 	Name of HMM (query sequence for phmmer, alignment for hmmsearch and target hmm for hmmscan).

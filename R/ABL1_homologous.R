@@ -19,38 +19,54 @@
 #'    variables will be duplicated, for example, for a sequence in which 2
 #'    domains are identified.
 #'
-#' * `hits.name`: 	Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan).
+#' * `hits.name`: 	Name of the target (sequence for phmmer/hmmsearch,
+#'    HMM for hmmscan).
 #' * `hits.acc`: 	Accession of the target.
 #' * `hits.acc2`: 	Secondary accession of the target.
 #' * `hits.id`: 	Identifier of the target.
 #' * `hits.desc`: 	Description of the target.
-#' * `hits.score`: 	Bit score of the sequence (all domains, without correction)
+#' * `hits.score`: 	Bit score of the sequence (all domains, without
+#'    correction)
 #' * `hits.pvalue`: 	P-value of the score.
 #' * `hits.evalue`: 	E-value of the score.
 #' * `hits.nregions`: 	Number of regions evaluated.
-#' * `hits.nenvelopes`: 	Number of envelopes handed over for domain definition, null2, alignment, and scoring.
+#' * `hits.nenvelopes`: 	Number of envelopes handed over for domain
+#'    definition, null2, alignment, and scoring.
 #' * `hits.ndom`: 	Total number of domains identified in this sequence.
-#' * `hits.nreported`: 	Number of domains satisfying reporting thresholding.
-#' * `hits.nincluded`: 	Number of domains satisfying inclusion thresholding.
-#' * `hits.taxid`: 	The NCBI taxonomy identifier of the target (if applicable).
-#' * `hits.species`: 	The species name of the target (if applicable).
-#' * `hits.kg`: 	The kingdom of life that the target belongs to - based on placing in the NCBI taxonomy tree (if applicable).
+#' * `hits.nreported`: 	Number of domains satisfying
+#'    reporting thresholding.
+#' * `hits.nincluded`: 	Number of domains satisfying
+#'    inclusion thresholding.
+#' * `hits.taxid`: 	The NCBI taxonomy identifier of the
+#'    target (if applicable).
+#' * `hits.species`: 	The species name of the target
+#'    (if applicable).
+#' * `hits.kg`: 	The kingdom of life that the target belongs
+#'    to - based on placing in the NCBI taxonomy tree (if applicable).
 #'
 #' @section Domain data structure:
-#' Variables beginning with "domains." have been extracted from the hash domains.
+#' Variables beginning with "domains." have been extracted from
+#'     the hash domains.
 #' * `domains.ienv`: 	Envelope start position.
 #' * `domains.jenv`: 	Envelope end position.
 #' * `domains.iali`: 	Alignment start position.
 #' * `domains.jali`: 	Alignment end position.
 #' * `domains.bias`: 	null2 score contribution.
 #' * `domains.oasc`: 	Optimal alignment accuracy score.
-#' * `domains.bitscore`: 	Overall score in bits, null corrected, if this were the only domain in seq.
-#' * `domains.cevalue`: 	Conditional E-value based on the domain correction.
-#' * `domains.ievalue`: 	Independent E-value based on the domain correction.
-#' * `domains.is_reported`: 	1 if domain meets reporting thresholds.
-#' * `domains.is_included`: 	1 if domain meets inclusion thresholds.
-#' * `domains.alimodel`: 	Aligned query consensus sequence phmmer and hmmsearch, target hmm for hmmscan.
-#' * `domains.alimline`: 	Match line indicating identities, conservation +’s, gaps.
+#' * `domains.bitscore`: 	Overall score in bits, null corrected,
+#'     if this were the only domain in seq.
+#' * `domains.cevalue`: 	Conditional E-value based on the
+#'    domain correction.
+#' * `domains.ievalue`: 	Independent E-value based on the
+#'    domain correction.
+#' * `domains.is_reported`: 	1 if domain meets reporting
+#'    thresholds.
+#' * `domains.is_included`: 	1 if domain meets inclusion
+#'    thresholds.
+#' * `domains.alimodel`: 	Aligned query consensus sequence phmmer
+#'     and hmmsearch, target hmm for hmmscan.
+#' * `domains.alimline`: 	Match line indicating identities,
+#'  conservation +’s, gaps.
 #' * `domains.aliaseq`: 	Aligned target sequence for phmmer and hmmsearch, query for hmmscan.
 #' * `domains.alippline`: 	Posterior probability annotation.
 #' * `domains.alihmmname`: 	Name of HMM (query sequence for phmmer, alignment for hmmsearch and target hmm for hmmscan).
@@ -104,4 +120,5 @@
 #' * `properties.Charged`: Percentage of amino acids (B + D + E + H + K + R + Z)
 #' * `properties.Basic`: Percentage of amino acids (H + K + R)
 #' @source \url{https://www.ebi.ac.uk/Tools/hmmer/search/}
+#' @usage data(ABL1_homologous)
 "ABL1_homologous"

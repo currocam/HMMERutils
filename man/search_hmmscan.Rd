@@ -109,12 +109,12 @@ sequence(hmmscan).
 }
 
 \examples{
-\donttest{
+try(
 hmmscan_tbl <- search_hmmscan(
     seqs = "MTEITAAMVKELRESTGAGMMDCKN",
     dbs = "pfam",
     verbose = FALSE,
-    timeout = 90
+    timeout = 15
 )
-}
+)
 }

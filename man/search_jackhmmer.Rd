@@ -46,12 +46,12 @@ Perform an iterative search of a protein sequence or an alignment against
 a protein sequence database.
 }
 \examples{
-\donttest{
+try(
 jackhmmer_tbl <- search_jackhmmer(
     seqs = "MTEITAAMVKELRTGAGMMDCKN",
     dbs = "pdb",
     verbose = FALSE,
-    timeout = 90
+    timeout = 15
 )
-}
+)
 }
