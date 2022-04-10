@@ -62,7 +62,7 @@ division, cell adhesion and stress response such as DNA repair.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="va">ABL1_homologous</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ABL1_homologous</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="format">
@@ -88,40 +88,56 @@ the sequence and other variables returned by HMMER.</p>
 corresponding to the sequences. Remember that there are as many rows as
 there are domains identified, not per sequence. Therefore, these
 variables will be duplicated, for example, for a sequence in which 2
-domains are identified.</p><ul><li><p><code>hits.name</code>: 	Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan).</p></li>
+domains are identified.</p><ul><li><p><code>hits.name</code>: 	Name of the target (sequence for phmmer/hmmsearch,
+HMM for hmmscan).</p></li>
 <li><p><code>hits.acc</code>: 	Accession of the target.</p></li>
 <li><p><code>hits.acc2</code>: 	Secondary accession of the target.</p></li>
 <li><p><code>hits.id</code>: 	Identifier of the target.</p></li>
 <li><p><code>hits.desc</code>: 	Description of the target.</p></li>
-<li><p><code>hits.score</code>: 	Bit score of the sequence (all domains, without correction)</p></li>
+<li><p><code>hits.score</code>: 	Bit score of the sequence (all domains, without
+correction)</p></li>
 <li><p><code>hits.pvalue</code>: 	P-value of the score.</p></li>
 <li><p><code>hits.evalue</code>: 	E-value of the score.</p></li>
 <li><p><code>hits.nregions</code>: 	Number of regions evaluated.</p></li>
-<li><p><code>hits.nenvelopes</code>: 	Number of envelopes handed over for domain definition, null2, alignment, and scoring.</p></li>
+<li><p><code>hits.nenvelopes</code>: 	Number of envelopes handed over for domain
+definition, null2, alignment, and scoring.</p></li>
 <li><p><code>hits.ndom</code>: 	Total number of domains identified in this sequence.</p></li>
-<li><p><code>hits.nreported</code>: 	Number of domains satisfying reporting thresholding.</p></li>
-<li><p><code>hits.nincluded</code>: 	Number of domains satisfying inclusion thresholding.</p></li>
-<li><p><code>hits.taxid</code>: 	The NCBI taxonomy identifier of the target (if applicable).</p></li>
-<li><p><code>hits.species</code>: 	The species name of the target (if applicable).</p></li>
-<li><p><code>hits.kg</code>: 	The kingdom of life that the target belongs to - based on placing in the NCBI taxonomy tree (if applicable).</p></li>
+<li><p><code>hits.nreported</code>: 	Number of domains satisfying
+reporting thresholding.</p></li>
+<li><p><code>hits.nincluded</code>: 	Number of domains satisfying
+inclusion thresholding.</p></li>
+<li><p><code>hits.taxid</code>: 	The NCBI taxonomy identifier of the
+target (if applicable).</p></li>
+<li><p><code>hits.species</code>: 	The species name of the target
+(if applicable).</p></li>
+<li><p><code>hits.kg</code>: 	The kingdom of life that the target belongs
+to - based on placing in the NCBI taxonomy tree (if applicable).</p></li>
 </ul></div>
     <div id="domain-data-structure">
     <h2>Domain data structure</h2>
     
 
-<p>Variables beginning with "domains." have been extracted from the hash domains.</p><ul><li><p><code>domains.ienv</code>: 	Envelope start position.</p></li>
+<p>Variables beginning with "domains." have been extracted from
+the hash domains.</p><ul><li><p><code>domains.ienv</code>: 	Envelope start position.</p></li>
 <li><p><code>domains.jenv</code>: 	Envelope end position.</p></li>
 <li><p><code>domains.iali</code>: 	Alignment start position.</p></li>
 <li><p><code>domains.jali</code>: 	Alignment end position.</p></li>
 <li><p><code>domains.bias</code>: 	null2 score contribution.</p></li>
 <li><p><code>domains.oasc</code>: 	Optimal alignment accuracy score.</p></li>
-<li><p><code>domains.bitscore</code>: 	Overall score in bits, null corrected, if this were the only domain in seq.</p></li>
-<li><p><code>domains.cevalue</code>: 	Conditional E-value based on the domain correction.</p></li>
-<li><p><code>domains.ievalue</code>: 	Independent E-value based on the domain correction.</p></li>
-<li><p><code>domains.is_reported</code>: 	1 if domain meets reporting thresholds.</p></li>
-<li><p><code>domains.is_included</code>: 	1 if domain meets inclusion thresholds.</p></li>
-<li><p><code>domains.alimodel</code>: 	Aligned query consensus sequence phmmer and hmmsearch, target hmm for hmmscan.</p></li>
-<li><p><code>domains.alimline</code>: 	Match line indicating identities, conservation +’s, gaps.</p></li>
+<li><p><code>domains.bitscore</code>: 	Overall score in bits, null corrected,
+if this were the only domain in seq.</p></li>
+<li><p><code>domains.cevalue</code>: 	Conditional E-value based on the
+domain correction.</p></li>
+<li><p><code>domains.ievalue</code>: 	Independent E-value based on the
+domain correction.</p></li>
+<li><p><code>domains.is_reported</code>: 	1 if domain meets reporting
+thresholds.</p></li>
+<li><p><code>domains.is_included</code>: 	1 if domain meets inclusion
+thresholds.</p></li>
+<li><p><code>domains.alimodel</code>: 	Aligned query consensus sequence phmmer
+and hmmsearch, target hmm for hmmscan.</p></li>
+<li><p><code>domains.alimline</code>: 	Match line indicating identities,
+conservation +’s, gaps.</p></li>
 <li><p><code>domains.aliaseq</code>: 	Aligned target sequence for phmmer and hmmsearch, query for hmmscan.</p></li>
 <li><p><code>domains.alippline</code>: 	Posterior probability annotation.</p></li>
 <li><p><code>domains.alihmmname</code>: 	Name of HMM (query sequence for phmmer, alignment for hmmsearch and target hmm for hmmscan).</p></li>
