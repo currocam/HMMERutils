@@ -50,3 +50,7 @@ try(
     )
 )
 }
+\seealso{
+\code{\link{ABL1_homologous}} for a detailed description of the meaning
+of the different variables.
+}

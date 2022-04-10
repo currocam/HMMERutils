@@ -85,15 +85,18 @@ thresholds.
 and hmmsearch, target hmm for hmmscan.
 \item \code{domains.alimline}: 	Match line indicating identities,
 conservation +’s, gaps.
-\item \code{domains.aliaseq}: 	Aligned target sequence for phmmer and hmmsearch, query for hmmscan.
+\item \code{domains.aliaseq}: 	Aligned target sequence for phmmer
+and hmmsearch, query for hmmscan.
 \item \code{domains.alippline}: 	Posterior probability annotation.
-\item \code{domains.alihmmname}: 	Name of HMM (query sequence for phmmer, alignment for hmmsearch and target hmm for hmmscan).
+\item \code{domains.alihmmname}: 	Name of HMM (query sequence for phmmer,
+alignment for hmmsearch and target hmm for hmmscan).
 \item \code{domains.alihmmacc}: 	Accession of HMM.
 \item \code{domains.alihmmdesc}: 	Description of HMM.
 \item \code{domains.alihmmfrom}: 	Start position on HMM.
 \item \code{domains.alihmmto}: 	End position on HMM.
 \item \code{domains.aliM}: 	Length of model.
-\item \code{domains.alisqname}: 	Name of target sequence (phmmer, hmmscan) or query sequence(hmmscan).
+\item \code{domains.alisqname}: 	Name of target sequence (phmmer, hmmscan)
+or query sequence(hmmscan).
 \item \code{domains.alisqacc}: 	Accession of sequence.
 \item \code{domains.alisqdesc}: 	Description of sequence.
 \item \code{domains.alisqfrom}: 	Start position on sequence.
@@ -105,44 +108,55 @@ conservation +’s, gaps.
 \section{Taxonomic data structure}{
 
 If annotate_taxonomic = "local" or annotate_taxonomic = "remote" is selected,
-as many columns as available taxonomic categories will be included. All of them will have in common that they will start with "taxa".
+as many columns as available taxonomic categories will be
+included. All of them will have in common that they will start with "taxa".
 }
 
 \section{Theoretical physicochemical properties data structure}{
 
-If calculate_physicochemical_properties = TRUE the following columns will be included.
-All of them will have in common that they will start with "properties".
+If calculate_physicochemical_properties = TRUE the following
+columns will be included. All of them will have in common that
+they will start with "properties".
 \itemize{
-\item \code{properties.molecular.weight}: sum of the masses of each atom constituting a
-molecule (Da) using the same formulas and weights as ExPASy's.
+\item \code{properties.molecular.weight}: sum of the masses of each
+atom constituting a molecule (Da) using the same formulas
+and weights as ExPASy's.
 \item \code{properties.charge}: net charge of a protein sequence based on the
 Henderson-Hasselbalch equation using Lehninger pKa scale.
 \item \code{properties.pI}:  isoelectric point calculated as in EMBOSS PEPSTATS.
-\item \code{properties.mz}: mass over charge ratio (m/z) for peptides, as measured in mass spectrometry.
-\item \code{properties.aIndex}: aliphatic index of a protein. The aindex is defined as the
-relative volume occupied by aliphatic side chains (Alanine, Valine,
-Isoleucine, and Leucine). It may be regarded as a positive factor
-for the increase of thermostability of globular proteins.
-\item \code{properties.boman}: potential protein interaction index . The index is equal to the
-sum of the solubility values for all residues in a sequence, it might give
-an overall estimate of the potential of a peptide to bind to membranes or
-other proteins as receptors, to normalize it is divided by the number of
-residues. A protein have high binding potential if the index value is
-higher than 2.48.
-\item \code{properties.hydrophobicity}: GRAVY hydrophobicity index of an amino acids sequence using
-KyteDoolittle hydophobicity scale.
-\item \code{properties.instaIndex}: Guruprasad's instability index. This index predicts the stability
-of a protein based on its amino acid composition, a protein whose instability
-index is smaller than 40 is predicted as stable, a value above 40 predicts
-that the protein may be unstable.
+\item \code{properties.mz}: mass over charge ratio (m/z) for peptides,
+as measured in mass spectrometry.
+\item \code{properties.aIndex}: aliphatic index of a protein. The aindex
+is defined as the relative volume occupied by aliphatic
+side chains (Alanine, Valine, Isoleucine, and Leucine). It may
+be regarded as a positive factor for the increase of
+thermostability of globular proteins.
+\item \code{properties.boman}: potential protein interaction index.
+The index is equal to the sum of the solubility values for
+all residues in a sequence, it might give an overall estimate
+of the potential of a peptide to bind to membranes or other
+proteins as receptors, to normalize it is divided by the number
+of residues. A protein have high binding potential
+if the index value is higher than 2.48.
+\item \code{properties.hydrophobicity}: GRAVY hydrophobicity index of
+an amino acids sequence using KyteDoolittle hydophobicity scale.
+\item \code{properties.instaIndex}: Guruprasad's instability index.
+This index predicts the stability
+of a protein based on its amino acid composition, a protein
+whose instability index is smaller than 40 is predicted as
+stable, a value above 40 predicts that the protein may be unstable.
 \item \code{properties.STYNQW}: Percentage of amino acids (S + T + Y + N + Q + W)
 \item \code{properties.Tiny}: Percentage of amino acids (A + C + G + S + T)
-\item \code{properties.Small}: Percentage of amino acids (A + B + C + D + G + N + P + S + T + V)
+\item \code{properties.Small}: Percentage of amino acids
+(A + B + C + D + G + N + P + S + T + V)
 \item \code{properties.Aliphatic}: Percentage of amino acids (A + I + L + V)
 \item \code{properties.Aromatic}: Percentage of amino acids (F + H + W + Y)
-\item \code{properties.Non-polar}: Percentage of amino acids (A + C + F + G + I + L + M + P + V + W + Y)
-\item \code{properties.Polar}: Percentage of amino acids (D + E + H + K + N + Q + R + S + T + Z)
-\item \code{properties.Charged}: Percentage of amino acids (B + D + E + H + K + R + Z)
+\item \code{properties.Non-polar}: Percentage of amino acids
+(A + C + F + G + I + L + M + P + V + W + Y)
+\item \code{properties.Polar}: Percentage of amino acids
+(D + E + H + K + N + Q + R + S + T + Z)
+\item \code{properties.Charged}: Percentage of amino acids
+(B + D + E + H + K + R + Z)
 \item \code{properties.Basic}: Percentage of amino acids (H + K + R)
 }
 }
