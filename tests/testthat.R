@@ -1,4 +1,4 @@
-library(testthat)
-library(HMMERutils)
+    library(testthat)
+    library(HMMERutils)
 
-test_check("HMMERutils")
+    test_check("HMMERutils")

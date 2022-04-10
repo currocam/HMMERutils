@@ -21,6 +21,8 @@ A Cleveland dot plot with the evalues of the domains and sequences.
 \examples{
 data("ABL1_homologous")
 hmmer_evalues_cleveland_dot_plot(
-   ABL1_homologous, threshold = 0.001)
+    ABL1_homologous,
+    threshold = 0.001
+)
 
 }

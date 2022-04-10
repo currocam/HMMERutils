@@ -47,11 +47,11 @@ aln <- c(
 ) \%>\%
     Biostrings::AAMultipleAlignment()
 try(
-hmmsearch_tbl <- search_hmmsearch(
-    alns = aln,
-    dbs = "pdb",
-    verbose = FALSE,
-    timeout = 15
-)
+    hmmsearch_tbl <- search_hmmsearch(
+        alns = aln,
+        dbs = "pdb",
+        verbose = FALSE,
+        timeout = 15
+    )
 )
 }

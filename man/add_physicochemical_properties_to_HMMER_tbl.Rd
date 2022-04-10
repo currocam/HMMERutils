@@ -18,17 +18,7 @@ Add EMBOSS-inspired theoretical physicochemical properties
 using the \code{Peptides} library
 }
 \examples{
-\donttest{
-xml_path <- system.file(
-    "/extdata/ABL_TYROSINE_KINASE.xml",
-    package = "HMMERutils"
-)
-fasta_path <- system.file(
-    "/extdata/ABL_TYROSINE_KINASE.fa",
-    package = "HMMERutils"
-)
-data <- read_hmmer_from_xml(xml_path, fasta_path) \%>\%
-    extract_from_HMMER_data_tbl() \%>\%
+data(ABL1_homologous)
+data <- ABL1_homologous \%>\%
     add_physicochemical_properties_to_HMMER_tbl()
-}
 }

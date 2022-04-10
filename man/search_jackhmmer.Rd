@@ -47,11 +47,11 @@ a protein sequence database.
 }
 \examples{
 try(
-jackhmmer_tbl <- search_jackhmmer(
-    seqs = "MTEITAAMVKELRTGAGMMDCKN",
-    dbs = "pdb",
-    verbose = FALSE,
-    timeout = 15
-)
+    jackhmmer_tbl <- search_jackhmmer(
+        seqs = "MTEITAAMVKELRTGAGMMDCKN",
+        dbs = "pdb",
+        verbose = FALSE,
+        timeout = 15
+    )
 )
 }
