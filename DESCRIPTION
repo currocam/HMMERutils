@@ -18,9 +18,11 @@ RoxygenNote: 7.1.2
 Suggests: 
     BiocStyle,
     covr,
-    ggplot2,
+    furrr,
+    future,
     knitr,
     Peptides,
+    pheatmap,
     readr,
     RefManageR,
     rmarkdown,
@@ -34,7 +36,10 @@ VignetteBuilder: knitr
 Imports: 
     Biostrings,
     dplyr,
+    ggplot2,
+    graphics,
     magrittr,
+    methods,
     purrr,
     RCurl,
     rlang,
@@ -44,4 +49,4 @@ Imports:
     XML
 Depends: 
     R (>= 2.10)
-LazyData: true
+LazyData: false

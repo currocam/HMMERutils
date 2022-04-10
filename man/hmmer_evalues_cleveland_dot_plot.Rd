@@ -19,6 +19,7 @@ A ggplot2 object.
 A Cleveland dot plot with the evalues of the domains and sequences.
 }
 \examples{
-hmmer_evalues_cleveland_dot_plot(ABL1_homologous, threshold = 0.001)
+hmmer_evalues_cleveland_dot_plot(
+HMMERutils::ABL1_homologous, threshold = 0.001)
 
 }
