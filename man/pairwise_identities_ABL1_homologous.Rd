@@ -5,12 +5,13 @@
 \alias{pairwise_identities_ABL1_homologous}
 \title{Pairwise percentage identities for ABL1_homologous.}
 \format{
-A data frame with 451 rows and 3 variables:
+A data frame with 43365 rows and 3 variables:
 }
 \usage{
 data(pairwise_identities_ABL1_homologous)
 }
 \description{
-A DataFrame containing 451 pairwise_identities for ABL1_homologous sequences.
+A DataFrame containing 43365 pairwise_identities for
+ABL1_homologous Mammalian sequences.
 }
 \keyword{datasets}

@@ -1,10 +1,10 @@
 ---
-title: "Introduction to HMMERutils"
+title: "Introduction to HMMERutils: using PHMMER with the Sars-CoV-2 Reference Proteome"
 author: 
-  - name: Your name
+  - name: Francisco de Borja Campuzano Jiménez
     affiliation:
-    - Your institution
-    email: your.email@somewhere.com
+    - Universidad de Granada
+    email: campuzanocurro@gmail.com
 output: 
   BiocStyle::html_document:
     self_contained: yes
@@ -24,8 +24,11 @@ vignette: >
 knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>",
-    crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
+    crop = NULL 
 )
+path <- system.file("extdata/HMMER_data_tbl_SPIKE_SARS_NCAP_SARS.Rds",
+                    package = "HMMERutils")
+HMMER_data_tbl<- readRDS(path)
 ```
 
 
@@ -44,8 +47,8 @@ bib <- c(
     RefManageR = citation("RefManageR")[1],
     rmarkdown = citation("rmarkdown")[1],
     sessioninfo = citation("sessioninfo")[1],
-    testthat = citation("testthat")[1]
-    #    HMMERutils = citation("HMMERutils")[1]
+    testthat = citation("testthat")[1],
+    HMMERutils = citation("HMMERutils")[1]
 )
 ```
 
@@ -68,9 +71,7 @@ BiocManager::valid()
 
 ## Required knowledge
 
-`r Biocpkg("HMMERutils")` is based on many other packages and in particular in those that have implemented the infrastructure needed for dealing with RNA-seq data (EDIT!). That is, packages like `r Biocpkg("SummarizedExperiment")` (EDIT!).
-
-If you are asking yourself the question "Where do I start using Bioconductor?" you might be interested in [this blog post](http://lcolladotor.github.io/2014/10/16/startbioc/#.VkOKbq6rRuU).
+`r Biocpkg("HMMERutils")` is based on many other packages and in particular in those that have implemented the infrastructure needed for dealing with protein sequences data . That is, packages like `r Biocpkg("Biostrings")`.
 
 ## Asking for help
 
@@ -82,22 +83,228 @@ We hope that `r Biocpkg("HMMERutils")` will be useful for your research. Please 
 
 ```{r "citation"}
 ## Citation info
-# citation("HMMERutils")
+citation("HMMERutils")
 ```
 
 # Quick start to using to `HMMERutils`
 
-```{r "start", message=FALSE}
-library("HMMERutils")
+## Prerequisites
+
+To follow this tutorial you will need to have the following libraries installed. Please feel free to run the following cell to install them if they are not yet installed.
+
+```{r, prerequisites, message=FALSE, warning=FALSE}
+library(HMMERutils)
+library(Biostrings)
+library(tidyverse)
+library(ggplot2)
+library(broom)
 ```
 
-Edit this as you see fit =)
+The objective of this article is to show the main functionalities of the utilsHMMER library using a practical case. We will search for homologous sequences for the whole SARS-CoV-2 reference proteome.
 
-Here is an example of you can cite your package inside the vignette:
+## Post request to HMMER server 
 
-* `r Biocpkg("HMMERutils")` `r Citep(bib[["HMMERutils"]])`
+### Download the SARS-CoV-2 reference proteome 
+
+First, let’s download the reference proteome for the Sars_CoV-2. To do this, we will read the compressed file directly from UniProt with the `readAAStringSet` function from the Biostrings library.
+
+```{r, warning=FALSE}
+url <- paste0("https://ftp.uniprot.org/pub/databases/uniprot/current_release/",
+  "knowledgebase/reference_proteomes/Viruses/UP000000354/UP000000354_694009.fasta.gz")
+sars.cov.fasta <- readAAStringSet(url)
+```
+
+Let's look at the headers of the different fasta sequences:
+
+```{r, names, echo=FALSE}
+library(kableExtra)
+tibble("names" = names(sars.cov.fasta)) %>%
+  kbl()%>%
+  kable_paper("basic") %>%
+  landscape()
+```
+
+Right now the names identifying the sequences are too long and somewhat inconvenient to work with. We can solve this by applying:
+
+```{r, deal_with_names}
+names(sars.cov.fasta) <- names(sars.cov.fasta) %>%
+  parse_NCBI_FASTA_sequence_identifiers()
+```
+
+```{r, new.names, echo=FALSE}
+tibble("names" = names(sars.cov.fasta),
+       "width" = width(sars.cov.fasta)) %>%
+  kbl()%>%
+  kable_paper("basic") %>%
+  landscape()
+```
+
+We will search for homologous sequences for SPIKE_SARS and NCAP_SARS. First, we select both sequences using the $ operator. 
+```{r, select}
+SPIKE_SARS <- sars.cov.fasta$SPIKE_SARS
+NCAP_SARS <- sars.cov.fasta$NCAP_SARS
+```
+
+### Query’s sequence 
+
+Since we want to perform the search with a single sequence (i.e. one search for each sequence of the reference proteome) we will use phmmer. Internally, HMMER builds a profile from your single query sequence.
+
+By executing the next cell, we will be posting to the HMMER server a request with each sequence and database specified. Also, since we have selected fullseqfasta = TRUE we will download the fasta files with the complete sequences found. The timeout and verbose arguments refer to the maximum time to wait without receiving a response and whether to print the status of requests on the screen, respectively. This will take a while and will depend on the state of the HMMER server. Pour yourself a cup of coffee :)
+
+```{r request, eval=FALSE}
+HMMER_data_tbl <- search_phmmer(
+  seqs = AAStringSet(list(SPIKE_SARS, NCAP_SARS)),
+  dbs = c("swissprot", "uniprotrefprot", "ensembl"),
+  fullseqfasta = TRUE,
+  alignment = TRUE,
+  verbose = TRUE,
+  timeout = 90)
+saveRDS(HMMER_data_tbl, "HMMER_data_tbl_SPIKE_SARS_NCAP_SARS.Rds")
+```
+Let us inspect the contents of `HMMER_data_tbl.` It is a nested DataFrame of class HMMER_data_tbl.
+
+```{r}
+class(HMMER_data_tbl)
+```
+
+Let's see what their classes are in the following table. 
+
+```{r, echo= FALSE, warning=FALSE, message=FALSE}
+HMMER_data_tbl %>%
+  summarize_all(funs(paste0(class(.), collapse = ", "))) %>%
+  kbl()%>%
+  kable_paper("basic")
+```
+
+The `seqs` and `dbs` columns contain the values used for the search (sequence and target databse). The `urls` column contains the URLs where HMMER temporarily stores the results. Feel free to access the web page and make use of the web interface to inspect the results. For now, we have automated manually posting the sequences one by one and downloading the files of interest. The rest of the columns contain the search results themselves. However, we will not yet use the information contained in these.
+
+## Preprocessing and wrangling
+
+First, we are going check if there aren't no queries with no results (NA in the `url` column). 
+
+```{r, filter}
+HMMER_data_tbl <- HMMER_data_tbl %>%
+  filter(as.character(url) != "NA")
+```
+
+### Extracting a Tidy Dataframe
+
+Now, we can use the `extract_from_HMMER_data_tbl` function to convert these results into a tidy DataFrame that we can easily work with.
+
+```{r, extract, message=FALSE, warning=FALSE}
+HMMER_data_tbl_tidy <- HMMER_data_tbl %>%
+  extract_from_HMMER_data_tbl(
+    id_column = rep(c("SPIKE_SARS", "NCAP_SARS"), c(3, 3))
+  )
+```
+
+Now, instead of having a nested DataFrame we have a DataFrame with all the information contained in a single table that has as many rows as domains have been identified (a potentially homologous sequence may contain one or more potentially homologous domains).
+
+### Adding information
+
+Now, we are going to filter out the significant sequences, annotate them and calculate a series of theoretical physical chemical properties. 
+
+```{r, message=FALSE, warning=FALSE}
+HMMER_data_tbl_tidy <- HMMER_data_tbl_tidy %>%
+  dplyr::filter(hits.evalue < 0.01) %>% # filter out non-significant sequences
+  dplyr::distinct(hits.fullseq.fasta, .keep_all = TRUE) %>% # filter out redundant  sequences
+  add_taxa_to_HMMER_tbl(mode = "local") %>% # add taxonomic information
+  add_physicochemical_properties_to_HMMER_tbl() # calculate theoretical physical and chemical properties
+```
+
+Now, we can explore the e-values of the sequences we have obtained in search of red flags. We can see, for example, sequences whose evalue value is significant but that of their best domain is not. 
+
+```{r, evalues, dpi = 200}
+hmmer_evalues_cleveland_dot_plot(
+  HMMER_tidy_tbl = HMMER_data_tbl_tidy,
+  threshold = 0.001)+
+  facet_grid(~id)
+```
+
+## Data exploration
+
+Let's see the dimensions that HMMER_data_tbl_tidy has now. We have 125 and 119 non-redundant homologous sequences for NCAP_SARS and SPIKE_SARS.
+
+```{r}
+HMMER_data_tbl_tidy %>%
+  group_by(id) %>%
+  distinct(hits.acc, hits.acc2)%>%
+  summarize(n = n())
+```
+
+Let's take a look at some of these columns. However, for a detailed and complete list, we refer you to our example dataset `?ABL1_homologous`.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(magrittr)
+tibble(
+  "hits" = colnames(HMMER_data_tbl_tidy) %>%
+    str_subset("hits.") %>%
+    extract(1:18),
+  "domains" = colnames(HMMER_data_tbl_tidy) %>%
+    str_subset("domains.")%>%
+    extract(1:18),
+  "taxa" = colnames(HMMER_data_tbl_tidy) %>%
+    str_subset("taxa.")%>%
+    extract(1:18),
+  "properties" = colnames(HMMER_data_tbl_tidy) %>%
+    str_subset("properties.")%>%
+    extract(1:18),
+  ) %>%
+  kbl()%>%
+  kable_paper("basic") %>%
+  landscape()
+```
+
+As you can imagine, variables are grouped with their type because they all start the same, such as `taxa.` or `hits.`. This will allow us to use the `starts_with` function to select them all at once. 
+
+### Principal Components Analysis using 
+Now, we are going to show how the physicochemical descriptors calculated can be used by doing a PCA. To do this, we will select the variables beginning with "properties", scale the data and perform the PCA with the prcomp function. 
+```{r}
+pca_descriptors <- HMMER_data_tbl_tidy %>% 
+  select(starts_with("properties")) %>%
+  scale() %>%
+  prcomp()
+```
+
+Let's explore the results. For this we will use the `broom` library, which converts R statistical analysis objects into tidy tibble. Let's start by looking at the variance explained by each component. We will extract the matrix containing the eigenvalues, keep the first n components that explain 99% of the variance
+
+```{r, varianza, dpi= 300, fig.wide = TRUE, fig.cap= "Percentage of variance explained in the PCA"}
+pca_descriptors %>%
+  tidy(matrix = "eigenvalues") %>%
+  filter(cumsum(percent) < 0.99)%>%
+  ggplot(aes(PC, percent)) +
+  geom_col(fill = "#56B4E9", alpha = 0.8) +
+  scale_x_continuous(breaks = 1:10)
+```
 
 
+Now, let's plot the 3 principal components of the PCA. Since we want to be able to color the points based on taxonomic variables from the original set, we will combine both datasets using the augment() function.
+
+```{r, proyeccion, dpi= 300, fig.wide = TRUE, fig.cap= "PCA 1 Vs PCA 2"}
+pca_descriptors %>%
+  augment(HMMER_data_tbl_tidy) %>%
+  ggplot(aes(.fittedPC1, .fittedPC2, color = id)) + 
+  geom_point(size = 1.5)
+```
+
+Finally, we will see which variables contribute most to explaining each of the components. To do this, we will extract the rotation matrix. 
+```{r, rotation, dpi= 300, fig.wide = TRUE, fig.cap= "Contribution of variables to the GPCA."}
+pca_descriptors %>%
+  tidy(matrix = "rotation") %>%
+  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
+  mutate(column = gsub(".*\\.", "", column))%>%
+  ggplot(aes(PC1, PC2)) +
+  geom_segment(xend = 0, yend = 0, arrow = arrow(
+    ends = "first",
+    length = grid::unit(4, "pt")
+  )
+               ) +
+  geom_text(
+    aes(label = column),
+    hjust = 0.2, nudge_x = -0.05, 
+    color = "#904C2F"
+  )
+```
 
 # Reproducibility
 
