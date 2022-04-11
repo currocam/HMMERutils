@@ -129,6 +129,7 @@ Right now the names identifying the sequences are too long and somewhat inconven
 ```{r, deal_with_names}
 names(sars.cov.fasta) <- names(sars.cov.fasta) %>%
   parse_NCBI_FASTA_sequence_identifiers()
+<<<<<<< HEAD
 ```
 
 ```{r, new.names, echo=FALSE}
@@ -225,6 +226,104 @@ hmmer_evalues_cleveland_dot_plot(
 
 Let's see the dimensions that HMMER_data_tbl_tidy has now. We have 125 and 119 non-redundant homologous sequences for NCAP_SARS and SPIKE_SARS.
 
+=======
+```
+
+```{r, new.names, echo=FALSE}
+tibble("names" = names(sars.cov.fasta),
+       "width" = width(sars.cov.fasta)) %>%
+  kbl()%>%
+  kable_paper("basic") %>%
+  landscape()
+```
+
+We will search for homologous sequences for SPIKE_SARS and NCAP_SARS. First, we select both sequences using the $ operator. 
+```{r, select}
+SPIKE_SARS <- sars.cov.fasta$SPIKE_SARS
+NCAP_SARS <- sars.cov.fasta$NCAP_SARS
+```
+
+### Query’s sequence 
+
+Since we want to perform the search with a single sequence (i.e. one search for each sequence of the reference proteome) we will use phmmer. Internally, HMMER builds a profile from your single query sequence.
+
+By executing the next cell, we will be posting to the HMMER server a request with each sequence and database specified. Also, since we have selected fullseqfasta = TRUE we will download the fasta files with the complete sequences found. The timeout and verbose arguments refer to the maximum time to wait without receiving a response and whether to print the status of requests on the screen, respectively. This will take a while and will depend on the state of the HMMER server. Pour yourself a cup of coffee :)
+
+```{r request, eval=FALSE}
+HMMER_data_tbl <- search_phmmer(
+  seqs = AAStringSet(list(SPIKE_SARS, NCAP_SARS)),
+  dbs = c("swissprot", "uniprotrefprot", "ensembl"),
+  fullseqfasta = TRUE,
+  alignment = TRUE,
+  verbose = TRUE,
+  timeout = 90)
+saveRDS(HMMER_data_tbl, "HMMER_data_tbl_SPIKE_SARS_NCAP_SARS.Rds")
+```
+Let us inspect the contents of `HMMER_data_tbl.` It is a nested DataFrame of class HMMER_data_tbl.
+
+```{r}
+class(HMMER_data_tbl)
+```
+
+Let's see what their classes are in the following table. 
+
+```{r, echo= FALSE, warning=FALSE, message=FALSE}
+HMMER_data_tbl %>%
+  summarize_all(funs(paste0(class(.), collapse = ", "))) %>%
+  kbl()%>%
+  kable_paper("basic")
+```
+
+The `seqs` and `dbs` columns contain the values used for the search (sequence and target databse). The `urls` column contains the URLs where HMMER temporarily stores the results. Feel free to access the web page and make use of the web interface to inspect the results. For now, we have automated manually posting the sequences one by one and downloading the files of interest. The rest of the columns contain the search results themselves. However, we will not yet use the information contained in these.
+
+## Preprocessing and wrangling
+
+First, we are going check if there aren't no queries with no results (NA in the `url` column). 
+
+```{r, filter}
+HMMER_data_tbl <- HMMER_data_tbl %>%
+  filter(as.character(url) != "NA")
+```
+
+### Extracting a Tidy Dataframe
+
+Now, we can use the `extract_from_HMMER_data_tbl` function to convert these results into a tidy DataFrame that we can easily work with.
+
+```{r, extract, message=FALSE, warning=FALSE}
+HMMER_data_tbl_tidy <- HMMER_data_tbl %>%
+  extract_from_HMMER_data_tbl(
+    id_column = rep(c("SPIKE_SARS", "NCAP_SARS"), c(3, 3))
+  )
+```
+
+Now, instead of having a nested DataFrame we have a DataFrame with all the information contained in a single table that has as many rows as domains have been identified (a potentially homologous sequence may contain one or more potentially homologous domains).
+
+### Adding information
+
+Now, we are going to filter out the significant sequences, annotate them and calculate a series of theoretical physical chemical properties. 
+
+```{r, message=FALSE, warning=FALSE}
+HMMER_data_tbl_tidy <- HMMER_data_tbl_tidy %>%
+  dplyr::filter(hits.evalue < 0.01) %>% # filter out non-significant sequences
+  dplyr::distinct(hits.fullseq.fasta, .keep_all = TRUE) %>% # filter out redundant  sequences
+  add_taxa_to_HMMER_tbl(mode = "local") %>% # add taxonomic information
+  add_physicochemical_properties_to_HMMER_tbl() # calculate theoretical physical and chemical properties
+```
+
+Now, we can explore the e-values of the sequences we have obtained in search of red flags. We can see, for example, sequences whose evalue value is significant but that of their best domain is not. 
+
+```{r, evalues, dpi = 200}
+hmmer_evalues_cleveland_dot_plot(
+  HMMER_tidy_tbl = HMMER_data_tbl_tidy,
+  threshold = 0.001)+
+  facet_grid(~id)
+```
+
+## Data exploration
+
+Let's see the dimensions that HMMER_data_tbl_tidy has now. We have 125 and 119 non-redundant homologous sequences for NCAP_SARS and SPIKE_SARS.
+
+>>>>>>> 03d145a661ffea386361056d6b07f92076e2c1d4
 ```{r}
 HMMER_data_tbl_tidy %>%
   group_by(id) %>%
