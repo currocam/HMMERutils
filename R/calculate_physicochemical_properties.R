@@ -85,7 +85,7 @@ calculate_physicochemical_properties <- function(seqs) {
                 seqs,
                 c("S", "T", "Y", "N", "Q", "W")
             ) %>%
-                sum()
+                sum()/nchar(seqs)/100
         ) %>%
         dplyr::left_join(pepstats, by = c("id" = "id")) %>%
         dplyr::mutate("id" = old_names)
