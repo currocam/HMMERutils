@@ -26,5 +26,5 @@ xml_path <- system.file(
 )
 data <- read_hmmer_from_xml(xml_path) \%>\%
     extract_from_HMMER_data_tbl() \%>\%
-    add_taxa_to_HMMER_tbl()
+    add_taxa_to_HMMER_tbl(mode = "local")
 }
