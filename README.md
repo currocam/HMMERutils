@@ -16,7 +16,10 @@ status](http://www.bioconductor.org/shields/build/release/bioc/HMMERutils.svg)](
 [![R-CMD-check-bioc](https://github.com/currocam/HMMERutils/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/currocam/HMMERutils/actions)
 <!-- badges: end -->
 
-The goal of `HMMERutils` is to …
+The goal of `HMMERutils` is to provide convenient functions search for
+homologous sequences using the HMMER API, annotate them taxonomically,
+calculate physicochemical properties and facilitate exploratory analysis
+of homologous sequence data.
 
 ## Installation instructions
 
@@ -42,12 +45,16 @@ BiocManager::install("currocam/HMMERutils")
 ## Example
 
 This is a basic example which shows you how to read HMMER files into
-HMMERutils’ tidy DataFrame
+HMMERutils’ tidy DataFrame and take advantage of the HMMER information,
+as well as the taxonomic and physicochemical information inferred from
+the sequence. As an example, we will use the results of the PHMMER
+example search, where we searched for sequences homologous to ABL1 in
+the PDB.
 
-``` {r
+``` r
 library("HMMERutils")
 library(tidyverse)
-## basic example code
+## Downloaded files from HMMER
 xml_path <- system.file(
     "/extdata/ABL_TYROSINE_KINASE.xml",
     package = "HMMERutils"
@@ -56,16 +63,17 @@ fasta_path <- system.file(
     "/extdata/ABL_TYROSINE_KINASE.fa",
     package = "HMMERutils"
 )
-ABL1_homologous <- read_hmmer_from_xml(xml_path, fasta_path) %>%
-    extract_from_HMMER_data_tbl() %>%
-    dplyr::filter(hits.evalue < 0.01) %>%
-    dplyr::distinct(hits.fullseq.fasta, .keep_all = TRUE) %>%
-    add_taxa_to_HMMER_tbl(mode = "local") %>%
-    add_physicochemical_properties_to_HMMER_tbl()
+ABL1_homologous <- read_hmmer_from_xml(xml_path, fasta_path) %>% # read them
+    extract_from_HMMER_data_tbl() %>% # extract the information into a DataFrame
+    dplyr::filter(hits.evalue < 0.01) %>% # filter out non-significant sequences
+    dplyr::distinct(hits.fullseq.fasta, .keep_all = TRUE) %>% # filter out redundant sequences
+    add_taxa_to_HMMER_tbl(mode = "local") %>% # add taxonomic information
+    add_physicochemical_properties_to_HMMER_tbl() # calculate theoretical physical and chemical properties
 ```
 
 Now, we can explore the e-values of the sequences we have obtained in
-search of red flags:
+search of red flags. We can see, for example, sequences whose evalue
+value is significant but that of their best domain is not.
 
 ``` r
 HMMERutils::hmmer_evalues_cleveland_dot_plot(
@@ -76,10 +84,12 @@ HMMERutils::hmmer_evalues_cleveland_dot_plot(
 <img src="man/figures/README-evalues-1.png" width="100%" />
 
 Observe how the sequences are clustered according to their percentage
-sequence identity and compare it with their phylogeny:
+sequence identity and compare it with their phylogeny after we exclude
+*Homo sapiens*. First, aligning each sequence pair and calculating its
+percentage identity:
 
 ``` r
-pairwise_identities_ABL1_homologous <- ABL1_homologous %>%
+pairwise_identities_ABL1_homologous <- ABL1_homologous_non_human %>%
   pairwise_alignment_sequence_identity(
     seqs = .$hits.fullseq.fasta
     aln_type = "global",
@@ -88,15 +98,14 @@ pairwise_identities_ABL1_homologous <- ABL1_homologous %>%
     )
 ```
 
+And then calling the plot method with the type “hist” or “heatmap”.
+
 ``` r
 plot(
   pairwise_identities_ABL1_homologous,
   type = "heatmap",
-  annotation = ABL1_homologous$taxa.phylum
+  annotation = ABL1_homologous_non_human$taxa.class
   )
-#> Warning in pairwise_sequence_identity_heatmap(object, annotation): It does
-#> not match the length of the annotation vector with the length of the number of
-#> sequences.
 ```
 
 <img src="man/figures/README-pairwise-1.png" width="100%" />
