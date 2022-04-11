@@ -79,97 +79,26 @@ reply before a time out occurs.</p></dd>
     <p>A nested DataFrame with columns <code>seqs</code>, <code>dbs</code>, <code>url</code>(HMMER temporary url), <code>hits</code>, <code>stats</code>, <code>domains</code> and,
 if selected, <code>fullseq.fasta.</code></p>
     </div>
-    <div id="stats-data-structure">
-    <h2>Stats data structure</h2>
-    
-
-<ul><li><p><code>nhits</code>: 	The number of hits found above reporting thresholds.</p></li>
-<li><p><code>Z</code>: 	The number of sequences or models in the target database.</p></li>
-<li><p><code>domZ</code>: 	The number of hits in the target database.</p></li>
-<li><p><code>nmodels</code> 	The number of models in this search.</p></li>
-<li><p><code>nincluded</code> 	The number of sequences or models scoring above the
-significance threshold.</p></li>
-<li><p><code>nreported</code> 	The number of sequences or models scoring above the reporting
-threshold</p></li>
-</ul></div>
-    <div id="sequence-data-structure">
-    <h2>Sequence data structure</h2>
-    
-
-<p>The hits array contains one or more sequences. Tthe redundant sequence
-information will also be included.</p><ul><li><p><code>name</code>: 	Name of the target (sequence for phmmer/hmmsearch,
-HMM for hmmscan).</p></li>
-<li><p><code>acc</code>: 	Accession of the target.</p></li>
-<li><p><code>acc2</code>: 	Secondary accession of the target.</p></li>
-<li><p><code>id</code>: 	Identifier of the target.</p></li>
-<li><p><code>desc</code>: 	Description of the target.</p></li>
-<li><p><code>score</code>: 	Bit score of the sequence (all domains, without correction)</p></li>
-<li><p><code>pvalue</code>: 	P-value of the score.</p></li>
-<li><p><code>evalue</code>: 	E-value of the score.</p></li>
-<li><p><code>nregions</code>: 	Number of regions evaluated.</p></li>
-<li><p><code>nenvelopes</code>: 	Number of envelopes handed over for domain definition,
-null2, alignment, and scoring.</p></li>
-<li><p><code>ndom</code>: 	Total number of domains identified in this sequence.</p></li>
-<li><p><code>nreported</code>: 	Number of domains satisfying reporting thresholding.</p></li>
-<li><p><code>nincluded</code>: 	Number of domains satisfying inclusion thresholding.</p></li>
-<li><p><code>taxid</code>: 	The NCBI taxonomy identifier of the target (if applicable).</p></li>
-<li><p><code>species</code>: 	The species name of the target (if applicable).</p></li>
-<li><p><code>kg</code>: 	The kingdom of life that the target belongs to - based on placing
-in the NCBI taxonomy tree (if applicable).</p></li>
-</ul></div>
-    <div id="domain-data-structure">
-    <h2>Domain data structure</h2>
-    
-
-<p>The domain contains the details of the match, in particular the alignment
-between the query and the target.</p><ul><li><p><code>ienv</code>: 	Envelope start position.</p></li>
-<li><p><code>jenv</code>: 	Envelope end position.</p></li>
-<li><p><code>iali</code>: 	Alignment start position.</p></li>
-<li><p><code>jali</code>: 	Alignment end position.</p></li>
-<li><p><code>bias</code>: 	null2 score contribution.</p></li>
-<li><p><code>oasc</code>: 	Optimal alignment accuracy score.</p></li>
-<li><p><code>bitscore</code>: 	Overall score in bits, null corrected, if this were the
-only domain in seq.</p></li>
-<li><p><code>cevalue</code>: 	Conditional E-value based on the domain correction.</p></li>
-<li><p><code>ievalue</code>: 	Independent E-value based on the domain correction.</p></li>
-<li><p><code>is_reported</code>: 	1 if domain meets reporting thresholds.</p></li>
-<li><p><code>is_included</code>: 	1 if domain meets inclusion thresholds.</p></li>
-<li><p><code>alimodel</code>: 	Aligned query consensus sequence phmmer and hmmsearch,
-target hmm for hmmscan.</p></li>
-<li><p><code>alimline</code>: 	Match line indicating identities, conservation +’s, gaps.</p></li>
-<li><p><code>aliaseq</code>: 	Aligned target sequence for phmmer and hmmsearch,
-query for hmmscan.</p></li>
-<li><p><code>alippline</code>: 	Posterior probability annotation.</p></li>
-<li><p><code>alihmmname</code>: 	Name of HMM (query sequence for phmmer, alignment for
-hmmsearch and target hmm for hmmscan).</p></li>
-<li><p><code>alihmmacc</code>: 	Accession of HMM.</p></li>
-<li><p><code>alihmmdesc</code>: 	Description of HMM.</p></li>
-<li><p><code>alihmmfrom</code>: 	Start position on HMM.</p></li>
-<li><p><code>alihmmto</code>: 	End position on HMM.</p></li>
-<li><p><code>aliM</code>: 	Length of model.</p></li>
-<li><p><code>alisqname</code>: 	Name of target sequence (phmmer, hmmscan) or query
-sequence(hmmscan).</p></li>
-<li><p><code>alisqacc</code>: 	Accession of sequence.</p></li>
-<li><p><code>alisqdesc</code>: 	Description of sequence.</p></li>
-<li><p><code>alisqfrom</code>: 	Start position on sequence.</p></li>
-<li><p><code>alisqto</code>: 	End position on sequence.</p></li>
-<li><p><code>aliL</code>: 	Length of sequence.</p></li>
-</ul></div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p><code><a href="ABL1_homologous.html">ABL1_homologous</a></code> for a detailed description of
+the meaning of the different variables.</p></div>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span></span>
-<span class="r-in"><span class="va">hmmscan_tbl</span> <span class="op">&lt;-</span> <span class="fu">search_hmmscan</span><span class="op">(</span></span>
-<span class="r-in">    seqs <span class="op">=</span> <span class="st">"MTEITAAMVKELRESTGAGMMDCKN"</span>,</span>
-<span class="r-in">    dbs <span class="op">=</span> <span class="st">"pfam"</span>,</span>
-<span class="r-in">    verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">    timeout <span class="op">=</span> <span class="fl">15</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in">    <span class="va">hmmscan_tbl</span> <span class="op">&lt;-</span> <span class="fu">search_hmmscan</span><span class="op">(</span></span>
+<span class="r-in">        seqs <span class="op">=</span> <span class="st">"MTEITAAMVKELRESTGAGMMDCKN"</span>,</span>
+<span class="r-in">        dbs <span class="op">=</span> <span class="st">"pfam"</span>,</span>
+<span class="r-in">        verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span class="r-in">        timeout <span class="op">=</span> <span class="fl">15</span></span>
+<span class="r-in">    <span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Content from HMMER server:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> &lt;opt&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;data name="results" _internal="" uuid="4020EB7E-B8B6-11EC-9488-27DA53F04F9B"&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;stats Z="19632" Z_setby="0" domZ="0" domZ_setby="0" elapsed="0.01" n_past_bias="122" n_past_fwd="0" n_past_msv="155" n_past_vit="3" nhits="0" nincluded="0" nmodels="19632" nreported="0" nseqs="1" sys="0" user="0" /&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;data name="batch_results" status="PEND" uuid="101CF4A8-B98E-11EC-8DCC-7ED0DBC3747A"&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;result uuid="101CF4A8-B98E-11EC-8DCC-7ED0DBC3747A.1" /&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;/data&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> &lt;/opt&gt;</span>
 </code></pre></div>

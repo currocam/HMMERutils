@@ -75,7 +75,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of <code>HMMERutils</code> is to …</p>
+<p>The goal of <code>HMMERutils</code> is to provide convenient functions search for homologous sequences using the HMMER API, annotate them taxonomically, calculate physicochemical properties and facilitate exploratory analysis of homologous sequence data.</p>
 <div class="section level2">
 <h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h2>
@@ -93,10 +93,60 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<p>This is a basic example which shows you how to read HMMER files into HMMERutils’ tidy DataFrame and take advantage of the HMMER information, as well as the taxonomic and physicochemical information inferred from the sequence. As an example, we will use the results of the PHMMER example search, where we searched for sequences homologous to ABL1 in the PDB.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/currocam/HMMERutils" class="external-link">"HMMERutils"</a></span><span class="op">)</span>
-<span class="co">## basic example code</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
+<span class="co">## Downloaded files from HMMER</span>
+<span class="va">xml_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>
+    <span class="st">"/extdata/ABL_TYROSINE_KINASE.xml"</span>,
+    package <span class="op">=</span> <span class="st">"HMMERutils"</span>
+<span class="op">)</span>
+<span class="va">fasta_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>
+    <span class="st">"/extdata/ABL_TYROSINE_KINASE.fa"</span>,
+    package <span class="op">=</span> <span class="st">"HMMERutils"</span>
+<span class="op">)</span>
+<span class="va">ABL1_homologous</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_hmmer_from_xml.html">read_hmmer_from_xml</a></span><span class="op">(</span><span class="va">xml_path</span>, <span class="va">fasta_path</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># read them</span>
+    <span class="fu"><a href="reference/extract_from_HMMER_data_tbl.html">extract_from_HMMER_data_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># extract the information into a DataFrame</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">hits.evalue</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># filter out non-significant sequences</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">hits.fullseq.fasta</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># filter out redundant sequences</span>
+    <span class="fu"><a href="reference/add_taxa_to_HMMER_tbl.html">add_taxa_to_HMMER_tbl</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"local"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># add taxonomic information</span>
+    <span class="fu"><a href="reference/add_physicochemical_properties_to_HMMER_tbl.html">add_physicochemical_properties_to_HMMER_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># calculate theoretical physical and chemical properties</span></code></pre></div>
+<p>Now, we can explore the e-values of the sequences we have obtained in search of red flags. We can see, for example, sequences whose evalue value is significant but that of their best domain is not.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">HMMERutils</span><span class="fu">::</span><span class="fu"><a href="reference/hmmer_evalues_cleveland_dot_plot.html">hmmer_evalues_cleveland_dot_plot</a></span><span class="op">(</span>
+  HMMER_tidy_tbl <span class="op">=</span> <span class="va">ABL1_homologous</span>,
+  threshold <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-evalues-1.png" width="100%"></p>
+<p>Observe how the sequences are clustered according to their percentage sequence identity and compare it with their phylogeny after we exclude <em>Homo sapiens</em>. First, aligning each sequence pair and calculating its percentage identity:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pairwise_identities_ABL1_homologous <span class="ot">&lt;-</span> ABL1_homologous_non_human <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_alignment_sequence_identity</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">seqs =</span> .<span class="sc">$</span>hits.fullseq.fasta</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">aln_type =</span> <span class="st">"global"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">pid_type =</span> <span class="st">"PID1"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">allow_parallelization =</span> <span class="st">"multisession"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p>And then calling the plot method with the type “hist” or “heatmap”.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
+  <span class="va">pairwise_identities_ABL1_homologous</span>,
+  type <span class="op">=</span> <span class="st">"heatmap"</span>,
+  annotation <span class="op">=</span> <span class="va">ABL1_homologous_non_human</span><span class="op">$</span><span class="va">taxa.class</span>
+  <span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-pairwise-1.png" width="100%"></p>
+<p>And how the physical and chemical properties of the sequences are grouped according to phylogeny.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ABL1_homologous</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">hits.name</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">taxa.kingdom</span>,<span class="va">taxa.family</span><span class="op">)</span><span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
+    hydrophobicity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">properties.hydrophobicity</span><span class="op">)</span>,
+    mz <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">properties.mz</span><span class="op">)</span>,
+    size <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">mz</span>, y<span class="op">=</span><span class="va">hydrophobicity</span>, size <span class="op">=</span> <span class="va">size</span>, color <span class="op">=</span> <span class="va">taxa.kingdom</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>alpha<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html" class="external-link">scale_size</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.1</span>, <span class="fl">24</span><span class="op">)</span>, name<span class="op">=</span><span class="st">"Sequences"</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-bubble_plot-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>

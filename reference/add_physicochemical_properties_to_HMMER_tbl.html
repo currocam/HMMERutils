@@ -76,56 +76,46 @@ using the <code>Peptides</code> library</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="va">xml_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="st">"/extdata/ABL_TYROSINE_KINASE.xml"</span>,</span>
-<span class="r-in">    package <span class="op">=</span> <span class="st">"HMMERutils"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">fasta_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="st">"/extdata/ABL_TYROSINE_KINASE.fa"</span>,</span>
-<span class="r-in">    package <span class="op">=</span> <span class="st">"HMMERutils"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_hmmer_from_xml.html">read_hmmer_from_xml</a></span><span class="op">(</span><span class="va">xml_path</span>, <span class="va">fasta_path</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu"><a href="extract_from_HMMER_data_tbl.html">extract_from_HMMER_data_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ABL1_homologous</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">ABL1_homologous</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">    <span class="fu">add_physicochemical_properties_to_HMMER_tbl</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 235 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 237 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 441 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 506 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 235 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 237 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 441 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 506 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 235 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 237 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 441 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 506 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 235 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 237 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 441 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 506 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 235 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 237 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 441 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 506 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 235 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 237 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 441 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 506 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 235 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 237 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 441 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 506 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 235 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 237 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 441 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 506 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 235 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 237 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 441 has unrecognized amino acid types. Output value might be wrong calculated</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 506 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 288 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 309 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 311 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 381 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 288 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 309 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 311 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 381 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 288 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 309 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 311 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 381 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 288 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 309 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 311 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 381 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 288 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 309 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 311 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 381 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 288 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 309 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 311 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 381 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 288 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 309 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 311 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 381 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 288 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 309 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 311 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 381 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 288 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 309 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 311 has unrecognized amino acid types. Output value might be wrong calculated</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Sequence 381 has unrecognized amino acid types. Output value might be wrong calculated</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>longer object length is not a multiple of shorter object length</span>
-<span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
   </div>

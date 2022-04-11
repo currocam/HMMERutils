@@ -55,6 +55,18 @@
     <loc>/reference/pairwise_alignment_sequence_identity.html</loc>
   </url>
   <url>
+    <loc>/reference/pairwise_identities_ABL1_homologous.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pairwise_sequence_identity_heatmap.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pairwise_sequence_identity_histogram.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_NCBI_FASTA_sequence_identifiers.html</loc>
+  </url>
+  <url>
     <loc>/reference/pipe.html</loc>
   </url>
   <url>
