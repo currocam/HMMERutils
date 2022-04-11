@@ -121,7 +121,16 @@ calculate_percentage_sequence_identity <- function(seq1, seq2,
         Biostrings::pid(pid_type)
 }
 
-
+#' Plot a histogram with the pairwise identity percentages.
+#'
+#' @param object A pairwise_sequence_identity.
+#'
+#' @return A ggplot object
+#' @export
+#'
+#' @examples
+#' data(pairwise_identities_ABL1_homologous)
+#' pairwise_sequence_identity_histogram(pairwise_identities_ABL1_homologous)
 pairwise_sequence_identity_histogram <- function(object) {
     ggplot2::ggplot(
         object,
@@ -131,7 +140,18 @@ pairwise_sequence_identity_histogram <- function(object) {
         ggplot2::labs(x = "Pairwise sequence identities", y = "Number")
 }
 
-pairwise_sequence_identity_heatmap <- function(object, annotation) {
+#' Plot a heatmap with the pairwise identity percentages.
+#'
+#' @param object A pairwise_sequence_identity.
+#' @param annotation A character vector with as many elements as sequences.
+#'
+#' @return A ggplot object
+#' @export
+#'
+#' @examples
+#' data(pairwise_identities_ABL1_homologous)
+#' pairwise_sequence_identity_heatmap(pairwise_identities_ABL1_homologous)
+pairwise_sequence_identity_heatmap <- function(object, annotation = NULL) {
     data.plot <- object %>%
         dplyr::bind_rows(
             tibble::tibble(

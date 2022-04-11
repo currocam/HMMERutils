@@ -3,9 +3,9 @@
 \docType{data}
 \name{ABL1_homologous}
 \alias{ABL1_homologous}
-\title{Information about 694 sequences homologous to ABL1.}
+\title{Information about 451 sequences homologous to ABL1.}
 \format{
-A data frame with 694 rows and 127 variables:
+A data frame with 451 rows and 127 variables:
 }
 \source{
 \url{https://www.ebi.ac.uk/Tools/hmmer/search/}
@@ -14,7 +14,7 @@ A data frame with 694 rows and 127 variables:
 data(ABL1_homologous)
 }
 \description{
-A dataset containing 694 sequences homologous to ABL1, a
+A dataset containing 451 sequences homologous to ABL1, a
 cytoplasmic and nuclear protein tyrosine kinase that has
 been implicated in processes of cell differentiation, cell
 division, cell adhesion and stress response such as DNA repair.

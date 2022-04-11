@@ -1,6 +1,6 @@
-#' Information about 694 sequences homologous to ABL1.
+#' Information about 451 sequences homologous to ABL1.
 #'
-#' A dataset containing 694 sequences homologous to ABL1, a
+#' A dataset containing 451 sequences homologous to ABL1, a
 #'  cytoplasmic and nuclear protein tyrosine kinase that has
 #'  been implicated in processes of cell differentiation, cell
 #'  division, cell adhesion and stress response such as DNA repair.
@@ -10,7 +10,7 @@
 #'   physical and chemical properties calculated on the basis of
 #'    the sequence and other variables returned by HMMER.
 #'
-#' @format A data frame with 694 rows and 127 variables:
+#' @format A data frame with 451 rows and 127 variables:
 #'
 #' @section Sequence data structure:
 #' Variables beginning with "hits." have been extracted from the hash
@@ -136,3 +136,14 @@
 #' @source \url{https://www.ebi.ac.uk/Tools/hmmer/search/}
 #' @usage data(ABL1_homologous)
 "ABL1_homologous"
+
+#' Pairwise percentage identities for ABL1_homologous.
+#'
+#' A DataFrame containing 451 pairwise_identities for ABL1_homologous sequences.
+#'
+#'
+#' @format A data frame with 451 rows and 3 variables:
+#'
+#' @usage data(pairwise_identities_ABL1_homologous)
+"pairwise_identities_ABL1_homologous"
+

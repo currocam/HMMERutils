@@ -41,12 +41,83 @@ BiocManager::install("currocam/HMMERutils")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to read HMMER files into
+HMMERutils’ tidy DataFrame
+
+``` {r
+library("HMMERutils")
+library(tidyverse)
+## basic example code
+xml_path <- system.file(
+    "/extdata/ABL_TYROSINE_KINASE.xml",
+    package = "HMMERutils"
+)
+fasta_path <- system.file(
+    "/extdata/ABL_TYROSINE_KINASE.fa",
+    package = "HMMERutils"
+)
+ABL1_homologous <- read_hmmer_from_xml(xml_path, fasta_path) %>%
+    extract_from_HMMER_data_tbl() %>%
+    dplyr::filter(hits.evalue < 0.01) %>%
+    dplyr::distinct(hits.fullseq.fasta, .keep_all = TRUE) %>%
+    add_taxa_to_HMMER_tbl(mode = "local") %>%
+    add_physicochemical_properties_to_HMMER_tbl()
+```
+
+Now, we can explore the e-values of the sequences we have obtained in
+search of red flags:
 
 ``` r
-library("HMMERutils")
-## basic example code
+HMMERutils::hmmer_evalues_cleveland_dot_plot(
+  HMMER_tidy_tbl = ABL1_homologous,
+  threshold = 0.001)
 ```
+
+<img src="man/figures/README-evalues-1.png" width="100%" />
+
+Observe how the sequences are clustered according to their percentage
+sequence identity and compare it with their phylogeny:
+
+``` r
+pairwise_identities_ABL1_homologous <- ABL1_homologous %>%
+  pairwise_alignment_sequence_identity(
+    seqs = .$hits.fullseq.fasta
+    aln_type = "global",
+    pid_type = "PID1",
+    allow_parallelization = "multisession"
+    )
+```
+
+``` r
+plot(
+  pairwise_identities_ABL1_homologous,
+  type = "heatmap",
+  annotation = ABL1_homologous$taxa.phylum
+  )
+#> Warning in pairwise_sequence_identity_heatmap(object, annotation): It does
+#> not match the length of the annotation vector with the length of the number of
+#> sequences.
+```
+
+<img src="man/figures/README-pairwise-1.png" width="100%" />
+
+And how the physical and chemical properties of the sequences are
+grouped according to phylogeny.
+
+``` r
+ABL1_homologous %>%
+  dplyr::distinct(hits.name, .keep_all = TRUE) %>%
+  dplyr::group_by(taxa.kingdom,taxa.family)%>%
+  dplyr::mutate(
+    hydrophobicity = mean(properties.hydrophobicity),
+    mz = mean(properties.mz),
+    size = n()) %>%
+  ggplot(aes(x=mz, y=hydrophobicity, size = size, color = taxa.kingdom)) +
+    geom_point(alpha=0.5) +
+    scale_size(range = c(.1, 24), name="Sequences")
+```
+
+<img src="man/figures/README-bubble_plot-1.png" width="100%" />
 
 ## Citation
 

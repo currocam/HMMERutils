@@ -49,3 +49,4 @@ Imports:
     XML
 Depends: 
     R (>= 4.1.0)
+LazyData: true
