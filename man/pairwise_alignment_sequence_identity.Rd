@@ -58,7 +58,7 @@ heatmap. Refer to the "examples" section.
 \examples{
 data(ABL1_homologous)
 pairwise.per <- pairwise_alignment_sequence_identity(
-    seqs = ABL1_homologous$hits.fullseq.fasta[1:5],
+    seqs = ABL1_homologous$hits.fullseq.fasta[1:4],
     aln_type = "overlap",
     pid_type = "PID2"
 )

@@ -51,7 +51,7 @@ try(
         seqs = "MTEITAAMVKELRTGAGMMDCKN",
         dbs = "pdb",
         verbose = FALSE,
-        timeout = 15
+        timeout = 1
     )
 )
 }

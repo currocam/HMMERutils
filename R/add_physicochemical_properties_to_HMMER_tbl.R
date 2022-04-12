@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' data(ABL1_homologous)
-#' data <- ABL1_homologous %>%
+#' data <- ABL1_homologous[1:5,] %>%
 #'     add_physicochemical_properties_to_HMMER_tbl()
 add_physicochemical_properties_to_HMMER_tbl <- function(HMMER_tidy_tbl) {
     HMMER_tidy_tbl$hits.fullseq.fasta %>%

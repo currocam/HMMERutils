@@ -51,7 +51,7 @@ try(
         alns = aln,
         dbs = "pdb",
         verbose = FALSE,
-        timeout = 15
+        timeout = 5
     )
 )
 }

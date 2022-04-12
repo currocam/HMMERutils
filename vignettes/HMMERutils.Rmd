@@ -214,7 +214,7 @@ HMMER_data_tbl_tidy <- HMMER_data_tbl_tidy %>%
 
 Now, we can explore the e-values of the sequences we have obtained in search of red flags. We can see, for example, sequences whose evalue value is significant but that of their best domain is not. 
 
-```{r, evalues, dpi = 200}
+```{r, evalues}
 hmmer_evalues_cleveland_dot_plot(
   HMMER_tidy_tbl = HMMER_data_tbl_tidy,
   threshold = 0.001)+
@@ -268,7 +268,7 @@ pca_descriptors <- HMMER_data_tbl_tidy %>%
 
 Let's explore the results. For this we will use the `broom` library, which converts R statistical analysis objects into tidy tibble. Let's start by looking at the variance explained by each component. We will extract the matrix containing the eigenvalues, keep the first n components that explain 99% of the variance
 
-```{r, varianza, dpi= 300, fig.wide = TRUE, fig.cap= "Percentage of variance explained in the PCA"}
+```{r, varianza, fig.wide = TRUE, fig.cap= "Percentage of variance explained in the PCA"}
 pca_descriptors %>%
   tidy(matrix = "eigenvalues") %>%
   filter(cumsum(percent) < 0.99)%>%
@@ -280,15 +280,15 @@ pca_descriptors %>%
 
 Now, let's plot the 3 principal components of the PCA. Since we want to be able to color the points based on taxonomic variables from the original set, we will combine both datasets using the augment() function.
 
-```{r, proyeccion, dpi= 300, fig.wide = TRUE, fig.cap= "PCA 1 Vs PCA 2"}
+```{r, proyeccion, fig.wide = TRUE, fig.cap= "PCA 1 Vs PCA 2"}
 pca_descriptors %>%
   augment(HMMER_data_tbl_tidy) %>%
   ggplot(aes(.fittedPC1, .fittedPC2, color = id)) + 
   geom_point(size = 1.5)
 ```
 
-Finally, we will see which variables contribute most to explaining each of the components. To do this, we will extract the rotation matrix. 
-```{r, rotation, dpi= 300, fig.wide = TRUE, fig.cap= "Contribution of variables to the GPCA."}
+Finally, we will seewhich variables contribute most to explaining each of the components. To do this, we will extract the rotation matrix. 
+```{r, rotation, fig.wide = TRUE, fig.cap= "Contribution of variables to the GPCA."}
 pca_descriptors %>%
   tidy(matrix = "rotation") %>%
   pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
