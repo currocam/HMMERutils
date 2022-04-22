@@ -1,11 +1,9 @@
-request_hmmer <- function(seq = NULL,
-    aln = NULL, seqdb = NULL, hmmdb = NULL,
-    url, verbose = FALSE, N.TRIES = 1L) {
+request_hmmer <- function(
+  seq = NULL,aln = NULL, seqdb = NULL, hmmdb = NULL,
+  url, verbose = FALSE, N.TRIES = 1L) {
     curl.opts <- list(
         httpheader = "Expect:", httpheader = "Accept:text/xml",
-        verbose = verbose, followlocation = TRUE
-    )
-
+        verbose = verbose, followlocation = TRUE)
     if (!is.null(seq)) {
         input_query <- seq
     }
@@ -18,28 +16,21 @@ request_hmmer <- function(seq = NULL,
     while (N.TRIES > 0L) {
         hmm <- tryCatch(
             RCurl::postForm(
-                url,
-                seqdb = seqdb,
-                hmmdb = hmmdb,
-                seq = input_query,
-                style = "POST",
-                .opts = curl.opts,
-                .contentEncodeFun = RCurl::curlPercentEncode,
-                .checkParams = TRUE
+                url, seqdb = seqdb, hmmdb = hmmdb,
+                seq = input_query, style = "POST",
+                .opts = curl.opts,.checkParams = TRUE,
+                .contentEncodeFun = RCurl::curlPercentEncode
             ),
-            error = identity
-        )
+            error = identity)
         if (!inherits(hmm, "error")) {
-            break
-        }
+            break }
         N.TRIES <- N.TRIES - 1L
-    }
+      }
     if (N.TRIES == 0L) {
         stop(
             "'getURL()' failed:",
             "\n  URL: ", url,
-            "\n  seqdb: ", seqdb
-        )
+            "\n  seqdb: ", seqdb)
     }
     ## check results from the server
     if (!grepl("results", hmm)) {

@@ -6,11 +6,10 @@
 \usage{
 search_hmmsearch(
   alns,
+  aln_names = NULL,
   dbs = "swissprot",
-  fullseqfasta = TRUE,
   verbose = TRUE,
-  N.TRIES = 1,
-  alignment = FALSE
+  N.TRIES = 1
 )
 }
 \arguments{
@@ -21,12 +20,12 @@ used databases are \code{swissprot}, \code{uniprotrefprot}, \code{uniprotkb}, \c
 \code{pdb} and \code{alphafold}, but a complete and updated list is available at
 \url{https://www.ebi.ac.uk/Tools/hmmer/}.}
 
-\item{fullseqfasta}{A logical, if TRUE full sequence fasta will be downloaded
-as a AAStringSet. Package \code{Biostrings} must be installed in that case.}
-
 \item{verbose}{A logical, if TRUE details of the download process is printed.}
 
 \item{N.TRIES}{An integer specifying the number of trials before a time out occurs.}
+
+\item{fullseqfasta}{A logical, if TRUE full sequence fasta will be downloaded
+as a AAStringSet. Package \code{Biostrings} must be installed in that case.}
 
 \item{alignment}{A logical, if TRUE sequence alignment will be downloaded
 as a \code{AAMultipleAlignment}. Package \code{Biostrings} must be installed in that case.#'}
@@ -41,16 +40,14 @@ Perform a hmmsearch search of a protein alignment against a protein sequence dat
 }
 \examples{
 aln <- c(
-    "MTEITAAMVKELR--TGAGMMDCKN",
-    "------AMVKELRESTGAGMMDCKN"
-) \%>\%
-    Biostrings::AAMultipleAlignment()
+"MTEITAAMVKELR--TGAGMMDCKN",
+"------AMVKELRESTGAGMMDCKN" ) \%>\%
+Biostrings::AAMultipleAlignment()
 try(
-    hmmsearch_tbl <- search_hmmsearch(
+     hmmsearch_tbl <- search_hmmsearch(
         alns = aln,
         dbs = "pdb",
         verbose = FALSE,
-        timeout = 5
     )
 )
 }

@@ -4,7 +4,13 @@
 \alias{search_hmmscan}
 \title{hmmscan search of a protein sequence against a profile-HMM database.}
 \usage{
-search_hmmscan(seqs, dbs = "pfam", verbose = TRUE, N.TRIES = 1)
+search_hmmscan(
+  seqs,
+  seq_names = NULL,
+  dbs = "pfam",
+  verbose = TRUE,
+  N.TRIES = 1
+)
 }
 \arguments{
 \item{seqs}{A vector of characters containing the sequences of the query.}
@@ -30,9 +36,10 @@ hmmscan search of a protein sequence against a profile-HMM database.
 try(
     hmmscan_tbl <- search_hmmscan(
         seqs = "MTEITAAMVKELRESTGAGMMDCKN",
+        seq_names = "seq1",
         dbs = "pfam",
         verbose = FALSE,
-    )
+   )
 )
 }
 \seealso{
