@@ -5,8 +5,7 @@
 #'   `treefam`, but a complete and updated list is available at
 #'   \url{https://www.ebi.ac.uk/Tools/hmmer/}.
 #' @param verbose A logical, if TRUE details of the download process is printed.
-#' @param timeout An integer specifying the number of seconds to wait for the
-#'  reply before a time out occurs.
+#' @param N.TRIES An integer specifying the number of trials before a time out occurs.
 #'
 #' @return A nested DataFrame with columns `seqs`, `dbs`, `url`
 #'  (HMMER temporary url), `hits`, `stats`, `domains` and,
@@ -24,13 +23,12 @@
 #'         seqs = "MTEITAAMVKELRESTGAGMMDCKN",
 #'         dbs = "pfam",
 #'         verbose = FALSE,
-#'         timeout = 15
 #'     )
 #' )
 search_hmmscan <- function(seqs,
     dbs = "pfam",
     verbose = TRUE,
-    timeout = 90) {
+    N.TRIES = 1) {
     # Check
     seqs <- deal_with_input_sequences(seqs)
     # all combinations of inputs
@@ -43,7 +41,8 @@ search_hmmscan <- function(seqs,
                 seq = .x,
                 hmmdb = .y,
                 url = "https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan",
-                verbose = TRUE
+                verbose = TRUE,
+                N.TRIES = N.TRIES
             )
         }
     ) %>%

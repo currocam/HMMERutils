@@ -8,8 +8,7 @@
 #' @param fullseqfasta  A logical, if TRUE full sequence fasta will be downloaded
 #'  as a AAStringSet. Package `Biostrings` must be installed in that case.
 #' @param verbose A logical, if TRUE details of the download process is printed.
-#' @param timeout An integer specifying the number of seconds to wait for the
-#'  reply before a time out occurs.
+#' @param N.TRIES An integer specifying the number of trials before a time out occurs.
 #' @param alignment A logical, if TRUE sequence alignment will be downloaded
 #'  as a `AAMultipleAlignment`. Package `Biostrings` must be installed in that case.#'
 #'
@@ -40,7 +39,7 @@ search_hmmsearch <- function(alns,
     dbs = "swissprot",
     fullseqfasta = TRUE,
     verbose = TRUE,
-    timeout = 90,
+    N.TRIES = 1,
     alignment = FALSE) {
     # Check
 
@@ -55,7 +54,8 @@ search_hmmsearch <- function(alns,
                 aln = .x,
                 seqdb = .y,
                 url = "https://www.ebi.ac.uk/Tools/hmmer/search/hmmsearch",
-                verbose = TRUE
+                verbose = TRUE,
+                N.TRIES = N.TRIES
             )
         }
     ) %>%

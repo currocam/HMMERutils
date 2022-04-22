@@ -11,7 +11,7 @@ search_jackhmmer(
   dbs = "swissprot",
   fullseqfasta = TRUE,
   verbose = TRUE,
-  timeout = 90,
+  N.TRIES = 1,
   alignment = FALSE
 )
 }
@@ -30,8 +30,7 @@ as a AAStringSet. Package \code{Biostrings} must be installed in that case.}
 
 \item{verbose}{A logical, if TRUE details of the download process is printed.}
 
-\item{timeout}{An integer specifying the number of seconds to wait for the
-reply before a time out occurs.}
+\item{N.TRIES}{An integer specifying the number of trials before a time out occurs.}
 
 \item{alignment}{A logical, if TRUE sequence alignment will be downloaded
 as a \code{AAMultipleAlignment}. Package \code{Biostrings} must be installed in that case.}

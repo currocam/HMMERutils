@@ -10,8 +10,7 @@
 #' @param fullseqfasta  A logical, if TRUE full sequence fasta will be downloaded
 #'  as a AAStringSet. Package `Biostrings` must be installed in that case.
 #' @param verbose A logical, if TRUE details of the download process is printed.
-#' @param timeout An integer specifying the number of seconds to wait for the
-#'  reply before a time out occurs.
+#' @param N.TRIES An integer specifying the number of trials before a time out occurs.
 #' @param alignment A logical, if TRUE sequence alignment will be downloaded
 #'  as a `AAMultipleAlignment`. Package `Biostrings` must be installed in that case.
 #' @return A nested DataFrame with columns `seqs`, `dbs`, `url`
@@ -35,7 +34,7 @@ search_jackhmmer <- function(seqs = NULL,
     dbs = "swissprot",
     fullseqfasta = TRUE,
     verbose = TRUE,
-    timeout = 90,
+    N.TRIES = 1,
     alignment = FALSE) {
     if (all(!is.null(seqs), !is.null(alns))) {
         stop(
@@ -61,7 +60,8 @@ search_jackhmmer <- function(seqs = NULL,
                     seq = .x,
                     seqdb = .y,
                     url = "https://www.ebi.ac.uk/Tools/hmmer/search/jackhmmer",
-                    verbose = TRUE
+                    verbose = TRUE,
+                    N.TRIES = N.TRIES
                 )
             }
         )
@@ -75,7 +75,8 @@ search_jackhmmer <- function(seqs = NULL,
                     aln = .x,
                     seqdb = .y,
                     url = "https://www.ebi.ac.uk/Tools/hmmer/search/jackhmmer",
-                    verbose = TRUE
+                    verbose = TRUE,
+                    N.TRIES = N.TRIES
                 )
             }
         )

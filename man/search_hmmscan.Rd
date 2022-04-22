@@ -4,7 +4,7 @@
 \alias{search_hmmscan}
 \title{hmmscan search of a protein sequence against a profile-HMM database.}
 \usage{
-search_hmmscan(seqs, dbs = "pfam", verbose = TRUE, timeout = 90)
+search_hmmscan(seqs, dbs = "pfam", verbose = TRUE, N.TRIES = 1)
 }
 \arguments{
 \item{seqs}{A vector of characters containing the sequences of the query.}
@@ -16,8 +16,7 @@ used databases are \code{pfam}, \code{tigrfam} \code{gene3d}, \code{superfamily}
 
 \item{verbose}{A logical, if TRUE details of the download process is printed.}
 
-\item{timeout}{An integer specifying the number of seconds to wait for the
-reply before a time out occurs.}
+\item{N.TRIES}{An integer specifying the number of trials before a time out occurs.}
 }
 \value{
 A nested DataFrame with columns \code{seqs}, \code{dbs}, \code{url}
@@ -33,7 +32,6 @@ try(
         seqs = "MTEITAAMVKELRESTGAGMMDCKN",
         dbs = "pfam",
         verbose = FALSE,
-        timeout = 15
     )
 )
 }

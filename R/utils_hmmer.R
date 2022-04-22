@@ -47,6 +47,9 @@ deal_with_input_aln <- function(alns) {
 }
 
 AAMultipleAlignment_to_string <- function(alns) {
+    if (!is.list(alns)) {
+        alns <- list(alns)
+    }
     alns %>%
         purrr::map_chr(~ {
             aln.chr <- .x %>%

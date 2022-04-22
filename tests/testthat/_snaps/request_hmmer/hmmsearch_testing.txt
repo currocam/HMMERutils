@@ -1,0 +1,68 @@
+<opt>
+  <data name="results" algo="hmmsearch" uuid="58C1D126-C247-11EC-8CE1-B15CF75AEC3D">
+    <_internal highevalue="1.8e-22" lowevalue="2.0e-19" />
+    <hits name="1914_A" acc="1914_A" arch="PF02290.18 PF05486.15" archScore="4" archindex="24777489586821 10090" bias="0.5" desc="SIGNAL RECOGNITION PARTICLE 9/14 FUSION PROTEIN" evalue="1.8e-22" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/1914_A" flags="3" kg="Eukaryota" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Chordata" pvalue="-63.2749469744794" score="83.3" sindex="269759133" species="Mus musculus" taxid="10090" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+      <domains aliId="0.488888888888889" aliIdCount="22" aliL="232" aliM="45" aliN="45" aliSim="1" aliSimCount="45" aliaseq="FQTWEEFSRAAEKLYLADPMKVRVVLKYRHVDGNLCIKVTDDLVC" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="1" alihmmname="Query" alihmmto="45" alimline="++t+ee+++aaek+ylad++k++vv+k++++dg++++kv+ddl++" alimmline="" alimodel="eetqeeeefaaekeyladadklkvvvklkyrdgdkylkvkddlda" aliniseqs="1" alintseq="" alippline="8*******************************************9" alirfline="" alisindex="269759133" alisqacc="1914_A" alisqdesc="SIGNAL RECOGNITION PARTICLE 9/14 FUSION PROTEIN" alisqfrom="150" alisqname="1914_A" alisqto="194" bias="0.50" bitscore="82.5086517333984" cevalue="5.3e-27" iali="150" ienv="150" ievalue="3.2e-22" is_included="1" is_reported="1" jali="194" jenv="194" oasc="0.99" />
+      <pdbs>1914_A</pdbs>
+    </hits>
+    <hits name="1ry1_C" acc="1ry1_C" arch="PF05486.15" archScore="2" archindex="21573861115538 9615" bias="0.6" desc="SRP9" evalue="6.0e-20" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/1ry1_C" flags="3" kg="Eukaryota" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Chordata" pvalue="-57.4702095625934" score="75.3" sindex="264165809" species="Canis lupus familiaris" taxid="9615" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+      <domains aliId="0.5" aliIdCount="22" aliL="85" aliM="45" aliN="44" aliSim="0.954545454545455" aliSimCount="42" aliaseq="QTWEEFSRAAEKLYLADPMKARVVLKYRHSDGNLCVKVTDDLVC" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="2" alihmmname="Query" alihmmto="45" alimline="+t+ee+++aaek+ylad++k +vv+k+++ dg++++kv+ddl++" alimmline="" alimodel="etqeeeefaaekeyladadklkvvvklkyrdgdkylkvkddlda" aliniseqs="1" alintseq="" alippline="88999999999999999999999999999999999999999998" alirfline="" alisindex="264165809" alisqacc="1ry1_C" alisqdesc="SRP9" alisqfrom="4" alisqname="1ry1_C" alisqto="47" bias="0.59" bitscore="74.6625061035156" cevalue="1.5e-24" iali="4" ienv="2" ievalue="9.4e-20" is_included="1" is_reported="1" jali="47" jenv="47" oasc="0.85" />
+      <pdbs>1ry1_C</pdbs>
+    </hits>
+    <hits name="1e8o_A" acc="1e8o_A" arch="PF05486.15" archScore="2" archindex="21573861115538 9606" bias="0.6" desc="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" evalue="6.0e-20" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/1e8o_A" flags="3" kg="Eukaryota" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Chordata" pvalue="-57.4702095625934" score="75.3" sindex="269221161" species="Homo sapiens" taxid="9606" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+      <domains aliId="0.5" aliIdCount="22" aliL="85" aliM="45" aliN="44" aliSim="0.954545454545455" aliSimCount="42" aliaseq="QTWEEFSRAAEKLYLADPMKARVVLKYRHSDGNLCVKVTDDLVC" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="2" alihmmname="Query" alihmmto="45" alimline="+t+ee+++aaek+ylad++k +vv+k+++ dg++++kv+ddl++" alimmline="" alimodel="etqeeeefaaekeyladadklkvvvklkyrdgdkylkvkddlda" aliniseqs="3" alintseq="" alippline="88999999999999999999999999999999999999999998" alirfline="" alisindex="269221161" alisqacc="1e8o_A" alisqdesc="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" alisqfrom="4" alisqname="1e8o_A" alisqto="47" bias="0.59" bitscore="74.6625061035156" cevalue="1.5e-24" iali="4" ienv="2" ievalue="9.4e-20" is_included="1" is_reported="1" jali="47" jenv="47" oasc="0.85" />
+      <pdbs>1e8s_A</pdbs>
+      <pdbs>1e8o_C</pdbs>
+      <pdbs>1e8o_A</pdbs>
+      <seqs an="" de="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" dn="1e8o_C" sp="Homo sapiens" />
+      <seqs an="" de="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" dn="1e8s_A" sp="Homo sapiens" />
+    </hits>
+    <hits name="4uyj_A" acc="4uyj_A" arch="PF05486.15" archScore="2" archindex="21573861115538 9606" bias="0.6" desc="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" evalue="6.0e-20" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/4uyj_A" flags="3" kg="Eukaryota" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Chordata" pvalue="-57.4639230426286" score="75.3" sindex="269114718" species="Homo sapiens" taxid="9606" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+      <domains aliId="0.5" aliIdCount="22" aliL="85" aliM="45" aliN="44" aliSim="0.954545454545455" aliSimCount="42" aliaseq="QTWEEFSRAAEKLYLADPMKARVVLKYRHSDGNLCVKVTDDLVC" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="2" alihmmname="Query" alihmmto="45" alimline="+t+ee+++aaek+ylad++k +vv+k+++ dg++++kv+ddl++" alimmline="" alimodel="etqeeeefaaekeyladadklkvvvklkyrdgdkylkvkddlda" aliniseqs="3" alintseq="" alippline="88999999999999999999999999999999999999999998" alirfline="" alisindex="269114718" alisqacc="4uyj_A" alisqdesc="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" alisqfrom="5" alisqname="4uyj_A" alisqto="48" bias="0.59" bitscore="74.6625061035156" cevalue="1.5e-24" iali="5" ienv="3" ievalue="9.4e-20" is_included="1" is_reported="1" jali="48" jenv="48" oasc="0.85" />
+      <pdbs>4uyk_A</pdbs>
+      <pdbs>4uyj_A</pdbs>
+      <pdbs>4uyj_C</pdbs>
+      <seqs an="" de="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" dn="4uyj_C" sp="Homo sapiens" />
+      <seqs an="" de="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" dn="4uyk_A" sp="Homo sapiens" />
+    </hits>
+    <hits name="7nfx_w" acc="7nfx_w" arch="PF05486.15" archScore="2" archindex="21573861115538 9606" bias="0.6" desc="Signal recognition particle 9 kDa protein" evalue="6.2e-20" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/7nfx_w" flags="3" kg="Eukaryota" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Chordata" pvalue="-57.4392074707215" score="75.2" sindex="269164169" species="Homo sapiens" taxid="9606" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+      <domains aliId="0.5" aliIdCount="22" aliL="86" aliM="45" aliN="44" aliSim="0.954545454545455" aliSimCount="42" aliaseq="QTWEEFSRAAEKLYLADPMKARVVLKYRHSDGNLCVKVTDDLVC" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="2" alihmmname="Query" alihmmto="45" alimline="+t+ee+++aaek+ylad++k +vv+k+++ dg++++kv+ddl++" alimmline="" alimodel="etqeeeefaaekeyladadklkvvvklkyrdgdkylkvkddlda" aliniseqs="1" alintseq="" alippline="88999999999999999999999999999999999999999998" alirfline="" alisindex="269164169" alisqacc="7nfx_w" alisqdesc="Signal recognition particle 9 kDa protein" alisqfrom="5" alisqname="7nfx_w" alisqto="48" bias="0.59" bitscore="74.6198883056641" cevalue="1.6e-24" iali="5" ienv="3" ievalue="9.7e-20" is_included="1" is_reported="1" jali="48" jenv="48" oasc="0.85" />
+      <pdbs>5aox_D</pdbs>
+      <pdbs>1e8s_A</pdbs>
+      <pdbs>1e8o_C</pdbs>
+      <pdbs>4uyj_C</pdbs>
+      <pdbs>5aox_A</pdbs>
+      <pdbs>7nfx_w</pdbs>
+      <pdbs>1ry1_C</pdbs>
+      <pdbs>4uyk_A</pdbs>
+      <pdbs>4uyj_A</pdbs>
+      <pdbs>1e8o_A</pdbs>
+    </hits>
+    <hits name="4ue5_E" acc="4ue5_E" arch="PF05486.15" archScore="2" archindex="21573861115538 9615" bias="0.2" desc="SRP9" evalue="9.2e-20" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/4ue5_E" flags="3" kg="Eukaryota" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Chordata" pvalue="-57.0430463262873" score="74.7" sindex="264112090" species="Canis lupus familiaris" taxid="9615" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+      <domains aliId="0.5" aliIdCount="22" aliL="74" aliM="45" aliN="44" aliSim="0.931818181818182" aliSimCount="41" aliaseq="QTWEEFSRAAEKLYLADPMKARVVLKYRHSDGSLCIKVTDDLVC" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="2" alihmmname="Query" alihmmto="45" alimline="+t+ee+++aaek+ylad++k +vv+k+++ dg +++kv+ddl++" alimmline="" alimodel="etqeeeefaaekeyladadklkvvvklkyrdgdkylkvkddlda" aliniseqs="2" alintseq="" alippline="9******************************************9" alirfline="" alisindex="264112090" alisqacc="4ue5_E" alisqdesc="SRP9" alisqfrom="4" alisqname="4ue5_E" alisqto="47" bias="0.24" bitscore="74.1265563964844" cevalue="2.3e-24" iali="4" ienv="3" ievalue="1.4e-19" is_included="1" is_reported="1" jali="47" jenv="47" oasc="0.98" />
+      <pdbs>4ue5_E</pdbs>
+      <pdbs>6frk_w</pdbs>
+      <seqs an="" de="Signal recognition particle 9 kDa protein" dn="6frk_w" sp="Canis lupus familiaris" />
+    </hits>
+    <hits name="7obr_w" acc="7obr_w" arch="PF05486.15" archScore="2" archindex="21573861115538 9615" bias="0.2" desc="Signal recognition particle 9 kDa protein" evalue="1.3e-19" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/7obr_w" flags="3" kg="Eukaryota" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Chordata" pvalue="-56.6826725351906" score="74.2" sindex="264088579" species="Canis lupus familiaris" taxid="9615" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+      <domains aliId="0.5" aliIdCount="22" aliL="86" aliM="45" aliN="44" aliSim="0.931818181818182" aliSimCount="41" aliaseq="QTWEEFSRAAEKLYLADPMKARVVLKYRHSDGSLCIKVTDDLVC" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="2" alihmmname="Query" alihmmto="45" alimline="+t+ee+++aaek+ylad++k +vv+k+++ dg +++kv+ddl++" alimmline="" alimodel="etqeeeefaaekeyladadklkvvvklkyrdgdkylkvkddlda" aliniseqs="1" alintseq="" alippline="9******************************************9" alirfline="" alisindex="264088579" alisqacc="7obr_w" alisqdesc="Signal recognition particle 9 kDa protein" alisqfrom="5" alisqname="7obr_w" alisqto="48" bias="0.24" bitscore="73.5577087402344" cevalue="3.4e-24" iali="5" ienv="4" ievalue="2.1e-19" is_included="1" is_reported="1" jali="48" jenv="48" oasc="0.98" />
+      <pdbs>4ue5_E</pdbs>
+      <pdbs>7obr_w</pdbs>
+      <pdbs>6frk_w</pdbs>
+    </hits>
+    <hits name="5aox_A" acc="5aox_A" arch="PF05486.15" archScore="2" archindex="21573861115538 9606" bias="0.2" desc="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" evalue="2.0e-19" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/5aox_A" flags="3" kg="Eukaryota" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Chordata" pvalue="-56.2619282828345" score="73.6" sindex="269041985" species="Homo sapiens" taxid="9606" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+      <domains aliId="0.452380952380952" aliIdCount="19" aliL="85" aliM="45" aliN="42" aliSim="0.928571428571429" aliSimCount="39" aliaseq="YQTWEEFSRAAEKLYLADPMKARVVLKYRHSDGNLCVKVTDD" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="3" alihmmname="Query" alihmmto="44" alimline="+q++eef +++e+l++ad++k +v+lkyr+ d++l+vk+++d" alimmline="" alimodel="tqeeeefaaekeyladadklkvvvklkyrdgdkylkvkddld" aliniseqs="2" alintseq="" alippline="555555555555555555555555555555555555555555" alirfline="" alisindex="269041985" alisqacc="5aox_A" alisqdesc="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" alisqfrom="3" alisqname="5aox_A" alisqto="44" bias="0.21" bitscore="72.868278503418" cevalue="5.6e-24" iali="3" ienv="2" ievalue="3.4e-19" is_included="1" is_reported="1" jali="44" jenv="47" oasc="0.53" />
+      <pdbs>5aox_A</pdbs>
+      <pdbs>5aox_D</pdbs>
+      <seqs an="" de="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" dn="5aox_D" sp="Homo sapiens" />
+    </hits>
+    <hits name="3iru_A" acc="3iru_A" arch="PF13419.9" archScore="1" archindex="1952039385149 188908" bias="0.0" desc="phoshonoacetaldehyde hydrolase like protein" evalue="0.18" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/3iru_A" flags="2" kg="Bacteria" ndom="1" nincluded="0" niseqs="16" nregions="1" nreported="1" ph="Proteobacteria" pvalue="-14.9508309014925" score="16.5" sindex="14753796" species="Oleispira antarctica" taxid="188908" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+      <domains aliId="0.333333333333333" aliIdCount="8" aliL="277" aliM="45" aliN="24" aliSim="0.791666666666667" aliSimCount="19" aliaseq="MALKVALELEVGHVNGCIKVDDTL" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="20" alihmmname="Query" alihmmto="43" alimline="+ lkv++ l + ++++++kv d+l" alimmline="" alimodel="dklkvvvklkyrdgdkylkvkddl" aliniseqs="2" alintseq="" alippline="679******************997" alirfline="" alisindex="14753796" alisqacc="3iru_A" alisqdesc="phoshonoacetaldehyde hydrolase like protein" alisqfrom="173" alisqname="3iru_A" alisqto="196" bias="0.02" bitscore="15.645209312439" cevalue="5.4e-06" iali="173" ienv="172" ievalue="0.33" is_included="0" is_reported="1" jali="196" jenv="198" oasc="0.92" />
+      <pdbs>3iru_B</pdbs>
+      <pdbs>3iru_A</pdbs>
+      <seqs an="" de="phoshonoacetaldehyde hydrolase like protein" dn="3iru_B" sp="Oleispira antarctica" />
+    </hits>
+    <stats Z="546676" Z_setby="0" domZ="9" domZ_setby="0" elapsed="0.01" n_past_bias="2404" n_past_fwd="9" n_past_msv="3005" n_past_vit="147" nhits="9" nincluded="8" nmodels="1" nreported="9" nseqs="546676" page="1" sys="0" total="1" unpacked="9" user="0" />
+  </data>
+</opt>
+

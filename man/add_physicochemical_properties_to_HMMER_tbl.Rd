@@ -19,6 +19,6 @@ using the \code{Peptides} library
 }
 \examples{
 data(ABL1_homologous)
-data <- ABL1_homologous[1:5,] \%>\%
+data <- ABL1_homologous[1:5, ] \%>\%
     add_physicochemical_properties_to_HMMER_tbl()
 }
