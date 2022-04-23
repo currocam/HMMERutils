@@ -57,7 +57,7 @@ search_hmmsearch <- function(
   ) %>%
       parse_xml_into_tbl()
   names_seq <- NULL
-  if (!is.null(seq_names)) {
+  if (!is.null(aln_names)) {
     names_seq <- grid$seq.name
   }
   create_hmmer_AnnotatedDataFrame(grid, names_seq, tbl_list,type = "hmmsearch")

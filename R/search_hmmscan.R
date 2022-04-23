@@ -54,7 +54,7 @@ search_hmmscan <- function(
             )
         }
     ) %>%
-        parse_xml_into_tbl()
+        parse_xml_into_tbl(type = "hmmscan")
     names_seq <- NULL
     if (!is.null(seq_names)) {
       names_seq <- grid$seq.name

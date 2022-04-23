@@ -1,4 +1,4 @@
-parse_xml_into_tbl <- function(hmm) {
+parse_xml_into_tbl <- function(hmm, type = "default") {
     hmm %>%
         purrr::map(
             purrr::possibly(
@@ -19,9 +19,7 @@ parse_xml_into_tbl <- function(hmm) {
                         "stats" = parse_hash_xml(xml, "///stats"),
                         "hits" = parse_hash_xml(xml, "///hits"),
                         "domains" = parse_hash_xml(xml, "///domains") %>%
-                            {
-                                if (is(., "list")) purrr::flatten_dfr(.) else .
-                            }
+                          {if(type != "default") purrr::flatten_dfr(.) else .}
                     )
                 }
             )

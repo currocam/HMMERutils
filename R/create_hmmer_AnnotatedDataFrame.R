@@ -14,7 +14,8 @@ create_hmmer_AnnotatedDataFrame <- function(grid, names_seq, tbl_list, type) {
     Biobase::AnnotatedDataFrame(
         data = df[metaData$label],
         varMetadata = metaData %>%
-            dplyr::select("labelDescription")
+            dplyr::select("labelDescription") %>%
+          dplyr::mutate("algorithm" = type)
     )
 }
 
