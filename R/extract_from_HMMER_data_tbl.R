@@ -1,4 +1,4 @@
-#' A function that extracts information from an `AnnotatedDataFrame` obtained
+#' A function that extracts information from an `AnnotatedDataFrame`
 #'   obtained through the `search` family of functions or `read_hmmer_from_xml`
 #'   and returns a Tidy `AnnotatedDataFrame`.
 #'
@@ -14,7 +14,7 @@
 #'
 #' @examples
 #' xml_path <- system.file(
-#'     "/extdata/ABL_TYROSINE_KINASE.xml",
+#'     "/extdata/xml_example",
 #'     package = "HMMERutils"
 #' )
 #' data <- read_hmmer_from_xml(xml_path) %>%
@@ -48,7 +48,7 @@ extract_from_HMMER_data_tbl <- function(HMMER_data_tbl) {
 }
 
 check_AnnotatedDataFrame <- function(AnnotatedDataFrame) {
-    if (!inherits(AnnotatedDataFrame, "AnnotatedDataFrame") || !validObject(AnnotatedDataFrame)) {
+    if (!inherits(AnnotatedDataFrame, "AnnotatedDataFrame") || !methods::validObject(AnnotatedDataFrame)) {
         stop("extract_from_HMMER_data_tbl requires a 'HMMER_data_tbl' object")
     }
 }
@@ -56,7 +56,7 @@ check_AnnotatedDataFrame <- function(AnnotatedDataFrame) {
 create_tidy_hmmer_AnnotatedDataFrame <- function(HMMER_data_tbl_df){
   metaData <- system.file(
     "extdata/label_hmmer_descriptions.csv",package = "HMMERutils") %>%
-    read.csv() %>%
+    utils::read.csv() %>%
     dplyr::filter(.data$label %in% colnames(HMMER_data_tbl_df))
   Biobase::AnnotatedDataFrame(
     data = HMMER_data_tbl_df[metaData$label],

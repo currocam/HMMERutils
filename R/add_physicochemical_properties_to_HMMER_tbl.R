@@ -1,23 +1,34 @@
-#' Add EMBOSS-inspired theoretical physicochemical properties
-#'     using the `Peptides` library
+#' Add EMBOSS-inspired theoretical physicochemical properties.
+#'     using the `Peptides` library to an `AnnotatedDataFrame`
 #'
-#' @param HMMER_tidy_tbl A `HMMER_tidy_tbl`.
+#' @param HMMER_tidy_tbl An `AnnotatedDataFrame` obtained through
+#'   `extract_from_HMMER_data_tbl` and `add_fullseq_to_HMMER_tbl`.
 #'
-#' @return A `HMMER_tidy_tbl`.
+#' @return An `AnnotatedDataFrame` with new columns with the theoretical physicochemical properties
 #' @export
 #'
 #' @examples
-#' data(ABL1_homologous)
-#' data <- ABL1_homologous[1:5, ] %>%
+#' data(fullfasta_HMMER_tbl)
+#' data <- fullfasta_HMMER_tbl %>%
 #'     add_physicochemical_properties_to_HMMER_tbl()
+#'
 add_physicochemical_properties_to_HMMER_tbl <- function(HMMER_tidy_tbl) {
-    HMMER_tidy_tbl$hits.fullseq.fasta %>%
-        calculate_physicochemical_properties() %>%
-        dplyr::rename_with(~ paste0("properties.", .)) %>%
-        dplyr::right_join(
-            HMMER_tidy_tbl,
-            by = c("properties.seqs" = "hits.fullseq.fasta")
-        ) %>%
-        dplyr::select(-c("properties.id")) %>%
-        dplyr::rename("hits.fullseq.fasta" = "properties.seqs")
+   properties <-  HMMER_tidy_tbl$hits.fullfasta %>%
+     magrittr::set_names(HMMER_tidy_tbl$hits.name) %>%
+     na.omit() %>%
+     calculate_physicochemical_properties() %>%
+     dplyr::rename_with(~ paste0("properties.", .)) %>%
+     dplyr::select(-c("properties.id"))
+   metaData <- system.file(
+     "extdata/label_hmmer_descriptions.csv",package = "HMMERutils") %>%
+     utils::read.csv() %>%
+     dplyr::filter(.data$label %in% colnames(properties)) %>%
+     tibble::column_to_rownames("label")
+   df <- Biobase::pData(HMMER_tidy_tbl) %>%
+     dplyr::left_join(
+       properties,
+       by = c("hits.fullfasta" = "properties.seqs"))
+   Biobase::AnnotatedDataFrame(
+     data = df,
+     varMetadata = rbind(Biobase::varMetadata(HMMER_tidy_tbl), metaData))
 }

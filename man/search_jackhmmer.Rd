@@ -10,7 +10,6 @@ search_jackhmmer(
   alns = NULL,
   seq_or_aln_names = NULL,
   dbs = "swissprot",
-  fullseqfasta = TRUE,
   verbose = TRUE,
   N.TRIES = 1
 )
@@ -21,6 +20,10 @@ any other object that can be converted to that.}
 
 \item{alns}{A Biostrings::AAMultipleAlignment or a list of
 Biostrings::AAMultipleAlignment.}
+
+\item{seq_or_aln_names}{A character vector containing the names of the
+sequences or the alignments. If \code{alns} or \code{seqs} are named,it will
+overwrite them. If not specified, they  will not be taken into account.}
 
 \item{dbs}{A character vector containing the target databases. Frequently
 used databases are \code{swissprot}, \code{uniprotrefprot}, \code{uniprotkb}, \code{ensembl},
@@ -60,7 +63,7 @@ alns <- Biostrings::readAAMultipleAlignment(path_to_example_aln)
 jackhmmer_tbl_using_aln <- search_jackhmmer(
   alns = alns,
   dbs = "pdb",
-  verbose = FALSE)
+  verbose = TRUE)
 jackhmmer_tbl_using_aln
 Biobase::varMetadata(jackhmmer_tbl_using_aln)
 }

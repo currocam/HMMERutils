@@ -2,6 +2,9 @@
 #'
 #' @param alns A Biostrings::AAMultipleAlignment or a list of
 #'   Biostrings::AAMultipleAlignment.
+#' @param aln_names A character vector containing the names of the aligments.
+#' If `alns` is a named list it will overwrite them. If not specified, they
+#' will not be taken into account.
 #' @param dbs A character vector containing the target databases. Frequently
 #'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`, `ensembl`,
 #'  `pdb` and `alphafold`, but a complete and updated list is available at

@@ -1,9 +1,9 @@
 test_that("plot works", {
-    data(ABL1_homologous)
+    data(example_phmmer)
     vdiffr::expect_doppelganger(
         "A cleveland_dot_plot",
         hmmer_evalues_cleveland_dot_plot(
-            ABL1_homologous,
+          example_phmmer,
             threshold = 0.001
         )
     )

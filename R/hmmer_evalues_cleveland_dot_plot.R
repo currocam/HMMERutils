@@ -1,6 +1,7 @@
 #' A Cleveland dot plot with the evalues of the domains and sequences.
 #'
-#' @param HMMER_tidy_tbl A `HMMER_tidy_tbl`.
+#' @param HMMER_tidy_tbl An `AnnotatedDataFrame` obtained through
+#'   `extract_from_HMMER_data_tbl`.
 #' @param threshold A numeric vector of one with a maximum allowed value
 #'    of evalue to draw a line.
 #'
@@ -8,16 +9,18 @@
 #' @export
 #'
 #' @examples
-#' data("ABL1_homologous")
+#' data("example_phmmer")
 #' hmmer_evalues_cleveland_dot_plot(
-#'     ABL1_homologous,
+#'     example_phmmer,
 #'     threshold = 0.001
 #' )
 #'
 hmmer_evalues_cleveland_dot_plot <- function(HMMER_tidy_tbl,
     threshold = 0.01) {
-    df <- HMMER_tidy_tbl %>%
-        dplyr::group_by(.data$id, .data$hits.name, .data$hits.acc) %>%
+  check_AnnotatedDataFrame(HMMER_tidy_tbl)
+  pdata <- Biobase::pData(HMMER_tidy_tbl)
+    df <- pdata %>%
+        dplyr::group_by(.data$uuid, .data$hits.name, .data$hits.acc) %>%
         dplyr::mutate("best.ievalue" = min(.data$domains.ievalue)) %>%
         dplyr::ungroup()
     p <- df %>%

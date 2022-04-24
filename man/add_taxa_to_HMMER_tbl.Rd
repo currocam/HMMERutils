@@ -7,24 +7,29 @@
 add_taxa_to_HMMER_tbl(HMMER_tidy_tbl, mode = "remote", rank_vc = NULL)
 }
 \arguments{
-\item{HMMER_tidy_tbl}{A \code{HMMER_tidy_tbl}.}
+\item{HMMER_tidy_tbl}{An \code{AnnotatedDataFrame} obtained through
+\code{extract_from_HMMER_data_tbl}.}
 
-\item{mode}{A character vector, if "local" will use a local database instead of remote resources.  You will not have to download the database but it is slower.}
+\item{mode}{Either "local" or "remote". If "local" you will use a local
+database instead of remote resources.  You will not have to download the
+database but it is slower.}
 
-\item{rank_vc}{A character vector containing the desired taxonomic ranks. If empty, all available taxonomic ranges will be retrieved.}
+\item{rank_vc}{A character vector containing the desired taxonomic ranks.
+If empty, all available taxonomic ranges will be retrieved.}
 }
 \value{
-A \code{HMMER_tidy_tbl}.
+An \code{AnnotatedDataFrame} with new taxonomic parameters.
 }
 \description{
 Add taxonomic information to an HMMER_tidy_tbl using \code{annotate_with_NCBI_taxid}.
 }
 \examples{
 xml_path <- system.file(
-    "/extdata/ABL_TYROSINE_KINASE.xml",
+    "/extdata/xml_example.xml",
     package = "HMMERutils"
 )
-data <- read_hmmer_from_xml(xml_path) \%>\%
+taxa_HMMER_tbl <- read_hmmer_from_xml(xml_path, algorithm = "phmmer")\%>\%
     extract_from_HMMER_data_tbl() \%>\%
     add_taxa_to_HMMER_tbl(mode = "local")
+taxa_HMMER_tbl
 }

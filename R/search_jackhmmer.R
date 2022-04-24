@@ -5,6 +5,9 @@
 #'  any other object that can be converted to that.
 #' @param alns A Biostrings::AAMultipleAlignment or a list of
 #'   Biostrings::AAMultipleAlignment.
+#' @param seq_or_aln_names A character vector containing the names of the
+#' sequences or the alignments. If `alns` or `seqs` are named,it will
+#' overwrite them. If not specified, they  will not be taken into account.
 #' @param dbs A character vector containing the target databases. Frequently
 #'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`, `ensembl`,
 #'  `pdb` and `alphafold`, but a complete and updated list is available at
@@ -45,7 +48,6 @@ search_jackhmmer <- function(
     alns = NULL,
     seq_or_aln_names = NULL,
     dbs = "swissprot",
-    fullseqfasta = TRUE,
     verbose = TRUE,
     N.TRIES = 1) {
     if (all(!is.null(seqs), !is.null(alns))) {
