@@ -1,5 +1,5 @@
 test_that("local (i.e. no database reference) works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "lcl|123",
             "lcl|hmm271 description"
@@ -13,7 +13,7 @@ test_that("local (i.e. no database reference) works", {
         )
 })
 test_that("GenInfo backbone seqid  works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "bbs|123 ",
             "bbs|123 "
@@ -27,7 +27,7 @@ test_that("GenInfo backbone seqid  works", {
         )
 })
 test_that("GenInfo backbone moltype   works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "bbm|123",
             "bbm|123 "
@@ -41,7 +41,7 @@ test_that("GenInfo backbone moltype   works", {
         )
 })
 test_that("GenInfo import ID  works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "gim|123",
             "gim|123"
@@ -55,7 +55,7 @@ test_that("GenInfo import ID  works", {
         )
 })
 test_that("GenBank works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "gb|M73307|AGMA13GT",
             "gb|M73307|AGMA13GT"
@@ -69,7 +69,7 @@ test_that("GenBank works", {
         )
 })
 test_that("EMBL works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "emb|CAM43271.1|",
             "emb|CAM43271.1|"
@@ -83,7 +83,7 @@ test_that("EMBL works", {
         )
 })
 test_that("PIR works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "pir||G36364",
             "pir||G36364"
@@ -97,7 +97,7 @@ test_that("PIR works", {
         )
 })
 test_that("SWISS-PROT works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "sp|P01013|OVAX_CHICK",
             "sp|P01013|OVAX_CHICK description"
@@ -111,7 +111,7 @@ test_that("SWISS-PROT works", {
         )
 })
 test_that("patent works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "pat|US|RE33188|1",
             "pat|US|RE33188|1"
@@ -125,7 +125,7 @@ test_that("patent works", {
         )
 })
 test_that("pre-grant patent  works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "pgp|EP|0238993|7",
             "pgp|EP|0238993|7"
@@ -139,7 +139,7 @@ test_that("pre-grant patent  works", {
         )
 })
 test_that("RefSeq works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "ref|NM_010450.1|",
             "ref|NM_010450.1|"
@@ -153,7 +153,7 @@ test_that("RefSeq works", {
         )
 })
 test_that("general database referenceworks ", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "gnl|taxon|9606",
             "gnl|PID|e1632"
@@ -167,7 +167,7 @@ test_that("general database referenceworks ", {
         )
 })
 test_that("GenInfo integrated database  works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "gi|21434723",
             "gi|21434723"
@@ -181,7 +181,7 @@ test_that("GenInfo integrated database  works", {
         )
 })
 test_that("DDBJworks", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "dbj|BAC85684.1|",
             "dbj|BAC85684.1|"
@@ -195,7 +195,7 @@ test_that("DDBJworks", {
         )
 })
 test_that("PRF works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "prf||0806162C",
             " prf||0806162C"
@@ -209,7 +209,7 @@ test_that("PRF works", {
         )
 })
 test_that("pdb works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "pdb|1I4L|D",
             "pdb|1I4L|D"
@@ -223,7 +223,7 @@ test_that("pdb works", {
         )
 })
 test_that("third-party GenBank works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "tpg|BK003456|",
             "tpg|BK003456|"
@@ -237,7 +237,7 @@ test_that("third-party GenBank works", {
         )
 })
 test_that("third-party EMBL works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "tpe|BN000123|",
             "tpe|BN000123|"
@@ -251,7 +251,7 @@ test_that("third-party EMBL works", {
         )
 })
 test_that("third-party DDBJ works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "tpd|FAA00017|",
             "tpd|FAA00017|"
@@ -265,7 +265,7 @@ test_that("third-party DDBJ works", {
         )
 })
 test_that("TrEMBL works", {
-    parse_NCBI_FASTA_sequence_identifiers(
+    parse_FASTA_sequence_identifiers(
         c(
             "tr|Q90RT2|Q90RT2_9HIV1",
             "tr|Q90RT2|Q90RT2_9HIV1"
