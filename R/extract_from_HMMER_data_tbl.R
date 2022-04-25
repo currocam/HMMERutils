@@ -49,10 +49,9 @@ extract_from_HMMER_data_tbl <- function(HMMER_data_tbl) {
 
 check_AnnotatedDataFrame <- function(AnnotatedDataFrame) {
     if (!inherits(AnnotatedDataFrame, "AnnotatedDataFrame") || !methods::validObject(AnnotatedDataFrame)) {
-        stop("extract_from_HMMER_data_tbl requires a 'HMMER_data_tbl' object")
+        stop("extract_from_HMMER_data_tbl requires a 'AnnotatedDataFrame' object")
     }
 }
-
 create_tidy_hmmer_AnnotatedDataFrame <- function(HMMER_data_tbl_df){
   metaData <- system.file(
     "extdata/label_hmmer_descriptions.csv",package = "HMMERutils") %>%
