@@ -24,10 +24,10 @@ obtained through the \code{search} family of functions or \code{read_hmmer_from_
 and returns a Tidy \code{AnnotatedDataFrame}.
 }
 \examples{
-xml_path <- system.file(
-    "/extdata/xml_example",
+path_to_xml_file <- system.file(
+    "/extdata/xml_example.xml",
     package = "HMMERutils"
 )
-data <- read_hmmer_from_xml(xml_path) \%>\%
+data <- read_hmmer_from_xml(path_to_xml_file) \%>\%
     extract_from_HMMER_data_tbl()
 }

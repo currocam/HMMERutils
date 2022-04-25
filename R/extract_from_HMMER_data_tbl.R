@@ -13,11 +13,11 @@
 #' @export
 #'
 #' @examples
-#' xml_path <- system.file(
-#'     "/extdata/xml_example",
+#' path_to_xml_file <- system.file(
+#'     "/extdata/xml_example.xml",
 #'     package = "HMMERutils"
 #' )
-#' data <- read_hmmer_from_xml(xml_path) %>%
+#' data <- read_hmmer_from_xml(path_to_xml_file) %>%
 #'     extract_from_HMMER_data_tbl()
 extract_from_HMMER_data_tbl <- function(HMMER_data_tbl) {
   check_AnnotatedDataFrame(HMMER_data_tbl)

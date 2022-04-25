@@ -33,7 +33,7 @@ retrieve_hmmer_metadata <- function(colnames_vc) {
         "URL with HMMER results score",
         "The stats hash",
         "Array of sequence hashes",
-        "Array of sequence domains",
+        "Array of sequence domains hashes",
         "A plain text file containing the hit alignments and scores.",
         "A tab delimited text file containing the hit information. No alignments.",
         "An XML file formatted for machine parsing of the data.",

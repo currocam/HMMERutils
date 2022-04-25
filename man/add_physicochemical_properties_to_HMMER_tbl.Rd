@@ -19,8 +19,8 @@ Add EMBOSS-inspired theoretical physicochemical properties.
 using the \code{Peptides} library to an \code{AnnotatedDataFrame}
 }
 \examples{
-data(fullfasta_HMMER_tbl)
-data <- fullfasta_HMMER_tbl \%>\%
+data(example_phmmer)
+example_phmmer_with_physicochemical_properties <- example_phmmer \%>\%
     add_physicochemical_properties_to_HMMER_tbl()
-
+example_phmmer_with_physicochemical_properties
 }

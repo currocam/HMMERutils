@@ -17,7 +17,7 @@
 #' )
 #' read_hmmer_tbl <- read_hmmer_from_xml(xml_path, algorithm = "phmmer")
 #' read_hmmer_tbl
-#' Biobase::varMetadata(hmmscan_tbl)
+#' Biobase::varMetadata(read_hmmer_tbl)
 #' @export
 
 read_hmmer_from_xml <- function(xml_file_paths, algorithm = "default") {

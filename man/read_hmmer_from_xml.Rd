@@ -30,5 +30,5 @@ xml_path <- system.file(
 )
 read_hmmer_tbl <- read_hmmer_from_xml(xml_path, algorithm = "phmmer")
 read_hmmer_tbl
-Biobase::varMetadata(hmmscan_tbl)
+Biobase::varMetadata(read_hmmer_tbl)
 }

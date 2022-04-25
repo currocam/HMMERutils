@@ -135,8 +135,12 @@ calculate_percentage_sequence_identity <- function(seq1, seq2,
 #' @export
 #'
 #' @examples
-#' data(pairwise_identities_ABL1_homologous)
-#' pairwise_sequence_identity_histogram(pairwise_identities_ABL1_homologous)
+#' data(example_phmmer)
+#' pairwise.per <- pairwise_alignment_sequence_identity(
+#'     seqs = example_phmmer$hits.fullfasta[1:5],
+#'     aln_type = "overlap",
+#'     pid_type = "PID2")
+#' pairwise_sequence_identity_histogram(pairwise.per)
 pairwise_sequence_identity_histogram <- function(object) {
     ggplot2::ggplot(
         object,
@@ -155,8 +159,12 @@ pairwise_sequence_identity_histogram <- function(object) {
 #' @export
 #'
 #' @examples
-#' data(pairwise_identities_ABL1_homologous)
-#' pairwise_sequence_identity_heatmap(pairwise_identities_ABL1_homologous)
+#' data(example_phmmer)
+#' pairwise.per <- pairwise_alignment_sequence_identity(
+#'     seqs = example_phmmer$hits.fullfasta[1:5],
+#'     aln_type = "overlap",
+#'     pid_type = "PID2")
+#' pairwise_sequence_identity_histogram(pairwise.per)
 pairwise_sequence_identity_heatmap <- function(object, annotation = NULL) {
     data.plot <- object %>%
         dplyr::bind_rows(

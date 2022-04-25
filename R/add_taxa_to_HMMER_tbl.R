@@ -31,7 +31,7 @@ add_taxa_to_HMMER_tbl <- function(HMMER_tidy_tbl,
         dplyr::rename_with(~ paste0("taxa.", .))
   meta.taxa <- data.frame("label" = colnames(tax.data)) %>%
     dplyr::mutate("labelDescription" = "Taxonomic rank") %>%
-    dplyr::filter(label != "taxa.taxid") %>%
+    dplyr::filter(.data$label != "taxa.taxid") %>%
     tibble::column_to_rownames("label")
   Biobase::AnnotatedDataFrame(
     data = pdata %>%

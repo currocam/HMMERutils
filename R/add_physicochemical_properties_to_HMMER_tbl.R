@@ -8,14 +8,14 @@
 #' @export
 #'
 #' @examples
-#' data(fullfasta_HMMER_tbl)
-#' data <- fullfasta_HMMER_tbl %>%
+#' data(example_phmmer)
+#' example_phmmer_with_physicochemical_properties <- example_phmmer %>%
 #'     add_physicochemical_properties_to_HMMER_tbl()
-#'
+#' example_phmmer_with_physicochemical_properties
 add_physicochemical_properties_to_HMMER_tbl <- function(HMMER_tidy_tbl) {
    properties <-  HMMER_tidy_tbl$hits.fullfasta %>%
      magrittr::set_names(HMMER_tidy_tbl$hits.name) %>%
-     na.omit() %>%
+     stats::na.omit() %>%
      calculate_physicochemical_properties() %>%
      dplyr::rename_with(~ paste0("properties.", .)) %>%
      dplyr::select(-c("properties.id"))
