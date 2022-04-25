@@ -1,6 +1,7 @@
 label,labelDescription
 uuid,The unique job identifier
 hits.name,"Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan)."
+hits.arch,Sequence domain architecture.
 hits.acc,Accession of the target.
 hits.acc2,Secondary accession of the target.
 hits.id,Identifier of the target.
