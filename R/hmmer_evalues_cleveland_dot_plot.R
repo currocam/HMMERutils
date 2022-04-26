@@ -17,9 +17,11 @@
 #'
 hmmer_evalues_cleveland_dot_plot <- function(HMMER_tidy_tbl,
     threshold = 0.01) {
-  check_AnnotatedDataFrame(HMMER_tidy_tbl)
-  pdata <- Biobase::pData(HMMER_tidy_tbl)
-    df <- pdata %>%
+  if (inherits(HMMER_tidy_tbl, "AnnotatedDataFrame")) {
+    check_AnnotatedDataFrame(HMMER_tidy_tbl)
+    HMMER_tidy_tbl <- Biobase::pData(HMMER_tidy_tbl)
+  }
+    df <- HMMER_tidy_tbl %>%
         dplyr::group_by(.data$uuid, .data$hits.name, .data$hits.acc) %>%
         dplyr::mutate("best.ievalue" = min(.data$domains.ievalue)) %>%
         dplyr::ungroup()
