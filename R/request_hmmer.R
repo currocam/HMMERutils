@@ -34,7 +34,10 @@ request_hmmer <- function(
     }
     ## check results from the server
     if (!grepl("results", hmm)) {
-        stop("Request to HMMER server failed")
+      if (verbose) {
+        message("Request to HMMER server failed")
+      }
+      return(NULL)
     }
     if (verbose) {
         message(
