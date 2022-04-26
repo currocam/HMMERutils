@@ -81,11 +81,7 @@ calculate_physicochemical_properties <- function(seqs) {
             "boman" = Peptides::boman(seqs),
             "hydrophobicity" = Peptides::hydrophobicity(seqs),
             "instaIndex" = Peptides::instaIndex(seqs),
-            "STYNQW" = stringr::str_count(
-                seqs,
-                c("S", "T", "Y", "N", "Q", "W")
-            ) %>%
-                sum() / nchar(seqs) / 100
+            "STYNQW" = stringr::str_count(seqs, "S|T|Y|N|Q|Q") /nchar(seqs)
         ) %>%
         dplyr::left_join(pepstats, by = c("id" = "id")) %>%
         dplyr::mutate("id" = old_names)
