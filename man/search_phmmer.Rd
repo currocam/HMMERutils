@@ -9,7 +9,7 @@ search_phmmer(
   seq_names = NULL,
   dbs = "swissprot",
   N.TRIES = 1,
-  verbose = FALSE
+  verbose = TRUE
 )
 }
 \arguments{

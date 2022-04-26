@@ -19,6 +19,7 @@ Suggests:
     BiocStyle,
     broom,
     covr,
+    factoextra,
     furrr,
     future,
     kableExtra,

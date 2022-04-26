@@ -29,7 +29,7 @@ domains.ievalue,Independent E-value based on the domain correction.
 domains.is_reported,1 if domain meets reporting thresholds.
 domains.is_included,1 if domain meets inclusion thresholds.
 domains.alimodel,"Aligned query consensus sequence phmmer and hmmsearch, target hmm for hmmscan."
-domains.alimline,"Match line indicating identities, conservation +’s, gaps."
+domains.alimline,"Match line indicating identities, conservation, gaps."
 domains.aliaseq,"Aligned target sequence for phmmer and hmmsearch, query for hmmscan."
 domains.alippline,Posterior probability annotation.
 domains.alihmmname,"Name of HMM (query sequence for phmmer, alignment for hmmsearch and target hmm for hmmscan)."
