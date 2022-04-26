@@ -19,6 +19,7 @@ Suggests:
     BiocStyle,
     broom,
     covr,
+    factoextra,
     furrr,
     future,
     kableExtra,
@@ -37,6 +38,7 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
+    Biobase,
     Biostrings,
     dplyr,
     ggplot2,

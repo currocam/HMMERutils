@@ -2,56 +2,33 @@
 % Please edit documentation in R/read_hmmer_from_xml.R
 \name{read_hmmer_from_xml}
 \alias{read_hmmer_from_xml}
-\title{Read the results of a search with HMMER from an XML file and, optionally,
-from a fullseq-fasta file and/or an alignment.}
+\title{Read the results of a search with HMMER from an XML file.}
 \usage{
-read_hmmer_from_xml(
-  xml_file_paths,
-  fullseq_fasta_paths = NULL,
-  alignment_fasta_paths = NULL
-)
+read_hmmer_from_xml(xml_file_paths, algorithm = "default")
 }
 \arguments{
 \item{xml_file_paths}{A a character vector the containing filepaths to
-XML file.}
+XML file downloaded from HMMER.}
 
-\item{fullseq_fasta_paths}{If desired, a character vector containing
-the paths to the fullseq-fasta file. By default, \code{NULL}.}
-
-\item{alignment_fasta_paths}{If desired, a character vector containing
-the paths to the fasta alignment file. By default, \code{NULL}.}
+\item{algorithm}{character vector of one containing the algorithm that was
+used. It can be \code{phmmer}, \code{hmmscan}, \code{hmmsearch}, \code{jackhammer}.}
 }
 \value{
-A nested DataFrame with columns \code{hits}, \code{stats}, \code{domains} and,
-if selected, \code{fullseq.fasta} and \code{alignment}.
-
-A nested DataFrame with columns \code{seqs}, \code{dbs}, \code{url}
-(HMMER temporary url), \code{hits}, \code{stats}, \code{domains} and,
-if selected, \code{fullseq.fasta.}
+An \code{AnnotatedDataFrame}, consisting of 2 parts, a nested DataFrame
+with the search hashes  and the metadata associated to this DataFrame.
+Although all available results are available here, we recommend using the
+\code{extract_from_HMMER_data_tbl} function to preprocess the data. If not
+indicated, the data will be processed as if it were a sequence search.
 }
 \description{
-Read the results of a search with HMMER from an XML file and, optionally,
-from a fullseq-fasta file and/or an alignment.
+Read the results of a search with HMMER from an XML file.
 }
-\section{Stats data structure}{
-
-\itemize{
-\item \code{nhits}: 	The number of hits found above reporting thresholds.
-\item \code{Z}: 	The number of sequences or models in the target database.
-\item \code{domZ}: 	The number of hits in the target database.
-\item \code{nmodels} 	The number of models in this search.
-\item \code{nincluded} 	The number of sequences or models scoring above the
-significance threshold.
-\item \code{nreported} 	The number of sequences or models scoring above the
-reporting threshold
-}
-}
-
 \examples{
 xml_path <- system.file(
-    "/extdata/ABL_TYROSINE_KINASE.xml",
+    "/extdata/xml_example.xml",
     package = "HMMERutils"
 )
-data <- read_hmmer_from_xml(xml_path)
-
+read_hmmer_tbl <- read_hmmer_from_xml(xml_path, algorithm = "phmmer")
+read_hmmer_tbl
+Biobase::varMetadata(read_hmmer_tbl)
 }

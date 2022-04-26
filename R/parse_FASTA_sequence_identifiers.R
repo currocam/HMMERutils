@@ -8,10 +8,12 @@
 #' @examples
 #' headers <- c(
 #'     "gb|M73307|AGMA13GT",
-#'     "gb|M73307|AGMA13GT"
+#'     "gb|M73307|AGMA13GT",
+#'     "emb|CAM43271.1|",
+#'     "sp|P01013|OVAX_CHICK description"
 #' )
-#' parse_NCBI_FASTA_sequence_identifiers(headers)
-parse_NCBI_FASTA_sequence_identifiers <- function(headers) {
+#' parse_FASTA_sequence_identifiers(headers)
+parse_FASTA_sequence_identifiers <- function(headers) {
     patterns <- paste(
         sep = "|",
         "(?<=lcl\\|).+",
@@ -31,7 +33,7 @@ parse_NCBI_FASTA_sequence_identifiers <- function(headers) {
         "(?<=tpd\\|).+(?=\\|)",
         "(?<=tr\\|).+"
     )
-    headers <- dplyr::case_when(
+    dplyr::case_when(
         stringr::str_detect(headers, "pat|pgp|gnl") ~
             gsub("\\|", " ", headers) %>%
             stringr::word(3),

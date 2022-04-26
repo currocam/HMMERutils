@@ -1,41 +1,55 @@
 #' Perform an iterative search of a protein sequence or an alignment against
 #'  a protein sequence database.
 #'
-#' @param seqs A vector of characters containing the sequences of the query.
-#' @param alns A list of Biostrings::AAMultipleAlignment.
+#' @param seqs A character vector containing the sequences of the query or
+#'  any other object that can be converted to that.
+#' @param alns A Biostrings::AAMultipleAlignment or a list of
+#'   Biostrings::AAMultipleAlignment.
+#' @param seq_or_aln_names A character vector containing the names of the
+#' sequences or the alignments. If `alns` or `seqs` are named,it will
+#' overwrite them. If not specified, they  will not be taken into account.
 #' @param dbs A character vector containing the target databases. Frequently
 #'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`, `ensembl`,
 #'  `pdb` and `alphafold`, but a complete and updated list is available at
 #'   \url{https://www.ebi.ac.uk/Tools/hmmer/}.
-#' @param fullseqfasta  A logical, if TRUE full sequence fasta will be downloaded
-#'  as a AAStringSet. Package `Biostrings` must be installed in that case.
 #' @param verbose A logical, if TRUE details of the download process is printed.
-#' @param N.TRIES An integer specifying the number of trials before a time out occurs.
-#' @param alignment A logical, if TRUE sequence alignment will be downloaded
-#'  as a `AAMultipleAlignment`. Package `Biostrings` must be installed in that case.
-#' @return A nested DataFrame with columns `seqs`, `dbs`, `url`
-#'  (HMMER temporary url), `hits`, `stats`, `domains` and, if selected,
-#'   `fullseq.fasta.` and `alignment`.
-#' @seealso \code{\link{ABL1_homologous}} for a detailed description of the meaning
-#'  of the different variables.
+#' @param N.TRIES An integer specifying the number of attempts before
+#'  an error occurs.
+#' @return An `AnnotatedDataFrame`, consisting of 2 parts, a nested DataFrame
+#'  with the search hashes, the download links of all available files and
+#'   of the HMMER page where the results are hosted, and the metadata
+#'   associated to this DataFrame. Although all available results are available
+#'    here, we recommend using the `extract_from_HMMER_data_tbl` function
+#'     to preprocess the data.
+#'
 #' @examples
-#' try(
-#'     jackhmmer_tbl <- search_jackhmmer(
-#'         seqs = "MTEITAAMVKELRTGAGMMDCKN",
-#'         dbs = "pdb",
-#'         verbose = FALSE,
-#'         timeout = 1
-#'     )
-#' )
+#' jackhmmer_tbl_using_seq <- search_jackhmmer(
+#'    seqs = "MTEITAAMVKELRTGAGMMDCKN",
+#'   seq_or_aln_names = "1efu_B",
+#'   dbs = "pdb",
+#'   verbose = FALSE)
+#' jackhmmer_tbl_using_seq
+#' Biobase::varMetadata(jackhmmer_tbl_using_seq)
+#'
+#' path_to_example_aln <- system.file(
+#'   "extdata/alignment_example.afa",
+#'   package = "HMMERutils")
+#' alns <- Biostrings::readAAMultipleAlignment(path_to_example_aln)
+#'jackhmmer_tbl_using_aln <- search_jackhmmer(
+#'   alns = alns,
+#'   dbs = "pdb",
+#'   verbose = TRUE)
+#' jackhmmer_tbl_using_aln
+#' Biobase::varMetadata(jackhmmer_tbl_using_aln)
 #' @export
 
-search_jackhmmer <- function(seqs = NULL,
+search_jackhmmer <- function(
+    seqs = NULL,
     alns = NULL,
+    seq_or_aln_names = NULL,
     dbs = "swissprot",
-    fullseqfasta = TRUE,
     verbose = TRUE,
-    N.TRIES = 1,
-    alignment = FALSE) {
+    N.TRIES = 1) {
     if (all(!is.null(seqs), !is.null(alns))) {
         stop(
             "You cannot use both an alignment and a sequence for the search.\n",
@@ -44,61 +58,41 @@ search_jackhmmer <- function(seqs = NULL,
     }
     if (!is.null(seqs)) {
         seqs <- deal_with_input_sequences(seqs)
+        if (length(seqs) == length(seq_or_aln_names)) {
+          names(seqs) <- make.unique(seq_or_aln_names)
+        }
+        grid <- tidyr::expand_grid(seqs, dbs) %>%
+          dplyr::mutate("seq.name" = names(.data$seqs))
     }
     if (!is.null(alns)) {
         alns <- deal_with_input_aln(alns)
+        if (length(alns) == length(seq_or_aln_names)) {
+          names(alns) <- make.unique(seq_or_aln_names)
+        }
+        grid <- tidyr::expand_grid(alns, dbs) %>%
+          dplyr::mutate("seq.name" = names(.data$alns))
     }
-    # all combinations of inputs
-    grid <- tidyr::expand_grid(seqs, alns, dbs)
-
     if (!is.null(seqs)) {
         tbl_list <- purrr::map2(
-            .x = grid$seqs,
-            .y = grid$dbs,
-            .f = ~ {
+            .x = grid$seqs, .y = grid$dbs,.f = ~ {
                 request_hmmer(
-                    seq = .x,
-                    seqdb = .y,
+                    seq = .x,seqdb = .y,
                     url = "https://www.ebi.ac.uk/Tools/hmmer/search/jackhmmer",
-                    verbose = TRUE,
-                    N.TRIES = N.TRIES
-                )
-            }
-        )
+                    verbose = verbose, N.TRIES = N.TRIES)})
     }
     if (!is.null(alns)) {
         tbl_list <- purrr::map2(
-            .x = grid$alns,
-            .y = grid$dbs,
-            .f = ~ {
+            .x = grid$alns,.y = grid$dbs,.f = ~ {
                 request_hmmer(
-                    aln = .x,
-                    seqdb = .y,
+                    aln = .x,seqdb = .y,
                     url = "https://www.ebi.ac.uk/Tools/hmmer/search/jackhmmer",
-                    verbose = TRUE,
-                    N.TRIES = N.TRIES
-                )
-            }
-        )
+                    verbose = verbose,N.TRIES = N.TRIES)})
     }
     tbl_list <- tbl_list %>%
         parse_xml_into_tbl()
-
-    df <- grid %>%
-        dplyr::mutate(
-            "seq.name" = names(seqs),
-            "uuid" = purrr::flatten_chr(tbl_list$uuid),
-            "url" = purrr::flatten_chr(tbl_list$url),
-            "stats" = tbl_list$stats,
-            "hits" = tbl_list$hits,
-            "domains" = tbl_list$domains
-        )
-    if (fullseqfasta) {
-        df <- mutate_fullseqfasta(df, df$uuid)
+    names_seq <- NULL
+    if (!is.null(seq_or_aln_names)) {
+      names_seq <- grid$seq.name
     }
-    if (alignment) {
-        df <- mutate_alignment(df, df$uuid)
-    }
-    class(df) <- c("HMMER_data_tbl", class(df))
-    return(df)
+    create_hmmer_AnnotatedDataFrame(grid, names_seq, tbl_list,type = "jackhmmer")
 }

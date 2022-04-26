@@ -2,23 +2,25 @@
 % Please edit documentation in R/add_physicochemical_properties_to_HMMER_tbl.R
 \name{add_physicochemical_properties_to_HMMER_tbl}
 \alias{add_physicochemical_properties_to_HMMER_tbl}
-\title{Add EMBOSS-inspired theoretical physicochemical properties
-using the \code{Peptides} library}
+\title{Add EMBOSS-inspired theoretical physicochemical properties.
+using the \code{Peptides} library to an \code{AnnotatedDataFrame}}
 \usage{
 add_physicochemical_properties_to_HMMER_tbl(HMMER_tidy_tbl)
 }
 \arguments{
-\item{HMMER_tidy_tbl}{A \code{HMMER_tidy_tbl}.}
+\item{HMMER_tidy_tbl}{An \code{AnnotatedDataFrame} obtained through
+\code{extract_from_HMMER_data_tbl} and \code{add_fullseq_to_HMMER_tbl}.}
 }
 \value{
-A \code{HMMER_tidy_tbl}.
+An \code{AnnotatedDataFrame} with new columns with the theoretical physicochemical properties
 }
 \description{
-Add EMBOSS-inspired theoretical physicochemical properties
-using the \code{Peptides} library
+Add EMBOSS-inspired theoretical physicochemical properties.
+using the \code{Peptides} library to an \code{AnnotatedDataFrame}
 }
 \examples{
-data(ABL1_homologous)
-data <- ABL1_homologous[1:5, ] \%>\%
+data(example_phmmer)
+example_phmmer_with_physicochemical_properties <- example_phmmer \%>\%
     add_physicochemical_properties_to_HMMER_tbl()
+example_phmmer_with_physicochemical_properties
 }

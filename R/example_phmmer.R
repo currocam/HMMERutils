@@ -1,16 +1,13 @@
-#' Information about 451 sequences homologous to ABL1.
+#' Information about 50 sequences homologous to a fragment of 1EFU_B.
 #'
-#' A dataset containing 451 sequences homologous to ABL1, a
-#'  cytoplasmic and nuclear protein tyrosine kinase that has
-#'  been implicated in processes of cell differentiation, cell
-#'  division, cell adhesion and stress response such as DNA repair.
+#' A dataset containing 50 sequences homologous to to a fragment of 1EFU_B.
 #'
 #' They were found using PHMMER, and contain information on the
 #'   taxonomy of the species to which they belong, theoretical
 #'   physical and chemical properties calculated on the basis of
 #'    the sequence and other variables returned by HMMER.
 #'
-#' @format A data frame with 451 rows and 127 variables:
+#' @format An AnnotatedDataFrame with 50 rowNames rows and 98 varLabels:
 #'
 #' @section Sequence data structure:
 #' Variables beginning with "hits." have been extracted from the hash
@@ -134,16 +131,5 @@
 #'    (B + D + E + H + K + R + Z)
 #' * `properties.Basic`: Percentage of amino acids (H + K + R)
 #' @source \url{https://www.ebi.ac.uk/Tools/hmmer/search/}
-#' @usage data(ABL1_homologous)
-"ABL1_homologous"
-
-#' Pairwise percentage identities for ABL1_homologous.
-#'
-#' A DataFrame containing 43365 pairwise_identities for
-#'  ABL1_homologous Mammalian sequences.
-#'
-#'
-#' @format A data frame with 43365 rows and 3 variables:
-#'
-#' @usage data(pairwise_identities_ABL1_homologous)
-"pairwise_identities_ABL1_homologous"
+#' @usage data(example_phmmer)
+"example_phmmer"

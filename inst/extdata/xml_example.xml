@@ -1,0 +1,97 @@
+<opt>
+<data name="results">
+<hits name="4r71_A" acc="4r71_A" arch="PF00889.22 PF00009.30 PF03144.28 PF03143.20" archScore="5" archindex="118498722050600 83333" bias="0.3" desc="Elongation factor Ts, Elongation factor Tu" evalue="4.5e-05" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/4r71_A" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-23.2208827146136" score="26.0" sindex="57510549" species="Escherichia coli K-12" taxid="83333" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+  <domains aliId="0.863636363636364" aliIdCount="19" aliL="694" aliM="23" aliN="24" aliSim="0.954545454545455" aliSimCount="21" aliaseq="MAEITASLVKELRerTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="1" alihmmname="&gt;Query" alihmmto="22" alimline="m eita++vkelr  tgagmmdck" alimmline="" alimodel="mteitaamvkelr..tgagmmdck" aliniseqs="2" alintseq="" alippline="78*********95449*******9" alirfline="" alisindex="57510549" alisqacc="4r71_A" alisqdesc="Elongation factor Ts, Elongation factor Tu" alisqfrom="1" alisqname="4r71_A" alisqto="24" bias="0.12" bitscore="21.6458969116211" cevalue="2.0e-08" iali="1" ienv="1" ievalue="0.0016" is_included="1" is_reported="1" jali="24" jenv="25" oasc="0.88"/>
+  <pdbs>4r71_C</pdbs>
+  <pdbs>4r71_A</pdbs>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu" dn="4r71_C" sp="Escherichia coli K-12"/>
+</hits>
+<hits name="3mmp_A" acc="3mmp_A" arch="PF00889.22 PF00009.30 PF03144.28 PF03143.20" archScore="5" archindex="118498722050600 83333" bias="0.3" desc="Elongation factor Tu 2, Elongation factor Ts" evalue="4.6e-05" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/3mmp_A" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-23.2090006078344" score="26.0" sindex="57514389" species="Escherichia coli K-12" taxid="83333" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+  <domains aliId="0.863636363636364" aliIdCount="19" aliL="678" aliM="23" aliN="24" aliSim="0.954545454545455" aliSimCount="21" aliaseq="MAEITASLVKELRerTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="1" alihmmname="&gt;Query" alihmmto="22" alimline="m eita++vkelr  tgagmmdck" alimmline="" alimodel="mteitaamvkelr..tgagmmdck" aliniseqs="2" alintseq="" alippline="78*********95449*******9" alirfline="" alisindex="57514389" alisqacc="3mmp_A" alisqdesc="Elongation factor Tu 2, Elongation factor Ts" alisqfrom="1" alisqname="3mmp_A" alisqto="24" bias="0.12" bitscore="21.6831684112549" cevalue="1.9e-08" iali="1" ienv="1" ievalue="0.0015" is_included="1" is_reported="1" jali="24" jenv="25" oasc="0.88"/>
+  <pdbs>3mmp_C</pdbs>
+  <pdbs>3mmp_A</pdbs>
+  <seqs an="" de="Elongation factor Tu 2, Elongation factor Ts" dn="3mmp_C" sp="Escherichia coli K-12"/>
+</hits>
+<hits name="3agp_A" acc="3agp_A" arch="PF00889.22 PF00009.30 PF03144.28 PF03143.20 PF03431.16" archScore="5" archindex="127492375402814 83334" bias="0.3" desc="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" evalue="0.00022" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/3agp_A" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-21.6279498013415" score="24.0" sindex="57523359" species="Escherichia coli O157:H7" taxid="83334" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+  <domains aliId="0.863636363636364" aliIdCount="19" aliL="1289" aliM="23" aliN="24" aliSim="0.954545454545455" aliSimCount="21" aliaseq="MAEITASLVKELRerTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="1" alihmmname="&gt;Query" alihmmto="22" alimline="m eita++vkelr  tgagmmdck" alimmline="" alimodel="mteitaamvkelr..tgagmmdck" aliniseqs="11" alintseq="" alippline="78*********95449*******9" alirfline="" alisindex="57523359" alisqacc="3agp_A" alisqdesc="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" alisqfrom="1" alisqname="3agp_A" alisqto="24" bias="0.12" bitscore="20.6825752258301" cevalue="4.4e-08" iali="1" ienv="1" ievalue="0.0035" is_included="1" is_reported="1" jali="24" jenv="25" oasc="0.88"/>
+  <pdbs>3vnv_A</pdbs>
+  <pdbs>3vnu_A</pdbs>
+  <pdbs>3avu_A</pdbs>
+  <pdbs>3agq_A</pdbs>
+  <pdbs>3avt_A</pdbs>
+  <pdbs>3avv_A</pdbs>
+  <pdbs>3avx_A</pdbs>
+  <pdbs>3avy_A</pdbs>
+  <pdbs>3avw_A</pdbs>
+  <pdbs>3agp_A</pdbs>
+  <pdbs>4fwt_A</pdbs>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu 1, LINKER, Q beta replicase" dn="3agq_A" sp="Escherichia coli O157:H7"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avt_A" sp="Escherichia coli O157:H7"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avu_A" sp="Escherichia coli O157:H7"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avv_A" sp="Escherichia coli O157:H7"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avw_A" sp="Escherichia coli O157:H7"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avx_A" sp="Escherichia coli O157:H7"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avy_A" sp="Escherichia coli O157:H7"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3vnu_A" sp="Escherichia coli O157:H7"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3vnv_A" sp="Escherichia coli O157:H7"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="4fwt_A" sp="Escherichia coli O157:H7"/>
+</hits>
+<hits name="3agp_A" acc="3agp_A" arch="PF00889.22 PF00009.30 PF03144.28 PF03143.20 PF03431.16" archScore="5" archindex="127492375402814 39803" bias="0.3" desc="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" evalue="0.00022" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/3agp_A" flags="3" kg="Viruses" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Lenarviricota" pvalue="-21.6279498013415" score="24.0" sindex="2984797" species="Escherichia virus Qbeta" taxid="39803" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+  <domains aliId="0.863636363636364" aliIdCount="19" aliL="1289" aliM="23" aliN="24" aliSim="0.954545454545455" aliSimCount="21" aliaseq="MAEITASLVKELRerTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="1" alihmmname="&gt;Query" alihmmto="22" alimline="m eita++vkelr  tgagmmdck" alimmline="" alimodel="mteitaamvkelr..tgagmmdck" aliniseqs="11" alintseq="" alippline="78*********95449*******9" alirfline="" alisindex="2984797" alisqacc="3agp_A" alisqdesc="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" alisqfrom="1" alisqname="3agp_A" alisqto="24" bias="0.12" bitscore="20.6825752258301" cevalue="4.4e-08" iali="1" ienv="1" ievalue="0.0035" is_included="1" is_reported="1" jali="24" jenv="25" oasc="0.88"/>
+  <pdbs>3vnv_A</pdbs>
+  <pdbs>3vnu_A</pdbs>
+  <pdbs>3avu_A</pdbs>
+  <pdbs>3agq_A</pdbs>
+  <pdbs>3avt_A</pdbs>
+  <pdbs>3avv_A</pdbs>
+  <pdbs>3avx_A</pdbs>
+  <pdbs>3avy_A</pdbs>
+  <pdbs>3avw_A</pdbs>
+  <pdbs>3agp_A</pdbs>
+  <pdbs>4fwt_A</pdbs>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu 1, LINKER, Q beta replicase" dn="3agq_A" sp="Escherichia virus Qbeta"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avt_A" sp="Escherichia virus Qbeta"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avu_A" sp="Escherichia virus Qbeta"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avv_A" sp="Escherichia virus Qbeta"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avw_A" sp="Escherichia virus Qbeta"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avx_A" sp="Escherichia virus Qbeta"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avy_A" sp="Escherichia virus Qbeta"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3vnu_A" sp="Escherichia virus Qbeta"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3vnv_A" sp="Escherichia virus Qbeta"/>
+  <seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="4fwt_A" sp="Escherichia virus Qbeta"/>
+</hits>
+<hits name="4pc6_C" acc="4pc6_C" arch="PF00889.22" archScore="2" archindex="158710124293725 536056" bias="0.1" desc="Elongation factor Ts" evalue="0.00024" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/4pc6_C" flags="3" kg="Bacteria" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Proteobacteria" pvalue="-21.5357512234849" score="23.9" sindex="55721010" species="Escherichia coli (strain ATCC 33849 / DSM 4235 / NCIMB 12045 / K12 / DH1)" taxid="536056" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+  <domains aliId="0.9" aliIdCount="18" aliL="282" aliM="23" aliN="22" aliSim="1" aliSimCount="20" aliaseq="EITASLVKELRerTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="3" alihmmname="&gt;Query" alihmmto="22" alimline="eita++vkelr  tgagmmdck" alimmline="" alimodel="eitaamvkelr..tgagmmdck" aliniseqs="2" alintseq="" alippline="9********95449*******9" alirfline="" alisindex="55721010" alisqacc="4pc6_C" alisqdesc="Elongation factor Ts" alisqfrom="2" alisqname="4pc6_C" alisqto="23" bias="0.08" bitscore="21.5817775726318" cevalue="2.1e-08" iali="2" ienv="1" ievalue="0.0017" is_included="1" is_reported="1" jali="23" jenv="24" oasc="0.88"/>
+  <pdbs>4pc6_D</pdbs>
+  <pdbs>4pc6_C</pdbs>
+  <seqs an="" de="Elongation factor Ts" dn="4pc6_D" sp="Escherichia coli DH1"/>
+</hits>
+<hits name="1efu_B" acc="1efu_B" arch="PF00889.22" archScore="2" archindex="158710124293725 562" bias="0.1" desc="ELONGATION FACTOR TS" evalue="0.00024" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/1efu_B" flags="3" kg="Bacteria" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Proteobacteria" pvalue="-21.5357512234849" score="23.9" sindex="56418786" species="Escherichia coli" taxid="562" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+  <domains aliId="0.9" aliIdCount="18" aliL="282" aliM="23" aliN="22" aliSim="1" aliSimCount="20" aliaseq="EITASLVKELRerTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="3" alihmmname="&gt;Query" alihmmto="22" alimline="eita++vkelr  tgagmmdck" alimmline="" alimodel="eitaamvkelr..tgagmmdck" aliniseqs="6" alintseq="" alippline="9********95449*******9" alirfline="" alisindex="56418786" alisqacc="1efu_B" alisqdesc="ELONGATION FACTOR TS" alisqfrom="2" alisqname="1efu_B" alisqto="23" bias="0.08" bitscore="21.5817775726318" cevalue="2.1e-08" iali="2" ienv="1" ievalue="0.0017" is_included="1" is_reported="1" jali="23" jenv="24" oasc="0.88"/>
+  <pdbs>4pc1_D</pdbs>
+  <pdbs>1efu_D</pdbs>
+  <pdbs>4pc2_C</pdbs>
+  <pdbs>4pc1_C</pdbs>
+  <pdbs>1efu_B</pdbs>
+  <pdbs>4pc2_D</pdbs>
+  <seqs an="" de="ELONGATION FACTOR TS" dn="1efu_D" sp="Escherichia coli"/>
+  <seqs an="" de="Elongation factor Ts" dn="4pc1_C" sp="Escherichia coli"/>
+  <seqs an="" de="Elongation factor Ts" dn="4pc1_D" sp="Escherichia coli"/>
+  <seqs an="" de="Elongation factor Ts" dn="4pc2_C" sp="Escherichia coli"/>
+  <seqs an="" de="Elongation factor Ts" dn="4pc2_D" sp="Escherichia coli"/>
+</hits>
+<hits name="4pc3_C" acc="4pc3_C" arch="PF00889.22" archScore="2" archindex="158710124293725 83333" bias="0.1" desc="Elongation factor Ts" evalue="0.00024" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/4pc3_C" flags="3" kg="Bacteria" ndom="1" nincluded="1" niseqs="16" nregions="1" nreported="1" ph="Proteobacteria" pvalue="-21.5357512234849" score="23.9" sindex="57516019" species="Escherichia coli K-12" taxid="83333" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=">
+  <domains aliId="0.9" aliIdCount="18" aliL="282" aliM="23" aliN="22" aliSim="1" aliSimCount="20" aliaseq="EITASLVKELRerTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="3" alihmmname="&gt;Query" alihmmto="22" alimline="eita++vkelr  tgagmmdck" alimmline="" alimodel="eitaamvkelr..tgagmmdck" aliniseqs="5" alintseq="" alippline="9********95449*******9" alirfline="" alisindex="57516019" alisqacc="4pc3_C" alisqdesc="Elongation factor Ts" alisqfrom="2" alisqname="4pc3_C" alisqto="23" bias="0.08" bitscore="21.5817775726318" cevalue="2.1e-08" iali="2" ienv="1" ievalue="0.0017" is_included="1" is_reported="1" jali="23" jenv="24" oasc="0.88"/>
+  <pdbs>4pc3_D</pdbs>
+  <pdbs>4q7j_E</pdbs>
+  <pdbs>4pc3_C</pdbs>
+  <pdbs>4q7j_A</pdbs>
+  <pdbs>4pc7_C</pdbs>
+  <seqs an="" de="Elongation factor Ts" dn="4pc3_D" sp="Escherichia coli K-12"/>
+  <seqs an="" de="Elongation factor Ts" dn="4pc7_C" sp="Escherichia coli K-12"/>
+  <seqs an="" de="Elongation factor Ts" dn="4q7j_A" sp="Escherichia coli K-12"/>
+  <seqs an="" de="Elongation factor Ts" dn="4q7j_E" sp="Escherichia coli K-12"/>
+</hits>
+<stats Z="546676" Z_setby="0" domZ="7" domZ_setby="0" elapsed="0.02" n_past_bias="1847" n_past_fwd="7" n_past_msv="1960" n_past_vit="61" nhits="7" nincluded="7" nmodels="1" nreported="7" nseqs="546676" sys="0.01" unpacked="7" user="0"/>
+</data>
+</opt>

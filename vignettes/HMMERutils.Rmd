@@ -5,11 +5,14 @@ author:
     affiliation:
     - Universidad de Granada
     email: campuzanocurro@gmail.com
+  - name: María Coral del Val Muñoz
+    affiliation:
+    - Universidad de Granada
+    email: delval@ugr.es   
 output: 
   BiocStyle::html_document:
     self_contained: yes
     toc: true
-    toc_float: true
     toc_depth: 2
     code_folding: show
 date: "`r doc_date()`"
@@ -26,9 +29,6 @@ knitr::opts_chunk$set(
     comment = "#>",
     crop = NULL 
 )
-path <- system.file("extdata/HMMER_data_tbl_SPIKE_SARS_NCAP_SARS.Rds",
-                    package = "HMMERutils")
-HMMER_data_tbl<- readRDS(path)
 ```
 
 
@@ -48,6 +48,21 @@ bib <- c(
     rmarkdown = citation("rmarkdown")[1],
     sessioninfo = citation("sessioninfo")[1],
     testthat = citation("testthat")[1],
+    Biostrings = citation("Biostrings")[1],
+    Peptides = citation("Peptides")[1],
+    Biobase = citation("Biobase")[1],
+    dplyr = citation("dplyr")[1],
+    ggplot2 = citation("ggplot2")[1],
+    graphics = citation("graphics")[1],
+    magrittr = citation("magrittr")[1],
+    methods = citation("methods")[1],
+    purrr = citation("purrr")[1],
+    RCurl = citation("RCurl")[1],
+    rlang = citation("rlang")[1],
+    stringr = citation("stringr")[1],
+    tibble = citation("tibble")[1],
+    tidyr = citation("tidyr")[1],
+    XML = citation("XML")[1],
     HMMERutils = citation("HMMERutils")[1]
 )
 ```
@@ -71,7 +86,8 @@ BiocManager::valid()
 
 ## Required knowledge
 
-`r Biocpkg("HMMERutils")` is based on many other packages and in particular in those that have implemented the infrastructure needed for dealing with protein sequences data . That is, packages like `r Biocpkg("Biostrings")`.
+`r Biocpkg("HMMERutils")` is based on many other packages and in particular those that have implemented the infrastructure necessary to deal with protein sequence data and generate ` r AnnotatedDataFrames`. Therefore, note that the `r Biocpkg("Biostrings")` libraries are used to read, write and handle protein sequences and `r Biocpkg("Biobase")` is used to generate the annotated DataFrames that the user works with.  The content of the ` r AnnotatedDataFrames` have been designed for this purpose. 
+
 
 ## Asking for help
 
@@ -88,238 +104,352 @@ citation("HMMERutils")
 
 # Quick start to using to `HMMERutils`
 
-## Prerequisites
-
-To follow this tutorial you will need to have the following libraries installed. Please feel free to run the following cell to install them if they are not yet installed.
-
 ```{r, prerequisites, message=FALSE, warning=FALSE}
 library(HMMERutils)
 library(Biostrings)
+library(Biobase)
 library(tidyverse)
 library(ggplot2)
-library(broom)
 ```
 
-The objective of this article is to show the main functionalities of the utilsHMMER library using a practical case. We will search for homologous sequences for the whole SARS-CoV-2 reference proteome.
+The objective of this article is to show the main functionalities of the utilsHMMER library using a case study. We will search for homologous sequences for the whole SARS-CoV-2 reference proteome.
 
-## Post request to HMMER server 
+## Download the SARS-CoV-2 reference proteome 
 
-### Download the SARS-CoV-2 reference proteome 
-
-First, let’s download the reference proteome for the Sars_CoV-2. To do this, we will read the compressed file directly from UniProt with the `readAAStringSet` function from the Biostrings library.
+First, let’s download the reference proteome for the Sars_CoV-2. To do this, we are going to save the url in a variable. We use the `paste0` function only to improve readability. Then we will read the compressed file directly from UniProt with the `readAAStringSet` function from the `r Biocpkg("Biostrings")` library.
 
 ```{r, warning=FALSE}
-url <- paste0("https://ftp.uniprot.org/pub/databases/uniprot/current_release/",
-  "knowledgebase/reference_proteomes/Viruses/UP000000354/UP000000354_694009.fasta.gz")
-sars.cov.fasta <- readAAStringSet(url)
+url.refProteomes <- paste0("https://ftp.uniprot.org/pub/databases/uniprot/",
+                          "current_release/knowledgebase/reference_proteomes/",
+                          "Viruses/UP000000354/UP000000354_694009.fasta.gz")
+sars.cov.fasta <- readAAStringSet(url.refProteomes)
 ```
 
-Let's look at the headers of the different fasta sequences:
+## Preprocess sequences and select case studies
 
-```{r, names, echo=FALSE}
-library(kableExtra)
-tibble("names" = names(sars.cov.fasta)) %>%
-  kbl()%>%
-  kable_paper("basic") %>%
-  landscape()
+Now, we have an `AAStringSet` stored in the variable `sars.cov.fasta` and we can access the sequences it contains using the `$` operator and the sequence header. However, headers usually contain, as in this case, a lot of information that is not useful right now such as descriptions. `r Biocpkg("HMMERutils")` has a very convenient function for this purpose which is parse. Note that we use the `name` function to access the sequence names and the `%>%` operator to pass the result of one function/argument to the other in sequence
+
+```{r, message=FALSE, warning=FALSE}
+new.headers <- sars.cov.fasta %>%
+  names() %>%
+  parse_FASTA_sequence_identifiers()
+new.headers
 ```
 
-Right now the names identifying the sequences are too long and somewhat inconvenient to work with. We can solve this by applying:
+Now, we can assign these new headers to the `AAStringSet`:
 
-```{r, deal_with_names}
-names(sars.cov.fasta) <- names(sars.cov.fasta) %>%
-  parse_NCBI_FASTA_sequence_identifiers()
+```{r, message=FALSE, warning=FALSE}
+names(sars.cov.fasta) <- new.headers
 ```
 
-```{r, new.names, echo=FALSE}
-tibble("names" = names(sars.cov.fasta),
-       "width" = width(sars.cov.fasta)) %>%
-  kbl()%>%
-  kable_paper("basic") %>%
-  landscape()
+We can take a look at the contents of the fasta file by "showing" it:
+
+```{r, message=FALSE, warning=FALSE}
+sars.cov.fasta
 ```
 
-We will search for homologous sequences for SPIKE_SARS and NCAP_SARS. First, we select both sequences using the $ operator. 
-```{r, select}
-SPIKE_SARS <- sars.cov.fasta$SPIKE_SARS
-NCAP_SARS <- sars.cov.fasta$NCAP_SARS
+Now, we are going to select a series of proteins that are of interest to us for this case study:
+
+```{r, message=FALSE, warning=FALSE}
+VEMP_SARS <- sars.cov.fasta$VEMP_SARS #Envelope small membrane protein
+NS8A_SARS <- sars.cov.fasta$NS8A_SARS #ORF8a protein
+NS8B_SARS <- sars.cov.fasta$NS8B_SARS #ORF8b protein
+NS7B_SARS <- sars.cov.fasta$NS7B_SARS #Protein non-structural 7b
+Y14_SARS <- sars.cov.fasta$Y14_SARS #Uncharacterized protein
 ```
 
-### Query’s sequence 
+All these proteins have in common to be small in size (it will speed up some computational times) and represent different possibilities: we have from membrane proteins (which we would expect to show homology with other membrane proteins), proteins similar to each other (NS8A_SARS and NS8B_SARS), non-structural proteins and uncharacterized proteins. 
 
-Since we want to perform the search with a single sequence (i.e. one search for each sequence of the reference proteome) we will use phmmer. Internally, HMMER builds a profile from your single query sequence.
+## Proteins homologous to VEMP_SARS
 
-By executing the next cell, we will be posting to the HMMER server a request with each sequence and database specified. Also, since we have selected fullseqfasta = TRUE we will download the fasta files with the complete sequences found. The timeout and verbose arguments refer to the maximum time to wait without receiving a response and whether to print the status of requests on the screen, respectively. This will take a while and will depend on the state of the HMMER server. Pour yourself a cup of coffee :)
+Before exemplifying how to use HMMERutils to perform several searches simultaneously (usually against several databases) or to use other algorithms, let's perform a basic search against a single database using `phmmer`, the default algorithm. 
 
-```{r request, eval=FALSE}
+### Post request to HMMER server 
+
+Now, we can start posting requests to HMMER through its API, using the `search` family of functions. Let's start with an example: let's search for proteins homologous to VEMP_SARS (a envelope small membrane protein) against the Swissprot database. Notice that we have indicated as sequence the `AAString` we defined before (although it could also be a character) and we have given the parameter `verbose = FALSE`, indicating that we do not want the progress of the search to be printed because it would take too much space in this document.
+
+```{r, message=FALSE, warning=FALSE}
 HMMER_data_tbl <- search_phmmer(
-  seqs = AAStringSet(list(SPIKE_SARS, NCAP_SARS)),
-  dbs = c("swissprot", "uniprotrefprot", "ensembl"),
-  fullseqfasta = TRUE,
-  alignment = TRUE,
-  verbose = TRUE,
-  timeout = 90)
-saveRDS(HMMER_data_tbl, "HMMER_data_tbl_SPIKE_SARS_NCAP_SARS.Rds")
-```
-Let us inspect the contents of `HMMER_data_tbl.` It is a nested DataFrame of class HMMER_data_tbl.
-
-```{r}
-class(HMMER_data_tbl)
+  seqs = VEMP_SARS,
+  dbs = "swissprot",
+  verbose = FALSE)
 ```
 
-Let's see what their classes are in the following table. 
+### AnnotatedDataFrame returned by "search" function family
 
-```{r, echo= FALSE, warning=FALSE, message=FALSE}
-HMMER_data_tbl %>%
-  summarize_all(funs(paste0(class(.), collapse = ", "))) %>%
-  kbl()%>%
-  kable_paper("basic")
+Let's inspect the content of the new variable we have created:
+
+```{r, message=FALSE, warning=FALSE}
+HMMER_data_tbl
+```
+As we can see, this is an `AnnotatedDataFrame`, an class object of the `r Biocpkg("Biobase")` library that allows us to store a DataFrame together with its metadata. This is the way in which the `search_` family of functions will return the results. We can also see that it has 1 row (since it contains the results of a single search) and 17 variables. Let's see what these variables and their descriptions are by accessing the metadata using the `VarMetadata` function or the `@` operator.
+
+```r
+varMetadata(HMMER_data_tbl)
 ```
 
-The `seqs` and `dbs` columns contain the values used for the search (sequence and target databse). The `urls` column contains the URLs where HMMER temporarily stores the results. Feel free to access the web page and make use of the web interface to inspect the results. For now, we have automated manually posting the sequences one by one and downloading the files of interest. The rest of the columns contain the search results themselves. However, we will not yet use the information contained in these.
-
-## Preprocessing and wrangling
-
-First, we are going check if there aren't no queries with no results (NA in the `url` column). 
-
-```{r, filter}
-HMMER_data_tbl <- HMMER_data_tbl %>%
-  filter(as.character(url) != "NA")
+```{r, echo=FALSE}
+varMetadata(HMMER_data_tbl) %>%
+  kableExtra::kbl(caption = "Metadata associated with each of the searches performed in HMMER through HMMERutils.")%>%
+  kableExtra::kable_paper("basic")
 ```
+As can be seen in the table above, we have different types of variables that may be of interest in `VEMP_SARS.homologous.PDB`. 
+
+#### Files available for download and urls
+
+On the one hand, we have a series of parameters that refer to our own search (and that in this case are not useful, since we have performed a single search) and that contain a series of urls. Variables starting with "url" contain the download links of all download files that will be available for a limited time on the HMMER web server. Also, in `score.url` is the web page with the HMMER results (the same one you would get to if you were using the web interface), which you can access to consult the results from there. 
+
+The purpose of this library is not to be an intermediary with HMMER web server. However, in case you need to post a large number of searches, it could be used to automate sending the search parameters and return a table with all the links that might be of interest to you!
+
+To display such a table we have several options. The simplest option is to use the `tidyverse` metalibrary. However, in order to do this we must first separate the `AnnotatedDataFrame` data from its metadata. To do this, we could use the `pData()` function or the `@` operator. Then, we select only the parameters ending with `url` using the syntax shown below (which will be useful later as well) and that we transpose the table to make it easier to read in this document.
+
+``` r
+ HMMER_data_tbl@data%>%
+   select(ends_with("url")) %>%
+   t()
+#pData(VEMP_SARS.homologous.PDB) %>%
+#  select(ends_with("url")) %>%
+#  t()
+```
+
+```{r, echo=FALSE}
+pData(HMMER_data_tbl) %>%
+  select(ends_with("url")) %>%
+  t()%>%
+  kableExtra::kbl(caption = "Links to files with information about the search performed in HMMER. Note that they have probably already expired. ")%>%
+  kableExtra::kable_paper("basic")
+```
+
+As you may have guessed, we can use the `readAAStringSet` function to, just as we read the Fasta file containing the Sars-CoV-2 Reference Proteome, via a url, we can use it to download and read the HMMER files. 
+
+```{r, message=FALSE, warning=FALSE}
+readAAStringSet(HMMER_data_tbl$fullfasta.url)
+```
+
+Likewise, we could read the alignments of these sequences to the HMM (Hidden Markov Model) generated by HMMER using the function `readAAMultipleAlignment` and indicating the format:
+
+```{r, message=FALSE, warning=FALSE}
+readAAMultipleAlignment(HMMER_data_tbl$alignedfasta.url)
+```
+
+#### Information about the sequences found
+
+On the other hand, we have the `stats`, `hits` and `domains` parameters, which contain the hashes returned by HMMER for each search. These are actually nested DataFrames which in turn contain another set of parameters. Let's see the content of the nested DataFrame `stats`, although, as we will discuss later, there is a more convenient way to deal with this information. 
+
+Note that, being a nested DataFrame, it is not enough to make use of the `$` operator, but we also have to use `[[1]]` to indicate that we want the first element of the list or, otherwise, we would get a list with, in this case, a single element that would be the DataFrame instead of the DataFrame itself. Although this may seem awkward now, it is necessary to maintain consistency when several searches are made instead of one (as we will see in the next section). 
+
+``` r
+t(HMMER_data_tbl$stats[[1]])
+```
+
+```{r, echo=FALSE}
+t(HMMER_data_tbl$stats[[1]]) %>%
+  kableExtra::kbl(caption = "Content of the hash stats, with internal HMMER information and variables about the search itself and not about its content. ")%>%
+  kableExtra::kable_paper("basic")
+```
+Actually, most of the parameters contained in `stats` are for internal use and we are only interested in a small part of them.  For example, by studying the table above, we can know that HMMER found 40 hits (`nhits`) out of a total of 565928 sequences available (`Z`) in the PDB and that a single HMM (Hidden Markov Model) (`nmodels`) has been used in the search (built from our input sequence since we are using PHMMER algorithm). In case you are interested in learning more about how the results data are structured, we invite you to read the appendix of the [HMMER web server](https://hmmer-web-docs.readthedocs.io/en/latest/appendices.html). 
+
+We are not going to repeat the process for `hits` and `domains` because there is a much better way to query the information returned by HMMER and that is the `extract_from_HMMER_data_tbl` function. We show this possibility to point out that, in case the functionalities of use that we are going to show next and that are the core of this library are not useful for your application, you can access all the information as returned by HMMER in this way instead of parsing the JSON or XML file directly. 
 
 ### Extracting a Tidy Dataframe
 
-Now, we can use the `extract_from_HMMER_data_tbl` function to convert these results into a tidy DataFrame that we can easily work with.
-
-```{r, extract, message=FALSE, warning=FALSE}
-HMMER_data_tbl_tidy <- HMMER_data_tbl %>%
-  extract_from_HMMER_data_tbl(
-    id_column = rep(c("SPIKE_SARS", "NCAP_SARS"), c(3, 3))
-  )
-```
-
-Now, instead of having a nested DataFrame we have a DataFrame with all the information contained in a single table that has as many rows as domains have been identified (a potentially homologous sequence may contain one or more potentially homologous domains).
-
-### Adding information
-
-Now, we are going to filter out the significant sequences, annotate them and calculate a series of theoretical physical chemical properties. 
+Let's extract the contents of `hits` and `domains` to a tidy DataFrame using the `extract_from_HMMER_data_tbl` function. From now on, it will be this object that we will work with and not the one containing the search results. 
 
 ```{r, message=FALSE, warning=FALSE}
-HMMER_data_tbl_tidy <- HMMER_data_tbl_tidy %>%
-  dplyr::filter(hits.evalue < 0.01) %>% # filter out non-significant sequences
-  dplyr::distinct(hits.fullseq.fasta, .keep_all = TRUE) %>% # filter out redundant  sequences
-  add_taxa_to_HMMER_tbl(mode = "local") %>% # add taxonomic information
-  add_physicochemical_properties_to_HMMER_tbl() # calculate theoretical physical and chemical properties
+HMMER_tidy_tbl <- extract_from_HMMER_data_tbl(HMMER_data_tbl)
 ```
 
-Now, we can explore the e-values of the sequences we have obtained in search of red flags. We can see, for example, sequences whose evalue value is significant but that of their best domain is not. 
+As you can see, the result is, again, an `AnnotatedDataFrame` that in this case has as many rows as domains have been identified (keep this in mind in case, as is likely, you want to work by identified sequences and not necessarily the identified domains within these sequences). In this case, there are a total of 40 rows, i.e. the number of domains coincides with the number of sequences, so that only one domain per sequence has been identified although, especially in larger proteins, this is not usually the case.  
 
-```{r, evalues}
-hmmer_evalues_cleveland_dot_plot(
-  HMMER_tidy_tbl = HMMER_data_tbl_tidy,
-  threshold = 0.001)+
-  facet_grid(~id)
+```{r, message=FALSE, warning=FALSE}
+HMMER_tidy_tbl
 ```
 
-## Data exploration
+Let's inspect the parameters it contains and their meaning by inspecting the table with the metadata, as we did before:
 
-Let's see the dimensions that HMMER_data_tbl_tidy has now. We have 125 and 119 non-redundant homologous sequences for NCAP_SARS and SPIKE_SARS.
-
-```{r}
-HMMER_data_tbl_tidy %>%
-  group_by(id) %>%
-  distinct(hits.acc, hits.acc2)%>%
-  summarize(n = n())
+```{r, message=FALSE, warning=FALSE}
+metadata.VEMP_SARS <- HMMER_tidy_tbl@varMetadata
+#metadata.VEMP_SARS <- varMetadata(HMMER_tidy_tbl)
 ```
 
-Let's take a look at some of these columns. However, for a detailed and complete list, we refer you to our example dataset `?ABL1_homologous`.
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(magrittr)
-tibble(
-  "hits" = colnames(HMMER_data_tbl_tidy) %>%
-    str_subset("hits.") %>%
-    extract(1:18),
-  "domains" = colnames(HMMER_data_tbl_tidy) %>%
-    str_subset("domains.")%>%
-    extract(1:18),
-  "taxa" = colnames(HMMER_data_tbl_tidy) %>%
-    str_subset("taxa.")%>%
-    extract(1:18),
-  "properties" = colnames(HMMER_data_tbl_tidy) %>%
-    str_subset("properties.")%>%
-    extract(1:18),
-  ) %>%
-  kbl()%>%
-  kable_paper("basic") %>%
-  landscape()
+```r
+metadata.VEMP_SARS
 ```
 
-As you can imagine, variables are grouped with their type because they all start the same, such as `taxa.` or `hits.`. This will allow us to use the `starts_with` function to select them all at once. 
+```{r, echo=FALSE}
+metadata.VEMP_SARS %>%
+  kableExtra::kbl(caption = "The metadata of the full sequence and domains found by HMMER. ")%>%
+  kableExtra::kable_paper("basic")
+```
 
-### Principal Components Analysis using 
-Now, we are going to show how the physicochemical descriptors calculated can be used by doing a PCA. To do this, we will select the variables beginning with "properties", scale the data and perform the PCA with the prcomp function. 
-```{r}
-pca_descriptors <- HMMER_data_tbl_tidy %>% 
+### Data preprocessing
+
+#### E-values
+
+First, let us begin by studying the` e-values` obtained. Then, first of all, we should look at the E-value of the full sequence to see if it is lower than our significance threshold. This can be done as follows. Note that we use the `@data` operator, because we want to access and overwrite the data, not the metadata. 
+
+```{r, message=FALSE, warning=FALSE}
+threshold <-  0.01
+HMMER_tidy_tbl@data <- HMMER_tidy_tbl@data %>%
+  filter(hits.evalue <threshold)
+```
+
+
+As you can see in Table XXX, there are several types of ` e-values`, some referring to the sequence and others referring to the domains. But what do we mean by domains? According to the HMMER manual:
+
+> A target sequence that reaches this point is very likely to contain one or more significant matches to the profile. These matches are referred to as “domains”, since the main use of HMMER has historically been to match profile HMMs from protein domain databases like
+Pfam, and one of HMMER’s strengths is to be able to cleanly parse a multidomain target sequence into its multiple nonoverlapping hits to the same domain model.
+
+It is of special interest to study carefully the domain `E-value` when it happens that, although the full sequence `E-value` is good, none of the domain `E-value` reach the significance threshold. In that case, what is happening is that those weak hits, none of which is good enough on its own, add up to raise the sequence to a high score. This may happen because the sequence contains several weak homologous domains, or it may contain a repetitive sequence that is hitting by chance.
+
+HMMERutils has a function to display all the `E-values` of the sequences. This function `hmmer_evalues_cleveland_dot_plot`. In this plot the $-log(E-value)$ is represented on the $x$ axis and on the $y$ axis each of the identified sequences is represented one at a time. The green dots represent the E-values of the fullsequence and the red dots the E-values of each of the domains. 
+
+```{r, message=FALSE, warning=FALSE, fig.cap= "Cleveland dot plot of the E-values of each of the domains (colored in red) and of the complete sequences (colored in green) homologous to VEMP_SARS. "}
+hmmer_evalues_cleveland_dot_plot(HMMER_tidy_tbl, threshold = threshold)
+```
+By looking at it, you can see at a glance, first, how many domains have been identified for each sequence, and then how these contribute to the E-value of the fullsequence and how significant they are relative to the fullsequence. In this case, as can be seen, only one domain per sequence has been found (probably because they are very small) but we will see a case later where more than one domain are found. 
+
+#### Removing redundant sequences
+Now, let's filter the sequences to keep only non-redundant sequences. First, we have to add the sequences to the `AnnotatedDataFrame` by downloading the fullfasta file.  To do this we will use the `add_fullseq_to_HMMER_tbl` function, giving as arguments the AnnotatedDataFrame and a character vector with the addresses to the file /fullfastafastafiles. Note that this address can point to a file downloaded to your computer (if you have downloaded the files from the page) or the URL.
+
+```{r, message=FALSE, warning=FALSE}
+HMMER_tidy_tbl <- HMMER_tidy_tbl %>%
+  add_fullseq_to_HMMER_tbl(HMMER_data_tbl$fullfasta.url	)
+```
+Now, we can remove non redundant sequences using the `distinc` function. Note that we specify the parameter `.keep_all = TRUE` because we want to keep all columns. 
+
+```{r, message=FALSE, warning=FALSE}
+HMMER_tidy_tbl@data <- HMMER_tidy_tbl@data %>%
+  distinct(hits.fullfasta, .keep_all = TRUE)
+```
+Let's see how the `AnnotatedDataFrame` has now changed.
+
+```{r, message=FALSE, warning=FALSE}
+HMMER_tidy_tbl
+```
+### Data exploration
+
+#### Taxonomic distribution
+
+Now that we have selected our 23 sequences of interest, we can explore the nature of these sequences. One aspect of great interest is the taxonomic distribution of these sequences. We can consult it because we have the `hits.taxid` parameter, which identifies taxonomic species. We proceed to taxonomically annotate the results using the `add_taxa_to_HMMER_tbl` function
+
+```{r, message=FALSE, warning=FALSE}
+HMMER_tidy_tbl <- HMMER_tidy_tbl %>%
+  add_taxa_to_HMMER_tbl(mode = "local")
+```
+Note that we have indicated the parameter mode = "local" to note that we don't want to use remote resources. Using remote resources can be slow, we advise you, if the amount of sequences is considerable, to use the "local" option to install (only once) and then use a local database. Let us see what has happened in our `AnnotatedDataframe`.
+```{r, message=FALSE, warning=FALSE}
+HMMER_tidy_tbl
+```
+
+As you can see, we have added 15 new variables (the number will depend on the taxonomic categories available). Let's see which variables they are. To display only the ones we have just added we will use the following syntax (last 15 rows):
+
+``` r
+HMMER_tidy_tbl %>%
+  varMetadata() %>%
+  slice_tail(n=15)
+```
+
+```{r, echo=FALSE}
+HMMER_tidy_tbl %>%
+  varMetadata() %>%
+  slice_tail(n=15) %>%
+  kableExtra::kbl(caption = "Taxonomic variables metadata")%>%
+  kableExtra::kable_paper("basic")
+```
+
+Now, we can use all the metallibrary of `tidyverse` and `ggplot2` to explore the data and make graphs. Let's see an example of what could be done:
+
+##### Example: how to plot taxonomic information using ggplot2
+
+```{r, message=FALSE, warning=FALSE, fig.cap="Histogram of VEMP_SARS homologous sequences E-values according to taxonomic subgenus"}
+HMMER_tidy_tbl %>%
+  pData() %>%
+  ggplot(aes(x = hits.evalue, fill = taxa.subgenus)) + 
+  geom_histogram(binwidth = 0.0001)
+```
+#### Calculating the identity of pairwise alignments
+
+Based on the  Figure XXX, it would be reasonable to think that there would be a greater diversity in the Embecovirus sequences, since there is a greater variety in the E-values. To examine this in more detail we can align all the sequences in pairs and then calculate the percentages of identity for each one Using the `pairwise_alignment_sequence_identity` function.
+
+When calling this function, we give it as parameters the variable `seqs` containing the complete sequences (we could give it the sequences of the domains), the type of alignment and the type of sequence identity we are going to use. In this case we will use the default options: `aln_type = "global"` (align whole strings with end gap penalties by using the Needleman-Wunsch algorithm) and `pid_type = "PID1"` ( $PID1 = 100 \cdot \frac{\text{identical positions}}{\text{aligned positions + internal gap positions}}$). In addition, we could use the `allow_parallelization` parameter to speed up the calculation. The option "multisession" option will generate several Rstudio sessions on your computer, while the "multicore" option, is considered unsafe to use in an Rstudio session (although you could use it in a script). 
+
+```{r, message=FALSE, warning=FALSE}
+pid <- pairwise_alignment_sequence_identity(seqs = HMMER_tidy_tbl$hits.fullfasta,
+                                     aln_type = "global",
+                                     pid_type = "PID1",
+                                     #allow_parallelization = "multisession"
+                                     )
+```
+
+Now, we can use 2 HMMERutils functions to view the results. We can see the distribution of these identities:  
+
+```{r, message=FALSE, warning=FALSE, fig.cap= "Histogram of sequence identity by pairs of sequences homologous to VEMP_SARS."}
+pairwise_sequence_identity_histogram(pid)
+```
+And, in order to compare this information with other parameters, a heatmap. Note that we use the `taxa.subgenus` column to annotate the heatmap, for which we use the `annotation` argument and the `$` operator. 
+
+```{r, message=FALSE, warning=FALSE, fig.cap= "Heatmap of sequence identity by pairs of sequences homologous to VEMP_SARS."}
+pairwise_sequence_identity_heatmap(pid,annotation = HMMER_tidy_tbl$taxa.subgenus)
+```
+As we can now see, the *Embecovirus* sequences form 2 groups with a high sequence identity with each other and with themselves. In addition, there are 2 sequences that present a very low percentage of sequence identity with the rest of the sequences of their subgenus, but high with the *Tegacovirus* sequences. 
+
+#### Physicochemical properties
+
+We can study what the sequences we have obtained are like in more detail by calculating physicochemical properties based on their primary sequence. To do this, we can use the `add_physicochemical_properties_to_HMMER_tbl` function:
+```{r, message=FALSE, warning=FALSE}
+HMMER_tidy_tbl <- HMMER_tidy_tbl %>% 
+  add_physicochemical_properties_to_HMMER_tbl()
+```
+
+Let us see what has happened in our `AnnotatedDataframe`.
+```{r, message=FALSE, warning=FALSE}
+HMMER_tidy_tbl
+```
+
+As you can see, we have added 18 new variables. In this case it is almost essential to examine the metadata of the new parameters, in order to know what we are talking about. We will use the following syntax (last 18 rows):
+
+``` r
+HMMER_tidy_tbl %>%
+  varMetadata() %>%
+  slice_tail(n = 18)
+```
+
+```{r, echo=FALSE}
+HMMER_tidy_tbl %>%
+  varMetadata() %>%
+  slice_tail(n=18) %>%
+  kableExtra::kbl(caption = "Metadata of the variables on the theoretical physicochemical properties calculated with the primary structure. ")%>%
+  kableExtra::kable_paper("basic")
+```
+
+##### Example: how to perform a PCA on the physicochemical properties of sequences using factoextra   
+
+Let's see an example of how to use these theoretical parameters that we have just calculated. To perform a PCA we must first select only the columns that contain these properties (and we do it taking advantage of the fact that they all begin with "properties"), scale them (`scale = TRUE`) and perform the PCA with the `prcomp` function.
+
+```{r, message=FALSE, warning=FALSE}
+pca.properties <- HMMER_tidy_tbl@data %>%
   select(starts_with("properties")) %>%
-  scale() %>%
-  prcomp()
+  prcomp(scale = TRUE)
 ```
 
-Let's explore the results. For this we will use the `broom` library, which converts R statistical analysis objects into tidy tibble. Let's start by looking at the variance explained by each component. We will extract the matrix containing the eigenvalues, keep the first n components that explain 99% of the variance
+Now, using the `factoextra` library, we are going to project the homologous sequences to VEMP_SARS on the 2 main components to color them according to the taxonomic subgenus.  
 
-```{r, varianza, fig.wide = TRUE, fig.cap= "Percentage of variance explained in the PCA"}
-pca_descriptors %>%
-  tidy(matrix = "eigenvalues") %>%
-  filter(cumsum(percent) < 0.99)%>%
-  ggplot(aes(PC, percent)) +
-  geom_col(fill = "#56B4E9", alpha = 0.8) +
-  scale_x_continuous(breaks = 1:10)
+```{r, message=FALSE, warning=FALSE, fig.cap="Principal component analysis on proteins homologous to VEMP_SARS. Sequence projection."}
+library(factoextra)
+fviz_pca_ind(pca.properties, geom.ind = "point", 
+             col.ind = HMMER_tidy_tbl$taxa.subgenus, 
+             axes = 1:2, 
+             pointsize = 1.5) 
 ```
-
-
-Now, let's plot the 3 principal components of the PCA. Since we want to be able to color the points based on taxonomic variables from the original set, we will combine both datasets using the augment() function.
-
-```{r, proyeccion, fig.wide = TRUE, fig.cap= "PCA 1 Vs PCA 2"}
-pca_descriptors %>%
-  augment(HMMER_data_tbl_tidy) %>%
-  ggplot(aes(.fittedPC1, .fittedPC2, color = id)) + 
-  geom_point(size = 1.5)
+Now, we can see how, although we would have thought otherwise if we had paid attention exclusively to the percentage of sequence identity, Embecovirus sequences are not so different physico-chemically, even though their sequence is. We may also be interested in knowing which variables are most involved. To do this, we are going to make a biplot:
+```{r, message=FALSE, warning=FALSE, fig.cap= "Principal component analysis on proteins homologous to VEMP_SARS. Biplot of variables and sequences."}
+fviz_pca(pca.properties, geom.ind = "point", 
+             col.ind = HMMER_tidy_tbl$taxa.subgenus, 
+             axes = 1:2, 
+             pointsize = 2) 
 ```
-
-Finally, we will seewhich variables contribute most to explaining each of the components. To do this, we will extract the rotation matrix. 
-```{r, rotation, fig.wide = TRUE, fig.cap= "Contribution of variables to the GPCA."}
-pca_descriptors %>%
-  tidy(matrix = "rotation") %>%
-  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
-  mutate(column = gsub(".*\\.", "", column))%>%
-  ggplot(aes(PC1, PC2)) +
-  geom_segment(xend = 0, yend = 0, arrow = arrow(
-    ends = "first",
-    length = grid::unit(4, "pt")
-  )
-               ) +
-  geom_text(
-    aes(label = column),
-    hjust = 0.2, nudge_x = -0.05, 
-    color = "#904C2F"
-  )
-```
-
 # Reproducibility
-
-The `r Biocpkg("HMMERutils")` package `r Citep(bib[["HMMERutils"]])` was made possible thanks to:
-
-* R `r Citep(bib[["R"]])`
-* `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
-* `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])`
-* `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
-* `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])`
-* `r CRANpkg("sessioninfo")` `r Citep(bib[["sessioninfo"]])`
-* `r CRANpkg("testthat")` `r Citep(bib[["testthat"]])`
-
-This package was developed using `r BiocStyle::Biocpkg("biocthis")`.
-
 
 Code for creating the vignette
 

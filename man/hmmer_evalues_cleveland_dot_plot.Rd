@@ -7,7 +7,8 @@
 hmmer_evalues_cleveland_dot_plot(HMMER_tidy_tbl, threshold = 0.01)
 }
 \arguments{
-\item{HMMER_tidy_tbl}{A \code{HMMER_tidy_tbl}.}
+\item{HMMER_tidy_tbl}{An \code{AnnotatedDataFrame} obtained through
+\code{extract_from_HMMER_data_tbl}.}
 
 \item{threshold}{A numeric vector of one with a maximum allowed value
 of evalue to draw a line.}
@@ -19,9 +20,9 @@ A ggplot2 object.
 A Cleveland dot plot with the evalues of the domains and sequences.
 }
 \examples{
-data("ABL1_homologous")
+data("example_phmmer")
 hmmer_evalues_cleveland_dot_plot(
-    ABL1_homologous,
+    example_phmmer,
     threshold = 0.001
 )
 

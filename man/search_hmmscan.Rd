@@ -4,10 +4,21 @@
 \alias{search_hmmscan}
 \title{hmmscan search of a protein sequence against a profile-HMM database.}
 \usage{
-search_hmmscan(seqs, dbs = "pfam", verbose = TRUE, N.TRIES = 1)
+search_hmmscan(
+  seqs,
+  seq_names = NULL,
+  dbs = "pfam",
+  verbose = TRUE,
+  N.TRIES = 1
+)
 }
 \arguments{
-\item{seqs}{A vector of characters containing the sequences of the query.}
+\item{seqs}{A character vector containing the sequences of the query or
+any other object that can be converted to that.}
+
+\item{seq_names}{A character vector containing the names of the sequences.
+If \code{seqs} is a named vector it will overwrite them. If not specified, they
+will not be taken into account.}
 
 \item{dbs}{A character vector containing the target databases. Frequently
 used databases are \code{pfam}, \code{tigrfam} \code{gene3d}, \code{superfamily}, \code{pirsf} and
@@ -19,23 +30,25 @@ used databases are \code{pfam}, \code{tigrfam} \code{gene3d}, \code{superfamily}
 \item{N.TRIES}{An integer specifying the number of trials before a time out occurs.}
 }
 \value{
-A nested DataFrame with columns \code{seqs}, \code{dbs}, \code{url}
-(HMMER temporary url), \code{hits}, \code{stats}, \code{domains} and,
-if selected, \code{fullseq.fasta.}
+An \code{AnnotatedDataFrame}, consisting of 2 parts, a nested DataFrame
+with the search hashes, the download links of all available files and
+of the HMMER page where the results are hosted, and the metadata
+associated to this DataFrame. Although all available results are available
+here, we recommend using the \code{extract_from_HMMER_data_tbl} function
+to preprocess the data.
 }
 \description{
 hmmscan search of a protein sequence against a profile-HMM database.
 }
 \examples{
-try(
-    hmmscan_tbl <- search_hmmscan(
-        seqs = "MTEITAAMVKELRESTGAGMMDCKN",
-        dbs = "pfam",
-        verbose = FALSE,
-    )
-)
-}
-\seealso{
-\code{\link{ABL1_homologous}} for a detailed description of
-the meaning of the different variables.
+path_to_example_fasta <- system.file(
+ "extdata/fasta_seq_example.fa",
+ package = "HMMERutils")
+seqs <- Biostrings::readAAStringSet(path_to_example_fasta)
+hmmscan_tbl <- search_hmmscan(
+ seqs = seqs,
+ dbs = "pfam",
+ verbose = FALSE)
+hmmscan_tbl
+Biobase::varMetadata(hmmscan_tbl)
 }

@@ -19,7 +19,7 @@ test_that("Danio rerio sequential all, offline", {
         testthat::expect_error(NA)
 })
 
-testthat::skip_if_offline()
+testthat::skip_on_ci()
 skip_if_not_installed("taxize")
 test_that("Danio rerio sequential, length one, online", {
     df <- annotate_with_NCBI_taxid(7955, "species")

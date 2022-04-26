@@ -6,50 +6,46 @@
 \usage{
 search_phmmer(
   seqs,
+  seq_names = NULL,
   dbs = "swissprot",
-  fullseqfasta = TRUE,
-  verbose = TRUE,
   N.TRIES = 1,
-  alignment = FALSE
+  verbose = TRUE
 )
 }
 \arguments{
-\item{seqs}{A vector of characters containing the sequences of the query.}
+\item{seqs}{A character vector containing the sequences of the query or
+any other object that can be converted to that.}
+
+\item{seq_names}{A character vector containing the names of the sequences
+of the query. By default \code{seq_names = NULL}.}
 
 \item{dbs}{A character vector containing the target databases. Frequently
 used databases are \code{swissprot}, \code{uniprotrefprot}, \code{uniprotkb}, \code{ensembl},
 \code{pdb} and \code{alphafold}, but a complete and updated list is available at
 \url{https://www.ebi.ac.uk/Tools/hmmer/}.}
 
-\item{fullseqfasta}{A logical, if TRUE full sequence fasta will be downloaded
-as a AAStringSet. Package \code{Biostrings} must be installed in that case.}
+\item{N.TRIES}{An integer specifying the number of attempts before
+an error occurs.}
 
 \item{verbose}{A logical, if TRUE details of the download process is printed.}
-
-\item{N.TRIES}{An integer specifying the number of trials before a time out occurs.}
-
-\item{alignment}{A logical, if TRUE sequence alignment will be downloaded
-as a \code{AAMultipleAlignment}. Package \code{Biostrings} must be installed in that case.}
 }
 \value{
-A nested DataFrame with columns \code{seqs}, \code{dbs}, \code{url}
-(HMMER temporary url), \code{hits}, \code{stats}, \code{domains} and, if selected,
-\code{fullseq.fasta.} and \code{alignment}.
+An \code{AnnotatedDataFrame}, consisting of 2 parts, a nested DataFrame
+with the search hashes, the download links of all available files and
+of the HMMER page where the results are hosted, and the metadata
+associated to this DataFrame. Although all available results are available
+here, we recommend using the \code{extract_from_HMMER_data_tbl} function
+to preprocess the data.
 }
 \description{
 Perform a phmmer search of a protein sequence against a protein sequence database.
 }
 \examples{
-try(
-    phmmer_tbl <- search_phmmer(
-        seqs = "MTEITAAMVKELRTGAGMMDCKN",
-        dbs = "pdb",
-        verbose = FALSE,
-        timeout = 1
-    )
-)
-}
-\seealso{
-\code{\link{ABL1_homologous}} for a detailed description of the meaning
-of the different variables.
+phmmer_tbl <- search_phmmer(
+  seqs = "MTEITAAMVKELRTGAGMMDCKN",
+  seq_names = "1efu_B",
+  dbs = "pdb",
+  verbose = FALSE)
+phmmer_tbl
+Biobase::varMetadata(phmmer_tbl)
 }

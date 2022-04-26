@@ -1,6 +1,9 @@
 #' Calculate the percentage of pairwise sequence identity
 #'
-#' @param seqs A named character vector to convert into a `Biostrings::AAStringSet` or a `Biostrings::AAStringSet` with the sequences of interest.
+#' @param seqs A named character vector to convert into a
+#'   `Biostrings::AAStringSet` or a `Biostrings::AAStringSet` with the
+#'    sequences of interest. If they are not named, arbitrary names
+#'    will be given.
 #' @param aln_type A character vector of one containing the alignment type.
 #'    Possible options are "global" (Needleman-Wunsch),"local" (Smith-Waterman) and "overlap".
 #' @param pid_type A character vector of one containing the definition of percent
@@ -14,14 +17,14 @@
 #'    heatmap. Refer to the "examples" section.
 #'
 #' @examples
-#' data(ABL1_homologous)
+#' data(example_phmmer)
 #' pairwise.per <- pairwise_alignment_sequence_identity(
-#'     seqs = ABL1_homologous$hits.fullseq.fasta[1:4],
+#'     seqs = example_phmmer$hits.fullfasta[1:10],
 #'     aln_type = "overlap",
 #'     pid_type = "PID2"
 #' )
 #' plot(pairwise.per)
-#' plot(pairwise.per, type = "heatmap")
+#' plot(pairwise.per, type = "heatmap", ann = example_phmmer$taxa.phylum[1:10])
 #'
 #' @section Alignment types:
 #' * `global`: align whole strings with end gap penalties.
@@ -34,18 +37,21 @@
 #' * `PID3`: 100 * (identical positions) / (length shorter sequence).
 #' * `PID4`: 100 * (identical positions) / (average length of the two sequences).
 #'
-#' @return A DataFrame of subclass `pairwise_sequence_identity`, so that it has associated S3 methods..
+#' @return A DataFrame of subclass `pairwise_sequence_identity`, so that it has associated S3 methods.
 #' @export
 #'
 pairwise_alignment_sequence_identity <- function(seqs,
     aln_type = "global",
     pid_type = "PID1",
     allow_parallelization = NULL) {
+    if (is.null(names(seqs)) && is.character(seqs)) {
+      names(seqs) <- paste0("seq", seq(1, length(seqs)))
+    }
     if (!methods::is(seqs, "AAStringSet")) {
         seqs <- Biostrings::AAStringSet(seqs)
     }
     if (length(names(seqs)) != length(unique(names(seqs)))) {
-        stop("AAStringSet must have unique names.")
+        stop("seqs must have unique names.")
     }
     if (!is.null(allow_parallelization) && !requireNamespace("furrr", quietly = TRUE)) {
         stop(
@@ -129,8 +135,12 @@ calculate_percentage_sequence_identity <- function(seq1, seq2,
 #' @export
 #'
 #' @examples
-#' data(pairwise_identities_ABL1_homologous)
-#' pairwise_sequence_identity_histogram(pairwise_identities_ABL1_homologous)
+#' data(example_phmmer)
+#' pairwise.per <- pairwise_alignment_sequence_identity(
+#'     seqs = example_phmmer$hits.fullfasta[1:5],
+#'     aln_type = "overlap",
+#'     pid_type = "PID2")
+#' pairwise_sequence_identity_histogram(pairwise.per)
 pairwise_sequence_identity_histogram <- function(object) {
     ggplot2::ggplot(
         object,
@@ -149,8 +159,12 @@ pairwise_sequence_identity_histogram <- function(object) {
 #' @export
 #'
 #' @examples
-#' data(pairwise_identities_ABL1_homologous)
-#' pairwise_sequence_identity_heatmap(pairwise_identities_ABL1_homologous)
+#' data(example_phmmer)
+#' pairwise.per <- pairwise_alignment_sequence_identity(
+#'     seqs = example_phmmer$hits.fullfasta[1:5],
+#'     aln_type = "overlap",
+#'     pid_type = "PID2")
+#' pairwise_sequence_identity_histogram(pairwise.per)
 pairwise_sequence_identity_heatmap <- function(object, annotation = NULL) {
     data.plot <- object %>%
         dplyr::bind_rows(

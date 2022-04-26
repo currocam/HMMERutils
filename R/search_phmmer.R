@@ -1,45 +1,48 @@
 #' Perform a phmmer search of a protein sequence against a protein sequence database.
 #'
-#' @param seqs A vector of characters containing the sequences of the query.
+#' @param seqs A character vector containing the sequences of the query or
+#'  any other object that can be converted to that.
+#' @param seq_names A character vector containing the names of the sequences
+#'  of the query. By default `seq_names = NULL`.
 #' @param dbs A character vector containing the target databases. Frequently
 #'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`, `ensembl`,
 #'  `pdb` and `alphafold`, but a complete and updated list is available at
 #'   \url{https://www.ebi.ac.uk/Tools/hmmer/}.
-#' @param fullseqfasta  A logical, if TRUE full sequence fasta will be downloaded
-#'  as a AAStringSet. Package `Biostrings` must be installed in that case.
 #' @param verbose A logical, if TRUE details of the download process is printed.
-#' @param N.TRIES An integer specifying the number of trials before a time out occurs.
-#' @param alignment A logical, if TRUE sequence alignment will be downloaded
-#'  as a `AAMultipleAlignment`. Package `Biostrings` must be installed in that case.
+#' @param N.TRIES An integer specifying the number of attempts before
+#'  an error occurs.
 #'
-#' @return A nested DataFrame with columns `seqs`, `dbs`, `url`
-#'  (HMMER temporary url), `hits`, `stats`, `domains` and, if selected,
-#'   `fullseq.fasta.` and `alignment`.
-#'
-#' @seealso \code{\link{ABL1_homologous}} for a detailed description of the meaning
-#'  of the different variables.
+#' @return An `AnnotatedDataFrame`, consisting of 2 parts, a nested DataFrame
+#'  with the search hashes, the download links of all available files and
+#'   of the HMMER page where the results are hosted, and the metadata
+#'   associated to this DataFrame. Although all available results are available
+#'    here, we recommend using the `extract_from_HMMER_data_tbl` function
+#'    to preprocess the data.
 #'
 #' @examples
-#' try(
-#'     phmmer_tbl <- search_phmmer(
-#'         seqs = "MTEITAAMVKELRTGAGMMDCKN",
-#'         dbs = "pdb",
-#'         verbose = FALSE,
-#'         timeout = 1
-#'     )
-#' )
+#' phmmer_tbl <- search_phmmer(
+#'   seqs = "MTEITAAMVKELRTGAGMMDCKN",
+#'   seq_names = "1efu_B",
+#'   dbs = "pdb",
+#'   verbose = FALSE)
+#' phmmer_tbl
+#' Biobase::varMetadata(phmmer_tbl)
 #' @export
 
-search_phmmer <- function(seqs,
+search_phmmer <- function(
+    seqs,
+    seq_names = NULL,
     dbs = "swissprot",
-    fullseqfasta = TRUE,
-    verbose = TRUE,
     N.TRIES = 1,
-    alignment = FALSE) {
+    verbose = TRUE) {
     # Check
     seqs <- deal_with_input_sequences(seqs)
+    if (length(seqs) == length(seq_names)) {
+      names(seqs) <- make.unique(seq_names)
+    }
     # all combinations of inputs
-    grid <- tidyr::expand_grid(seqs, dbs)
+    grid <- tidyr::expand_grid(seqs, dbs) %>%
+      dplyr::mutate("seq.name" = names(.data$seqs))
     tbl_list <- purrr::map2(
         .x = grid$seqs,
         .y = grid$dbs,
@@ -48,28 +51,16 @@ search_phmmer <- function(seqs,
                 seq = .x,
                 seqdb = .y,
                 url = "https://www.ebi.ac.uk/Tools/hmmer/search/phmmer",
-                verbose = TRUE,
+                verbose = verbose,
                 N.TRIES = N.TRIES
             )
         }
     ) %>%
         parse_xml_into_tbl()
-
-    df <- grid %>%
-        dplyr::mutate(
-            "seq.name" = names(seqs),
-            "uuid" = purrr::flatten_chr(tbl_list$uuid),
-            "url" = purrr::flatten_chr(tbl_list$url),
-            "stats" = tbl_list$stats,
-            "hits" = tbl_list$hits,
-            "domains" = tbl_list$domains
-        )
-    if (fullseqfasta) {
-        df <- mutate_fullseqfasta(df, df$uuid)
+    names_seq <- NULL
+    if (!is.null(seq_names)) {
+      names_seq <- grid$seq.name
     }
-    if (alignment) {
-        df <- mutate_alignment(df, df$uuid)
-    }
-    class(df) <- c("HMMER_data_tbl", class(df))
-    return(df)
+    create_hmmer_AnnotatedDataFrame(grid, names_seq, tbl_list, type = "phmmer")
 }
+

@@ -12,7 +12,10 @@ pairwise_alignment_sequence_identity(
 )
 }
 \arguments{
-\item{seqs}{A named character vector to convert into a \code{Biostrings::AAStringSet} or a \code{Biostrings::AAStringSet} with the sequences of interest.}
+\item{seqs}{A named character vector to convert into a
+\code{Biostrings::AAStringSet} or a \code{Biostrings::AAStringSet} with the
+sequences of interest. If they are not named, arbitrary names
+will be given.}
 
 \item{aln_type}{A character vector of one containing the alignment type.
 Possible options are "global" (Needleman-Wunsch),"local" (Smith-Waterman) and "overlap".}
@@ -25,7 +28,7 @@ If you want to parallelize the alignment of the sequences, speeding up the
 process, select \code{multisession} or \code{multicore}.}
 }
 \value{
-A DataFrame of subclass \code{pairwise_sequence_identity}, so that it has associated S3 methods..
+A DataFrame of subclass \code{pairwise_sequence_identity}, so that it has associated S3 methods.
 }
 \description{
 Calculate the percentage of pairwise sequence identity
@@ -56,13 +59,13 @@ heatmap. Refer to the "examples" section.
 }
 
 \examples{
-data(ABL1_homologous)
+data(example_phmmer)
 pairwise.per <- pairwise_alignment_sequence_identity(
-    seqs = ABL1_homologous$hits.fullseq.fasta[1:4],
+    seqs = example_phmmer$hits.fullfasta[1:10],
     aln_type = "overlap",
     pid_type = "PID2"
 )
 plot(pairwise.per)
-plot(pairwise.per, type = "heatmap")
+plot(pairwise.per, type = "heatmap", ann = example_phmmer$taxa.phylum[1:10])
 
 }

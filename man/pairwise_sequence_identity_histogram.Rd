@@ -16,6 +16,10 @@ A ggplot object
 Plot a histogram with the pairwise identity percentages.
 }
 \examples{
-data(pairwise_identities_ABL1_homologous)
-pairwise_sequence_identity_histogram(pairwise_identities_ABL1_homologous)
+data(example_phmmer)
+pairwise.per <- pairwise_alignment_sequence_identity(
+    seqs = example_phmmer$hits.fullfasta[1:5],
+    aln_type = "overlap",
+    pid_type = "PID2")
+pairwise_sequence_identity_histogram(pairwise.per)
 }
