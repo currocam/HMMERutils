@@ -58,209 +58,94 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">search_hmmsearch</span><span class="op">(</span>
   <span class="va">alns</span>,
+  aln_names <span class="op">=</span> <span class="cn">NULL</span>,
   dbs <span class="op">=</span> <span class="st">"swissprot"</span>,
-  fullseqfasta <span class="op">=</span> <span class="cn">TRUE</span>,
   verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  timeout <span class="op">=</span> <span class="fl">90</span>,
-  alignment <span class="op">=</span> <span class="cn">FALSE</span>
+  N.TRIES <span class="op">=</span> <span class="fl">1</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>alns</dt>
-<dd><p>A list of Biostrings::AAMultipleAlignment.</p></dd>
+<dd><p>A Biostrings::AAMultipleAlignment or a list of
+Biostrings::AAMultipleAlignment.</p></dd>
+<dt>aln_names</dt>
+<dd><p>A character vector containing the names of the aligments.
+If <code>alns</code> is a named list it will overwrite them. If not specified, they
+will not be taken into account.</p></dd>
 <dt>dbs</dt>
 <dd><p>A character vector containing the target databases. Frequently
 used databases are <code>swissprot</code>, <code>uniprotrefprot</code>, <code>uniprotkb</code>, <code>ensembl</code>,
 <code>pdb</code> and <code>alphafold</code>, but a complete and updated list is available at
 <a href="https://www.ebi.ac.uk/Tools/hmmer/" class="external-link">https://www.ebi.ac.uk/Tools/hmmer/</a>.</p></dd>
-<dt>fullseqfasta</dt>
-<dd><p>A logical, if TRUE full sequence fasta will be downloaded
-as a AAStringSet. Package <code>Biostrings</code> must be installed in that case.</p></dd>
 <dt>verbose</dt>
 <dd><p>A logical, if TRUE details of the download process is printed.</p></dd>
-<dt>timeout</dt>
-<dd><p>An integer specifying the number of seconds to wait for the
-reply before a time out occurs.</p></dd>
-<dt>alignment</dt>
-<dd><p>A logical, if TRUE sequence alignment will be downloaded
-as a <code>AAMultipleAlignment</code>. Package <code>Biostrings</code> must be installed in that case.#'</p></dd>
+<dt>N.TRIES</dt>
+<dd><p>An integer specifying the number of trials before a time out occurs.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A nested DataFrame with columns <code>alns</code>, <code>dbs</code>, <code>url</code>(HMMER temporary url), <code>hits</code>, <code>stats</code>, <code>domains</code> and, if selected,
-<code>fullseq.fasta.</code> and <code>alignment</code>.</p>
-    </div>
-    <div id="see-also">
-    <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="ABL1_homologous.html">ABL1_homologous</a></code> for a detailed description of the meaning
-of the different variables.</p></div>
+    <p>An <code>AnnotatedDataFrame</code>, consisting of 2 parts, a nested DataFrame
+with the search hashes, the download links of all available files and
+of the HMMER page where the results are hosted, and the metadata
+associated to this DataFrame. Although all available results are available
+here, we recommend using the <code>extract_from_HMMER_data_tbl</code> function
+to preprocess the data.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">aln</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="st">"MTEITAAMVKELR--TGAGMMDCKN"</span>,</span>
-<span class="r-in">    <span class="st">"------AMVKELRESTGAGMMDCKN"</span></span>
-<span class="r-in"><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/MultipleAlignment-class.html" class="external-link">AAMultipleAlignment</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="va">hmmsearch_tbl</span> <span class="op">&lt;-</span> <span class="fu">search_hmmsearch</span><span class="op">(</span></span>
-<span class="r-in">        alns <span class="op">=</span> <span class="va">aln</span>,</span>
-<span class="r-in">        dbs <span class="op">=</span> <span class="st">"pdb"</span>,</span>
-<span class="r-in">        verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">        timeout <span class="op">=</span> <span class="fl">15</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Content from HMMER server:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &lt;opt&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;data name="results" algo="hmmsearch" uuid="123904B6-B98E-11EC-B611-C42FE976C163"&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;_internal highevalue="1.7e-11" lowevalue="0.00024" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="4pc3_C" acc="4pc3_C" arch="PF00889.22" archScore="2" archindex="158710124293725 83333" bias="1.6" desc="Elongation factor Ts" evalue="1.7e-11" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/4pc3_C" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-38.0097949688518" score="48.6" sindex="57516019" species="Escherichia coli K-12" taxid="83333" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.863636363636364" aliIdCount="19" aliL="282" aliM="25" aliN="22" aliSim="0.863636363636364" aliSimCount="19" aliaseq="EITASLVKELRERTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="3" alihmmname="Query" alihmmto="24" alimline="EitA  VKELRE TGAGMMDCK" alimmline="" alimodel="EitAAMVKELREsTGAGMMDCK" aliniseqs="5" alintseq="" alippline="9********************9" alirfline="" alisindex="57516019" alisqacc="4pc3_C" alisqdesc="Elongation factor Ts" alisqfrom="2" alisqname="4pc3_C" alisqto="23" bias="1.64" bitscore="48.611629486084" cevalue="3.4e-16" iali="2" ienv="1" ievalue="1.7e-11" is_included="1" is_reported="1" jali="23" jenv="24" oasc="0.97" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.8" aliIdCount="4" aliL="282" aliM="25" aliN="5" aliSim="0.8" aliSimCount="4" aliaseq="AAMSK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="6" alihmmname="Query" alihmmto="10" alimline="AAM K" alimmline="" alimodel="AAMVK" aliniseqs="5" alintseq="" alippline="9**77" alirfline="" alisindex="57516019" alisqacc="4pc3_C" alisqdesc="Elongation factor Ts" alisqfrom="276" alisqname="4pc3_C" alisqto="280" bias="0.38" bitscore="-3.95390582084656" cevalue="10" iali="276" ienv="275" ievalue="500000" is_included="0" is_reported="0" jali="280" jenv="280" oasc="0.80" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4pc3_D&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4q7j_E&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4pc3_C&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4q7j_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4pc7_C&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts" dn="4pc3_D" sp="Escherichia coli K-12" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts" dn="4pc7_C" sp="Escherichia coli K-12" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts" dn="4q7j_A" sp="Escherichia coli K-12" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts" dn="4q7j_E" sp="Escherichia coli K-12" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="1efu_B" acc="1efu_B" arch="PF00889.22" archScore="2" archindex="158710124293725 562" bias="1.6" desc="ELONGATION FACTOR TS" evalue="1.7e-11" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/1efu_B" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-38.0097949688518" score="48.6" sindex="56418786" species="Escherichia coli" taxid="562" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.863636363636364" aliIdCount="19" aliL="282" aliM="25" aliN="22" aliSim="0.863636363636364" aliSimCount="19" aliaseq="EITASLVKELRERTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="3" alihmmname="Query" alihmmto="24" alimline="EitA  VKELRE TGAGMMDCK" alimmline="" alimodel="EitAAMVKELREsTGAGMMDCK" aliniseqs="6" alintseq="" alippline="9********************9" alirfline="" alisindex="56418786" alisqacc="1efu_B" alisqdesc="ELONGATION FACTOR TS" alisqfrom="2" alisqname="1efu_B" alisqto="23" bias="1.64" bitscore="48.611629486084" cevalue="3.4e-16" iali="2" ienv="1" ievalue="1.7e-11" is_included="1" is_reported="1" jali="23" jenv="24" oasc="0.97" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.8" aliIdCount="4" aliL="282" aliM="25" aliN="5" aliSim="0.8" aliSimCount="4" aliaseq="AAMSK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="6" alihmmname="Query" alihmmto="10" alimline="AAM K" alimmline="" alimodel="AAMVK" aliniseqs="6" alintseq="" alippline="9**77" alirfline="" alisindex="56418786" alisqacc="1efu_B" alisqdesc="ELONGATION FACTOR TS" alisqfrom="276" alisqname="1efu_B" alisqto="280" bias="0.38" bitscore="-3.95390582084656" cevalue="10" iali="276" ienv="275" ievalue="500000" is_included="0" is_reported="0" jali="280" jenv="280" oasc="0.80" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4pc1_D&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;1efu_D&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4pc2_C&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4pc1_C&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;1efu_B&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4pc2_D&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="ELONGATION FACTOR TS" dn="1efu_D" sp="Escherichia coli" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts" dn="4pc1_C" sp="Escherichia coli" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts" dn="4pc1_D" sp="Escherichia coli" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts" dn="4pc2_C" sp="Escherichia coli" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts" dn="4pc2_D" sp="Escherichia coli" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="4pc6_C" acc="4pc6_C" arch="PF00889.22" archScore="2" archindex="158710124293725 536056" bias="1.6" desc="Elongation factor Ts" evalue="1.7e-11" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/4pc6_C" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-38.0097949688518" score="48.6" sindex="55721010" species="Escherichia coli (strain ATCC 33849 / DSM 4235 / NCIMB 12045 / K12 / DH1)" taxid="536056" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.863636363636364" aliIdCount="19" aliL="282" aliM="25" aliN="22" aliSim="0.863636363636364" aliSimCount="19" aliaseq="EITASLVKELRERTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="3" alihmmname="Query" alihmmto="24" alimline="EitA  VKELRE TGAGMMDCK" alimmline="" alimodel="EitAAMVKELREsTGAGMMDCK" aliniseqs="2" alintseq="" alippline="9********************9" alirfline="" alisindex="55721010" alisqacc="4pc6_C" alisqdesc="Elongation factor Ts" alisqfrom="2" alisqname="4pc6_C" alisqto="23" bias="1.64" bitscore="48.611629486084" cevalue="3.4e-16" iali="2" ienv="1" ievalue="1.7e-11" is_included="1" is_reported="1" jali="23" jenv="24" oasc="0.97" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.8" aliIdCount="4" aliL="282" aliM="25" aliN="5" aliSim="0.8" aliSimCount="4" aliaseq="AAMSK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="6" alihmmname="Query" alihmmto="10" alimline="AAM K" alimmline="" alimodel="AAMVK" aliniseqs="2" alintseq="" alippline="9**77" alirfline="" alisindex="55721010" alisqacc="4pc6_C" alisqdesc="Elongation factor Ts" alisqfrom="276" alisqname="4pc6_C" alisqto="280" bias="0.38" bitscore="-3.95390582084656" cevalue="10" iali="276" ienv="275" ievalue="500000" is_included="0" is_reported="0" jali="280" jenv="280" oasc="0.80" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4pc6_D&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4pc6_C&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts" dn="4pc6_D" sp="Escherichia coli DH1" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="3mmp_A" acc="3mmp_A" arch="PF00889.22 PF00009.30 PF03144.28 PF03143.20" archScore="5" archindex="118498722050600 83333" bias="3.2" desc="Elongation factor Tu 2, Elongation factor Ts" evalue="2.1e-11" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/3mmp_A" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-37.8169870091926" score="48.3" sindex="57514389" species="Escherichia coli K-12" taxid="83333" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.833333333333333" aliIdCount="20" aliL="678" aliM="25" aliN="24" aliSim="0.833333333333333" aliSimCount="20" aliaseq="MAEITASLVKELRERTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="1" alihmmname="Query" alihmmto="24" alimline="m EitA  VKELRE TGAGMMDCK" alimmline="" alimodel="mtEitAAMVKELREsTGAGMMDCK" aliniseqs="2" alintseq="" alippline="99*********************9" alirfline="" alisindex="57514389" alisqacc="3mmp_A" alisqdesc="Elongation factor Tu 2, Elongation factor Ts" alisqfrom="1" alisqname="3mmp_A" alisqto="24" bias="3.23" bitscore="48.3443603515625" cevalue="4.1e-16" iali="1" ienv="1" ievalue="2.1e-11" is_included="1" is_reported="1" jali="24" jenv="25" oasc="0.98" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.583333333333333" aliIdCount="7" aliL="678" aliM="25" aliN="14" aliSim="0.666666666666667" aliSimCount="8" aliaseq="VKNMI--TGAAQMD" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="9" alihmmname="Query" alihmmto="22" alimline="VK +   TGA  MD" alimmline="" alimodel="VKELREsTGAGMMD" aliniseqs="2" alintseq="" alippline="77777..***9999" alirfline="" alisindex="57514389" alisqacc="3mmp_A" alisqdesc="Elongation factor Tu 2, Elongation factor Ts" alisqfrom="373" alisqname="3mmp_A" alisqto="384" bias="0.09" bitscore="-0.792493999004364" cevalue="1" iali="373" ienv="370" ievalue="51000" is_included="0" is_reported="0" jali="384" jenv="385" oasc="0.83" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3mmp_C&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3mmp_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Tu 2, Elongation factor Ts" dn="3mmp_C" sp="Escherichia coli K-12" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="4r71_A" acc="4r71_A" arch="PF00889.22 PF00009.30 PF03144.28 PF03143.20" archScore="5" archindex="118498722050600 83333" bias="3.2" desc="Elongation factor Ts, Elongation factor Tu" evalue="2.1e-11" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/4r71_A" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-37.7900869648658" score="48.3" sindex="57510549" species="Escherichia coli K-12" taxid="83333" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.833333333333333" aliIdCount="20" aliL="694" aliM="25" aliN="24" aliSim="0.833333333333333" aliSimCount="20" aliaseq="MAEITASLVKELRERTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="1" alihmmname="Query" alihmmto="24" alimline="m EitA  VKELRE TGAGMMDCK" alimmline="" alimodel="mtEitAAMVKELREsTGAGMMDCK" aliniseqs="2" alintseq="" alippline="99*********************9" alirfline="" alisindex="57510549" alisqacc="4r71_A" alisqdesc="Elongation factor Ts, Elongation factor Tu" alisqfrom="1" alisqname="4r71_A" alisqto="24" bias="3.23" bitscore="48.307071685791" cevalue="4.3e-16" iali="1" ienv="1" ievalue="2.1e-11" is_included="1" is_reported="1" jali="24" jenv="25" oasc="0.98" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.583333333333333" aliIdCount="7" aliL="694" aliM="25" aliN="14" aliSim="0.666666666666667" aliSimCount="8" aliaseq="VKNMI--TGAAQMD" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="9" alihmmname="Query" alihmmto="22" alimline="VK +   TGA  MD" alimmline="" alimodel="VKELREsTGAGMMD" aliniseqs="2" alintseq="" alippline="77777..***9999" alirfline="" alisindex="57510549" alisqacc="4r71_A" alisqdesc="Elongation factor Ts, Elongation factor Tu" alisqfrom="373" alisqname="4r71_A" alisqto="384" bias="0.09" bitscore="-0.828099191188812" cevalue="1.1" iali="373" ienv="370" ievalue="52000" is_included="0" is_reported="0" jali="384" jenv="385" oasc="0.83" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4r71_C&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4r71_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu" dn="4r71_C" sp="Escherichia coli K-12" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="3agp_A" acc="3agp_A" arch="PF00889.22 PF00009.30 PF03144.28 PF03143.20 PF03431.16" archScore="5" archindex="127492375402814 39803" bias="3.2" desc="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" evalue="4.2e-11" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/3agp_A" flags="3" kg="Viruses" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Lenarviricota" pvalue="-37.0947393944964" score="47.3" sindex="2984797" species="Escherichia virus Qbeta" taxid="39803" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.833333333333333" aliIdCount="20" aliL="1289" aliM="25" aliN="24" aliSim="0.833333333333333" aliSimCount="20" aliaseq="MAEITASLVKELRERTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="1" alihmmname="Query" alihmmto="24" alimline="m EitA  VKELRE TGAGMMDCK" alimmline="" alimodel="mtEitAAMVKELREsTGAGMMDCK" aliniseqs="11" alintseq="" alippline="99*********************9" alirfline="" alisindex="2984797" alisqacc="3agp_A" alisqdesc="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" alisqfrom="1" alisqname="3agp_A" alisqto="24" bias="3.23" bitscore="47.3431854248047" cevalue="8.5e-16" iali="1" ienv="1" ievalue="4.2e-11" is_included="1" is_reported="1" jali="24" jenv="25" oasc="0.98" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.583333333333333" aliIdCount="7" aliL="1289" aliM="25" aliN="14" aliSim="0.666666666666667" aliSimCount="8" aliaseq="VKNMI--TGAAQMD" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="9" alihmmname="Query" alihmmto="22" alimline="VK +   TGA  MD" alimmline="" alimodel="VKELREsTGAGMMD" aliniseqs="11" alintseq="" alippline="77777..***9999" alirfline="" alisindex="2984797" alisqacc="3agp_A" alisqdesc="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" alisqfrom="373" alisqname="3agp_A" alisqto="384" bias="0.09" bitscore="-1.75904405117035" cevalue="2.1" iali="373" ienv="370" ievalue="100000" is_included="0" is_reported="0" jali="384" jenv="385" oasc="0.83" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3vnv_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3vnu_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avu_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3agq_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avt_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avv_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avx_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avy_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avw_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3agp_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4fwt_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu 1, LINKER, Q beta replicase" dn="3agq_A" sp="Escherichia virus Qbeta" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avt_A" sp="Escherichia virus Qbeta" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avu_A" sp="Escherichia virus Qbeta" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avv_A" sp="Escherichia virus Qbeta" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avw_A" sp="Escherichia virus Qbeta" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avx_A" sp="Escherichia virus Qbeta" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avy_A" sp="Escherichia virus Qbeta" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3vnu_A" sp="Escherichia virus Qbeta" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3vnv_A" sp="Escherichia virus Qbeta" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="4fwt_A" sp="Escherichia virus Qbeta" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="3agp_A" acc="3agp_A" arch="PF00889.22 PF00009.30 PF03144.28 PF03143.20 PF03431.16" archScore="5" archindex="127492375402814 83334" bias="3.2" desc="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" evalue="4.2e-11" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/3agp_A" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Proteobacteria" pvalue="-37.0947393944964" score="47.3" sindex="57523359" species="Escherichia coli O157:H7" taxid="83334" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.833333333333333" aliIdCount="20" aliL="1289" aliM="25" aliN="24" aliSim="0.833333333333333" aliSimCount="20" aliaseq="MAEITASLVKELRERTGAGMMDCK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="1" alihmmname="Query" alihmmto="24" alimline="m EitA  VKELRE TGAGMMDCK" alimmline="" alimodel="mtEitAAMVKELREsTGAGMMDCK" aliniseqs="11" alintseq="" alippline="99*********************9" alirfline="" alisindex="57523359" alisqacc="3agp_A" alisqdesc="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" alisqfrom="1" alisqname="3agp_A" alisqto="24" bias="3.23" bitscore="47.3431854248047" cevalue="8.5e-16" iali="1" ienv="1" ievalue="4.2e-11" is_included="1" is_reported="1" jali="24" jenv="25" oasc="0.98" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.583333333333333" aliIdCount="7" aliL="1289" aliM="25" aliN="14" aliSim="0.666666666666667" aliSimCount="8" aliaseq="VKNMI--TGAAQMD" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="9" alihmmname="Query" alihmmto="22" alimline="VK +   TGA  MD" alimmline="" alimodel="VKELREsTGAGMMD" aliniseqs="11" alintseq="" alippline="77777..***9999" alirfline="" alisindex="57523359" alisqacc="3agp_A" alisqdesc="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" alisqfrom="373" alisqname="3agp_A" alisqto="384" bias="0.09" bitscore="-1.75904405117035" cevalue="2.1" iali="373" ienv="370" ievalue="100000" is_included="0" is_reported="0" jali="384" jenv="385" oasc="0.83" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3vnv_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3vnu_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avu_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3agq_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avt_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avv_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avx_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avy_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3avw_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;3agp_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;4fwt_A&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu 1, LINKER, Q beta replicase" dn="3agq_A" sp="Escherichia coli O157:H7" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avt_A" sp="Escherichia coli O157:H7" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avu_A" sp="Escherichia coli O157:H7" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avv_A" sp="Escherichia coli O157:H7" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avw_A" sp="Escherichia coli O157:H7" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avx_A" sp="Escherichia coli O157:H7" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3avy_A" sp="Escherichia coli O157:H7" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3vnu_A" sp="Escherichia coli O157:H7" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="3vnv_A" sp="Escherichia coli O157:H7" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="Elongation factor Ts, Elongation factor Tu, LINKER, Q beta replicase" dn="4fwt_A" sp="Escherichia coli O157:H7" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="1aip_C" acc="1aip_C" arch="PF00889.22" archScore="0" archindex="158710124293725 274" bias="1.1" desc="ELONGATION FACTOR TS" evalue="0.00024" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/1aip_C" flags="3" kg="Bacteria" ndom="2" nincluded="1" niseqs="16" nregions="2" nreported="1" ph="Deinococcus-Thermus" pvalue="-21.5467201678114" score="25.8" sindex="153001630" species="Thermus thermophilus" taxid="274" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.75" aliIdCount="12" aliL="196" aliM="25" aliN="16" aliSim="0.875" aliSimCount="14" aliaseq="IKKLREATGAGMMDVK" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="9" alihmmname="Query" alihmmto="24" alimline="+K LRE+TGAGMMD K" alimmline="" alimodel="VKELREsTGAGMMDCK" aliniseqs="4" alintseq="" alippline="79************87" alirfline="" alisindex="153001630" alisqacc="1aip_C" alisqdesc="ELONGATION FACTOR TS" alisqfrom="7" alisqname="1aip_C" alisqto="22" bias="1.13" bitscore="25.7906227111816" cevalue="4.8e-09" iali="7" ienv="4" ievalue="0.00024" is_included="1" is_reported="1" jali="22" jenv="23" oasc="0.92" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="1" aliIdCount="4" aliL="196" aliM="25" aliN="4" aliSim="1" aliSimCount="4" aliaseq="VKEL" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="9" alihmmname="Query" alihmmto="12" alimline="VKEL" alimmline="" alimodel="VKEL" aliniseqs="4" alintseq="" alippline="9**9" alirfline="" alisindex="153001630" alisqacc="1aip_C" alisqdesc="ELONGATION FACTOR TS" alisqfrom="169" alisqname="1aip_C" alisqto="172" bias="0.23" bitscore="-3.26252603530884" cevalue="6.1" iali="169" ienv="169" ievalue="300000" is_included="0" is_reported="0" jali="172" jenv="172" oasc="0.93" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;1aip_C&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;1aip_D&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;1aip_H&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;1aip_G&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="ELONGATION FACTOR TS" dn="1aip_D" sp="Thermus thermophilus" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="ELONGATION FACTOR TS" dn="1aip_G" sp="Thermus thermophilus" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="ELONGATION FACTOR TS" dn="1aip_H" sp="Thermus thermophilus" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="6w6p_Z" acc="6w6p_Z" arch="PF00831.26" archScore="1" archindex="98422932968362 474186" bias="0.3" desc="50S ribosomal protein L29" evalue="0.27" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/6w6p_Z" flags="2" kg="Bacteria" ndom="2" nincluded="0" niseqs="16" nregions="2" nreported="2" ph="Firmicutes" pvalue="-14.5156003412874" score="16.0" sindex="152225416" species="Enterococcus faecalis OG1RF" taxid="474186" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.642857142857143" aliIdCount="9" aliL="61" aliM="25" aliN="14" aliSim="0.642857142857143" aliSimCount="9" aliaseq="VKEIRELTTAEMLD" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="9" alihmmname="Query" alihmmto="22" alimline="VKE RE T A M D" alimmline="" alimodel="VKELREsTGAGMMD" aliniseqs="2" alintseq="" alippline="9***********99" alirfline="" alisindex="152225416" alisqacc="6w6p_Z" alisqdesc="50S ribosomal protein L29" alisqfrom="2" alisqname="6w6p_Z" alisqto="15" bias="0.08" bitscore="11.4275417327881" cevalue="0.00015" iali="2" ienv="1" ievalue="7.6" is_included="0" is_reported="1" jali="15" jenv="16" oasc="0.96" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.555555555555556" aliIdCount="5" aliL="61" aliM="25" aliN="9" aliSim="0.666666666666667" aliSimCount="6" aliaseq="ARIKEVRQS" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="7" alihmmname="Query" alihmmto="15" alimline="A +KE R s" alimmline="" alimodel="AMVKELREs" aliniseqs="2" alintseq="" alippline="779****77" alirfline="" alisindex="152225416" alisqacc="6w6p_Z" alisqdesc="50S ribosomal protein L29" alisqfrom="40" alisqname="6w6p_Z" alisqto="48" bias="0.02" bitscore="2.26810646057129" cevalue="0.11" iali="40" ienv="37" ievalue="5600" is_included="0" is_reported="1" jali="48" jenv="49" oasc="0.82" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6w6p_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6wu9_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="50S ribosomal protein L29" dn="6wu9_Z" sp="Enterococcus faecalis OG1RF" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="6o8w_Z" acc="6o8w_Z" arch="PF00831.26" archScore="1" archindex="98422932968362 1351" bias="0.3" desc="50S ribosomal protein L29" evalue="0.27" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/6o8w_Z" flags="2" kg="Bacteria" ndom="2" nincluded="0" niseqs="16" nregions="2" nreported="2" ph="Firmicutes" pvalue="-14.5156003412874" score="16.0" sindex="151716744" species="Enterococcus faecalis" taxid="1351" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.642857142857143" aliIdCount="9" aliL="61" aliM="25" aliN="14" aliSim="0.642857142857143" aliSimCount="9" aliaseq="VKEIRELTTAEMLD" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="9" alihmmname="Query" alihmmto="22" alimline="VKE RE T A M D" alimmline="" alimodel="VKELREsTGAGMMD" aliniseqs="5" alintseq="" alippline="9***********99" alirfline="" alisindex="151716744" alisqacc="6o8w_Z" alisqdesc="50S ribosomal protein L29" alisqfrom="2" alisqname="6o8w_Z" alisqto="15" bias="0.08" bitscore="11.4275417327881" cevalue="0.00015" iali="2" ienv="1" ievalue="7.6" is_included="0" is_reported="1" jali="15" jenv="16" oasc="0.96" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.555555555555556" aliIdCount="5" aliL="61" aliM="25" aliN="9" aliSim="0.666666666666667" aliSimCount="6" aliaseq="ARIKEVRQS" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="7" alihmmname="Query" alihmmto="15" alimline="A +KE R s" alimmline="" alimodel="AMVKELREs" aliniseqs="5" alintseq="" alippline="779****77" alirfline="" alisindex="151716744" alisqacc="6o8w_Z" alisqdesc="50S ribosomal protein L29" alisqfrom="40" alisqname="6o8w_Z" alisqto="48" bias="0.02" bitscore="2.26810646057129" cevalue="0.11" iali="40" ienv="37" ievalue="5600" is_included="0" is_reported="1" jali="48" jenv="49" oasc="0.82" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6o8x_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6o8w_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6o90_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6o8z_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6o8y_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="50S ribosomal protein L29" dn="6o8x_Z" sp="Enterococcus faecalis" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="50S ribosomal protein L29" dn="6o8y_Z" sp="Enterococcus faecalis" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="50S ribosomal protein L29" dn="6o8z_Z" sp="Enterococcus faecalis" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;seqs an="" de="50S ribosomal protein L29" dn="6o90_Z" sp="Enterococcus faecalis" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;hits name="7nhk_1" acc="7nhk_1" arch="PF00831.26" archScore="1" archindex="98422932968362 1351" bias="0.8" desc="50S ribosomal protein L29" evalue="0.35" extlink="https://www.ebi.ac.uk/pdbe/entry/pdb/7nhk_1" flags="2" kg="Bacteria" ndom="2" nincluded="0" niseqs="16" nregions="2" nreported="2" ph="Firmicutes" pvalue="-14.2593357962439" score="15.7" sindex="151724911" species="Enterococcus faecalis" taxid="1351" taxlink="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;amp;id="&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.642857142857143" aliIdCount="9" aliL="62" aliM="25" aliN="14" aliSim="0.642857142857143" aliSimCount="9" aliaseq="VKEIRELTTAEMLD" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="9" alihmmname="Query" alihmmto="22" alimline="VKE RE T A M D" alimmline="" alimodel="VKELREsTGAGMMD" aliniseqs="1" alintseq="" alippline="9***********99" alirfline="" alisindex="151724911" alisqacc="7nhk_1" alisqdesc="50S ribosomal protein L29" alisqfrom="3" alisqname="7nhk_1" alisqto="16" bias="0.28" bitscore="11.4310731887817" cevalue="0.00015" iali="3" ienv="1" ievalue="7.6" is_included="0" is_reported="1" jali="16" jenv="17" oasc="0.95" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;domains aliId="0.555555555555556" aliIdCount="5" aliL="62" aliM="25" aliN="9" aliSim="0.666666666666667" aliSimCount="6" aliaseq="ARIKEVRQS" alicsline="" alihmmacc="" alihmmdesc="" alihmmfrom="7" alihmmname="Query" alihmmto="15" alimline="A +KE R s" alimmline="" alimodel="AMVKELREs" aliniseqs="1" alintseq="" alippline="779****77" alirfline="" alisindex="151724911" alisqacc="7nhk_1" alisqdesc="50S ribosomal protein L29" alisqfrom="41" alisqname="7nhk_1" alisqto="49" bias="0.02" bitscore="2.233314037323" cevalue="0.12" iali="41" ienv="38" ievalue="5800" is_included="0" is_reported="1" jali="49" jenv="50" oasc="0.82" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;7nhk_1&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6o8x_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6o8w_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6w6p_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6o90_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6o8z_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>       &lt;pdbs&gt;6o8y_Z&lt;/pdbs&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;/hits&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     &lt;stats Z="546676" Z_setby="0" domZ="11" domZ_setby="0" elapsed="0.05" n_past_bias="2249" n_past_fwd="14" n_past_msv="2575" n_past_vit="211" nhits="11" nincluded="8" nmodels="1" nreported="11" nseqs="546676" page="1" sys="0.01" total="1" unpacked="11" user="0" /&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;/data&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &lt;/opt&gt;</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">path_to_example_aln</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
+<span class="r-in">  <span class="st">"extdata/alignment_example.afa"</span>,</span>
+<span class="r-in">  package <span class="op">=</span> <span class="st">"HMMERutils"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">alns</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/MultipleAlignment-class.html" class="external-link">readAAMultipleAlignment</a></span><span class="op">(</span><span class="va">path_to_example_aln</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">hmmsearch_tbl</span> <span class="op">&lt;-</span> <span class="fu">search_hmmsearch</span><span class="op">(</span></span>
+<span class="r-in">  alns <span class="op">=</span> <span class="va">alns</span>,</span>
+<span class="r-in">  dbs <span class="op">=</span> <span class="st">"pdb"</span>,</span>
+<span class="r-in">  verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">hmmsearch_tbl</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class 'AnnotatedDataFrame'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   HMMERqueryNames: 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   varLabels: dbs uuid ... phylip.url (17 total)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   varMetadata: labelDescription algorithm</span>
+<span class="r-in"><span class="fu">Biobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">hmmsearch_tbl</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                  labelDescription</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dbs                                                  Names of target databases used in the search</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> uuid                                                                    The unique job identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> score.url                                                            URL with HMMER results score</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stats                                                                              The stats hash</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> hits                                                                     Array of sequence hashes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> domains                                                          Array of sequence domains hashes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> text.url                              A plain text file containing the hit alignments and scores.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tab.url                  A tab delimited text file containing the hit information. No alignments.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> xml.url                                    An XML file formatted for machine parsing of the data.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> json.url                             All the results information encoded as a single JSON string.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> fasta.url                 Download the significant hits from your search as a gzipped FASTA file.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> fullfasta.url                                                                   Full length FASTA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alignedfasta.url A gzipped file containing the full length sequences for significant search hits.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stockholm.url          A gzipped file containing aligned significant search hits in FASTA format.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clustalw.url                Download an alignment of significant hits as a gzipped ClustalW file.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> psiblast.url                Download an alignment of significant hits as a gzipped psiblast file.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phylip.url                    Download an alignment of significant hits as a gzipped phylip file.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  algorithm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dbs              hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> uuid             hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> score.url        hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stats            hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> hits             hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> domains          hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> text.url         hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tab.url          hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> xml.url          hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> json.url         hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> fasta.url        hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> fullfasta.url    hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alignedfasta.url hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stockholm.url    hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clustalw.url     hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> psiblast.url     hmmsearch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phylip.url       hmmsearch</span>
 </code></pre></div>
     </div>
   </div>

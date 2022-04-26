@@ -67,7 +67,10 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>seqs</dt>
-<dd><p>A named character vector to convert into a <code><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-class.html" class="external-link">Biostrings::AAStringSet</a></code> or a <code><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-class.html" class="external-link">Biostrings::AAStringSet</a></code> with the sequences of interest.</p></dd>
+<dd><p>A named character vector to convert into a
+<code><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-class.html" class="external-link">Biostrings::AAStringSet</a></code> or a <code><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-class.html" class="external-link">Biostrings::AAStringSet</a></code> with the
+sequences of interest. If they are not named, arbitrary names
+will be given.</p></dd>
 <dt>aln_type</dt>
 <dd><p>A character vector of one containing the alignment type.
 Possible options are "global" (Needleman-Wunsch),"local" (Smith-Waterman) and "overlap".</p></dd>
@@ -81,7 +84,7 @@ process, select <code>multisession</code> or <code>multicore</code>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A DataFrame of subclass <code>pairwise_sequence_identity</code>, so that it has associated S3 methods..</p>
+    <p>A DataFrame of subclass <code>pairwise_sequence_identity</code>, so that it has associated S3 methods.</p>
     </div>
     <div id="visualize">
     <h2>Visualize</h2>
@@ -110,15 +113,15 @@ heatmap. Refer to the "examples" section.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ABL1_homologous</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_phmmer</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">pairwise.per</span> <span class="op">&lt;-</span> <span class="fu">pairwise_alignment_sequence_identity</span><span class="op">(</span></span>
-<span class="r-in">    seqs <span class="op">=</span> <span class="va">ABL1_homologous</span><span class="op">$</span><span class="va">hits.fullseq.fasta</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,</span>
+<span class="r-in">    seqs <span class="op">=</span> <span class="va">example_phmmer</span><span class="op">$</span><span class="va">hits.fullfasta</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
 <span class="r-in">    aln_type <span class="op">=</span> <span class="st">"overlap"</span>,</span>
 <span class="r-in">    pid_type <span class="op">=</span> <span class="st">"PID2"</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pairwise.per</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="pairwise_alignment_sequence_identity-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pairwise.per</span>, type <span class="op">=</span> <span class="st">"heatmap"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pairwise.per</span>, type <span class="op">=</span> <span class="st">"heatmap"</span>, ann <span class="op">=</span> <span class="va">example_phmmer</span><span class="op">$</span><span class="va">taxa.phylum</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="pairwise_alignment_sequence_identity-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 </code></pre></div>
