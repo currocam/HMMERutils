@@ -372,13 +372,14 @@ HMMER_tidy_tbl %>%
 
 Based on the  Figure XXX, it would be reasonable to think that there would be a greater diversity in the Embecovirus sequences, since there is a greater variety in the E-values. To examine this in more detail we can align all the sequences in pairs and then calculate the percentages of identity for each one Using the `pairwise_alignment_sequence_identity` function.
 
-When calling this function, we give it as parameters the variable `seqs` containing the complete sequences (we could give it the sequences of the domains), the type of alignment and the type of sequence identity we are going to use. In this case we will use the default options: `aln_type = "global"` (align whole strings with end gap penalties by using the Needleman-Wunsch algorithm) and `pid_type = "PID1"` ( $PID1 = 100 \cdot \frac{\text{identical positions}}{\text{aligned positions + internal gap positions}}$). In addition, we use the allow_parallelization parameter to speed up the calculation. We use the "multisession" option, which will generate several Rstudio sessions on your computer instead of the "multicore" option, which is considered unsafe to use in an Rstudio session (although you could use it in a script). 
+When calling this function, we give it as parameters the variable `seqs` containing the complete sequences (we could give it the sequences of the domains), the type of alignment and the type of sequence identity we are going to use. In this case we will use the default options: `aln_type = "global"` (align whole strings with end gap penalties by using the Needleman-Wunsch algorithm) and `pid_type = "PID1"` ( $PID1 = 100 \cdot \frac{\text{identical positions}}{\text{aligned positions + internal gap positions}}$). In addition, we could use the `allow_parallelization` parameter to speed up the calculation. The option "multisession" option will generate several Rstudio sessions on your computer, while the "multicore" option, is considered unsafe to use in an Rstudio session (although you could use it in a script). 
 
 ```{r, message=FALSE, warning=FALSE}
 pid <- pairwise_alignment_sequence_identity(seqs = HMMER_tidy_tbl$hits.fullfasta,
                                      aln_type = "global",
                                      pid_type = "PID1",
-                                     allow_parallelization = "multisession")
+                                     #allow_parallelization = "multisession"
+                                     )
 ```
 
 Now, we can use 2 HMMERutils functions to view the results. We can see the distribution of these identities:  
