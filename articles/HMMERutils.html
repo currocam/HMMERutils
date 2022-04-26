@@ -70,17 +70,22 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Introduction to HMMERutils: using PHMMER with the Sars-CoV-2 Reference Proteome</h1>
-                        <h4 data-toc-skip class="author">Francisco de Borja Campuzano Jiménez</h4>
+      <h1 data-toc-skip>Introduction to HMMERutils: using PHMMER with
+the Sars-CoV-2 Reference Proteome</h1>
+                        <h4 data-toc-skip class="author">Francisco de
+Borja Campuzano Jiménez</h4>
             <address class="author_afil">
-      Universidad de Granada<br><a class="author_email" href="mailto:#"></a><a href="mailto:campuzanocurro@gmail.com" class="email">campuzanocurro@gmail.com</a>
+      Universidad de
+Granada<br><a class="author_email" href="mailto:#"></a><a href="mailto:campuzanocurro@gmail.com" class="email">campuzanocurro@gmail.com</a>
       </address>
-                              <h4 data-toc-skip class="author">María Coral del Val Muñoz</h4>
+                              <h4 data-toc-skip class="author">María
+Coral del Val Muñoz</h4>
             <address class="author_afil">
-      Universidad de Granada<br><a class="author_email" href="mailto:#"></a><a href="mailto:delval@ugr.es" class="email">delval@ugr.es</a>
+      Universidad de
+Granada<br><a class="author_email" href="mailto:#"></a><a href="mailto:delval@ugr.es" class="email">delval@ugr.es</a>
       </address>
                   
-            <h4 data-toc-skip class="date">26 abril 2022</h4>
+            <h4 data-toc-skip class="date">26 April 2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/currocam/HMMERutils/blob/HEAD/vignettes/HMMERutils.Rmd" class="external-link"><code>vignettes/HMMERutils.Rmd</code></a></small>
       <div class="hidden name"><code>HMMERutils.Rmd</code></div>
@@ -95,7 +100,12 @@
 <div class="section level3">
 <h3 id="install-hmmerutils">Install <code>HMMERutils</code><a class="anchor" aria-label="anchor" href="#install-hmmerutils"></a>
 </h3>
-<p><code>R</code> is an open-source statistical environment which can be easily modified to enhance its functionality via packages. <em><a href="https://bioconductor.org/packages/3.14/HMMERutils" class="external-link">HMMERutils</a></em> is a <code>R</code> package available via the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> repository for packages. <code>R</code> can be installed on any operating system from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> after which you can install <em><a href="https://bioconductor.org/packages/3.14/HMMERutils" class="external-link">HMMERutils</a></em> by using the following commands in your <code>R</code> session:</p>
+<p><code>R</code> is an open-source statistical environment which can be
+easily modified to enhance its functionality via packages. <em><a href="https://bioconductor.org/packages/3.14/HMMERutils" class="external-link">HMMERutils</a></em>
+is a <code>R</code> package available via the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> repository for packages.
+<code>R</code> can be installed on any operating system from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> after which you can install
+<em><a href="https://bioconductor.org/packages/3.14/HMMERutils" class="external-link">HMMERutils</a></em>
+by using the following commands in your <code>R</code> session:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
@@ -109,17 +119,40 @@
 <div class="section level3">
 <h3 id="required-knowledge">Required knowledge<a class="anchor" aria-label="anchor" href="#required-knowledge"></a>
 </h3>
-<p><em><a href="https://bioconductor.org/packages/3.14/HMMERutils" class="external-link">HMMERutils</a></em> is based on many other packages and in particular those that have implemented the infrastructure necessary to deal with protein sequence data and generate <code>r AnnotatedDataFrames</code>. Therefore, note that the <em><a href="https://bioconductor.org/packages/3.14/Biostrings" class="external-link">Biostrings</a></em> libraries are used to read, write and handle protein sequences and <em><a href="https://bioconductor.org/packages/3.14/Biobase" class="external-link">Biobase</a></em> is used to generate the annotated DataFrames that the user works with. The content of the <code>r AnnotatedDataFrames</code> have been designed for this purpose.</p>
+<p><em><a href="https://bioconductor.org/packages/3.14/HMMERutils" class="external-link">HMMERutils</a></em>
+is based on many other packages and in particular those that have
+implemented the infrastructure necessary to deal with protein sequence
+data and generate <code>r AnnotatedDataFrames</code>. Therefore, note
+that the <em><a href="https://bioconductor.org/packages/3.14/Biostrings" class="external-link">Biostrings</a></em>
+libraries are used to read, write and handle protein sequences and
+<em><a href="https://bioconductor.org/packages/3.14/Biobase" class="external-link">Biobase</a></em>
+is used to generate the annotated DataFrames that the user works with.
+The content of the <code>r AnnotatedDataFrames</code> have been designed
+for this purpose.</p>
 </div>
 <div class="section level3">
 <h3 id="asking-for-help">Asking for help<a class="anchor" aria-label="anchor" href="#asking-for-help"></a>
 </h3>
-<p>As package developers, we try to explain clearly how to use our packages and in which order to use the functions. But <code>R</code> and <code>Bioconductor</code> have a steep learning curve so it is critical to learn where to ask for help. The blog post quoted above mentions some but we would like to highlight the <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support site</a> as the main resource for getting help: remember to use the <code>HMMERutils</code> tag and check <a href="https://support.bioconductor.org/t/HMMERutils/" class="external-link">the older posts</a>. Other alternatives are available such as creating GitHub issues and tweeting. However, please note that if you want to receive help you should adhere to the <a href="http://www.bioconductor.org/help/support/posting-guide/" class="external-link">posting guidelines</a>. It is particularly critical that you provide a small reproducible example and your session information so package developers can track down the source of the error.</p>
+<p>As package developers, we try to explain clearly how to use our
+packages and in which order to use the functions. But <code>R</code> and
+<code>Bioconductor</code> have a steep learning curve so it is critical
+to learn where to ask for help. The blog post quoted above mentions some
+but we would like to highlight the <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support site</a>
+as the main resource for getting help: remember to use the
+<code>HMMERutils</code> tag and check <a href="https://support.bioconductor.org/t/HMMERutils/" class="external-link">the older
+posts</a>. Other alternatives are available such as creating GitHub
+issues and tweeting. However, please note that if you want to receive
+help you should adhere to the <a href="http://www.bioconductor.org/help/support/posting-guide/" class="external-link">posting
+guidelines</a>. It is particularly critical that you provide a small
+reproducible example and your session information so package developers
+can track down the source of the error.</p>
 </div>
 <div class="section level3">
 <h3 id="citing-hmmerutils">Citing <code>HMMERutils</code><a class="anchor" aria-label="anchor" href="#citing-hmmerutils"></a>
 </h3>
-<p>We hope that <em><a href="https://bioconductor.org/packages/3.14/HMMERutils" class="external-link">HMMERutils</a></em> will be useful for your research. Please use the following information to cite the package and the overall approach. Thank you!</p>
+<p>We hope that <em><a href="https://bioconductor.org/packages/3.14/HMMERutils" class="external-link">HMMERutils</a></em>
+will be useful for your research. Please use the following information
+to cite the package and the overall approach. Thank you!</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Citation info</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"HMMERutils"</span><span class="op">)</span>
@@ -147,11 +180,18 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biobase" class="external-link">Biobase</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></code></pre></div>
-<p>The objective of this article is to show the main functionalities of the utilsHMMER library using a case study. We will search for homologous sequences for the whole SARS-CoV-2 reference proteome.</p>
+<p>The objective of this article is to show the main functionalities of
+the utilsHMMER library using a case study. We will search for homologous
+sequences for the whole SARS-CoV-2 reference proteome.</p>
 <div class="section level3">
 <h3 id="download-the-sars-cov-2-reference-proteome">Download the SARS-CoV-2 reference proteome<a class="anchor" aria-label="anchor" href="#download-the-sars-cov-2-reference-proteome"></a>
 </h3>
-<p>First, let’s download the reference proteome for the Sars_CoV-2. To do this, we are going to save the url in a variable. We use the <code>paste0</code> function only to improve readability. Then we will read the compressed file directly from UniProt with the <code>readAAStringSet</code> function from the <em><a href="https://bioconductor.org/packages/3.14/Biostrings" class="external-link">Biostrings</a></em> library.</p>
+<p>First, let’s download the reference proteome for the Sars_CoV-2. To
+do this, we are going to save the url in a variable. We use the
+<code>paste0</code> function only to improve readability. Then we will
+read the compressed file directly from UniProt with the
+<code>readAAStringSet</code> function from the <em><a href="https://bioconductor.org/packages/3.14/Biostrings" class="external-link">Biostrings</a></em>
+library.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">url.refProteomes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://ftp.uniprot.org/pub/databases/uniprot/"</span>,
                           <span class="st">"current_release/knowledgebase/reference_proteomes/"</span>,
@@ -161,7 +201,15 @@
 <div class="section level3">
 <h3 id="preprocess-sequences-and-select-case-studies">Preprocess sequences and select case studies<a class="anchor" aria-label="anchor" href="#preprocess-sequences-and-select-case-studies"></a>
 </h3>
-<p>Now, we have an <code>AAStringSet</code> stored in the variable <code>sars.cov.fasta</code> and we can access the sequences it contains using the <code>$</code> operator and the sequence header. However, headers usually contain, as in this case, a lot of information that is not useful right now such as descriptions. <em><a href="https://bioconductor.org/packages/3.14/HMMERutils" class="external-link">HMMERutils</a></em> has a very convenient function for this purpose which is parse. Note that we use the <code>name</code> function to access the sequence names and the <code>%&gt;%</code> operator to pass the result of one function/argument to the other in sequence</p>
+<p>Now, we have an <code>AAStringSet</code> stored in the variable
+<code>sars.cov.fasta</code> and we can access the sequences it contains
+using the <code>$</code> operator and the sequence header. However,
+headers usually contain, as in this case, a lot of information that is
+not useful right now such as descriptions. <em><a href="https://bioconductor.org/packages/3.14/HMMERutils" class="external-link">HMMERutils</a></em>
+has a very convenient function for this purpose which is parse. Note
+that we use the <code>name</code> function to access the sequence names
+and the <code>%&gt;%</code> operator to pass the result of one
+function/argument to the other in sequence</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">new.headers</span> <span class="op">&lt;-</span> <span class="va">sars.cov.fasta</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -170,10 +218,12 @@
 <span class="co">#&gt;  [1] "R1A_SARS"   "R1AB_SARS"  "SPIKE_SARS" "NCAP_SARS"  "VME1_SARS" </span>
 <span class="co">#&gt;  [6] "AP3A_SARS"  "NS3B_SARS"  "NS6_SARS"   "NS7A_SARS"  "ORF9B_SARS"</span>
 <span class="co">#&gt; [11] "VEMP_SARS"  "NS8A_SARS"  "NS7B_SARS"  "Y14_SARS"   "NS8B_SARS"</span></code></pre></div>
-<p>Now, we can assign these new headers to the <code>AAStringSet</code>:</p>
+<p>Now, we can assign these new headers to the
+<code>AAStringSet</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sars.cov.fasta</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">new.headers</span></code></pre></div>
-<p>We can take a look at the contents of the fasta file by “showing” it:</p>
+<p>We can take a look at the contents of the fasta file by “showing”
+it:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sars.cov.fasta</span>
 <span class="co">#&gt; AAStringSet object of length 15:</span>
@@ -189,23 +239,39 @@
 <span class="co">#&gt; [13]    44 MNELTLIDFYLCFLAFLLFLVLIMLIIFWFSLEIQDLEEPCTKV     NS7B_SARS</span>
 <span class="co">#&gt; [14]    70 MLPPCYNFLKEQHCQKASTQREA...VGEILLLEWLAEVVKLPSRYCC Y14_SARS</span>
 <span class="co">#&gt; [15]    84 MCLKILVRYNTRGNTYSTAWLCA...LHEGHQTAAFRDVLVVLNKRTN NS8B_SARS</span></code></pre></div>
-<p>Now, we are going to select a series of proteins that are of interest to us for this case study:</p>
+<p>Now, we are going to select a series of proteins that are of interest
+to us for this case study:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">VEMP_SARS</span> <span class="op">&lt;-</span> <span class="va">sars.cov.fasta</span><span class="op">$</span><span class="va">VEMP_SARS</span> <span class="co">#Envelope small membrane protein</span>
 <span class="va">NS8A_SARS</span> <span class="op">&lt;-</span> <span class="va">sars.cov.fasta</span><span class="op">$</span><span class="va">NS8A_SARS</span> <span class="co">#ORF8a protein</span>
 <span class="va">NS8B_SARS</span> <span class="op">&lt;-</span> <span class="va">sars.cov.fasta</span><span class="op">$</span><span class="va">NS8B_SARS</span> <span class="co">#ORF8b protein</span>
 <span class="va">NS7B_SARS</span> <span class="op">&lt;-</span> <span class="va">sars.cov.fasta</span><span class="op">$</span><span class="va">NS7B_SARS</span> <span class="co">#Protein non-structural 7b</span>
 <span class="va">Y14_SARS</span> <span class="op">&lt;-</span> <span class="va">sars.cov.fasta</span><span class="op">$</span><span class="va">Y14_SARS</span> <span class="co">#Uncharacterized protein</span></code></pre></div>
-<p>All these proteins have in common to be small in size (it will speed up some computational times) and represent different possibilities: we have from membrane proteins (which we would expect to show homology with other membrane proteins), proteins similar to each other (NS8A_SARS and NS8B_SARS), non-structural proteins and uncharacterized proteins.</p>
+<p>All these proteins have in common to be small in size (it will speed
+up some computational times) and represent different possibilities: we
+have from membrane proteins (which we would expect to show homology with
+other membrane proteins), proteins similar to each other (NS8A_SARS and
+NS8B_SARS), non-structural proteins and uncharacterized proteins.</p>
 </div>
 <div class="section level3">
 <h3 id="proteins-homologous-to-vemp_sars">Proteins homologous to VEMP_SARS<a class="anchor" aria-label="anchor" href="#proteins-homologous-to-vemp_sars"></a>
 </h3>
-<p>Before exemplifying how to use HMMERutils to perform several searches simultaneously (usually against several databases) or to use other algorithms, let’s perform a basic search against a single database using <code>phmmer</code>, the default algorithm.</p>
+<p>Before exemplifying how to use HMMERutils to perform several searches
+simultaneously (usually against several databases) or to use other
+algorithms, let’s perform a basic search against a single database using
+<code>phmmer</code>, the default algorithm.</p>
 <div class="section level4">
 <h4 id="post-request-to-hmmer-server">Post request to HMMER server<a class="anchor" aria-label="anchor" href="#post-request-to-hmmer-server"></a>
 </h4>
-<p>Now, we can start posting requests to HMMER through its API, using the <code>search</code> family of functions. Let’s start with an example: let’s search for proteins homologous to VEMP_SARS (a envelope small membrane protein) against the Swissprot database. Notice that we have indicated as sequence the <code>AAString</code> we defined before (although it could also be a character) and we have given the parameter <code>verbose = FALSE</code>, indicating that we do not want the progress of the search to be printed because it would take too much space in this document.</p>
+<p>Now, we can start posting requests to HMMER through its API, using
+the <code>search</code> family of functions. Let’s start with an
+example: let’s search for proteins homologous to VEMP_SARS (a envelope
+small membrane protein) against the Swissprot database. Notice that we
+have indicated as sequence the <code>AAString</code> we defined before
+(although it could also be a character) and we have given the parameter
+<code>verbose = FALSE</code>, indicating that we do not want the
+progress of the search to be printed because it would take too much
+space in this document.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_data_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_phmmer.html">search_phmmer</a></span><span class="op">(</span>
   seqs <span class="op">=</span> <span class="va">VEMP_SARS</span>,
@@ -222,12 +288,21 @@
 <span class="co">#&gt;   HMMERqueryNames: 1</span>
 <span class="co">#&gt;   varLabels: dbs uuid ... phylip.url (17 total)</span>
 <span class="co">#&gt;   varMetadata: labelDescription algorithm</span></code></pre></div>
-<p>As we can see, this is an <code>AnnotatedDataFrame</code>, an class object of the <em><a href="https://bioconductor.org/packages/3.14/Biobase" class="external-link">Biobase</a></em> library that allows us to store a DataFrame together with its metadata. This is the way in which the <code>search_</code> family of functions will return the results. We can also see that it has 1 row (since it contains the results of a single search) and 17 variables. Let’s see what these variables and their descriptions are by accessing the metadata using the <code>VarMetadata</code> function or the <code>@</code> operator.</p>
+<p>As we can see, this is an <code>AnnotatedDataFrame</code>, an class
+object of the <em><a href="https://bioconductor.org/packages/3.14/Biobase" class="external-link">Biobase</a></em>
+library that allows us to store a DataFrame together with its metadata.
+This is the way in which the <code>search_</code> family of functions
+will return the results. We can also see that it has 1 row (since it
+contains the results of a single search) and 17 variables. Let’s see
+what these variables and their descriptions are by accessing the
+metadata using the <code>VarMetadata</code> function or the
+<code>@</code> operator.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">HMMER_data_tbl</span><span class="op">)</span></code></pre></div>
 <table class="table  lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
 <caption>
-Metadata associated with each of the searches performed in HMMER through HMMERutils.
+Metadata associated with each of the searches performed in HMMER through
+HMMERutils.
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -377,7 +452,8 @@ phmmer
 alignedfasta.url
 </td>
 <td style="text-align:left;">
-A gzipped file containing the full length sequences for significant search hits.
+A gzipped file containing the full length sequences for significant
+search hits.
 </td>
 <td style="text-align:left;">
 phmmer
@@ -388,7 +464,8 @@ phmmer
 stockholm.url
 </td>
 <td style="text-align:left;">
-A gzipped file containing aligned significant search hits in FASTA format.
+A gzipped file containing aligned significant search hits in FASTA
+format.
 </td>
 <td style="text-align:left;">
 phmmer
@@ -429,13 +506,32 @@ phmmer
 </tr>
 </tbody>
 </table>
-<p>As can be seen in the table above, we have different types of variables that may be of interest in <code>VEMP_SARS.homologous.PDB</code>.</p>
+<p>As can be seen in the table above, we have different types of
+variables that may be of interest in
+<code>VEMP_SARS.homologous.PDB</code>.</p>
 <div class="section level5">
 <h5 id="files-available-for-download-and-urls">Files available for download and urls<a class="anchor" aria-label="anchor" href="#files-available-for-download-and-urls"></a>
 </h5>
-<p>On the one hand, we have a series of parameters that refer to our own search (and that in this case are not useful, since we have performed a single search) and that contain a series of urls. Variables starting with “url” contain the download links of all download files that will be available for a limited time on the HMMER web server. Also, in <code>score.url</code> is the web page with the HMMER results (the same one you would get to if you were using the web interface), which you can access to consult the results from there.</p>
-<p>The purpose of this library is not to be an intermediary with HMMER web server. However, in case you need to post a large number of searches, it could be used to automate sending the search parameters and return a table with all the links that might be of interest to you!</p>
-<p>To display such a table we have several options. The simplest option is to use the <code>tidyverse</code> metalibrary. However, in order to do this we must first separate the <code>AnnotatedDataFrame</code> data from its metadata. To do this, we could use the <code><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">pData()</a></code> function or the <code>@</code> operator. Then, we select only the parameters ending with <code>url</code> using the syntax shown below (which will be useful later as well) and that we transpose the table to make it easier to read in this document.</p>
+<p>On the one hand, we have a series of parameters that refer to our own
+search (and that in this case are not useful, since we have performed a
+single search) and that contain a series of urls. Variables starting
+with “url” contain the download links of all download files that will be
+available for a limited time on the HMMER web server. Also, in
+<code>score.url</code> is the web page with the HMMER results (the same
+one you would get to if you were using the web interface), which you can
+access to consult the results from there.</p>
+<p>The purpose of this library is not to be an intermediary with HMMER
+web server. However, in case you need to post a large number of
+searches, it could be used to automate sending the search parameters and
+return a table with all the links that might be of interest to you!</p>
+<p>To display such a table we have several options. The simplest option
+is to use the <code>tidyverse</code> metalibrary. However, in order to
+do this we must first separate the <code>AnnotatedDataFrame</code> data
+from its metadata. To do this, we could use the <code><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">pData()</a></code>
+function or the <code>@</code> operator. Then, we select only the
+parameters ending with <code>url</code> using the syntax shown below
+(which will be useful later as well) and that we transpose the table to
+make it easier to read in this document.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"> <span class="va">HMMER_data_tbl</span><span class="op">@</span><span class="va">data</span><span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">ends_with</a></span><span class="op">(</span><span class="st">"url"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -445,7 +541,8 @@ phmmer
 <span class="co">#  t()</span></code></pre></div>
 <table class="table  lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
 <caption>
-Links to files with information about the search performed in HMMER. Note that they have probably already expired.
+Links to files with information about the search performed in HMMER.
+Note that they have probably already expired.
 </caption>
 <tbody>
 <tr>
@@ -453,7 +550,7 @@ Links to files with information about the search performed in HMMER. Note that t
 score.url
 </td>
 <td style="text-align:left;">
-<a href="http://www.ebi.ac.uk/Tools/hmmer/results/21749A82-C56C-11EC-ABA6-8F59E976C163" class="external-link uri">http://www.ebi.ac.uk/Tools/hmmer/results/21749A82-C56C-11EC-ABA6-8F59E976C163</a>
+<a href="http://www.ebi.ac.uk/Tools/hmmer/results/34D6AD8C-C584-11EC-8850-7A5BE976C163" class="external-link uri">http://www.ebi.ac.uk/Tools/hmmer/results/34D6AD8C-C584-11EC-8850-7A5BE976C163</a>
 </td>
 </tr>
 <tr>
@@ -461,7 +558,7 @@ score.url
 text.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=text" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=text</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=text" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=text</a>
 </td>
 </tr>
 <tr>
@@ -469,7 +566,7 @@ text.url
 tab.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=tsv" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=tsv</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=tsv" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=tsv</a>
 </td>
 </tr>
 <tr>
@@ -477,7 +574,7 @@ tab.url
 xml.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=xml" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=xml</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=xml" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=xml</a>
 </td>
 </tr>
 <tr>
@@ -485,7 +582,7 @@ xml.url
 json.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=json" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=json</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=json" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=json</a>
 </td>
 </tr>
 <tr>
@@ -493,7 +590,7 @@ json.url
 fasta.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=fasta" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=fasta</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=fasta" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=fasta</a>
 </td>
 </tr>
 <tr>
@@ -501,7 +598,7 @@ fasta.url
 fullfasta.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=fullfasta" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=fullfasta</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=fullfasta" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=fullfasta</a>
 </td>
 </tr>
 <tr>
@@ -509,7 +606,7 @@ fullfasta.url
 alignedfasta.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=afa" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=afa</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=afa" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=afa</a>
 </td>
 </tr>
 <tr>
@@ -517,7 +614,7 @@ alignedfasta.url
 stockholm.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=stockholm" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=stockholm</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=stockholm" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=stockholm</a>
 </td>
 </tr>
 <tr>
@@ -525,7 +622,7 @@ stockholm.url
 clustalw.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=clu" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=clu</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=clu" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=clu</a>
 </td>
 </tr>
 <tr>
@@ -533,7 +630,7 @@ clustalw.url
 psiblast.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=psi" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=psi</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=psi" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=psi</a>
 </td>
 </tr>
 <tr>
@@ -541,12 +638,15 @@ psiblast.url
 phylip.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=phy" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/21749A82-C56C-11EC-ABA6-8F59E976C163/score?format=phy</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=phy" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/34D6AD8C-C584-11EC-8850-7A5BE976C163/score?format=phy</a>
 </td>
 </tr>
 </tbody>
 </table>
-<p>As you may have guessed, we can use the <code>readAAStringSet</code> function to, just as we read the Fasta file containing the Sars-CoV-2 Reference Proteome, via a url, we can use it to download and read the HMMER files.</p>
+<p>As you may have guessed, we can use the <code>readAAStringSet</code>
+function to, just as we read the Fasta file containing the Sars-CoV-2
+Reference Proteome, via a url, we can use it to download and read the
+HMMER files.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readAAStringSet</a></span><span class="op">(</span><span class="va">HMMER_data_tbl</span><span class="op">$</span><span class="va">fullfasta.url</span><span class="op">)</span>
 <span class="co">#&gt; AAStringSet object of length 35:</span>
@@ -562,7 +662,9 @@ phylip.url
 <span class="co">#&gt; [33]    84 MFMADAYLADTVWYVGQIIFIVA...RGRQFYEFYNDVKPPVLDVDDV VEMP_CVPIA</span>
 <span class="co">#&gt; [34]    84 MFMADAYLADTVWYVGQIIFIVA...RGRQFYEFYNDVKPPVLDVDDV VEMP_CVHOC</span>
 <span class="co">#&gt; [35]    84 MFMADAYFADTVWYVGQIIFIVA...RGRQFYEFYNDVKPPVLDVDDV VEMP_CVBM</span></code></pre></div>
-<p>Likewise, we could read the alignments of these sequences to the HMM (Hidden Markov Model) generated by HMMER using the function <code>readAAMultipleAlignment</code> and indicating the format:</p>
+<p>Likewise, we could read the alignments of these sequences to the HMM
+(Hidden Markov Model) generated by HMMER using the function
+<code>readAAMultipleAlignment</code> and indicating the format:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/MultipleAlignment-class.html" class="external-link">readAAMultipleAlignment</a></span><span class="op">(</span><span class="va">HMMER_data_tbl</span><span class="op">$</span><span class="va">alignedfasta.url</span><span class="op">)</span>
 <span class="co">#&gt; AAMultipleAlignment with 36 rows and 79 columns</span>
@@ -577,7 +679,7 @@ phylip.url
 <span class="co">#&gt;  [8] MLPFVHEQIGTIIVNFFILTVVC.A...FVPAFYIYNTGRN------------ VEMP_BCHK4/1-64 [...</span>
 <span class="co">#&gt;  [9] MLPFVQERIGLFIVNFFIFTVVC.A...VQPALYLYNTGR------------- VEMP_MERS1/1-63 [...</span>
 <span class="co">#&gt;  ... ...</span>
-<span class="co">#&gt; [28] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBLU/16-66 ...</span>
+<span class="co">#&gt; [28] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBF/16-66 [...</span>
 <span class="co">#&gt; [29] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBLS/16-66 ...</span>
 <span class="co">#&gt; [30] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBQ/16-66 [...</span>
 <span class="co">#&gt; [31] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBEN/16-66 ...</span>
@@ -590,13 +692,26 @@ phylip.url
 <div class="section level5">
 <h5 id="information-about-the-sequences-found">Information about the sequences found<a class="anchor" aria-label="anchor" href="#information-about-the-sequences-found"></a>
 </h5>
-<p>On the other hand, we have the <code>stats</code>, <code>hits</code> and <code>domains</code> parameters, which contain the hashes returned by HMMER for each search. These are actually nested DataFrames which in turn contain another set of parameters. Let’s see the content of the nested DataFrame <code>stats</code>, although, as we will discuss later, there is a more convenient way to deal with this information.</p>
-<p>Note that, being a nested DataFrame, it is not enough to make use of the <code>$</code> operator, but we also have to use <code>[[1]]</code> to indicate that we want the first element of the list or, otherwise, we would get a list with, in this case, a single element that would be the DataFrame instead of the DataFrame itself. Although this may seem awkward now, it is necessary to maintain consistency when several searches are made instead of one (as we will see in the next section).</p>
+<p>On the other hand, we have the <code>stats</code>, <code>hits</code>
+and <code>domains</code> parameters, which contain the hashes returned
+by HMMER for each search. These are actually nested DataFrames which in
+turn contain another set of parameters. Let’s see the content of the
+nested DataFrame <code>stats</code>, although, as we will discuss later,
+there is a more convenient way to deal with this information.</p>
+<p>Note that, being a nested DataFrame, it is not enough to make use of
+the <code>$</code> operator, but we also have to use <code>[[1]]</code>
+to indicate that we want the first element of the list or, otherwise, we
+would get a list with, in this case, a single element that would be the
+DataFrame instead of the DataFrame itself. Although this may seem
+awkward now, it is necessary to maintain consistency when several
+searches are made instead of one (as we will see in the next
+section).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">HMMER_data_tbl</span><span class="op">$</span><span class="va">stats</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <table class="table  lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
 <caption>
-Content of the hash stats, with internal HMMER information and variables about the search itself and not about its content.
+Content of the hash stats, with internal HMMER information and variables
+about the search itself and not about its content.
 </caption>
 <tbody>
 <tr>
@@ -753,24 +868,54 @@ user
 </tr>
 </tbody>
 </table>
-<p>Actually, most of the parameters contained in <code>stats</code> are for internal use and we are only interested in a small part of them. For example, by studying the table above, we can know that HMMER found 40 hits (<code>nhits</code>) out of a total of 565928 sequences available (<code>Z</code>) in the PDB and that a single HMM (Hidden Markov Model) (<code>nmodels</code>) has been used in the search (built from our input sequence since we are using PHMMER algorithm). In case you are interested in learning more about how the results data are structured, we invite you to read the appendix of the <a href="https://hmmer-web-docs.readthedocs.io/en/latest/appendices.html" class="external-link">HMMER web server</a>.</p>
-<p>We are not going to repeat the process for <code>hits</code> and <code>domains</code> because there is a much better way to query the information returned by HMMER and that is the <code>extract_from_HMMER_data_tbl</code> function. We show this possibility to point out that, in case the functionalities of use that we are going to show next and that are the core of this library are not useful for your application, you can access all the information as returned by HMMER in this way instead of parsing the JSON or XML file directly.</p>
+<p>Actually, most of the parameters contained in <code>stats</code> are
+for internal use and we are only interested in a small part of them. For
+example, by studying the table above, we can know that HMMER found 40
+hits (<code>nhits</code>) out of a total of 565928 sequences available
+(<code>Z</code>) in the PDB and that a single HMM (Hidden Markov Model)
+(<code>nmodels</code>) has been used in the search (built from our input
+sequence since we are using PHMMER algorithm). In case you are
+interested in learning more about how the results data are structured,
+we invite you to read the appendix of the <a href="https://hmmer-web-docs.readthedocs.io/en/latest/appendices.html" class="external-link">HMMER
+web server</a>.</p>
+<p>We are not going to repeat the process for <code>hits</code> and
+<code>domains</code> because there is a much better way to query the
+information returned by HMMER and that is the
+<code>extract_from_HMMER_data_tbl</code> function. We show this
+possibility to point out that, in case the functionalities of use that
+we are going to show next and that are the core of this library are not
+useful for your application, you can access all the information as
+returned by HMMER in this way instead of parsing the JSON or XML file
+directly.</p>
 </div>
 </div>
 <div class="section level4">
 <h4 id="extracting-a-tidy-dataframe">Extracting a Tidy Dataframe<a class="anchor" aria-label="anchor" href="#extracting-a-tidy-dataframe"></a>
 </h4>
-<p>Let’s extract the contents of <code>hits</code> and <code>domains</code> to a tidy DataFrame using the <code>extract_from_HMMER_data_tbl</code> function. From now on, it will be this object that we will work with and not the one containing the search results.</p>
+<p>Let’s extract the contents of <code>hits</code> and
+<code>domains</code> to a tidy DataFrame using the
+<code>extract_from_HMMER_data_tbl</code> function. From now on, it will
+be this object that we will work with and not the one containing the
+search results.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_from_HMMER_data_tbl.html">extract_from_HMMER_data_tbl</a></span><span class="op">(</span><span class="va">HMMER_data_tbl</span><span class="op">)</span></code></pre></div>
-<p>As you can see, the result is, again, an <code>AnnotatedDataFrame</code> that in this case has as many rows as domains have been identified (keep this in mind in case, as is likely, you want to work by identified sequences and not necessarily the identified domains within these sequences). In this case, there are a total of 40 rows, i.e. the number of domains coincides with the number of sequences, so that only one domain per sequence has been identified although, especially in larger proteins, this is not usually the case.</p>
+<p>As you can see, the result is, again, an
+<code>AnnotatedDataFrame</code> that in this case has as many rows as
+domains have been identified (keep this in mind in case, as is likely,
+you want to work by identified sequences and not necessarily the
+identified domains within these sequences). In this case, there are a
+total of 40 rows, i.e. the number of domains coincides with the number
+of sequences, so that only one domain per sequence has been identified
+although, especially in larger proteins, this is not usually the
+case.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span>
 <span class="co">#&gt; An object of class 'AnnotatedDataFrame'</span>
 <span class="co">#&gt;   HMMER_DomainNames: 1 2 ... 40 (40 total)</span>
 <span class="co">#&gt;   varLabels: uuid hits.name ... domains.aliL (42 total)</span>
 <span class="co">#&gt;   varMetadata: labelDescription</span></code></pre></div>
-<p>Let’s inspect the parameters it contains and their meaning by inspecting the table with the metadata, as we did before:</p>
+<p>Let’s inspect the parameters it contains and their meaning by
+inspecting the table with the metadata, as we did before:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">metadata.VEMP_SARS</span> <span class="op">&lt;-</span> <span class="va">HMMER_tidy_tbl</span><span class="op">@</span><span class="va">varMetadata</span>
 <span class="co">#metadata.VEMP_SARS &lt;- varMetadata(HMMER_tidy_tbl)</span></code></pre></div>
@@ -913,7 +1058,8 @@ The species name of the target (if applicable).
 hits.kg
 </td>
 <td style="text-align:left;">
-The kingdom of life that the target belongs to - based on placing in the NCBI taxonomy tree (if applicable).
+The kingdom of life that the target belongs to - based on placing in the
+NCBI taxonomy tree (if applicable).
 </td>
 </tr>
 <tr>
@@ -969,7 +1115,8 @@ Optimal alignment accuracy score.
 domains.bitscore
 </td>
 <td style="text-align:left;">
-Overall score in bits, null corrected, if this were the only domain in seq.
+Overall score in bits, null corrected, if this were the only domain in
+seq.
 </td>
 </tr>
 <tr>
@@ -1009,7 +1156,8 @@ domains.is_included
 domains.alimodel
 </td>
 <td style="text-align:left;">
-Aligned query consensus sequence phmmer and hmmsearch, target hmm for hmmscan.
+Aligned query consensus sequence phmmer and hmmsearch, target hmm for
+hmmscan.
 </td>
 </tr>
 <tr>
@@ -1041,7 +1189,8 @@ Posterior probability annotation.
 domains.alihmmname
 </td>
 <td style="text-align:left;">
-Name of HMM (query sequence for phmmer, alignment for hmmsearch and target hmm for hmmscan).
+Name of HMM (query sequence for phmmer, alignment for hmmsearch and
+target hmm for hmmscan).
 </td>
 </tr>
 <tr>
@@ -1133,38 +1282,80 @@ Length of sequence.
 <div class="section level5">
 <h5 id="e-values">E-values<a class="anchor" aria-label="anchor" href="#e-values"></a>
 </h5>
-<p>First, let us begin by studying the<code>e-values</code> obtained. Then, first of all, we should look at the E-value of the full sequence to see if it is lower than our significance threshold. This can be done as follows. Note that we use the <code>@data</code> operator, because we want to access and overwrite the data, not the metadata.</p>
+<p>First, let us begin by studying the<code>e-values</code> obtained.
+Then, first of all, we should look at the E-value of the full sequence
+to see if it is lower than our significance threshold. This can be done
+as follows. Note that we use the <code>@data</code> operator, because we
+want to access and overwrite the data, not the metadata.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">threshold</span> <span class="op">&lt;-</span>  <span class="fl">0.01</span>
 <span class="va">HMMER_tidy_tbl</span><span class="op">@</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">HMMER_tidy_tbl</span><span class="op">@</span><span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">hits.evalue</span> <span class="op">&lt;</span><span class="va">threshold</span><span class="op">)</span></code></pre></div>
-<p>As you can see in Table XXX, there are several types of <code>e-values</code>, some referring to the sequence and others referring to the domains. But what do we mean by domains? According to the HMMER manual:</p>
+<p>As you can see in Table XXX, there are several types of
+<code>e-values</code>, some referring to the sequence and others
+referring to the domains. But what do we mean by domains? According to
+the HMMER manual:</p>
 <blockquote>
-<p>A target sequence that reaches this point is very likely to contain one or more significant matches to the profile. These matches are referred to as “domains”, since the main use of HMMER has historically been to match profile HMMs from protein domain databases like Pfam, and one of HMMER’s strengths is to be able to cleanly parse a multidomain target sequence into its multiple nonoverlapping hits to the same domain model.</p>
+<p>A target sequence that reaches this point is very likely to contain
+one or more significant matches to the profile. These matches are
+referred to as “domains”, since the main use of HMMER has historically
+been to match profile HMMs from protein domain databases like Pfam, and
+one of HMMER’s strengths is to be able to cleanly parse a multidomain
+target sequence into its multiple nonoverlapping hits to the same domain
+model.</p>
 </blockquote>
-<p>It is of special interest to study carefully the domain <code>E-value</code> when it happens that, although the full sequence <code>E-value</code> is good, none of the domain <code>E-value</code> reach the significance threshold. In that case, what is happening is that those weak hits, none of which is good enough on its own, add up to raise the sequence to a high score. This may happen because the sequence contains several weak homologous domains, or it may contain a repetitive sequence that is hitting by chance.</p>
-<p>HMMERutils has a function to display all the <code>E-values</code> of the sequences. This function <code>hmmer_evalues_cleveland_dot_plot</code>. In this plot the <span class="math inline">\(-log(E-value)\)</span> is represented on the <span class="math inline">\(x\)</span> axis and on the <span class="math inline">\(y\)</span> axis each of the identified sequences is represented one at a time. The green dots represent the E-values of the fullsequence and the red dots the E-values of each of the domains.</p>
+<p>It is of special interest to study carefully the domain
+<code>E-value</code> when it happens that, although the full sequence
+<code>E-value</code> is good, none of the domain <code>E-value</code>
+reach the significance threshold. In that case, what is happening is
+that those weak hits, none of which is good enough on its own, add up to
+raise the sequence to a high score. This may happen because the sequence
+contains several weak homologous domains, or it may contain a repetitive
+sequence that is hitting by chance.</p>
+<p>HMMERutils has a function to display all the <code>E-values</code> of
+the sequences. This function
+<code>hmmer_evalues_cleveland_dot_plot</code>. In this plot the <span class="math inline">\(-log(E-value)\)</span> is represented on the <span class="math inline">\(x\)</span> axis and on the <span class="math inline">\(y\)</span> axis each of the identified sequences
+is represented one at a time. The green dots represent the E-values of
+the fullsequence and the red dots the E-values of each of the
+domains.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/hmmer_evalues_cleveland_dot_plot.html">hmmer_evalues_cleveland_dot_plot</a></span><span class="op">(</span><span class="va">HMMER_tidy_tbl</span>, threshold <span class="op">=</span> <span class="va">threshold</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="HMMERutils_files/figure-html/unnamed-chunk-18-1.png" alt="Cleveland dot plot of the E-values of each of the domains (colored in red) and of the complete sequences (colored in green) homologous to VEMP_SARS. " width="700"><p class="caption">
-Cleveland dot plot of the E-values of each of the domains (colored in red) and of the complete sequences (colored in green) homologous to VEMP_SARS.
+Cleveland dot plot of the E-values of each of the domains (colored in
+red) and of the complete sequences (colored in green) homologous to
+VEMP_SARS.
 </p>
 </div>
-<p>By looking at it, you can see at a glance, first, how many domains have been identified for each sequence, and then how these contribute to the E-value of the fullsequence and how significant they are relative to the fullsequence. In this case, as can be seen, only one domain per sequence has been found (probably because they are very small) but we will see a case later where more than one domain are found.</p>
+<p>By looking at it, you can see at a glance, first, how many domains
+have been identified for each sequence, and then how these contribute to
+the E-value of the fullsequence and how significant they are relative to
+the fullsequence. In this case, as can be seen, only one domain per
+sequence has been found (probably because they are very small) but we
+will see a case later where more than one domain are found.</p>
 </div>
 <div class="section level5">
 <h5 id="removing-redundant-sequences">Removing redundant sequences<a class="anchor" aria-label="anchor" href="#removing-redundant-sequences"></a>
 </h5>
-<p>Now, let’s filter the sequences to keep only non-redundant sequences. First, we have to add the sequences to the <code>AnnotatedDataFrame</code> by downloading the fullfasta file. To do this we will use the <code>add_fullseq_to_HMMER_tbl</code> function, giving as arguments the AnnotatedDataFrame and a character vector with the addresses to the file /fullfastafastafiles. Note that this address can point to a file downloaded to your computer (if you have downloaded the files from the page) or the URL.</p>
+<p>Now, let’s filter the sequences to keep only non-redundant sequences.
+First, we have to add the sequences to the
+<code>AnnotatedDataFrame</code> by downloading the fullfasta file. To do
+this we will use the <code>add_fullseq_to_HMMER_tbl</code> function,
+giving as arguments the AnnotatedDataFrame and a character vector with
+the addresses to the file /fullfastafastafiles. Note that this address
+can point to a file downloaded to your computer (if you have downloaded
+the files from the page) or the URL.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span> <span class="op">&lt;-</span> <span class="va">HMMER_tidy_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/add_fullseq_to_HMMER_tbl.html">add_fullseq_to_HMMER_tbl</a></span><span class="op">(</span><span class="va">HMMER_data_tbl</span><span class="op">$</span><span class="va">fullfasta.url</span> <span class="op">)</span></code></pre></div>
-<p>Now, we can remove non redundant sequences using the <code>distinc</code> function. Note that we specify the parameter <code>.keep_all = TRUE</code> because we want to keep all columns.</p>
+<p>Now, we can remove non redundant sequences using the
+<code>distinc</code> function. Note that we specify the parameter
+<code>.keep_all = TRUE</code> because we want to keep all columns.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span><span class="op">@</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">HMMER_tidy_tbl</span><span class="op">@</span><span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">hits.fullfasta</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p>Let’s see how the <code>AnnotatedDataFrame</code> has now changed.</p>
+<p>Let’s see how the <code>AnnotatedDataFrame</code> has now
+changed.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span>
 <span class="co">#&gt; An object of class 'AnnotatedDataFrame'</span>
@@ -1179,18 +1370,30 @@ Cleveland dot plot of the E-values of each of the domains (colored in red) and o
 <div class="section level5">
 <h5 id="taxonomic-distribution">Taxonomic distribution<a class="anchor" aria-label="anchor" href="#taxonomic-distribution"></a>
 </h5>
-<p>Now that we have selected our 23 sequences of interest, we can explore the nature of these sequences. One aspect of great interest is the taxonomic distribution of these sequences. We can consult it because we have the <code>hits.taxid</code> parameter, which identifies taxonomic species. We proceed to taxonomically annotate the results using the <code>add</code> function</p>
+<p>Now that we have selected our 23 sequences of interest, we can
+explore the nature of these sequences. One aspect of great interest is
+the taxonomic distribution of these sequences. We can consult it because
+we have the <code>hits.taxid</code> parameter, which identifies
+taxonomic species. We proceed to taxonomically annotate the results
+using the <code>add_taxa_to_HMMER_tbl</code> function</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span> <span class="op">&lt;-</span> <span class="va">HMMER_tidy_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/add_taxa_to_HMMER_tbl.html">add_taxa_to_HMMER_tbl</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"remote"</span><span class="op">)</span></code></pre></div>
-<p>Note that we have indicated the parameter mode = “remote” to note accessing remote resources. This can be slow, we advise you, if the amount of sequences is considerable, to use the “local” option to install (only once) and then use a local database. Let us see what has happened in our <code>AnnotatedDataframe</code>.</p>
+  <span class="fu"><a href="../reference/add_taxa_to_HMMER_tbl.html">add_taxa_to_HMMER_tbl</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"local"</span><span class="op">)</span></code></pre></div>
+<p>Note that we have indicated the parameter mode = “local” to note that
+we don’t want to use remote resources. Using remote resources can be
+slow, we advise you, if the amount of sequences is considerable, to use
+the “local” option to install (only once) and then use a local database.
+Let us see what has happened in our <code>AnnotatedDataframe</code>.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span>
 <span class="co">#&gt; An object of class 'AnnotatedDataFrame'</span>
 <span class="co">#&gt;   rowNames: 1 2 ... 23 (23 total)</span>
 <span class="co">#&gt;   varLabels: uuid hits.name ... taxa.no rank.2 (58 total)</span>
 <span class="co">#&gt;   varMetadata: labelDescription</span></code></pre></div>
-<p>As you can see, we have added 15 new variables (the number will depend on the taxonomic categories available). Let’s see which variables they are. To display only the ones we have just added we will use the following syntax (last 15 rows):</p>
+<p>As you can see, we have added 15 new variables (the number will
+depend on the taxonomic categories available). Let’s see which variables
+they are. To display only the ones we have just added we will use the
+following syntax (last 15 rows):</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -1329,7 +1532,9 @@ Taxonomic rank
 </tr>
 </tbody>
 </table>
-<p>Now, we can use all the metallibrary of <code>tidyverse</code> and <code>ggplot2</code> to explore the data and make graphs. Let’s see an example of what could be done:</p>
+<p>Now, we can use all the metallibrary of <code>tidyverse</code> and
+<code>ggplot2</code> to explore the data and make graphs. Let’s see an
+example of what could be done:</p>
 <div class="section level6">
 <h6 id="example-how-to-plot-taxonomic-information-using-ggplot2">Example: how to plot taxonomic information using ggplot2<a class="anchor" aria-label="anchor" href="#example-how-to-plot-taxonomic-information-using-ggplot2"></a>
 </h6>
@@ -1340,7 +1545,8 @@ Taxonomic rank
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.0001</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="HMMERutils_files/figure-html/unnamed-chunk-25-1.png" alt="Histogram of VEMP_SARS homologous sequences E-values according to taxonomic subgenus" width="700"><p class="caption">
-Histogram of VEMP_SARS homologous sequences E-values according to taxonomic subgenus
+Histogram of VEMP_SARS homologous sequences E-values according to
+taxonomic subgenus
 </p>
 </div>
 </div>
@@ -1348,53 +1554,90 @@ Histogram of VEMP_SARS homologous sequences E-values according to taxonomic subg
 <div class="section level5">
 <h5 id="calculating-the-identity-of-pairwise-alignments">Calculating the identity of pairwise alignments<a class="anchor" aria-label="anchor" href="#calculating-the-identity-of-pairwise-alignments"></a>
 </h5>
-<p>Based on the Figure XXX, it would be reasonable to think that there would be a greater diversity in the Embecovirus sequences, since there is a greater variety in the E-values. To examine this in more detail we can align all the sequences in pairs and then calculate the percentages of identity for each one Using the <code>pairwise_alignment_sequence_identity</code> function.</p>
-<p>When calling this function, we give it as parameters the variable <code>seqs</code> containing the complete sequences (we could give it the sequences of the domains), the type of alignment and the type of sequence identity we are going to use. In this case we will use the default options: <code>aln_type = "global"</code> (align whole strings with end gap penalties by using the Needleman-Wunsch algorithm) and <code>pid_type = "PID1"</code> ( <span class="math inline">\(PID1 = 100 \cdot \frac{\text{identical positions}}{\text{aligned positions + internal gap positions}}\)</span>). In addition, we use the allow_parallelization parameter to speed up the calculation. We use the “multisession” option, which will generate several Rstudio sessions on your computer instead of the “multicore” option, which is considered unsafe to use in an Rstudio session (although you could use it in a script).</p>
+<p>Based on the Figure XXX, it would be reasonable to think that there
+would be a greater diversity in the Embecovirus sequences, since there
+is a greater variety in the E-values. To examine this in more detail we
+can align all the sequences in pairs and then calculate the percentages
+of identity for each one Using the
+<code>pairwise_alignment_sequence_identity</code> function.</p>
+<p>When calling this function, we give it as parameters the variable
+<code>seqs</code> containing the complete sequences (we could give it
+the sequences of the domains), the type of alignment and the type of
+sequence identity we are going to use. In this case we will use the
+default options: <code>aln_type = "global"</code> (align whole strings
+with end gap penalties by using the Needleman-Wunsch algorithm) and
+<code>pid_type = "PID1"</code> ( <span class="math inline">\(PID1 = 100
+\cdot \frac{\text{identical positions}}{\text{aligned positions +
+internal gap positions}}\)</span>). In addition, we could use the
+<code>allow_parallelization</code> parameter to speed up the
+calculation. The option “multisession” option will generate several
+Rstudio sessions on your computer, while the “multicore” option, is
+considered unsafe to use in an Rstudio session (although you could use
+it in a script).</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pairwise_alignment_sequence_identity.html">pairwise_alignment_sequence_identity</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">HMMER_tidy_tbl</span><span class="op">$</span><span class="va">hits.fullfasta</span>,
                                      aln_type <span class="op">=</span> <span class="st">"global"</span>,
                                      pid_type <span class="op">=</span> <span class="st">"PID1"</span>,
-                                     allow_parallelization <span class="op">=</span> <span class="st">"multisession"</span><span class="op">)</span></code></pre></div>
-<p>Now, we can use 2 HMMERutils functions to view the results. We can see the distribution of these identities:</p>
+                                     <span class="co">#allow_parallelization = "multisession"</span>
+                                     <span class="op">)</span></code></pre></div>
+<p>Now, we can use 2 HMMERutils functions to view the results. We can
+see the distribution of these identities:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/pairwise_sequence_identity_histogram.html">pairwise_sequence_identity_histogram</a></span><span class="op">(</span><span class="va">pid</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="HMMERutils_files/figure-html/unnamed-chunk-27-1.png" alt="Histogram of sequence identity by pairs of sequences homologous to VEMP_SARS." width="700"><p class="caption">
-Histogram of sequence identity by pairs of sequences homologous to VEMP_SARS.
+Histogram of sequence identity by pairs of sequences homologous to
+VEMP_SARS.
 </p>
 </div>
-<p>And, in order to compare this information with other parameters, a heatmap. Note that we use the <code>taxa.subgenus</code> column to annotate the heatmap, for which we use the <code>annotation</code> argument and the <code>$</code> operator.</p>
+<p>And, in order to compare this information with other parameters, a
+heatmap. Note that we use the <code>taxa.subgenus</code> column to
+annotate the heatmap, for which we use the <code>annotation</code>
+argument and the <code>$</code> operator.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/pairwise_sequence_identity_heatmap.html">pairwise_sequence_identity_heatmap</a></span><span class="op">(</span><span class="va">pid</span>,annotation <span class="op">=</span> <span class="va">HMMER_tidy_tbl</span><span class="op">$</span><span class="va">taxa.subgenus</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="HMMERutils_files/figure-html/unnamed-chunk-28-1.png" alt="Heatmap of sequence identity by pairs of sequences homologous to VEMP_SARS." width="700"><p class="caption">
-Heatmap of sequence identity by pairs of sequences homologous to VEMP_SARS.
+Heatmap of sequence identity by pairs of sequences homologous to
+VEMP_SARS.
 </p>
 </div>
-<p>As we can now see, the <em>Embecovirus</em> sequences form 2 groups with a high sequence identity with each other and with themselves. In addition, there are 2 sequences that present a very low percentage of sequence identity with the rest of the sequences of their subgenus, but high with the <em>Tegacovirus</em> sequences.</p>
+<p>As we can now see, the <em>Embecovirus</em> sequences form 2 groups
+with a high sequence identity with each other and with themselves. In
+addition, there are 2 sequences that present a very low percentage of
+sequence identity with the rest of the sequences of their subgenus, but
+high with the <em>Tegacovirus</em> sequences.</p>
 </div>
 <div class="section level5">
 <h5 id="physicochemical-properties">Physicochemical properties<a class="anchor" aria-label="anchor" href="#physicochemical-properties"></a>
 </h5>
-<p>We can study what the sequences we have obtained are like in more detail by calculating physicochemical properties based on their primary sequence. To do this, we can use the <code>add_physicochemical_properties_to_HMMER_tbl</code> function:</p>
+<p>We can study what the sequences we have obtained are like in more
+detail by calculating physicochemical properties based on their primary
+sequence. To do this, we can use the
+<code>add_physicochemical_properties_to_HMMER_tbl</code> function:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span> <span class="op">&lt;-</span> <span class="va">HMMER_tidy_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/add_physicochemical_properties_to_HMMER_tbl.html">add_physicochemical_properties_to_HMMER_tbl</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>Let us see what has happened in our <code>AnnotatedDataframe</code>.</p>
+<p>Let us see what has happened in our
+<code>AnnotatedDataframe</code>.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span>
 <span class="co">#&gt; An object of class 'AnnotatedDataFrame'</span>
 <span class="co">#&gt;   rowNames: 1 2 ... 23 (23 total)</span>
 <span class="co">#&gt;   varLabels: uuid hits.name ... properties.Acidic (76 total)</span>
 <span class="co">#&gt;   varMetadata: labelDescription</span></code></pre></div>
-<p>As you can see, we have added 18 new variables. In this case it is almost essential to examine the metadata of the new parameters, in order to know what we are talking about. We will use the following syntax (last 18 rows):</p>
+<p>As you can see, we have added 18 new variables. In this case it is
+almost essential to examine the metadata of the new parameters, in order
+to know what we are talking about. We will use the following syntax
+(last 18 rows):</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HMMER_tidy_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_tail</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></code></pre></div>
 <table class="table  lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
 <caption>
-Metadata of the variables on the theoretical physicochemical properties calculated with the primary structure.
+Metadata of the variables on the theoretical physicochemical properties
+calculated with the primary structure.
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -1409,7 +1652,8 @@ labelDescription
 properties.molecular.weight
 </td>
 <td style="text-align:left;">
-sum of the masses of each atom constituting a molecule (Da) using the same formulas and weights as ExPASy’s.
+sum of the masses of each atom constituting a molecule (Da) using the
+same formulas and weights as ExPASy’s.
 </td>
 </tr>
 <tr>
@@ -1417,7 +1661,8 @@ sum of the masses of each atom constituting a molecule (Da) using the same formu
 properties.charge
 </td>
 <td style="text-align:left;">
-net charge of a protein sequence based on the Henderson-Hasselbalch equation using Lehninger pKa scale.
+net charge of a protein sequence based on the Henderson-Hasselbalch
+equation using Lehninger pKa scale.
 </td>
 </tr>
 <tr>
@@ -1433,7 +1678,8 @@ isoelectric point calculated as in EMBOSS PEPSTATS.
 properties.mz
 </td>
 <td style="text-align:left;">
-mass over charge ratio (m/z) for peptides, as measured in mass spectrometry.
+mass over charge ratio (m/z) for peptides, as measured in mass
+spectrometry.
 </td>
 </tr>
 <tr>
@@ -1441,7 +1687,10 @@ mass over charge ratio (m/z) for peptides, as measured in mass spectrometry.
 properties.aIndex
 </td>
 <td style="text-align:left;">
-aliphatic index of a protein. The aindex is defined as the relative volume occupied by aliphatic side chains (Alanine, Valine, Isoleucine, and Leucine). It may be regarded as a positive factor for the increase of thermostability of globular proteins.
+aliphatic index of a protein. The aindex is defined as the relative
+volume occupied by aliphatic side chains (Alanine, Valine, Isoleucine,
+and Leucine). It may be regarded as a positive factor for the increase
+of thermostability of globular proteins.
 </td>
 </tr>
 <tr>
@@ -1449,7 +1698,12 @@ aliphatic index of a protein. The aindex is defined as the relative volume occup
 properties.boman
 </td>
 <td style="text-align:left;">
-potential protein interaction index . The index is equal to the sum of the solubility values for all residues in a sequence, it might give an overall estimate of the potential of a peptide to bind to membranes or other proteins as receptors, to normalize it is divided by the number of residues. A protein have high binding potential if the index value is higher than 2.48.
+potential protein interaction index . The index is equal to the sum of
+the solubility values for all residues in a sequence, it might give an
+overall estimate of the potential of a peptide to bind to membranes or
+other proteins as receptors, to normalize it is divided by the number of
+residues. A protein have high binding potential if the index value is
+higher than 2.48.
 </td>
 </tr>
 <tr>
@@ -1457,7 +1711,8 @@ potential protein interaction index . The index is equal to the sum of the solub
 properties.hydrophobicity
 </td>
 <td style="text-align:left;">
-GRAVY hydrophobicity index of an amino acids sequence using KyteDoolittle hydophobicity scale.
+GRAVY hydrophobicity index of an amino acids sequence using
+KyteDoolittle hydophobicity scale.
 </td>
 </tr>
 <tr>
@@ -1465,7 +1720,10 @@ GRAVY hydrophobicity index of an amino acids sequence using KyteDoolittle hydoph
 properties.instaIndex
 </td>
 <td style="text-align:left;">
-Guruprasad’s instability index. This index predicts the stability of a protein based on its amino acid composition, a protein whose instability index is smaller than 40 is predicted as stable, a value above 40 predicts that the protein may be unstable.
+Guruprasad’s instability index. This index predicts the stability of a
+protein based on its amino acid composition, a protein whose instability
+index is smaller than 40 is predicted as stable, a value above 40
+predicts that the protein may be unstable.
 </td>
 </tr>
 <tr>
@@ -1551,14 +1809,22 @@ Percentage of amino acids (B + D + E + Z)
 </tbody>
 </table>
 <div class="section level6">
-<h6 id="example-how-to-perform-a-pca-on-the-physicochemical-properties-of-sequences-using-factoextra">Example: how to perform a PCA on the physicochemical properties of sequences using factoextra<a class="anchor" aria-label="anchor" href="#example-how-to-perform-a-pca-on-the-physicochemical-properties-of-sequences-using-factoextra"></a>
+<h6 id="example-how-to-perform-a-pca-on-the-physicochemical-properties-of-sequences-using-factoextra">Example: how to perform a PCA on the physicochemical properties of
+sequences using factoextra<a class="anchor" aria-label="anchor" href="#example-how-to-perform-a-pca-on-the-physicochemical-properties-of-sequences-using-factoextra"></a>
 </h6>
-<p>Let’s see an example of how to use these theoretical parameters that we have just calculated. To perform a PCA we must first select only the columns that contain these properties (and we do it taking advantage of the fact that they all begin with “properties”), scale them (<code>scale = TRUE</code>) and perform the PCA with the <code>prcomp</code> function.</p>
+<p>Let’s see an example of how to use these theoretical parameters that
+we have just calculated. To perform a PCA we must first select only the
+columns that contain these properties (and we do it taking advantage of
+the fact that they all begin with “properties”), scale them
+(<code>scale = TRUE</code>) and perform the PCA with the
+<code>prcomp</code> function.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca.properties</span> <span class="op">&lt;-</span> <span class="va">HMMER_tidy_tbl</span><span class="op">@</span><span class="va">data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"properties"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html" class="external-link">prcomp</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p>Now, using the <code>factoextra</code> library, we are going to project the homologous sequences to VEMP_SARS on the 2 main components to color them according to the taxonomic subgenus.</p>
+<p>Now, using the <code>factoextra</code> library, we are going to
+project the homologous sequences to VEMP_SARS on the 2 main components
+to color them according to the taxonomic subgenus.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra" class="external-link">factoextra</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_pca.html" class="external-link">fviz_pca_ind</a></span><span class="op">(</span><span class="va">pca.properties</span>, geom.ind <span class="op">=</span> <span class="st">"point"</span>, 
@@ -1567,10 +1833,16 @@ Percentage of amino acids (B + D + E + Z)
              pointsize <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> </code></pre></div>
 <div class="figure">
 <img src="HMMERutils_files/figure-html/unnamed-chunk-33-1.png" alt="Principal component analysis on proteins homologous to VEMP_SARS. Sequence projection." width="700"><p class="caption">
-Principal component analysis on proteins homologous to VEMP_SARS. Sequence projection.
+Principal component analysis on proteins homologous to VEMP_SARS.
+Sequence projection.
 </p>
 </div>
-<p>Now, we can see how, although we would have thought otherwise if we had paid attention exclusively to the percentage of sequence identity, Embecovirus sequences are not so different physico-chemically, even though their sequence is. We may also be interested in knowing which variables are most involved. To do this, we are going to make a biplot:</p>
+<p>Now, we can see how, although we would have thought otherwise if we
+had paid attention exclusively to the percentage of sequence identity,
+Embecovirus sequences are not so different physico-chemically, even
+though their sequence is. We may also be interested in knowing which
+variables are most involved. To do this, we are going to make a
+biplot:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_pca.html" class="external-link">fviz_pca</a></span><span class="op">(</span><span class="va">pca.properties</span>, geom.ind <span class="op">=</span> <span class="st">"point"</span>, 
              col.ind <span class="op">=</span> <span class="va">HMMER_tidy_tbl</span><span class="op">$</span><span class="va">taxa.subgenus</span>, 
@@ -1578,7 +1850,8 @@ Principal component analysis on proteins homologous to VEMP_SARS. Sequence proje
              pointsize <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> </code></pre></div>
 <div class="figure">
 <img src="HMMERutils_files/figure-html/unnamed-chunk-34-1.png" alt="Principal component analysis on proteins homologous to VEMP_SARS. Biplot of variables and sequences." width="700"><p class="caption">
-Principal component analysis on proteins homologous to VEMP_SARS. Biplot of variables and sequences.
+Principal component analysis on proteins homologous to VEMP_SARS. Biplot
+of variables and sequences.
 </p>
 </div>
 </div>
@@ -1599,9 +1872,9 @@ Principal component analysis on proteins homologous to VEMP_SARS. Biplot of vari
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"HMMERutils.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span class="co">#&gt; [1] "2022-04-26 16:21:47 CEST"</span></code></pre>
+<pre><code><span class="co">#&gt; [1] "2022-04-26 17:15:03 UTC"</span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span class="co">#&gt; Time difference of 36.386 secs</span></code></pre>
+<pre><code><span class="co">#&gt; Time difference of 1.571 mins</span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
 <span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span>
@@ -1610,174 +1883,184 @@ Principal component analysis on proteins homologous to VEMP_SARS. Biplot of vari
 <span class="co">#&gt;  system   x86_64, linux-gnu</span>
 <span class="co">#&gt;  ui       X11</span>
 <span class="co">#&gt;  language en</span>
-<span class="co">#&gt;  collate  es_ES.UTF-8</span>
-<span class="co">#&gt;  ctype    es_ES.UTF-8</span>
-<span class="co">#&gt;  tz       Africa/Ceuta</span>
+<span class="co">#&gt;  collate  en_US.UTF-8</span>
+<span class="co">#&gt;  ctype    en_US.UTF-8</span>
+<span class="co">#&gt;  tz       UTC</span>
 <span class="co">#&gt;  date     2022-04-26</span>
-<span class="co">#&gt;  pandoc   2.14.0.3 @ /usr/lib/rstudio/bin/pandoc/ (via rmarkdown)</span>
+<span class="co">#&gt;  pandoc   2.17.1.1 @ /usr/local/bin/ (via rmarkdown)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
 <span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package         </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span>
-<span class="co">#&gt;  abind              1.4-5    <span style="color: #555555;">2016-07-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  ape                5.6-2    <span style="color: #555555;">2022-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  assertthat         0.2.1    <span style="color: #555555;">2019-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  backports          1.4.1    <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
+<span class="co">#&gt;  abind              1.4-5    <span style="color: #555555;">2016-07-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  ape                5.6-2    <span style="color: #555555;">2022-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  assertthat         0.2.1    <span style="color: #555555;">2019-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  backports          1.4.1    <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
 <span class="co">#&gt;  Biobase          * 2.54.0   <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
 <span class="co">#&gt;  BiocGenerics     * 0.40.0   <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  BiocManager        1.30.17  <span style="color: #555555;">2022-04-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  BiocManager        1.30.17  <span style="color: #555555;">2022-04-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  BiocStyle        * 2.22.0   <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
 <span class="co">#&gt;  Biostrings       * 2.62.0   <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  bit                4.0.4    <span style="color: #555555;">2020-08-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  bit64              4.0.5    <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  bitops             1.0-7    <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
+<span class="co">#&gt;  bit                4.0.4    <span style="color: #555555;">2020-08-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  bit64              4.0.5    <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  bitops             1.0-7    <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  blob               1.2.3    <span style="color: #555555;">2022-04-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  bold               1.2.0    <span style="color: #555555;">2021-05-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  bookdown           0.26     <span style="color: #555555;">2022-04-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  broom              0.8.0    <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  bslib              0.3.1    <span style="color: #555555;">2021-10-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  cachem             1.0.6    <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  car                3.0-12   <span style="color: #555555;">2021-11-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  carData            3.0-5    <span style="color: #555555;">2022-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  cellranger         1.1.0    <span style="color: #555555;">2016-07-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  cli                3.2.0    <span style="color: #555555;">2022-02-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  codetools          0.2-18   <span style="color: #555555;">2020-11-04</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.0.3)</span></span>
-<span class="co">#&gt;  colorspace         2.0-3    <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  conditionz         0.1.0    <span style="color: #555555;">2019-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  crayon             1.5.1    <span style="color: #555555;">2022-03-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  bold               1.2.0    <span style="color: #555555;">2021-05-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  bookdown           0.26     <span style="color: #555555;">2022-04-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  broom              0.8.0    <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  bslib              0.3.1    <span style="color: #555555;">2021-10-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  cachem             1.0.6    <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  car                3.0-12   <span style="color: #555555;">2021-11-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  carData            3.0-5    <span style="color: #555555;">2022-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  cellranger         1.1.0    <span style="color: #555555;">2016-07-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  cli                3.2.0    <span style="color: #555555;">2022-02-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  codetools          0.2-18   <span style="color: #555555;">2020-11-04</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  colorspace         2.0-3    <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  conditionz         0.1.0    <span style="color: #555555;">2019-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  crayon             1.5.1    <span style="color: #555555;">2022-03-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
 <span class="co">#&gt;  crul               1.2.0    <span style="color: #555555;">2021-11-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  curl               4.3.2    <span style="color: #555555;">2021-06-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  data.table         1.14.2   <span style="color: #555555;">2021-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  DBI                1.1.2    <span style="color: #555555;">2021-12-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  dbplyr             2.1.1    <span style="color: #555555;">2021-04-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  desc               1.4.1    <span style="color: #555555;">2022-03-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  digest             0.6.29   <span style="color: #555555;">2021-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  dplyr            * 1.0.8    <span style="color: #555555;">2022-02-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  ellipsis           0.3.2    <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  evaluate           0.15     <span style="color: #555555;">2022-02-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  factoextra       * 1.0.7    <span style="color: #555555;">2020-04-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  fansi              1.0.3    <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  farver             2.1.0    <span style="color: #555555;">2021-02-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  fastmap            1.1.0    <span style="color: #555555;">2021-01-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  forcats          * 0.5.1    <span style="color: #555555;">2021-01-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  foreach            1.5.2    <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  fs                 1.5.2    <span style="color: #555555;">2021-12-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  furrr              0.2.3    <span style="color: #555555;">2021-06-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  future             1.24.0   <span style="color: #555555;">2022-02-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  generics           0.1.2    <span style="color: #555555;">2022-01-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
+<span class="co">#&gt;  curl               4.3.2    <span style="color: #555555;">2021-06-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  data.table         1.14.2   <span style="color: #555555;">2021-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  DBI                1.1.2    <span style="color: #555555;">2021-12-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  dbplyr             2.1.1    <span style="color: #555555;">2021-04-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  desc               1.4.1    <span style="color: #555555;">2022-03-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  digest             0.6.29   <span style="color: #555555;">2021-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  dplyr            * 1.0.8    <span style="color: #555555;">2022-02-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  ellipsis           0.3.2    <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  evaluate           0.15     <span style="color: #555555;">2022-02-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  factoextra       * 1.0.7    <span style="color: #555555;">2020-04-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  fansi              1.0.3    <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  farver             2.1.0    <span style="color: #555555;">2021-02-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  fastmap            1.1.0    <span style="color: #555555;">2021-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  forcats          * 0.5.1    <span style="color: #555555;">2021-01-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  foreach            1.5.2    <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  fs                 1.5.2    <span style="color: #555555;">2021-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  generics           0.1.2    <span style="color: #555555;">2022-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  GenomeInfoDb     * 1.30.1   <span style="color: #555555;">2022-01-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  GenomeInfoDbData   1.2.7    <span style="color: #555555;">2021-12-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  ggplot2          * 3.3.5    <span style="color: #555555;">2021-06-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  ggpubr             0.4.0    <span style="color: #555555;">2020-06-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  ggrepel            0.9.1    <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  ggsignif           0.6.3    <span style="color: #555555;">2021-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  globals            0.14.0   <span style="color: #555555;">2020-11-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  glue               1.6.2    <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  gtable             0.3.0    <span style="color: #555555;">2019-03-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  haven              2.5.0    <span style="color: #555555;">2022-04-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  highr              0.9      <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
+<span class="co">#&gt;  GenomeInfoDbData   1.2.7    <span style="color: #555555;">2022-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  ggplot2          * 3.3.5    <span style="color: #555555;">2021-06-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  ggpubr             0.4.0    <span style="color: #555555;">2020-06-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  ggrepel            0.9.1    <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  ggsignif           0.6.3    <span style="color: #555555;">2021-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  glue               1.6.2    <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  gtable             0.3.0    <span style="color: #555555;">2019-03-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  haven              2.5.0    <span style="color: #555555;">2022-04-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  highr              0.9      <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  HMMERutils       * 0.99.0   <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  hms                1.1.1    <span style="color: #555555;">2021-09-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  hoardr             0.5.2    <span style="color: #555555;">2018-12-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  htmltools          0.5.2    <span style="color: #555555;">2021-08-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  httpcode           0.3.0    <span style="color: #555555;">2020-04-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  httr               1.4.2    <span style="color: #555555;">2020-07-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
+<span class="co">#&gt;  hms                1.1.1    <span style="color: #555555;">2021-09-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  hoardr             0.5.2    <span style="color: #555555;">2018-12-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  htmltools          0.5.2    <span style="color: #555555;">2021-08-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  httpcode           0.3.0    <span style="color: #555555;">2020-04-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  httr               1.4.2    <span style="color: #555555;">2020-07-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  IRanges          * 2.28.0   <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  iterators          1.0.14   <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  jquerylib          0.1.4    <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  jsonlite           1.8.0    <span style="color: #555555;">2022-02-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  kableExtra         1.3.4    <span style="color: #555555;">2021-02-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  knitr              1.38     <span style="color: #555555;">2022-03-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  labeling           0.4.2    <span style="color: #555555;">2020-10-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  lattice            0.20-45  <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.1.1)</span></span>
-<span class="co">#&gt;  lifecycle          1.0.1    <span style="color: #555555;">2021-09-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  listenv            0.8.0    <span style="color: #555555;">2019-12-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  lubridate          1.8.0    <span style="color: #555555;">2021-10-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  magrittr           2.0.3    <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  memoise            2.0.1    <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  modelr             0.1.8    <span style="color: #555555;">2020-05-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  munsell            0.5.0    <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  nlme               3.1-157  <span style="color: #555555;">2022-03-25</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  parallelly         1.31.0   <span style="color: #555555;">2022-04-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  Peptides           2.4.4    <span style="color: #555555;">2021-05-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  pheatmap           1.0.12   <span style="color: #555555;">2019-01-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  pillar             1.7.0    <span style="color: #555555;">2022-02-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  pkgconfig          2.0.3    <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  pkgdown            2.0.2    <span style="color: #555555;">2022-01-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  iterators          1.0.14   <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  jquerylib          0.1.4    <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  jsonlite           1.8.0    <span style="color: #555555;">2022-02-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  kableExtra         1.3.4    <span style="color: #555555;">2021-02-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  knitr              1.38     <span style="color: #555555;">2022-03-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  labeling           0.4.2    <span style="color: #555555;">2020-10-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  lattice            0.20-45  <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  lifecycle          1.0.1    <span style="color: #555555;">2021-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  lubridate          1.8.0    <span style="color: #555555;">2021-10-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  magrittr           2.0.3    <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  memoise            2.0.1    <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  modelr             0.1.8    <span style="color: #555555;">2020-05-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  munsell            0.5.0    <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  nlme               3.1-157  <span style="color: #555555;">2022-03-25</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  Peptides           2.4.4    <span style="color: #555555;">2021-05-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  pheatmap           1.0.12   <span style="color: #555555;">2019-01-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  pillar             1.7.0    <span style="color: #555555;">2022-02-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  pkgconfig          2.0.3    <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  pkgdown            2.0.3    <span style="color: #555555;">2022-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  plyr               1.8.7    <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  purrr            * 0.3.4    <span style="color: #555555;">2020-04-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  R6                 2.5.1    <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  ragg               1.2.2    <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  rappdirs           0.3.3    <span style="color: #555555;">2021-01-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
+<span class="co">#&gt;  purrr            * 0.3.4    <span style="color: #555555;">2020-04-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  R6                 2.5.1    <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  ragg               1.2.2    <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rappdirs           0.3.3    <span style="color: #555555;">2021-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  RColorBrewer       1.1-3    <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
 <span class="co">#&gt;  Rcpp               1.0.8.3  <span style="color: #555555;">2022-03-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
 <span class="co">#&gt;  RCurl              1.98-1.6 <span style="color: #555555;">2022-02-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  readr            * 2.1.2    <span style="color: #555555;">2022-01-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
+<span class="co">#&gt;  readr            * 2.1.2    <span style="color: #555555;">2022-01-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
 <span class="co">#&gt;  readxl             1.4.0    <span style="color: #555555;">2022-03-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  RefManageR       * 1.3.0    <span style="color: #555555;">2020-11-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  reprex             2.0.1    <span style="color: #555555;">2021-08-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  reshape            0.8.9    <span style="color: #555555;">2022-04-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  rlang              1.0.2    <span style="color: #555555;">2022-03-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  rmarkdown          2.13     <span style="color: #555555;">2022-03-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  rprojroot          2.0.3    <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  RefManageR       * 1.3.0    <span style="color: #555555;">2020-11-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  reprex             2.0.1    <span style="color: #555555;">2021-08-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  reshape            0.8.9    <span style="color: #555555;">2022-04-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rlang              1.0.2    <span style="color: #555555;">2022-03-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rmarkdown          2.13     <span style="color: #555555;">2022-03-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  rprojroot          2.0.3    <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
 <span class="co">#&gt;  RSQLite            2.2.12   <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  rstatix            0.7.0    <span style="color: #555555;">2021-02-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  rstudioapi         0.13     <span style="color: #555555;">2020-11-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  rvest              1.0.2    <span style="color: #555555;">2021-10-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
+<span class="co">#&gt;  rstatix            0.7.0    <span style="color: #555555;">2021-02-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  rstudioapi         0.13     <span style="color: #555555;">2020-11-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rvest              1.0.2    <span style="color: #555555;">2021-10-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
 <span class="co">#&gt;  S4Vectors        * 0.32.4   <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
 <span class="co">#&gt;  sass               0.4.1    <span style="color: #555555;">2022-03-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  scales             1.2.0    <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  sessioninfo      * 1.2.2    <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  stringi            1.7.6    <span style="color: #555555;">2021-11-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  stringr          * 1.4.0    <span style="color: #555555;">2019-02-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  svglite            2.1.0    <span style="color: #555555;">2022-02-03</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  systemfonts        1.0.4    <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  taxize             0.9.100  <span style="color: #555555;">2022-04-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  taxizedb           0.3.0    <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  textshaping        0.3.6    <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  tibble           * 3.1.6    <span style="color: #555555;">2021-11-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  tidyr            * 1.2.0    <span style="color: #555555;">2022-02-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  tidyselect         1.1.2    <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  tidyverse        * 1.3.1    <span style="color: #555555;">2021-04-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  triebeard          0.3.0    <span style="color: #555555;">2016-08-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  scales             1.2.0    <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  sessioninfo      * 1.2.2    <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  stringi            1.7.6    <span style="color: #555555;">2021-11-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  stringr          * 1.4.0    <span style="color: #555555;">2019-02-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  svglite            2.1.0    <span style="color: #555555;">2022-02-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  systemfonts        1.0.4    <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  taxize             0.9.100  <span style="color: #555555;">2022-04-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  taxizedb           0.3.0    <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  textshaping        0.3.6    <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  tibble           * 3.1.6    <span style="color: #555555;">2021-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  tidyr            * 1.2.0    <span style="color: #555555;">2022-02-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  tidyselect         1.1.2    <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  tidyverse        * 1.3.1    <span style="color: #555555;">2021-04-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  tzdb               0.3.0    <span style="color: #555555;">2022-03-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  urltools           1.7.3    <span style="color: #555555;">2019-04-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  utf8               1.2.2    <span style="color: #555555;">2021-07-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  uuid               1.1-0    <span style="color: #555555;">2022-04-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  vctrs              0.4.1    <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  viridisLite        0.4.0    <span style="color: #555555;">2021-04-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  webshot            0.5.3    <span style="color: #555555;">2022-04-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
-<span class="co">#&gt;  withr              2.5.0    <span style="color: #555555;">2022-03-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  xfun               0.30     <span style="color: #555555;">2022-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  XML                3.99-0.9 <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
-<span class="co">#&gt;  xml2               1.3.3    <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
+<span class="co">#&gt;  utf8               1.2.2    <span style="color: #555555;">2021-07-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  uuid               1.1-0    <span style="color: #555555;">2022-04-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  vctrs              0.4.1    <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  viridisLite        0.4.0    <span style="color: #555555;">2021-04-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  webshot            0.5.3    <span style="color: #555555;">2022-04-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  withr              2.5.0    <span style="color: #555555;">2022-03-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  xfun               0.30     <span style="color: #555555;">2022-03-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  XML                3.99-0.9 <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  xml2               1.3.3    <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  XVector          * 0.34.0   <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  yaml               2.3.5    <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.2)</span></span>
+<span class="co">#&gt;  yaml               2.3.5    <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  zlibbioc           1.40.0   <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  zoo                1.8-10   <span style="color: #555555;">2022-04-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.1.3)</span></span>
+<span class="co">#&gt;  zoo                1.8-10   <span style="color: #555555;">2022-04-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #555555;"> [1] /home/currocam/R/x86_64-pc-linux-gnu-library/4.1</span></span>
+<span class="co">#&gt; <span style="color: #555555;"> [1] /__w/_temp/Library</span></span>
 <span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span>
-<span class="co">#&gt; <span style="color: #555555;"> [3] /usr/lib/R/site-library</span></span>
-<span class="co">#&gt; <span style="color: #555555;"> [4] /usr/lib/R/library</span></span>
+<span class="co">#&gt; <span style="color: #555555;"> [3] /usr/local/lib/R/library</span></span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="bibliography">Bibliography<a class="anchor" aria-label="anchor" href="#bibliography"></a>
 </h2>
-<p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.14/BiocStyle" class="external-link">BiocStyle</a></em> (Oleś, 2021) with <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie, 2022) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em> (Allaire, Xie, McPherson, Luraschi, Ushey, Atkins, Wickham, Cheng, Chang, and Iannone, 2022) running behind the scenes.</p>
-<p>Citations made with <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em> (McLean, 2017).</p>
+<p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.14/BiocStyle" class="external-link">BiocStyle</a></em>
+(Oleś, 2021) with <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
+2022) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em>
+(Allaire, Xie, McPherson, Luraschi, Ushey, Atkins, Wickham, Cheng,
+Chang, and Iannone, 2022) running behind the scenes.</p>
+<p>Citations made with <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em>
+(McLean, 2017).</p>
 <p>
-<a id="bib-allaire2022rmarkdown"></a><a href="#cite-allaire2022rmarkdown">[1]</a><cite> J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.13. 2022. URL: <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
+<a id="bib-allaire2022rmarkdown"></a><a href="#cite-allaire2022rmarkdown">[1]</a><cite>
+J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic
+Documents for R</em>. R package version 2.13. 2022. URL:
+<a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
 </p>
 <p>
-<a id="bib-mclean2017refmanager"></a><a href="#cite-mclean2017refmanager">[2]</a><cite> M. W. McLean. “RefManageR: Import and Manage BibTeX and BibLaTeX References in R”. In: <em>The Journal of Open Source Software</em> (2017). DOI: <a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
+<a id="bib-mclean2017refmanager"></a><a href="#cite-mclean2017refmanager">[2]</a><cite>
+M. W. McLean. “RefManageR: Import and Manage BibTeX and BibLaTeX
+References in R”. In: <em>The Journal of Open Source Software</em>
+(2017). DOI:
+<a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
 </p>
 <p>
-<a id="bib-ole2021biocstyle"></a><a href="#cite-ole2021biocstyle">[3]</a><cite> A. Oleś. <em>BiocStyle: Standard styles for vignettes and other Bioconductor documents</em>. R package version 2.22.0. 2021. URL: <a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
+<a id="bib-ole2021biocstyle"></a><a href="#cite-ole2021biocstyle">[3]</a><cite>
+A. Oleś. <em>BiocStyle: Standard styles for vignettes and other
+Bioconductor documents</em>. R package version 2.22.0. 2021. URL:
+<a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
 </p>
 <p>
-<a id="bib-xie2022knitr"></a><a href="#cite-xie2022knitr">[4]</a><cite> Y. Xie. <em>knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. R package version 1.38. 2022. URL: <a href="https://yihui.org/knitr/" class="external-link">https://yihui.org/knitr/</a>.</cite>
+<a id="bib-xie2022knitr"></a><a href="#cite-xie2022knitr">[4]</a><cite>
+Y. Xie. <em>knitr: A General-Purpose Package for Dynamic Report
+Generation in R</em>. R package version 1.38. 2022. URL:
+<a href="https://yihui.org/knitr/" class="external-link">https://yihui.org/knitr/</a>.</cite>
 </p>
 </div>
   </div>
@@ -1799,7 +2082,7 @@ Principal component analysis on proteins homologous to VEMP_SARS. Biplot of vari
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
