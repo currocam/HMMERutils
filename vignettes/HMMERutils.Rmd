@@ -331,13 +331,13 @@ HMMER_tidy_tbl
 
 #### Taxonomic distribution
 
-Now that we have selected our 23 sequences of interest, we can explore the nature of these sequences. One aspect of great interest is the taxonomic distribution of these sequences. We can consult it because we have the `hits.taxid` parameter, which identifies taxonomic species. We proceed to taxonomically annotate the results using the `add` function
+Now that we have selected our 23 sequences of interest, we can explore the nature of these sequences. One aspect of great interest is the taxonomic distribution of these sequences. We can consult it because we have the `hits.taxid` parameter, which identifies taxonomic species. We proceed to taxonomically annotate the results using the `add_taxa_to_HMMER_tbl` function
 
 ```{r, message=FALSE, warning=FALSE}
 HMMER_tidy_tbl <- HMMER_tidy_tbl %>%
-  add_taxa_to_HMMER_tbl(mode = "remote")
+  add_taxa_to_HMMER_tbl(mode = "local")
 ```
-Note that we have indicated the parameter mode = "remote" to note accessing remote resources. This can be slow, we advise you, if the amount of sequences is considerable, to use the "local" option to install (only once) and then use a local database. Let us see what has happened in our `AnnotatedDataframe`.
+Note that we have indicated the parameter mode = "local" to note that we don't want to use remote resources. Using remote resources can be slow, we advise you, if the amount of sequences is considerable, to use the "local" option to install (only once) and then use a local database. Let us see what has happened in our `AnnotatedDataframe`.
 ```{r, message=FALSE, warning=FALSE}
 HMMER_tidy_tbl
 ```
