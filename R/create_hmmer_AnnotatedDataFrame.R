@@ -11,12 +11,13 @@ create_hmmer_AnnotatedDataFrame <- function(grid, names_seq, tbl_list, type) {
         ) %>%
         add_hmmer_urls(uuids, type)
     metaData <- retrieve_hmmer_metadata(colnames(df))
-    Biobase::AnnotatedDataFrame(
+    annData <-Biobase::AnnotatedDataFrame(
         data = df[metaData$label],
         varMetadata = metaData %>%
             dplyr::select("labelDescription") %>%
-          dplyr::mutate("algorithm" = type)
-    )
+          dplyr::mutate("algorithm" = type))
+    annData@dimLabels <- c("HMMERqueryNames", "columnNames")
+    return(annData)
 }
 
 retrieve_hmmer_metadata <- function(colnames_vc) {

@@ -57,9 +57,11 @@ create_tidy_hmmer_AnnotatedDataFrame <- function(HMMER_data_tbl_df){
     "extdata/label_hmmer_descriptions.csv",package = "HMMERutils") %>%
     utils::read.csv() %>%
     dplyr::filter(.data$label %in% colnames(HMMER_data_tbl_df))
-  Biobase::AnnotatedDataFrame(
+  annData <- Biobase::AnnotatedDataFrame(
     data = HMMER_data_tbl_df[metaData$label],
     varMetadata = metaData %>%
       dplyr::select("labelDescription")
   )
+  annData@dimLabels <- c("HMMER_DomainNames", "columnNames")
+  return(annData)
 }
