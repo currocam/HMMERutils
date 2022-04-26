@@ -53,7 +53,7 @@ search_hmmsearch <- function(
               aln = .x,
               seqdb = .y,
               url = "https://www.ebi.ac.uk/Tools/hmmer/search/hmmsearch",
-              verbose = TRUE,
+              verbose = verbose,
               N.TRIES = N.TRIES
           )
       }

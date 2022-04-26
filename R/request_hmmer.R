@@ -17,7 +17,7 @@ request_hmmer <- function(
         hmm <- tryCatch(
             RCurl::postForm(
                 url, seqdb = seqdb, hmmdb = hmmdb,
-                seq = input_query, style = "POST",
+                seq = input_query, style = "POST", verbose = TRUE,
                 .opts = curl.opts,.checkParams = TRUE,
                 .contentEncodeFun = RCurl::curlPercentEncode
             ),

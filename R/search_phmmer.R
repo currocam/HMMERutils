@@ -34,7 +34,7 @@ search_phmmer <- function(
     seq_names = NULL,
     dbs = "swissprot",
     N.TRIES = 1,
-    verbose = FALSE) {
+    verbose = TRUE) {
     # Check
     seqs <- deal_with_input_sequences(seqs)
     if (length(seqs) == length(seq_names)) {
@@ -51,7 +51,7 @@ search_phmmer <- function(
                 seq = .x,
                 seqdb = .y,
                 url = "https://www.ebi.ac.uk/Tools/hmmer/search/phmmer",
-                verbose = TRUE,
+                verbose = verbose,
                 N.TRIES = N.TRIES
             )
         }

@@ -53,7 +53,7 @@ search_hmmscan <- function(
             request_hmmer(
                 seq = .x, hmmdb = .y,
                 url = "https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan",
-                verbose = TRUE, N.TRIES = N.TRIES
+                verbose = verbose, N.TRIES = N.TRIES
             )
         }
     ) %>%

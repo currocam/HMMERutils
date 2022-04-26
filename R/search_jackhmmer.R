@@ -78,7 +78,7 @@ search_jackhmmer <- function(
                 request_hmmer(
                     seq = .x,seqdb = .y,
                     url = "https://www.ebi.ac.uk/Tools/hmmer/search/jackhmmer",
-                    verbose = TRUE, N.TRIES = N.TRIES)})
+                    verbose = verbose, N.TRIES = N.TRIES)})
     }
     if (!is.null(alns)) {
         tbl_list <- purrr::map2(
@@ -86,7 +86,7 @@ search_jackhmmer <- function(
                 request_hmmer(
                     aln = .x,seqdb = .y,
                     url = "https://www.ebi.ac.uk/Tools/hmmer/search/jackhmmer",
-                    verbose = TRUE,N.TRIES = N.TRIES)})
+                    verbose = verbose,N.TRIES = N.TRIES)})
     }
     tbl_list <- tbl_list %>%
         parse_xml_into_tbl()
