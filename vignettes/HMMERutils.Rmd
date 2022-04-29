@@ -86,7 +86,7 @@ BiocManager::valid()
 
 ## Required knowledge
 
-`r Biocpkg("HMMERutils")` is based on many other packages and in particular those that have implemented the infrastructure necessary to deal with protein sequence data and generate ` r AnnotatedDataFrames`. Therefore, note that the `r Biocpkg("Biostrings")` libraries are used to read, write and handle protein sequences and `r Biocpkg("Biobase")` is used to generate the annotated DataFrames that the user works with.  The content of the ` r AnnotatedDataFrames` have been designed for this purpose. 
+`r Biocpkg("HMMERutils")` is based on many other packages and in particular those that have implemented the infrastructure necessary to deal with protein sequence data and generate ` AnnotatedDataFrames`. Therefore, note that the `r Biocpkg("Biostrings")` libraries are used to read, write and handle protein sequences and `r Biocpkg("Biobase")` is used to generate the annotated DataFrames that the user works with.  The content of the ` AnnotatedDataFrames` have been designed for this purpose. 
 
 
 ## Asking for help
@@ -160,7 +160,7 @@ Y14_SARS <- sars.cov.fasta$Y14_SARS #Uncharacterized protein
 
 All these proteins have in common to be small in size (it will speed up some computational times) and represent different possibilities: we have from membrane proteins (which we would expect to show homology with other membrane proteins), proteins similar to each other (NS8A_SARS and NS8B_SARS), non-structural proteins and uncharacterized proteins. 
 
-## Proteins homologous to VEMP_SARS
+## Proteins homologous to VEMP_SARS using PHMMER
 
 Before exemplifying how to use HMMERutils to perform several searches simultaneously (usually against several databases) or to use other algorithms, let's perform a basic search against a single database using `phmmer`, the default algorithm. 
 
@@ -190,8 +190,7 @@ varMetadata(HMMER_data_tbl)
 
 ```{r, echo=FALSE}
 varMetadata(HMMER_data_tbl) %>%
-  kableExtra::kbl(caption = "Metadata associated with each of the searches performed in HMMER through HMMERutils.")%>%
-  kableExtra::kable_paper("basic")
+  kableExtra::kbl(caption = "Metadata associated with each of the searches performed in HMMER through HMMERutils.")
 ```
 As can be seen in the table above, we have different types of variables that may be of interest in `VEMP_SARS.homologous.PDB`. 
 
@@ -216,8 +215,7 @@ To display such a table we have several options. The simplest option is to use t
 pData(HMMER_data_tbl) %>%
   select(ends_with("url")) %>%
   t()%>%
-  kableExtra::kbl(caption = "Links to files with information about the search performed in HMMER. Note that they have probably already expired. ")%>%
-  kableExtra::kable_paper("basic")
+  kableExtra::kbl(caption = "Links to files with information about the search performed in HMMER. Note that they have probably already expired. ")
 ```
 
 As you may have guessed, we can use the `readAAStringSet` function to, just as we read the Fasta file containing the Sars-CoV-2 Reference Proteome, via a url, we can use it to download and read the HMMER files. 
@@ -244,8 +242,7 @@ t(HMMER_data_tbl$stats[[1]])
 
 ```{r, echo=FALSE}
 t(HMMER_data_tbl$stats[[1]]) %>%
-  kableExtra::kbl(caption = "Content of the hash stats, with internal HMMER information and variables about the search itself and not about its content. ")%>%
-  kableExtra::kable_paper("basic")
+  kableExtra::kbl(caption = "Content of the hash stats, with internal HMMER information and variables about the search itself and not about its content. ")
 ```
 Actually, most of the parameters contained in `stats` are for internal use and we are only interested in a small part of them.  For example, by studying the table above, we can know that HMMER found 40 hits (`nhits`) out of a total of 565928 sequences available (`Z`) in the PDB and that a single HMM (Hidden Markov Model) (`nmodels`) has been used in the search (built from our input sequence since we are using PHMMER algorithm). In case you are interested in learning more about how the results data are structured, we invite you to read the appendix of the [HMMER web server](https://hmmer-web-docs.readthedocs.io/en/latest/appendices.html). 
 
@@ -268,8 +265,8 @@ HMMER_tidy_tbl
 Let's inspect the parameters it contains and their meaning by inspecting the table with the metadata, as we did before:
 
 ```{r, message=FALSE, warning=FALSE}
-metadata.VEMP_SARS <- HMMER_tidy_tbl@varMetadata
-#metadata.VEMP_SARS <- varMetadata(HMMER_tidy_tbl)
+#metadata.VEMP_SARS <- HMMER_tidy_tbl@varMetadata
+metadata.VEMP_SARS <- varMetadata(HMMER_tidy_tbl)
 ```
 
 ```r
@@ -278,8 +275,7 @@ metadata.VEMP_SARS
 
 ```{r, echo=FALSE}
 metadata.VEMP_SARS %>%
-  kableExtra::kbl(caption = "The metadata of the full sequence and domains found by HMMER. ")%>%
-  kableExtra::kable_paper("basic")
+  kableExtra::kbl(caption = "The metadata of the full sequence and domains found by HMMER. ")
 ```
 
 ### Data preprocessing
@@ -290,12 +286,12 @@ First, let us begin by studying the` e-values` obtained. Then, first of all, we 
 
 ```{r, message=FALSE, warning=FALSE}
 threshold <-  0.01
-HMMER_tidy_tbl@data <- HMMER_tidy_tbl@data %>%
+pData(HMMER_tidy_tbl) <- pData(HMMER_tidy_tbl) %>%
   filter(hits.evalue <threshold)
 ```
 
 
-As you can see in Table XXX, there are several types of ` e-values`, some referring to the sequence and others referring to the domains. But what do we mean by domains? According to the HMMER manual:
+As you can see in previous table, there are several types of ` e-values`, some referring to the sequence and others referring to the domains. But what do we mean by domains? According to the HMMER manual:
 
 > A target sequence that reaches this point is very likely to contain one or more significant matches to the profile. These matches are referred to as “domains”, since the main use of HMMER has historically been to match profile HMMs from protein domain databases like
 Pfam, and one of HMMER’s strengths is to be able to cleanly parse a multidomain target sequence into its multiple nonoverlapping hits to the same domain model.
@@ -319,7 +315,7 @@ HMMER_tidy_tbl <- HMMER_tidy_tbl %>%
 Now, we can remove non redundant sequences using the `distinc` function. Note that we specify the parameter `.keep_all = TRUE` because we want to keep all columns. 
 
 ```{r, message=FALSE, warning=FALSE}
-HMMER_tidy_tbl@data <- HMMER_tidy_tbl@data %>%
+pData(HMMER_tidy_tbl) <- pData(HMMER_tidy_tbl) %>%
   distinct(hits.fullfasta, .keep_all = TRUE)
 ```
 Let's see how the `AnnotatedDataFrame` has now changed.
@@ -354,8 +350,7 @@ HMMER_tidy_tbl %>%
 HMMER_tidy_tbl %>%
   varMetadata() %>%
   slice_tail(n=15) %>%
-  kableExtra::kbl(caption = "Taxonomic variables metadata")%>%
-  kableExtra::kable_paper("basic")
+  kableExtra::kbl(caption = "Taxonomic variables metadata")
 ```
 
 Now, we can use all the metallibrary of `tidyverse` and `ggplot2` to explore the data and make graphs. Let's see an example of what could be done:
@@ -419,8 +414,7 @@ HMMER_tidy_tbl %>%
 HMMER_tidy_tbl %>%
   varMetadata() %>%
   slice_tail(n=18) %>%
-  kableExtra::kbl(caption = "Metadata of the variables on the theoretical physicochemical properties calculated with the primary structure. ")%>%
-  kableExtra::kable_paper("basic")
+  kableExtra::kbl(caption = "Metadata of the variables on the theoretical physicochemical properties calculated with the primary structure. ")
 ```
 
 ##### Example: how to perform a PCA on the physicochemical properties of sequences using factoextra   
@@ -428,7 +422,7 @@ HMMER_tidy_tbl %>%
 Let's see an example of how to use these theoretical parameters that we have just calculated. To perform a PCA we must first select only the columns that contain these properties (and we do it taking advantage of the fact that they all begin with "properties"), scale them (`scale = TRUE`) and perform the PCA with the `prcomp` function.
 
 ```{r, message=FALSE, warning=FALSE}
-pca.properties <- HMMER_tidy_tbl@data %>%
+pca.properties <- pData(HMMER_tidy_tbl) %>%
   select(starts_with("properties")) %>%
   prcomp(scale = TRUE)
 ```
@@ -449,6 +443,186 @@ fviz_pca(pca.properties, geom.ind = "point",
              axes = 1:2, 
              pointsize = 2) 
 ```
+## Proteins homologous to Y14_SARS in SwissProt and Reference Proteomes using PHMMER
+
+So far, we have been working with the results of a single search. This case study has allowed us to describe in depth most of the utilities of this library. However, the most common scenario is that we want to work with the results of several searches. Let's try performing a search with PHMMER for the sequence of Y14_SARS, an uncharacterized protein, against SwissProt and Ensembl. 
+
+For this example, moreover, we will not go step by step, but will show how HMMERutils can perform all of the above operations in a few lines of code. In case you find the keyword "uniprotrefprot" unintuitive, which it certainly is, you can refer to the information regarding the `search_phmmer` function using ?search_phmmer for a complete listing of options. 
+```{r}
+HMMER_data_Y14_SARS <- Y14_SARS %>%
+  search_phmmer(
+  dbs = c("swissprot", "uniprotrefprot"),
+  verbose = FALSE)
+HMMER_data_Y14_SARS
+```
+Note that, now, the number of searches performed is 2. Let's save in a variable the url of the fasta files. 
+
+```{r}
+Y14_SARS_fullfasta <- HMMER_data_Y14_SARS %>%
+  pData() %>%
+  pull("fullfasta.url")
+```
+
+Now, using the pipe operator, we are going to extract the information in a table, download the sequences, annotate them taxonomically and calculate the physicochemical properties of the sequences. 
+
+```{r}
+HMMER_Y14_SARS <- HMMER_data_Y14_SARS %>%
+  extract_from_HMMER_data_tbl() %>%
+  add_fullseq_to_HMMER_tbl(Y14_SARS_fullfasta) %>%
+  add_taxa_to_HMMER_tbl() %>%
+  add_physicochemical_properties_to_HMMER_tbl()
+HMMER_Y14_SARS
+```
+
+## Proteins homologous to various sequences and target databases using PHMMER
+
+Finally, let's perform an example by searching for homologous sequences of several sequences against several databases. We will take advantage of this case study to exemplify how the data could be treated when a large number of sequences are found. 
+
+We will work with the sequences NS8A_SARS, NS8B_SARS and NS7B_SARS. First, we must save the sequences of interest in a list. Notice that we save the sequences in a list instead of in a vector because, being AAStringSet, the default behavior would be to concatenate the sequences instead of saving them separately. 
+```{r}
+NS8A_SARS <- sars.cov.fasta$NS8A_SARS #ORF8a protein
+NS8B_SARS <- sars.cov.fasta$NS8B_SARS #ORF8b protein
+NS7B_SARS <- sars.cov.fasta$NS7B_SARS #Protein non-structural 7b
+NSXX_SARS <- list(NS8A_SARS, NS8B_SARS, NS7B_SARS)
+```
+
+As we can see, by indicating 3 searches against 2 databases we have performed the corresponding 6 searches. 
+
+```{r}
+HMMER_data_NSXX_SARS <- NSXX_SARS %>%
+  search_phmmer(
+  dbs = c("swissprot", "uniprotrefprot"),
+  verbose = FALSE)
+HMMER_data_NSXX_SARS
+```
+Let's save in a variable the url of the fasta files. 
+
+```{r}
+NSXX_SARS_fullfasta <- HMMER_data_NSXX_SARS %>%
+  pData() %>%
+  pull("fullfasta.url")
+```
+
+And now let's extract the data and add the fullfasta sequences. 
+
+```{r}
+HMMER_NSXX_SARS <- HMMER_data_NSXX_SARS %>%
+  extract_from_HMMER_data_tbl() %>%
+  add_fullseq_to_HMMER_tbl(NSXX_SARS_fullfasta) 
+HMMER_NSXX_SARS
+```
+
+##### Example: how to manipulate dataframe with Tidyverse
+
+We could fall into the error of thinking that we have obtained 204 sequences from these 6 searches. However, there are a number of factors to take into account: 
+
+- We are searching in redundant databases, so it is to be expected that there will be, therefore, redundant sequences.  
+- There may be redundant sequences of different species. 
+- We have not yet filtered out non-significant sequences according to their E-Value.
+- We can have sequences that correspond to fragments.
+- And, as mentioned above, the number of rows in the table we have just created corresponds to each of the homologous domains identified for each sequence, which may have several. 
+
+
+All these manipulation tasks will be specific to each case but, probably, the easiest way to carry them out is using `Tidyverse.`  Let's see how many full sequences we have obtained by building a pipeline step by step:
+
+First, we want to exclude sequences with an E-Value greater than 0.01: 
+``` r
+HMMER_NSXX_SARS %>%
+  pData() %>%
+  filter(hits.evalue <0.01)
+```
+To remove entries that refer more than once to the same sequence, we have several options. For example, in the following way, we will keep the sequences that are different in their primary and secondary accession (in case they share the primary). Note that we indicate `.keep_all = TRUE` in order not to delete columns. 
+``` r
+HMMER_NSXX_SARS %>%
+  pData() %>%
+  distinct(hits.acc, hits.acc2, .keep_all = TRUE)
+```
+
+Also note that, having filtered by acc and acc2, we are actually removing every domain row except the first one In case we want to keep the domains, i.e. still have one row per domain instead of one row per sequence, we can add, for example the `domains.ienv` parameter (envelope start position).
+``` r
+HMMER_NSXX_SARS %>%
+  pData() %>%
+  distinct(hits.acc, hits.acc2, domains.ienv, .keep_all = TRUE)
+```
+
+As we have shown, Tidyverse is very flexible and allows for really complex combinations. However, in most cases, we will only be interested in filtering by the full sequence (remove 100% of redundant sequences). Note that, to alter the `AnnotatedDataframe` data, we must use the `pData` function or the `@` operator twice: on the left side of the assignment, to indicate what we want to change, and on the right side, to access this information.  
+
+```{r}
+pData(HMMER_NSXX_SARS) <- HMMER_NSXX_SARS%>%
+  pData() %>%
+  filter(hits.evalue <0.01) %>%
+  distinct(hits.fullfasta, .keep_all = TRUE)
+```
+
+As you can see, of the 204 domains that showed homology, we obtained 43 entries, corresponding to 43 non-redundant sequences homologous to the sequences of interest.
+
+## Argonaute proteins homologous using hmmsearch
+
+So far, we have only used PHMMER, since it is the most used and default algorithm. However, HMMERutils allows to work with all HMMER algorithms. Let's see how it can be used to perform a search using HMMSEARCH. This algorithm performs a sequence search in the same databases as PHMMER with the difference that, instead of building a hidden Markov model with a single sequence, it does it with an alignment. 
+
+For this example we will use an alignment of the PIWI domain of PFAM, which belongs to the Argonaute proteins (catalytic components of the RNA-induced silencing complex (RISC)) obtained from PFAM. With this alignment, we will perform a search with HMMSEARCH against the PDB, imagining, for example, that our ultimate intention is to find protein structures to work with. 
+
+
+First, let's read the alignment:
+```{r}
+piwi_seed_aln_path <- system.file("extdata/piwi.afa",package = "HMMERutils")
+piwi_alignment <- readAAMultipleAlignment(piwi_seed_aln_path)
+piwi_alignment
+```
+
+And now, let's do the search. 
+
+```{r}
+HMMER_piwi <- search_hmmsearch(
+  alns = piwi_alignment,
+  dbs = "pdb",
+  verbose = FALSE) %>%
+  extract_from_HMMER_data_tbl()
+HMMER_piwi
+```
+Let's look at the PDBs you have found:
+```{r}
+HMMER_piwi$hits.name
+```
+
+## PIWI domain identification  using hmmscan
+
+Another HMMER algorithm that can be used through HMMERutils is HMMSCAN. This algorithm performs a search of a protein sequence against an HMM database and can be used to identify domains in our sequence. 
+
+To test it we are going to make use of a fragment of the PIWI domain which we have obtained by joining pieces of different Argonaute proteins:
+
+
+```{r}
+frankestein_piwi <- paste0(
+  "YGSIKRVCNTMLGVPSQCAISKHILQS","SDQYLTNVLLKINSKLGGIN",
+  "QYLTNLLLKINAKLGGLN", "SRIVADKITNKYLVDQPTM")
+```
+Now, let's perform the search against 2 HMM databases, `PFAM` and `tigrfam`
+
+```{r}
+HMMER_frankestein_piwi <- search_hmmscan(
+  seqs = frankestein_piwi,
+  dbs = c("pfam", "tigrfam"),
+  verbose = FALSE) %>%
+  extract_from_HMMER_data_tbl()
+HMMER_frankestein_piwi
+```
+As expected, the search returned only 2 results and both correspond to the Piwi domain (2 results because we searched 2 redundant databases).
+```{r}
+HMMER_frankestein_piwi$hits.name
+```
+## Reading HMMER XML files
+
+Finally, there is the possibility to read XML files downloaded directly from the HMMER website.  Let's see an example: 
+
+```{r}
+xml_example_path <- system.file("extdata/xml_example.xml", package = "HMMERutils")
+HMMER_read_from_file <- read_hmmer_from_xml(xml_example_path) %>%
+  extract_from_HMMER_data_tbl()
+HMMER_read_from_file
+```
+
+
 # Reproducibility
 
 Code for creating the vignette
