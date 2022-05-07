@@ -65,40 +65,41 @@ pairwise_alignment_sequence_identity <- function(seqs,
             call. = FALSE
         )
     }
-    matrix <- utils::combn(names(seqs), 2)
+    matrix_names <- utils::combn(names(seqs), 2)
+    matrix_seqs <- seqs %>%
+      as.character() %>%
+      magrittr::set_names(NULL) %>%
+      utils::combn(2)
     if (!is.null(allow_parallelization)) {
         pairwise_alignment_sequence_identity_using_furrr(
-            seqs, matrix, aln_type,
-            pid_type, allow_parallelization
+          matrix_seqs, aln_type,pid_type, allow_parallelization
         ) -> percentage_sequence_identity
     } else {
         pairwise_alignment_sequence_identity_using_purrr(
-            seqs, matrix, aln_type, pid_type
+          matrix_seqs, aln_type,pid_type
         ) -> percentage_sequence_identity
     }
     df <- tibble::tibble(
-        "seq1" = matrix[1, ],
-        "seq2" = matrix[2, ],
+        "seq1" = matrix_names[1, ],
+        "seq2" = matrix_names[2, ],
         "percentage.sequence.identity" = percentage_sequence_identity
     )
     class(df) <- c("pairwise_sequence_identity", class(df))
     return(df)
 }
 
-pairwise_alignment_sequence_identity_using_purrr <- function(seqs, matrix, aln_type, pid_type) {
+pairwise_alignment_sequence_identity_using_purrr <- function(matrix_seqs, aln_type, pid_type) {
     purrr::map2_dbl(
-        matrix[1, ],
-        matrix[2, ],
+      matrix_seqs[1, ],
+      matrix_seqs[2, ],
         ~ {
             calculate_percentage_sequence_identity(
-                seqs[[.x]], seqs[[.y]],
-                aln_type = aln_type, pid_type = pid_type
-            )
+                .x, .y, aln_type = aln_type, pid_type = pid_type)
         }
     )
 }
 
-pairwise_alignment_sequence_identity_using_furrr <- function(seqs, matrix, aln_type, pid_type, allow_parallelization) {
+pairwise_alignment_sequence_identity_using_furrr <- function(matrix_seqs, aln_type, pid_type, allow_parallelization) {
     if (allow_parallelization == "multisession") {
         future::plan(future::multisession)
     }
@@ -106,12 +107,11 @@ pairwise_alignment_sequence_identity_using_furrr <- function(seqs, matrix, aln_t
         future::plan(future::multicore)
     }
     furrr::future_map2_dbl(
-        matrix[1, ], matrix[2, ],
-        ~ {
+      matrix_seqs[1, ],
+      matrix_seqs[2, ],
+      ~ {
             calculate_percentage_sequence_identity(
-                seqs[[.x]], seqs[[.y]],
-                aln_type = aln_type, pid_type = pid_type
-            )
+              .x, .y, aln_type = aln_type, pid_type = pid_type)
         }
     ) %>%
         as.numeric()
