@@ -2,7 +2,7 @@
 % Please edit documentation in R/pairwise_alignment_sequence_identity.R
 \name{pairwise_sequence_identity_histogram}
 \alias{pairwise_sequence_identity_histogram}
-\title{Plot a histogram with the pairwise identity percentages.}
+\title{Plot a histogram with the pairwise identity percentages (without the diagonal).}
 \usage{
 pairwise_sequence_identity_histogram(object)
 }
@@ -13,7 +13,7 @@ pairwise_sequence_identity_histogram(object)
 A ggplot object
 }
 \description{
-Plot a histogram with the pairwise identity percentages.
+Plot a histogram with the pairwise identity percentages (without the diagonal).
 }
 \examples{
 data(example_phmmer)

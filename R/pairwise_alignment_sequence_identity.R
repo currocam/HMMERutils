@@ -130,7 +130,7 @@ pairwise_alignment_sequence_identity_using_furrr <- function(
   map_function <- purrr::safely(calculate_percentage_sequence_identity, otherwise)
   seqs %>%
     as.list()%>%
-    furrr::future_map(~ map_function(.x, seqs,aln_type, pid_type))
+    furrr::future_map(~ map_function(.x, seqs,aln_type, pid_type),.progress = TRUE)
 }
 
 calculate_percentage_sequence_identity <- function(x, seqs,aln_type, pid_type) {
@@ -138,7 +138,7 @@ calculate_percentage_sequence_identity <- function(x, seqs,aln_type, pid_type) {
         Biostrings::pid(pid_type)
 }
 
-#' Plot a histogram with the pairwise identity percentages.
+#' Plot a histogram with the pairwise identity percentages (without the diagonal).
 #'
 #' @param object A pairwise_sequence_identity.
 #'

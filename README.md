@@ -44,89 +44,84 @@ BiocManager::install("currocam/HMMERutils")
 
 ## Example
 
-This is a basic example which shows you how to read HMMER files into
-HMMERutils’ tidy DataFrame and take advantage of the HMMER information,
-as well as the taxonomic and physicochemical information inferred from
-the sequence. As an example, we will use the results of the PHMMER
-example search, where we searched for sequences homologous to ABL1 in
-the PDB.
+This is a basic example showing how to post a request to HMMER, convert
+the information it returns into a tidy HMMERutils’ DataFrame, as well as
+add taxonomic and physicochemical information inferred from the
+sequence. As an example, we will use the results of the PHMMER example
+search, where we searched for sequences homologous to ABL1 in the PDB.
+
+First, we post the request:
 
 ``` r
 library("HMMERutils")
 library(tidyverse)
+library(Biobase)
+ABL1_seq <- "MGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAP"
+
 ## Downloaded files from HMMER
-xml_path <- system.file(
-    "/extdata/ABL_TYROSINE_KINASE.xml",
-    package = "HMMERutils"
-)
-fasta_path <- system.file(
-    "/extdata/ABL_TYROSINE_KINASE.fa",
-    package = "HMMERutils"
-)
-ABL1_homologous <- read_hmmer_from_xml(xml_path, fasta_path) %>% # read them
-    extract_from_HMMER_data_tbl() %>% # extract the information into a DataFrame
-    dplyr::filter(hits.evalue < 0.01) %>% # filter out non-significant sequences
-    dplyr::distinct(hits.fullseq.fasta, .keep_all = TRUE) %>% # filter out redundant sequences
-    add_taxa_to_HMMER_tbl(mode = "local") %>% # add taxonomic information
-    add_physicochemical_properties_to_HMMER_tbl() # calculate theoretical physical and chemical properties
+HMMER_ABL1_search <- search_phmmer(ABL1_seq,dbs = "pdb", verbose = FALSE)
+HMMER_ABL1_search
+#> An object of class 'AnnotatedDataFrame'
+#>   HMMERqueryNames: 1
+#>   varLabels: dbs uuid ... phylip.url (17 total)
+#>   varMetadata: labelDescription algorithm
 ```
 
-Now, we can explore the e-values of the sequences we have obtained in
-search of red flags. We can see, for example, sequences whose evalue
-value is significant but that of their best domain is not.
+The different files that HMMER makes available to us, as well as the
+information about the sequences are now contained in
+`HMMER_ABL1_search`. Let’s see the metadata of the first 6 variables of
+this `AnnotatedDataFrame`:
 
 ``` r
-HMMERutils::hmmer_evalues_cleveland_dot_plot(
-  HMMER_tidy_tbl = ABL1_homologous,
-  threshold = 0.001)
+head(varMetadata(HMMER_ABL1_search))
+#>                                       labelDescription algorithm
+#> dbs       Names of target databases used in the search    phmmer
+#> uuid                         The unique job identifier    phmmer
+#> score.url                 URL with HMMER results score    phmmer
+#> stats                                   The stats hash    phmmer
+#> hits                          Array of sequence hashes    phmmer
+#> domains               Array of sequence domains hashes    phmmer
 ```
 
-<img src="man/figures/README-evalues-1.png" width="100%" />
-
-Observe how the sequences are clustered according to their percentage
-sequence identity and compare it with their phylogeny after we exclude
-*Homo sapiens*. First, aligning each sequence pair and calculating its
-percentage identity:
+We can then extract this information into a tidy DataFrame, preprocess
+the data and add more information to it. The basic workflow is as
+follows:
 
 ``` r
-pairwise_identities_ABL1_homologous <- ABL1_homologous_non_human %>%
-  pairwise_alignment_sequence_identity(
-    seqs = .$hits.fullseq.fasta
-    aln_type = "global",
-    pid_type = "PID1",
-    allow_parallelization = "multisession"
-    )
+HMMER_ABL1_data <- HMMER_ABL1_search %>%
+  extract_from_HMMER_data_tbl() %>% # extract the information into a DataFrame
+  add_fullseq_to_HMMER_tbl(HMMER_ABL1_search$fullfasta.url)%>% #add sequences
+  add_taxa_to_HMMER_tbl(mode = "local") %>% # add taxonomic information
+  add_physicochemical_properties_to_HMMER_tbl() #calculate theoretical physical and chemical properties
+HMMER_ABL1_data
+#> An object of class 'AnnotatedDataFrame'
+#>   rowNames: 1 2 ... 860 (860 total)
+#>   varLabels: uuid hits.name ... properties.Acidic (108 total)
+#>   varMetadata: labelDescription
 ```
 
-And then calling the plot method with the type “hist” or “heatmap”.
+Let’s see the metadata of the first 15 variables of this
+`AnnotatedDataFrame`:
 
 ``` r
-plot(
-  pairwise_identities_ABL1_homologous,
-  type = "heatmap",
-  annotation = ABL1_homologous_non_human$taxa.class
-  )
+head(varMetadata(HMMER_ABL1_data),15)
+#>                                                                                                             labelDescription
+#> uuid                                                                                               The unique job identifier
+#> hits.name                                               Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan).
+#> hits.arch                                                                                      Sequence domain architecture.
+#> hits.acc                                                                                            Accession of the target.
+#> hits.desc                                                                                         Description of the target.
+#> hits.score                                                       Bit score of the sequence (all domains, without correction)
+#> hits.pvalue                                                                                            P-value of the score.
+#> hits.evalue                                                                                            E-value of the score.
+#> hits.nregions                                                                                   Number of regions evaluated.
+#> hits.ndom                                                               Total number of domains identified in this sequence.
+#> hits.nreported                                                          Number of domains satisfying reporting thresholding.
+#> hits.nincluded                                                          Number of domains satisfying inclusion thresholding.
+#> hits.taxid                                                       The NCBI taxonomy identifier of the target (if applicable).
+#> hits.species                                                                 The species name of the target (if applicable).
+#> hits.kg         The kingdom of life that the target belongs to - based on placing in the NCBI taxonomy tree (if applicable).
 ```
-
-<img src="man/figures/README-pairwise-1.png" width="100%" />
-
-And how the physical and chemical properties of the sequences are
-grouped according to phylogeny.
-
-``` r
-ABL1_homologous %>%
-  dplyr::distinct(hits.name, .keep_all = TRUE) %>%
-  dplyr::group_by(taxa.kingdom,taxa.family)%>%
-  dplyr::mutate(
-    hydrophobicity = mean(properties.hydrophobicity),
-    mz = mean(properties.mz),
-    size = n()) %>%
-  ggplot(aes(x=mz, y=hydrophobicity, size = size, color = taxa.kingdom)) +
-    geom_point(alpha=0.5) +
-    scale_size(range = c(.1, 24), name="Sequences")
-```
-
-<img src="man/figures/README-bubble_plot-1.png" width="100%" />
 
 ## Citation
 
