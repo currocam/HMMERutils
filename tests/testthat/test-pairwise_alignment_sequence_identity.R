@@ -19,7 +19,7 @@ test_that("pairwise_alignment autoplot works", {
 
 test_that("pairwise_alignment works", {
   data(example_phmmer)
-    seqs <- example_phmmer$hits.fullfasta[1:3] %>%
+  seqs <- example_phmmer$hits.fullfasta[1:3] %>%
       magrittr::set_names(example_phmmer$hits.name[1:3])
     pairwise_alignment_sequence_identity(seqs) %>%
         dplyr::pull("percentage.sequence.identity") %>%

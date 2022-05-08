@@ -27,8 +27,8 @@
 #' plot(pairwise.per, type = "heatmap", ann = example_phmmer$taxa.phylum[1:10])
 #'
 #' @section Alignment types:
-#' * `global`: align whole strings with end gap penalties.
-#' * `local`: align string fragments.
+#' * `global`: align whole strings with end gap penalties (Needleman-Wunsch).
+#' * `local`: align string fragments (Smith-Waterman).
 #' * `overlap`: align whole strings without end gap penalties.
 #'
 #' @section Percent sequence identity:
@@ -37,93 +37,104 @@
 #' * `PID3`: 100 * (identical positions) / (length shorter sequence).
 #' * `PID4`: 100 * (identical positions) / (average length of the two sequences).
 #'
-#' @return A DataFrame of subclass `pairwise_sequence_identity`, so that it has associated S3 methods.
+#' @return A DataFrame of subclass `pairwise_sequence_identity`, so that it has
+#'  associated `plot` methods. It consists of a long DataFrame extracted
+#'  from the identity square matrix (with the diagonal).
 #' @export
 #'
 pairwise_alignment_sequence_identity <- function(seqs,
     aln_type = "global",
     pid_type = "PID1",
     allow_parallelization = NULL) {
-    if (is.null(names(seqs)) && is.character(seqs)) {
-      names(seqs) <- paste0("seq", seq(1, length(seqs)))
-    }
-    if (!methods::is(seqs, "AAStringSet")) {
-        seqs <- Biostrings::AAStringSet(seqs)
-    }
-    if (length(names(seqs)) != length(unique(names(seqs)))) {
-        stop("seqs must have unique names.")
-    }
-    if (!is.null(allow_parallelization) && !requireNamespace("furrr", quietly = TRUE)) {
-        stop(
-            "Package \"furrr\" must be installed to use this function if allow_parallelization = TRUE",
-            call. = FALSE
-        )
-    }
-    if (!is.null(allow_parallelization) && !requireNamespace("future", quietly = TRUE)) {
-        stop(
-            "Package \"future\" must be installed to use this function if allow_parallelization = TRUE",
-            call. = FALSE
-        )
-    }
-    matrix_names <- utils::combn(names(seqs), 2)
-    matrix_seqs <- seqs %>%
-      as.character() %>%
-      magrittr::set_names(NULL) %>%
-      utils::combn(2)
-    if (!is.null(allow_parallelization)) {
-        pairwise_alignment_sequence_identity_using_furrr(
-          matrix_seqs, aln_type,pid_type, allow_parallelization
-        ) -> percentage_sequence_identity
-    } else {
-        pairwise_alignment_sequence_identity_using_purrr(
-          matrix_seqs, aln_type,pid_type
-        ) -> percentage_sequence_identity
-    }
-    df <- tibble::tibble(
-        "seq1" = matrix_names[1, ],
-        "seq2" = matrix_names[2, ],
-        "percentage.sequence.identity" = percentage_sequence_identity
+  if (length(names(seqs)) != length(unique(names(seqs)))) {
+    warning("`seqs` must have unique names.")
+    names(seqs) <- NULL
+  }
+  if (is.null(names(seqs)) && is.character(seqs)) {
+    names(seqs) <- paste0("seq", seq(1, length(seqs)))
+  }
+  if (!methods::is(seqs, "AAStringSet")) {
+      seqs <- Biostrings::AAStringSet(seqs)
+  }
+
+  if (is.null(allow_parallelization)){
+    pid_list <- pairwise_alignment_sequence_identity_using_purrr(
+      seqs, aln_type, pid_type
     )
+  }
+  if (!is.null(allow_parallelization)){
+    pid_list <- pairwise_alignment_sequence_identity_using_furrr(
+      seqs, aln_type, pid_type, allow_parallelization
+    )
+  }
+  df <- convert_list_to_identity_long_df(pid_list, names(seqs))
     class(df) <- c("pairwise_sequence_identity", class(df))
     return(df)
 }
 
-pairwise_alignment_sequence_identity_using_purrr <- function(matrix_seqs, aln_type, pid_type) {
-    purrr::map2_dbl(
-      matrix_seqs[1, ],
-      matrix_seqs[2, ],
-        ~ {
-            calculate_percentage_sequence_identity(
-                .x, .y, aln_type = aln_type, pid_type = pid_type)
-        }
+convert_list_to_identity_long_df <- function(pid_list, seq_names){
+  identity_matrix <-pid_list %>%
+    purrr::transpose() %>%
+    purrr::simplify_all() %>%
+    magrittr::extract2("result")
+
+  dim(identity_matrix) <- c(length(seq_names), length(seq_names))
+  rownames(identity_matrix)<- seq_names
+  colnames(identity_matrix)<- seq_names
+  identity_matrix_upper <- upper.tri(identity_matrix, diag = FALSE)
+  identity_matrix[identity_matrix_upper]<- NA
+  identity_matrix%>%
+    as.data.frame()%>%
+    tibble::rownames_to_column() %>%
+    tidyr::pivot_longer(
+      cols = -c("rowname"),
+      names_to = "seq2",
+      values_to = "percentage.sequence.identity",
+      values_drop_na = TRUE
+    ) %>%
+    dplyr::rename(c("seq1" = "rowname"))
+}
+
+pairwise_alignment_sequence_identity_using_purrr <- function(seqs, aln_type, pid_type) {
+  otherwise <- rep(NA, length(seqs))
+  names(otherwise) <- names(seqs)
+  map_function <- purrr::safely(calculate_percentage_sequence_identity, otherwise)
+  seqs %>%
+    as.list()%>%
+    purrr::map(~ map_function(.x, seqs,aln_type, pid_type))
+}
+
+pairwise_alignment_sequence_identity_using_furrr <- function(
+  seqs, aln_type, pid_type, allow_parallelization) {
+  if (!is.null(allow_parallelization) && !requireNamespace("furrr", quietly = TRUE)) {
+    stop(
+      "Package \"furrr\" must be installed to use this function if allow_parallelization = TRUE",
+      call. = FALSE
     )
+  }
+  if (!is.null(allow_parallelization) && !requireNamespace("future", quietly = TRUE)) {
+    stop(
+      "Package \"future\" must be installed to use this function if allow_parallelization = TRUE",
+      call. = FALSE
+    )
+  }
+  if (allow_parallelization == "multisession") {
+      future::plan(future::multisession)
+  }
+  if (allow_parallelization == "multicore") {
+      future::plan(future::multicore)
+  }
+
+  otherwise <- rep(NA, length(seqs))
+  names(otherwise) <- names(seqs)
+  map_function <- purrr::safely(calculate_percentage_sequence_identity, otherwise)
+  seqs %>%
+    as.list()%>%
+    furrr::future_map(~ map_function(.x, seqs,aln_type, pid_type))
 }
 
-pairwise_alignment_sequence_identity_using_furrr <- function(matrix_seqs, aln_type, pid_type, allow_parallelization) {
-    if (allow_parallelization == "multisession") {
-        future::plan(future::multisession)
-    }
-    if (allow_parallelization == "multicore") {
-        future::plan(future::multicore)
-    }
-    furrr::future_map2_dbl(
-      matrix_seqs[1, ],
-      matrix_seqs[2, ],
-      ~ {
-            calculate_percentage_sequence_identity(
-              .x, .y, aln_type = aln_type, pid_type = pid_type)
-        }
-    ) %>%
-        as.numeric()
-}
-
-calculate_percentage_sequence_identity <- function(seq1, seq2,
-    aln_type, pid_type) {
-    Biostrings::pairwiseAlignment(
-        pattern = as.character(seq1),
-        subject = as.character(seq2),
-        type = aln_type
-    ) %>%
+calculate_percentage_sequence_identity <- function(x, seqs,aln_type, pid_type) {
+  Biostrings::pairwiseAlignment(subject = x, pattern = seqs,type = aln_type) %>%
         Biostrings::pid(pid_type)
 }
 
@@ -142,8 +153,9 @@ calculate_percentage_sequence_identity <- function(seq1, seq2,
 #'     pid_type = "PID2")
 #' pairwise_sequence_identity_histogram(pairwise.per)
 pairwise_sequence_identity_histogram <- function(object) {
+    object %>%
+    dplyr::filter(.data$seq1 != .data$seq2) %>%
     ggplot2::ggplot(
-        object,
         ggplot2::aes(.data$percentage.sequence.identity)
     ) +
         ggplot2::geom_histogram(binwidth = 1, color = "#e9ecef", alpha = 0.9) +
@@ -169,11 +181,11 @@ pairwise_sequence_identity_heatmap <- function(object, annotation = NULL) {
     data.plot <- object %>%
         dplyr::bind_rows(
             tibble::tibble(
-                "seq1" = object$seq2,
-                "seq2" = object$seq1,
-                "percentage.sequence.identity" = object$percentage.sequence.identity
-            )
-        )
+            "seq1" = object$seq2,
+            "seq2" = object$seq1,
+            "percentage.sequence.identity" = object$percentage.sequence.identity)
+          ) %>%
+      dplyr::distinct()
     data.plot <- data.plot %>%
         tidyr::pivot_wider(
             names_from = "seq1",
