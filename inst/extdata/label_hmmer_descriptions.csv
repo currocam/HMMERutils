@@ -62,3 +62,4 @@ properties.Polar,Percentage of amino acids (D + E + H + K + N + Q + R + S + T + 
 properties.Charged,Percentage of amino acids (B + D + E + H + K + R + Z)
 properties.Basic,Percentage of amino acids (H + K + R)
 properties.Acidic,Percentage of amino acids (B + D + E + Z)
+hits.extlink,External link

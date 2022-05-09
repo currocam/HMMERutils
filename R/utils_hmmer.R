@@ -11,6 +11,9 @@ is_protein_seq <- function(x) {
 }
 
 deal_with_input_sequences <- function(seqs) {
+    if (is.list(seqs)) {
+      seqs <- Biostrings::AAStringSet(seqs)
+    }
     if (!is_protein_seq(seqs)) {
         stop(
             "`seq` must be a protein sequence.\n",

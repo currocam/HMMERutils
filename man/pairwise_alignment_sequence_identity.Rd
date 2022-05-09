@@ -28,7 +28,9 @@ If you want to parallelize the alignment of the sequences, speeding up the
 process, select \code{multisession} or \code{multicore}.}
 }
 \value{
-A DataFrame of subclass \code{pairwise_sequence_identity}, so that it has associated S3 methods.
+A DataFrame of subclass \code{pairwise_sequence_identity}, so that it has
+associated \code{plot} methods. It consists of a long DataFrame extracted
+from the identity square matrix (with the diagonal).
 }
 \description{
 Calculate the percentage of pairwise sequence identity
@@ -42,8 +44,8 @@ heatmap. Refer to the "examples" section.
 \section{Alignment types}{
 
 \itemize{
-\item \code{global}: align whole strings with end gap penalties.
-\item \code{local}: align string fragments.
+\item \code{global}: align whole strings with end gap penalties (Needleman-Wunsch).
+\item \code{local}: align string fragments (Smith-Waterman).
 \item \code{overlap}: align whole strings without end gap penalties.
 }
 }
