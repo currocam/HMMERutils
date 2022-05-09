@@ -93,60 +93,62 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to read HMMER files into HMMERutils’ tidy DataFrame and take advantage of the HMMER information, as well as the taxonomic and physicochemical information inferred from the sequence. As an example, we will use the results of the PHMMER example search, where we searched for sequences homologous to ABL1 in the PDB.</p>
+<p>This is a basic example showing how to post a request to HMMER, convert the information it returns into a tidy HMMERutils’ DataFrame, as well as add taxonomic and physicochemical information inferred from the sequence. As an example, we will use the results of the PHMMER example search, where we searched for sequences homologous to ABL1 in the PDB.</p>
+<p>First, we post the request:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/currocam/HMMERutils" class="external-link">"HMMERutils"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biobase" class="external-link">Biobase</a></span><span class="op">)</span>
+<span class="va">ABL1_seq</span> <span class="op">&lt;-</span> <span class="st">"MGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAP"</span>
+
 <span class="co">## Downloaded files from HMMER</span>
-<span class="va">xml_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>
-    <span class="st">"/extdata/ABL_TYROSINE_KINASE.xml"</span>,
-    package <span class="op">=</span> <span class="st">"HMMERutils"</span>
-<span class="op">)</span>
-<span class="va">fasta_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>
-    <span class="st">"/extdata/ABL_TYROSINE_KINASE.fa"</span>,
-    package <span class="op">=</span> <span class="st">"HMMERutils"</span>
-<span class="op">)</span>
-<span class="va">ABL1_homologous</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_hmmer_from_xml.html">read_hmmer_from_xml</a></span><span class="op">(</span><span class="va">xml_path</span>, <span class="va">fasta_path</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># read them</span>
-    <span class="fu"><a href="reference/extract_from_HMMER_data_tbl.html">extract_from_HMMER_data_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># extract the information into a DataFrame</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">hits.evalue</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># filter out non-significant sequences</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">hits.fullseq.fasta</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># filter out redundant sequences</span>
-    <span class="fu"><a href="reference/add_taxa_to_HMMER_tbl.html">add_taxa_to_HMMER_tbl</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"local"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># add taxonomic information</span>
-    <span class="fu"><a href="reference/add_physicochemical_properties_to_HMMER_tbl.html">add_physicochemical_properties_to_HMMER_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># calculate theoretical physical and chemical properties</span></code></pre></div>
-<p>Now, we can explore the e-values of the sequences we have obtained in search of red flags. We can see, for example, sequences whose evalue value is significant but that of their best domain is not.</p>
+<span class="va">HMMER_ABL1_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/search_phmmer.html">search_phmmer</a></span><span class="op">(</span><span class="va">ABL1_seq</span>,dbs <span class="op">=</span> <span class="st">"pdb"</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">HMMER_ABL1_search</span>
+<span class="co">#&gt; An object of class 'AnnotatedDataFrame'</span>
+<span class="co">#&gt;   HMMERqueryNames: 1</span>
+<span class="co">#&gt;   varLabels: dbs uuid ... phylip.url (17 total)</span>
+<span class="co">#&gt;   varMetadata: labelDescription algorithm</span></code></pre></div>
+<p>The different files that HMMER makes available to us, as well as the information about the sequences are now contained in <code>HMMER_ABL1_search</code>. Let’s see the metadata of the first 6 variables of this <code>AnnotatedDataFrame</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">HMMERutils</span><span class="fu">::</span><span class="fu"><a href="reference/hmmer_evalues_cleveland_dot_plot.html">hmmer_evalues_cleveland_dot_plot</a></span><span class="op">(</span>
-  HMMER_tidy_tbl <span class="op">=</span> <span class="va">ABL1_homologous</span>,
-  threshold <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-evalues-1.png" width="100%"></p>
-<p>Observe how the sequences are clustered according to their percentage sequence identity and compare it with their phylogeny after we exclude <em>Homo sapiens</em>. First, aligning each sequence pair and calculating its percentage identity:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pairwise_identities_ABL1_homologous <span class="ot">&lt;-</span> ABL1_homologous_non_human <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_alignment_sequence_identity</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">seqs =</span> .<span class="sc">$</span>hits.fullseq.fasta</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">aln_type =</span> <span class="st">"global"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">pid_type =</span> <span class="st">"PID1"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">allow_parallelization =</span> <span class="st">"multisession"</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<p>And then calling the plot method with the type “hist” or “heatmap”.</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">HMMER_ABL1_search</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;                                       labelDescription algorithm</span>
+<span class="co">#&gt; dbs       Names of target databases used in the search    phmmer</span>
+<span class="co">#&gt; uuid                         The unique job identifier    phmmer</span>
+<span class="co">#&gt; score.url                 URL with HMMER results score    phmmer</span>
+<span class="co">#&gt; stats                                   The stats hash    phmmer</span>
+<span class="co">#&gt; hits                          Array of sequence hashes    phmmer</span>
+<span class="co">#&gt; domains               Array of sequence domains hashes    phmmer</span></code></pre></div>
+<p>We can then extract this information into a tidy DataFrame, preprocess the data and add more information to it. The basic workflow is as follows:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">HMMER_ABL1_data</span> <span class="op">&lt;-</span> <span class="va">HMMER_ABL1_search</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/extract_from_HMMER_data_tbl.html">extract_from_HMMER_data_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># extract the information into a DataFrame</span>
+  <span class="fu"><a href="reference/add_fullseq_to_HMMER_tbl.html">add_fullseq_to_HMMER_tbl</a></span><span class="op">(</span><span class="va">HMMER_ABL1_search</span><span class="op">$</span><span class="va">fullfasta.url</span><span class="op">)</span><span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co">#add sequences</span>
+  <span class="fu"><a href="reference/add_taxa_to_HMMER_tbl.html">add_taxa_to_HMMER_tbl</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"local"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># add taxonomic information</span>
+  <span class="fu"><a href="reference/add_physicochemical_properties_to_HMMER_tbl.html">add_physicochemical_properties_to_HMMER_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#calculate theoretical physical and chemical properties</span>
+<span class="va">HMMER_ABL1_data</span>
+<span class="co">#&gt; An object of class 'AnnotatedDataFrame'</span>
+<span class="co">#&gt;   rowNames: 1 2 ... 860 (860 total)</span>
+<span class="co">#&gt;   varLabels: uuid hits.name ... properties.Acidic (108 total)</span>
+<span class="co">#&gt;   varMetadata: labelDescription</span></code></pre></div>
+<p>Let’s see the metadata of the first 15 variables of this <code>AnnotatedDataFrame</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="va">pairwise_identities_ABL1_homologous</span>,
-  type <span class="op">=</span> <span class="st">"heatmap"</span>,
-  annotation <span class="op">=</span> <span class="va">ABL1_homologous_non_human</span><span class="op">$</span><span class="va">taxa.class</span>
-  <span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-pairwise-1.png" width="100%"></p>
-<p>And how the physical and chemical properties of the sequences are grouped according to phylogeny.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ABL1_homologous</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">hits.name</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">taxa.kingdom</span>,<span class="va">taxa.family</span><span class="op">)</span><span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    hydrophobicity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">properties.hydrophobicity</span><span class="op">)</span>,
-    mz <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">properties.mz</span><span class="op">)</span>,
-    size <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">mz</span>, y<span class="op">=</span><span class="va">hydrophobicity</span>, size <span class="op">=</span> <span class="va">size</span>, color <span class="op">=</span> <span class="va">taxa.kingdom</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>alpha<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html" class="external-link">scale_size</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.1</span>, <span class="fl">24</span><span class="op">)</span>, name<span class="op">=</span><span class="st">"Sequences"</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-bubble_plot-1.png" width="100%"></p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">HMMER_ABL1_data</span><span class="op">)</span>,<span class="fl">15</span><span class="op">)</span>
+<span class="co">#&gt;                                                                                                             labelDescription</span>
+<span class="co">#&gt; uuid                                                                                               The unique job identifier</span>
+<span class="co">#&gt; hits.name                                               Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan).</span>
+<span class="co">#&gt; hits.arch                                                                                      Sequence domain architecture.</span>
+<span class="co">#&gt; hits.acc                                                                                            Accession of the target.</span>
+<span class="co">#&gt; hits.desc                                                                                         Description of the target.</span>
+<span class="co">#&gt; hits.score                                                       Bit score of the sequence (all domains, without correction)</span>
+<span class="co">#&gt; hits.pvalue                                                                                            P-value of the score.</span>
+<span class="co">#&gt; hits.evalue                                                                                            E-value of the score.</span>
+<span class="co">#&gt; hits.nregions                                                                                   Number of regions evaluated.</span>
+<span class="co">#&gt; hits.ndom                                                               Total number of domains identified in this sequence.</span>
+<span class="co">#&gt; hits.nreported                                                          Number of domains satisfying reporting thresholding.</span>
+<span class="co">#&gt; hits.nincluded                                                          Number of domains satisfying inclusion thresholding.</span>
+<span class="co">#&gt; hits.taxid                                                       The NCBI taxonomy identifier of the target (if applicable).</span>
+<span class="co">#&gt; hits.species                                                                 The species name of the target (if applicable).</span>
+<span class="co">#&gt; hits.kg         The kingdom of life that the target belongs to - based on placing in the NCBI taxonomy tree (if applicable).</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
