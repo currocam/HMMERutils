@@ -44,45 +44,51 @@
 #'
 
 calculate_physicochemical_properties <- function(seqs) {
-    if (is.null(names(seqs))) {
-        names(seqs) <- seq(length(seqs))
-    }
-    old_names <- names(seqs)
-    seqs <- as.character(seqs)
-    names(seqs) <- make.unique(old_names)
-    # EMBOSS pepstats
-    pepstats <- Peptides::aaComp(seqs) %>%
-        purrr::map_dfr(~ {
-            as.data.frame(.x) %>%
-                tibble::rownames_to_column("properties") %>%
-                dplyr::rename("Percentage" = "Mole%") %>%
-                dplyr::select(c("Percentage", "properties")) %>%
-                tidyr::pivot_wider(
-                    names_from = "properties",
-                    values_from = c("Percentage")
-                ) %>%
-                dplyr::mutate(
-                    dplyr::across(
-                        where(is.numeric), ~ .x / 100
-                    )
-                )
-        }, .id = "id")
+  if (!requireNamespace("Peptides", quietly = TRUE)) {
+    stop(
+      "Package \"Peptides\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }
+  if (is.null(names(seqs))) {
+      names(seqs) <- seq(length(seqs))
+  }
+  old_names <- names(seqs)
+  seqs <- as.character(seqs)
+  names(seqs) <- make.unique(old_names)
+  # EMBOSS pepstats
+  pepstats <- Peptides::aaComp(seqs) %>%
+      purrr::map_dfr(~ {
+          as.data.frame(.x) %>%
+              tibble::rownames_to_column("properties") %>%
+              dplyr::rename("Percentage" = "Mole%") %>%
+              dplyr::select(c("Percentage", "properties")) %>%
+              tidyr::pivot_wider(
+                  names_from = "properties",
+                  values_from = c("Percentage")
+              ) %>%
+              dplyr::mutate(
+                  dplyr::across(
+                      where(is.numeric), ~ .x / 100
+                  )
+              )
+      }, .id = "id")
 
-    tibble::tibble(
-        "id" = names(seqs),
-        "seqs" = seqs
-    ) %>%
-        dplyr::mutate(
-            "molecular.weight" = Peptides::mw(seqs),
-            "charge" = Peptides::charge(seqs),
-            "pI" = Peptides::pI(seqs),
-            "mz" = Peptides::mz(seqs),
-            "aIndex" = Peptides::aIndex(seqs),
-            "boman" = Peptides::boman(seqs),
-            "hydrophobicity" = Peptides::hydrophobicity(seqs),
-            "instaIndex" = Peptides::instaIndex(seqs),
-            "STYNQW" = stringr::str_count(seqs, "S|T|Y|N|Q|Q") /nchar(seqs)
-        ) %>%
-        dplyr::left_join(pepstats, by = c("id" = "id")) %>%
-        dplyr::mutate("id" = old_names)
+  tibble::tibble(
+      "id" = names(seqs),
+      "seqs" = seqs
+  ) %>%
+      dplyr::mutate(
+          "molecular.weight" = Peptides::mw(seqs),
+          "charge" = Peptides::charge(seqs),
+          "pI" = Peptides::pI(seqs),
+          "mz" = Peptides::mz(seqs),
+          "aIndex" = Peptides::aIndex(seqs),
+          "boman" = Peptides::boman(seqs),
+          "hydrophobicity" = Peptides::hydrophobicity(seqs),
+          "instaIndex" = Peptides::instaIndex(seqs),
+          "STYNQW" = stringr::str_count(seqs, "S|T|Y|N|Q|Q") /nchar(seqs)
+      ) %>%
+      dplyr::left_join(pepstats, by = c("id" = "id")) %>%
+      dplyr::mutate("id" = old_names)
 }
