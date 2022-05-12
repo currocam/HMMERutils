@@ -91,12 +91,11 @@ follows:
 HMMER_ABL1_data <- HMMER_ABL1_search %>%
   extract_from_HMMER_data_tbl() %>% # extract the information into a DataFrame
   add_fullseq_to_HMMER_tbl(HMMER_ABL1_search$fullfasta.url)%>% #add sequences
-  add_taxa_to_HMMER_tbl(mode = "local") %>% # add taxonomic information
   add_physicochemical_properties_to_HMMER_tbl() #calculate theoretical physical and chemical properties
 HMMER_ABL1_data
 #> An object of class 'AnnotatedDataFrame'
-#>   rowNames: 1 2 ... 860 (860 total)
-#>   varLabels: uuid hits.name ... properties.Acidic (108 total)
+#>   rowNames: 1 2 ... 800 (800 total)
+#>   varLabels: uuid hits.name ... properties.Acidic (57 total)
 #>   varMetadata: labelDescription
 ```
 
@@ -105,22 +104,22 @@ Let’s see the metadata of the first 15 variables of this
 
 ``` r
 head(varMetadata(HMMER_ABL1_data),15)
-#>                                                                                                             labelDescription
-#> uuid                                                                                               The unique job identifier
-#> hits.name                                               Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan).
-#> hits.arch                                                                                      Sequence domain architecture.
-#> hits.acc                                                                                            Accession of the target.
-#> hits.desc                                                                                         Description of the target.
-#> hits.score                                                       Bit score of the sequence (all domains, without correction)
-#> hits.pvalue                                                                                            P-value of the score.
-#> hits.evalue                                                                                            E-value of the score.
-#> hits.nregions                                                                                   Number of regions evaluated.
-#> hits.ndom                                                               Total number of domains identified in this sequence.
-#> hits.nreported                                                          Number of domains satisfying reporting thresholding.
-#> hits.nincluded                                                          Number of domains satisfying inclusion thresholding.
-#> hits.taxid                                                       The NCBI taxonomy identifier of the target (if applicable).
-#> hits.species                                                                 The species name of the target (if applicable).
-#> hits.kg         The kingdom of life that the target belongs to - based on placing in the NCBI taxonomy tree (if applicable).
+#>                                                                    labelDescription
+#> uuid                                                      The unique job identifier
+#> hits.name      Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan).
+#> hits.acc                                                   Accession of the target.
+#> hits.desc                                                Description of the target.
+#> hits.score              Bit score of the sequence (all domains, without correction)
+#> hits.pvalue                                                   P-value of the score.
+#> hits.evalue                                                   E-value of the score.
+#> hits.nregions                                          Number of regions evaluated.
+#> hits.ndom                      Total number of domains identified in this sequence.
+#> hits.nreported                 Number of domains satisfying reporting thresholding.
+#> hits.nincluded                 Number of domains satisfying inclusion thresholding.
+#> hits.taxid              The NCBI taxonomy identifier of the target (if applicable).
+#> domains.ienv                                               Envelope start position.
+#> domains.jenv                                                 Envelope end position.
+#> domains.iali                                              Alignment start position.
 ```
 
 ## Citation
