@@ -306,12 +306,26 @@ hmmer_evalues_cleveland_dot_plot(HMMER_tidy_tbl, threshold = threshold)
 By looking at it, you can see at a glance, first, how many domains have been identified for each sequence, and then how these contribute to the E-value of the fullsequence and how significant they are relative to the fullsequence. In this case, as can be seen, only one domain per sequence has been found (probably because they are very small) but we will see a case later where more than one domain are found. 
 
 #### Removing redundant sequences
-Now, let's filter the sequences to keep only non-redundant sequences. First, we have to add the sequences to the `AnnotatedDataFrame` by downloading the fullfasta file.  To do this we will use the `add_fullseq_to_HMMER_tbl` function, giving as arguments the AnnotatedDataFrame and a character vector with the addresses to the file /fullfastafastafiles. Note that this address can point to a file downloaded to your computer (if you have downloaded the files from the page) or the URL.
+Now, let's filter the sequences to keep only non-redundant sequences. First, we have to add the sequences to the `AnnotatedDataFrame` by downloading the fullfasta file.  To do this, first download the compressed file as a binary, then unzip it, read and add it as a new column using the `add_fullseq_to_HMMER_tbl` function.
+
+
+To do this we will use the `add_fullseq_to_HMMER_tbl` function, giving as arguments the AnnotatedDataFrame and a character vector with the addresses to the file /fullfastafastafiles. Note that this address can point to a file downloaded to your computer (if you have downloaded the files from the page) or the URL.
 
 ```{r, message=FALSE, warning=FALSE}
+VEMP_SARS_destfile <- "VEMP_SARS_homologous.gzip"
+download.file(HMMER_data_tbl$fullfasta.url, destfile = VEMP_SARS_destfile, mode = "wb")
 HMMER_tidy_tbl <- HMMER_tidy_tbl %>%
-  add_fullseq_to_HMMER_tbl(HMMER_data_tbl$fullfasta.url	)
+  add_fullseq_to_HMMER_tbl(VEMP_SARS_destfile)
+file.remove(VEMP_SARS_destfile) #Remove file
 ```
+Actually, this process is not necessary if you are using a Unix-like operating system, since, unlike Windows, it does not distinguish between text and binary files. In case you are using a Unix-like operating system, you can simply run the following chunk:
+
+```{r, eval=FALSE}
+HMMER_tidy_tbl <- HMMER_tidy_tbl %>%
+  add_fullseq_to_HMMER_tbl(HMMER_data_tbl$fullfasta.url)
+```
+
+
 Now, we can remove non redundant sequences using the `distinc` function. Note that we specify the parameter `.keep_all = TRUE` because we want to keep all columns. 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -365,7 +379,7 @@ HMMER_tidy_tbl %>%
 ```
 #### Calculating the identity of pairwise alignments
 
-Based on the  Figure XXX, it would be reasonable to think that there would be a greater diversity in the Embecovirus sequences, since there is a greater variety in the E-values. To examine this in more detail we can align all the sequences in pairs and then calculate the percentages of identity for each one Using the `pairwise_alignment_sequence_identity` function.
+Based on the  previous figure, it would be reasonable to think that there would be a greater diversity in the Embecovirus sequences, since there is a greater variety in the E-values. To examine this in more detail we can align all the sequences in pairs and then calculate the percentages of identity for each one Using the `pairwise_alignment_sequence_identity` function.
 
 When calling this function, we give it as parameters the variable `seqs` containing the complete sequences (we could give it the sequences of the domains), the type of alignment and the type of sequence identity we are going to use. In this case we will use the default options: `aln_type = "global"` (align whole strings with end gap penalties by using the Needleman-Wunsch algorithm) and `pid_type = "PID1"` ( $PID1 = 100 \cdot \frac{\text{identical positions}}{\text{aligned positions + internal gap positions}}$). In addition, we could use the `allow_parallelization` parameter to speed up the calculation. The option "multisession" option will generate several Rstudio sessions on your computer, while the "multicore" option, is considered unsafe to use in an Rstudio session (although you could use it in a script). 
 
@@ -455,20 +469,31 @@ HMMER_data_Y14_SARS <- Y14_SARS %>%
   verbose = FALSE)
 HMMER_data_Y14_SARS
 ```
-Note that, now, the number of searches performed is 2. Let's save in a variable the url of the fasta files. 
+Note that, now, the number of searches performed is 2. Let's download both files:
 
 ```{r}
-Y14_SARS_fullfasta <- HMMER_data_Y14_SARS %>%
-  pData() %>%
-  pull("fullfasta.url")
+destfile_Y14_SARS <- c("Y14_SARS_fullfasta_swissprot.fa","Y14_SARS_fullfasta_swissprot.fa")
+download.file(url = HMMER_data_Y14_SARS$fullfasta.url, method = "libcurl",
+              destfile = destfile_Y14_SARS, mode = "wb")
 ```
 
-Now, using the pipe operator, we are going to extract the information in a table, download the sequences, annotate them taxonomically and calculate the physicochemical properties of the sequences. 
+Now, using the pipe operator, we are going to extract the information in a table, read the sequences, annotate them taxonomically and calculate the physicochemical properties of the sequences. 
 
 ```{r}
 HMMER_Y14_SARS <- HMMER_data_Y14_SARS %>%
   extract_from_HMMER_data_tbl() %>%
-  add_fullseq_to_HMMER_tbl(Y14_SARS_fullfasta) %>%
+  add_fullseq_to_HMMER_tbl(destfile_Y14_SARS) %>%
+  add_taxa_to_HMMER_tbl() %>%
+  add_physicochemical_properties_to_HMMER_tbl()
+file.remove(destfile_Y14_SARS) #Remove files
+HMMER_Y14_SARS
+```
+Again, remember that, in case you are using a Unix-like operating system, it is not necessary to download the files first, and the following simplified procedure would be equally valid: 
+
+```{r, eval=FALSE}
+HMMER_Y14_SARS <- HMMER_data_Y14_SARS %>%
+  extract_from_HMMER_data_tbl() %>%
+  add_fullseq_to_HMMER_tbl(HMMER_data_Y14_SARS$fullfasta.url) %>%
   add_taxa_to_HMMER_tbl() %>%
   add_physicochemical_properties_to_HMMER_tbl()
 HMMER_Y14_SARS
@@ -495,12 +520,11 @@ HMMER_data_NSXX_SARS <- NSXX_SARS %>%
   verbose = FALSE)
 HMMER_data_NSXX_SARS
 ```
-Let's save in a variable the url of the fasta files. 
-
+Lets download the files:
 ```{r}
-NSXX_SARS_fullfasta <- HMMER_data_NSXX_SARS %>%
-  pData() %>%
-  pull("fullfasta.url")
+destfile_NSXX_SARS <- paste0(HMMER_data_NSXX_SARS$uuid, "gzip")
+download.file(HMMER_data_NSXX_SARS$fullfasta.url, method = "libcurl",
+              destfile = destfile_NSXX_SARS, mode = "wb")
 ```
 
 And now let's extract the data and add the fullfasta sequences. 
@@ -508,7 +532,8 @@ And now let's extract the data and add the fullfasta sequences.
 ```{r}
 HMMER_NSXX_SARS <- HMMER_data_NSXX_SARS %>%
   extract_from_HMMER_data_tbl() %>%
-  add_fullseq_to_HMMER_tbl(NSXX_SARS_fullfasta) 
+  add_fullseq_to_HMMER_tbl(destfile_NSXX_SARS) 
+file.remove(destfile_NSXX_SARS)#Remove file
 HMMER_NSXX_SARS
 ```
 
