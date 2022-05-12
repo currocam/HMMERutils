@@ -41,7 +41,6 @@
 #'   verbose = TRUE)
 #' jackhmmer_tbl_using_aln
 #' Biobase::varMetadata(jackhmmer_tbl_using_aln)
-#' @export
 
 search_jackhmmer <- function(
     seqs = NULL,
