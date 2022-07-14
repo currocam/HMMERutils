@@ -122,7 +122,10 @@ First, let’s download the reference proteome for the Sars_CoV-2. To do this, w
 url.refProteomes <- paste0("https://ftp.uniprot.org/pub/databases/uniprot/",
                           "current_release/knowledgebase/reference_proteomes/",
                           "Viruses/UP000000354/UP000000354_694009.fasta.gz")
-sars.cov.fasta <- readAAStringSet(url.refProteomes)
+
+download.file(url.refProteomes, "UP000000354_694009.fasta.gz", mode = "wb")
+sars.cov.fasta <- readAAStringSet("UP000000354_694009.fasta.gz")
+file.remove("UP000000354_694009.fasta.gz") #Remove file
 ```
 
 ## Preprocess sequences and select case studies
