@@ -55,7 +55,7 @@
   <pdbs>5aox_D</pdbs>
   <seqs an="" de="SIGNAL RECOGNITION PARTICLE 9 KDA PROTEIN" dn="5aox_D" sp="Homo sapiens" />
 </hits>
-<stats Z="546676" Z_setby="0" domZ="9" domZ_setby="0" elapsed="0.05" n_past_bias="2404" n_past_fwd="9" n_past_msv="3005" n_past_vit="147" nhits="9" nincluded="8" nmodels="1" nreported="9" nseqs="546676" sys="0" unpacked="9" user="0" />
+<stats Z="546676" Z_setby="0" domZ="9" domZ_setby="0" elapsed="0.01" n_past_bias="2404" n_past_fwd="9" n_past_msv="3005" n_past_vit="147" nhits="9" nincluded="8" nmodels="1" nreported="9" nseqs="546676" sys="0" unpacked="9" user="0" />
 </data>
 </opt>
 

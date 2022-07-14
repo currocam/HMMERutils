@@ -10,8 +10,9 @@ parse_xml_into_tbl <- function(hmm, type = "default") {
                     "domains" = NA
                 ),
                 ~ {
-                    xml <- XML::xmlParse(.x)
-                    uuid <- parse_uuid_xml(xml)
+                    xml <- XML::xmlParse(.x$content)
+                    unlink(.x$content)
+                    uuid <- .x$uuid
                     ## parse xml
                     list(
                         "uuid" = uuid,
