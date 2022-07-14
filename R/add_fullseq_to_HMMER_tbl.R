@@ -54,7 +54,7 @@ add_fullseq_to_HMMER_tbl <- function(HMMER_tidy_tbl, fasta_files) {
 
 download_fasta_file<- function(fasta_url){
   temp <- tempfile()
-  fasta_url %>% utils::download.file(temp, mode = "wb")
+  fasta_url %>% utils::download.file(temp, mode = "wb", method="auto")
   return(temp)
 }
 
