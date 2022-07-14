@@ -27,7 +27,8 @@ add_fullseq_to_HMMER_tbl <- function(HMMER_tidy_tbl, fasta_files) {
   }
   fasta_char <- fasta_files %>%
     purrr::map2_dfr(unique(HMMER_tidy_tbl$uuid), .f = ~{
-      fasta <- Biostrings::readAAStringSet(.x)
+
+      fasta <- .x %>% get_path__and_read_fasta_file()
       data.frame(
         "hits.fullfasta" = as.character(fasta)) %>%
         dplyr::mutate("uuid" = .y,
@@ -50,3 +51,25 @@ add_fullseq_to_HMMER_tbl <- function(HMMER_tidy_tbl, fasta_files) {
     varMetadata = rbind(Biobase::varMetadata(HMMER_tidy_tbl), meta)
   )
 }
+
+download_fasta_file<- function(fasta_url){
+  temp <- tempfile()
+  fasta_url %>% utils::download.file(temp)
+  return(temp)
+}
+
+get_path__and_read_fasta_file <- function(fasta_file){
+  if (file.exists(fasta_file)) {
+    fasta_file %>%
+      Biostrings::readAAStringSet()%>%
+      return()
+  }
+  else{
+    fasta<- fasta_file %>%
+      download_fasta_file()%>%
+      Biostrings::readAAStringSet()
+    unlink(fasta_file)
+    return(fasta)
+  }
+}
+
