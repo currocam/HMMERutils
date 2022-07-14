@@ -116,13 +116,11 @@ The objective of this article is to show the main functionalities of the utilsHM
 
 ## Download the SARS-CoV-2 reference proteome 
 
-First, let’s download the reference proteome for the Sars_CoV-2. To do this, we are going to save the url in a variable. We use the `paste0` function only to improve readability. Then we will read the compressed file directly from UniProt with the `readAAStringSet` function from the `r Biocpkg("Biostrings")` library.
+First, let’s read the reference proteome for the Sars_CoV-2. To avoid problems with future versions, we have already downloaded this proteome from Uniprot and it is included as sample data for this library. Then we will read the compressed file directly from UniProt with the `readAAStringSet` function from the `r Biocpkg("Biostrings")` library.
 
 ```{r, warning=FALSE}
-url.refProteomes <- paste0("https://ftp.uniprot.org/pub/databases/uniprot/",
-                          "current_release/knowledgebase/reference_proteomes/",
-                          "Viruses/UP000000354/UP000000354_694009.fasta.gz")
-sars.cov.fasta <- readAAStringSet(url.refProteomes)
+sars.cov.fasta <- system.file("extdata/UP000000354_694009.fasta", package = "HMMERutils")%>%
+  readAAStringSet()
 ```
 
 ## Preprocess sequences and select case studies
