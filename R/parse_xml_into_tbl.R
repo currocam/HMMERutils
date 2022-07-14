@@ -11,7 +11,7 @@ parse_xml_into_tbl <- function(hmm, type = "default") {
                 ),
                 ~ {
                     xml <- XML::xmlParse(.x$content)
-                    unlink(.x$content)
+                    file.remove(.x$content)
                     uuid <- .x$uuid
                     ## parse xml
                     list(

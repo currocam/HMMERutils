@@ -68,7 +68,7 @@ get_path__and_read_fasta_file <- function(fasta_file){
     fasta<- fasta_file %>%
       download_fasta_file()%>%
       Biostrings::readAAStringSet()
-    unlink(fasta_file)
+    file.remove(fasta_file)
     return(fasta)
   }
 }
