@@ -186,17 +186,15 @@ sequences for the whole SARS-CoV-2 reference proteome.</p>
 <div class="section level3">
 <h3 id="download-the-sars-cov-2-reference-proteome">Download the SARS-CoV-2 reference proteome<a class="anchor" aria-label="anchor" href="#download-the-sars-cov-2-reference-proteome"></a>
 </h3>
-<p>First, let’s download the reference proteome for the Sars_CoV-2. To
-do this, we are going to save the url in a variable. We use the
-<code>paste0</code> function only to improve readability. Then we will
-read the compressed file directly from UniProt with the
+<p>First, let’s read the reference proteome for the Sars_CoV-2. To avoid
+problems with future versions, we have already downloaded this proteome
+from Uniprot and it is included as sample data for this library. Then we
+will read the compressed file directly from UniProt with the
 <code>readAAStringSet</code> function from the <em><a href="https://bioconductor.org/packages/3.14/Biostrings" class="external-link">Biostrings</a></em>
 library.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">url.refProteomes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://ftp.uniprot.org/pub/databases/uniprot/"</span>,</span>
-<span>                          <span class="st">"current_release/knowledgebase/reference_proteomes/"</span>,</span>
-<span>                          <span class="st">"Viruses/UP000000354/UP000000354_694009.fasta.gz"</span><span class="op">)</span></span>
-<span><span class="va">sars.cov.fasta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readAAStringSet</a></span><span class="op">(</span><span class="va">url.refProteomes</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sars.cov.fasta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/UP000000354_694009.fasta"</span>, package <span class="op">=</span> <span class="st">"HMMERutils"</span><span class="op">)</span><span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readAAStringSet</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="preprocess-sequences-and-select-case-studies">Preprocess sequences and select case studies<a class="anchor" aria-label="anchor" href="#preprocess-sequences-and-select-case-studies"></a>
@@ -550,7 +548,7 @@ Note that they have probably already expired.
 score.url
 </td>
 <td style="text-align:left;">
-<a href="http://www.ebi.ac.uk/Tools/hmmer/results/09B1F0FE-037C-11ED-80F0-AA624806AE6E" class="external-link uri">http://www.ebi.ac.uk/Tools/hmmer/results/09B1F0FE-037C-11ED-80F0-AA624806AE6E</a>
+<a href="http://www.ebi.ac.uk/Tools/hmmer/results/D55529C0-0385-11ED-B50C-18D82FF38D25" class="external-link uri">http://www.ebi.ac.uk/Tools/hmmer/results/D55529C0-0385-11ED-B50C-18D82FF38D25</a>
 </td>
 </tr>
 <tr>
@@ -558,7 +556,7 @@ score.url
 text.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=text" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=text</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=text" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=text</a>
 </td>
 </tr>
 <tr>
@@ -566,7 +564,7 @@ text.url
 tab.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=tsv" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=tsv</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=tsv" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=tsv</a>
 </td>
 </tr>
 <tr>
@@ -574,7 +572,7 @@ tab.url
 xml.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=xml" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=xml</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=xml" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=xml</a>
 </td>
 </tr>
 <tr>
@@ -582,7 +580,7 @@ xml.url
 json.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=json" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=json</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=json" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=json</a>
 </td>
 </tr>
 <tr>
@@ -590,7 +588,7 @@ json.url
 fasta.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=fasta" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=fasta</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=fasta" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=fasta</a>
 </td>
 </tr>
 <tr>
@@ -598,7 +596,7 @@ fasta.url
 fullfasta.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=fullfasta" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=fullfasta</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=fullfasta" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=fullfasta</a>
 </td>
 </tr>
 <tr>
@@ -606,7 +604,7 @@ fullfasta.url
 alignedfasta.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=afa" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=afa</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=afa" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=afa</a>
 </td>
 </tr>
 <tr>
@@ -614,7 +612,7 @@ alignedfasta.url
 stockholm.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=stockholm" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=stockholm</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=stockholm" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=stockholm</a>
 </td>
 </tr>
 <tr>
@@ -622,7 +620,7 @@ stockholm.url
 clustalw.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=clu" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=clu</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=clu" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=clu</a>
 </td>
 </tr>
 <tr>
@@ -630,7 +628,7 @@ clustalw.url
 psiblast.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=psi" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=psi</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=psi" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=psi</a>
 </td>
 </tr>
 <tr>
@@ -638,7 +636,7 @@ psiblast.url
 phylip.url
 </td>
 <td style="text-align:left;">
-<a href="https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=phy" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/09B1F0FE-037C-11ED-80F0-AA624806AE6E/score?format=phy</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=phy" class="external-link uri">https://www.ebi.ac.uk/Tools/hmmer/download/D55529C0-0385-11ED-B50C-18D82FF38D25/score?format=phy</a>
 </td>
 </tr>
 </tbody>
@@ -680,8 +678,8 @@ HMMER files.</p>
 <span><span class="co">#&gt;  [9] MLPFVQERIGLFIVNFFIFTVVC.A...VQPALYLYNTGR------------- VEMP_MERS1/1-63 [...</span></span>
 <span><span class="co">#&gt;  ... ...</span></span>
 <span><span class="co">#&gt; [28] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBOK/16-66 ...</span></span>
-<span><span class="co">#&gt; [29] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBEN/16-66 ...</span></span>
-<span><span class="co">#&gt; [30] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBON/16-66 ...</span></span>
+<span><span class="co">#&gt; [29] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBON/16-66 ...</span></span>
+<span><span class="co">#&gt; [30] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBEN/16-66 ...</span></span>
 <span><span class="co">#&gt; [31] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBLY/16-66 ...</span></span>
 <span><span class="co">#&gt; [32] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVBLS/16-66 ...</span></span>
 <span><span class="co">#&gt; [33] --------------GQIIFIVAI.C...LSPSIYVFNRGRQ------------ VEMP_CVPIA/16-66 ...</span></span>
@@ -751,7 +749,7 @@ domZ_setby
 elapsed
 </td>
 <td style="text-align:right;">
-0.09
+0.08
 </td>
 </tr>
 <tr>
@@ -2260,9 +2258,9 @@ directly from the HMMER website. Let’s see an example:</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"HMMERutils.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2022-07-14 13:51:59 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2022-07-14 15:02:13 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 45.736 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 52.962 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
