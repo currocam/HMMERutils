@@ -66,7 +66,7 @@ and returns a Tidy <code>AnnotatedDataFrame</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">extract_from_HMMER_data_tbl</span><span class="op">(</span><span class="va">HMMER_data_tbl</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">extract_from_HMMER_data_tbl</span><span class="op">(</span><span class="va">HMMER_data_tbl</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -74,10 +74,13 @@ and returns a Tidy <code>AnnotatedDataFrame</code>.</p>
     <dl><dt>HMMER_data_tbl</dt>
 <dd><p>An <code>AnnotatedDataFrame</code> obtained through the <code>search</code>
 family of functions or <code>read_hmmer_from_xml</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An <code>AnnotatedDataFrame</code>, consisting of 2 parts, a tidy DataFrame
+    
+
+<p>An <code>AnnotatedDataFrame</code>, consisting of 2 parts, a tidy DataFrame
 with one row for each domain identified in the sequences  and the metadata
 associated to this DataFrame. In case you want to work with sequences you
 could group by hits.name to work only with sequence hits.</p>
@@ -85,12 +88,12 @@ could group by hits.name to work only with sequence hits.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">path_to_xml_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="st">"/extdata/xml_example.xml"</span>,</span>
-<span class="r-in">    package <span class="op">=</span> <span class="st">"HMMERutils"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_hmmer_from_xml.html">read_hmmer_from_xml</a></span><span class="op">(</span><span class="va">path_to_xml_file</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu">extract_from_HMMER_data_tbl</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">path_to_xml_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"/extdata/xml_example.xml"</span>,</span></span>
+<span class="r-in"><span>    package <span class="op">=</span> <span class="st">"HMMERutils"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_hmmer_from_xml.html">read_hmmer_from_xml</a></span><span class="op">(</span><span class="va">path_to_xml_file</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">extract_from_HMMER_data_tbl</span><span class="op">(</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -105,7 +108,7 @@ could group by hits.name to work only with sequence hits.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

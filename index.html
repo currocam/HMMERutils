@@ -81,14 +81,14 @@
 </h2>
 <p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/" class="external-link">CRAN</a>. Then install <code>HMMERutils</code> from <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> using the following code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"HMMERutils"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"HMMERutils"</span><span class="op">)</span></span></code></pre></div>
 <p>And the development version from <a href="https://github.com/currocam/HMMERutils" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"currocam/HMMERutils"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"currocam/HMMERutils"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
@@ -96,65 +96,64 @@
 <p>This is a basic example showing how to post a request to HMMER, convert the information it returns into a tidy HMMERutils’ DataFrame, as well as add taxonomic and physicochemical information inferred from the sequence. As an example, we will use the results of the PHMMER example search, where we searched for sequences homologous to ABL1 in the PDB.</p>
 <p>First, we post the request:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/currocam/HMMERutils" class="external-link">"HMMERutils"</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biobase" class="external-link">Biobase</a></span><span class="op">)</span>
-<span class="va">ABL1_seq</span> <span class="op">&lt;-</span> <span class="st">"MGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAP"</span>
-
-<span class="co">## Downloaded files from HMMER</span>
-<span class="va">HMMER_ABL1_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/search_phmmer.html">search_phmmer</a></span><span class="op">(</span><span class="va">ABL1_seq</span>,dbs <span class="op">=</span> <span class="st">"pdb"</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">HMMER_ABL1_search</span>
-<span class="co">#&gt; An object of class 'AnnotatedDataFrame'</span>
-<span class="co">#&gt;   HMMERqueryNames: 1</span>
-<span class="co">#&gt;   varLabels: dbs uuid ... phylip.url (17 total)</span>
-<span class="co">#&gt;   varMetadata: labelDescription algorithm</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/currocam/HMMERutils" class="external-link">"HMMERutils"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biobase" class="external-link">Biobase</a></span><span class="op">)</span></span>
+<span><span class="va">ABL1_seq</span> <span class="op">&lt;-</span> <span class="st">"MGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAP"</span></span>
+<span></span>
+<span><span class="co">## Downloaded files from HMMER</span></span>
+<span><span class="va">HMMER_ABL1_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/search_phmmer.html">search_phmmer</a></span><span class="op">(</span><span class="va">ABL1_seq</span>,dbs <span class="op">=</span> <span class="st">"pdb"</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">HMMER_ABL1_search</span></span>
+<span><span class="co">#&gt; An object of class 'AnnotatedDataFrame'</span></span>
+<span><span class="co">#&gt;   HMMERqueryNames: 1</span></span>
+<span><span class="co">#&gt;   varLabels: dbs uuid ... phylip.url (17 total)</span></span>
+<span><span class="co">#&gt;   varMetadata: labelDescription algorithm</span></span></code></pre></div>
 <p>The different files that HMMER makes available to us, as well as the information about the sequences are now contained in <code>HMMER_ABL1_search</code>. Let’s see the metadata of the first 6 variables of this <code>AnnotatedDataFrame</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">HMMER_ABL1_search</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;                                       labelDescription algorithm</span>
-<span class="co">#&gt; dbs       Names of target databases used in the search    phmmer</span>
-<span class="co">#&gt; uuid                         The unique job identifier    phmmer</span>
-<span class="co">#&gt; score.url                 URL with HMMER results score    phmmer</span>
-<span class="co">#&gt; stats                                   The stats hash    phmmer</span>
-<span class="co">#&gt; hits                          Array of sequence hashes    phmmer</span>
-<span class="co">#&gt; domains               Array of sequence domains hashes    phmmer</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">HMMER_ABL1_search</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                       labelDescription algorithm</span></span>
+<span><span class="co">#&gt; dbs       Names of target databases used in the search    phmmer</span></span>
+<span><span class="co">#&gt; uuid                         The unique job identifier    phmmer</span></span>
+<span><span class="co">#&gt; score.url                 URL with HMMER results score    phmmer</span></span>
+<span><span class="co">#&gt; stats                                   The stats hash    phmmer</span></span>
+<span><span class="co">#&gt; hits                          Array of sequence hashes    phmmer</span></span>
+<span><span class="co">#&gt; domains               Array of sequence domains hashes    phmmer</span></span></code></pre></div>
 <p>We can then extract this information into a tidy DataFrame, preprocess the data and add more information to it. The basic workflow is as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">HMMER_ABL1_data</span> <span class="op">&lt;-</span> <span class="va">HMMER_ABL1_search</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/extract_from_HMMER_data_tbl.html">extract_from_HMMER_data_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># extract the information into a DataFrame</span>
-  <span class="fu"><a href="reference/add_fullseq_to_HMMER_tbl.html">add_fullseq_to_HMMER_tbl</a></span><span class="op">(</span><span class="va">HMMER_ABL1_search</span><span class="op">$</span><span class="va">fullfasta.url</span><span class="op">)</span><span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co">#add sequences</span>
-  <span class="fu"><a href="reference/add_taxa_to_HMMER_tbl.html">add_taxa_to_HMMER_tbl</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"local"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># add taxonomic information</span>
-  <span class="fu"><a href="reference/add_physicochemical_properties_to_HMMER_tbl.html">add_physicochemical_properties_to_HMMER_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#calculate theoretical physical and chemical properties</span>
-<span class="va">HMMER_ABL1_data</span>
-<span class="co">#&gt; An object of class 'AnnotatedDataFrame'</span>
-<span class="co">#&gt;   rowNames: 1 2 ... 860 (860 total)</span>
-<span class="co">#&gt;   varLabels: uuid hits.name ... properties.Acidic (108 total)</span>
-<span class="co">#&gt;   varMetadata: labelDescription</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">HMMER_ABL1_data</span> <span class="op">&lt;-</span> <span class="va">HMMER_ABL1_search</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/extract_from_HMMER_data_tbl.html">extract_from_HMMER_data_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co"># extract the information into a DataFrame</span></span>
+<span>  <span class="fu"><a href="reference/add_fullseq_to_HMMER_tbl.html">add_fullseq_to_HMMER_tbl</a></span><span class="op">(</span><span class="va">HMMER_ABL1_search</span><span class="op">$</span><span class="va">fullfasta.url</span><span class="op">)</span><span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="co">#add sequences</span></span>
+<span>  <span class="fu"><a href="reference/add_physicochemical_properties_to_HMMER_tbl.html">add_physicochemical_properties_to_HMMER_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#calculate theoretical physical and chemical properties</span></span>
+<span><span class="va">HMMER_ABL1_data</span></span>
+<span><span class="co">#&gt; An object of class 'AnnotatedDataFrame'</span></span>
+<span><span class="co">#&gt;   rowNames: 1 2 ... 800 (800 total)</span></span>
+<span><span class="co">#&gt;   varLabels: uuid hits.name ... properties.Acidic (57 total)</span></span>
+<span><span class="co">#&gt;   varMetadata: labelDescription</span></span></code></pre></div>
 <p>Let’s see the metadata of the first 15 variables of this <code>AnnotatedDataFrame</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">HMMER_ABL1_data</span><span class="op">)</span>,<span class="fl">15</span><span class="op">)</span>
-<span class="co">#&gt;                                                                                                             labelDescription</span>
-<span class="co">#&gt; uuid                                                                                               The unique job identifier</span>
-<span class="co">#&gt; hits.name                                               Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan).</span>
-<span class="co">#&gt; hits.arch                                                                                      Sequence domain architecture.</span>
-<span class="co">#&gt; hits.acc                                                                                            Accession of the target.</span>
-<span class="co">#&gt; hits.desc                                                                                         Description of the target.</span>
-<span class="co">#&gt; hits.score                                                       Bit score of the sequence (all domains, without correction)</span>
-<span class="co">#&gt; hits.pvalue                                                                                            P-value of the score.</span>
-<span class="co">#&gt; hits.evalue                                                                                            E-value of the score.</span>
-<span class="co">#&gt; hits.nregions                                                                                   Number of regions evaluated.</span>
-<span class="co">#&gt; hits.ndom                                                               Total number of domains identified in this sequence.</span>
-<span class="co">#&gt; hits.nreported                                                          Number of domains satisfying reporting thresholding.</span>
-<span class="co">#&gt; hits.nincluded                                                          Number of domains satisfying inclusion thresholding.</span>
-<span class="co">#&gt; hits.taxid                                                       The NCBI taxonomy identifier of the target (if applicable).</span>
-<span class="co">#&gt; hits.species                                                                 The species name of the target (if applicable).</span>
-<span class="co">#&gt; hits.kg         The kingdom of life that the target belongs to - based on placing in the NCBI taxonomy tree (if applicable).</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">HMMER_ABL1_data</span><span class="op">)</span>,<span class="fl">15</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                                                    labelDescription</span></span>
+<span><span class="co">#&gt; uuid                                                      The unique job identifier</span></span>
+<span><span class="co">#&gt; hits.name      Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan).</span></span>
+<span><span class="co">#&gt; hits.acc                                                   Accession of the target.</span></span>
+<span><span class="co">#&gt; hits.desc                                                Description of the target.</span></span>
+<span><span class="co">#&gt; hits.score              Bit score of the sequence (all domains, without correction)</span></span>
+<span><span class="co">#&gt; hits.pvalue                                                   P-value of the score.</span></span>
+<span><span class="co">#&gt; hits.evalue                                                   E-value of the score.</span></span>
+<span><span class="co">#&gt; hits.nregions                                          Number of regions evaluated.</span></span>
+<span><span class="co">#&gt; hits.ndom                      Total number of domains identified in this sequence.</span></span>
+<span><span class="co">#&gt; hits.nreported                 Number of domains satisfying reporting thresholding.</span></span>
+<span><span class="co">#&gt; hits.nincluded                 Number of domains satisfying inclusion thresholding.</span></span>
+<span><span class="co">#&gt; hits.taxid              The NCBI taxonomy identifier of the target (if applicable).</span></span>
+<span><span class="co">#&gt; domains.ienv                                               Envelope start position.</span></span>
+<span><span class="co">#&gt; domains.jenv                                                 Envelope end position.</span></span>
+<span><span class="co">#&gt; domains.iali                                              Alignment start position.</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>Below is the citation output from using <code>citation('HMMERutils')</code> in R. Please run this yourself to check for any updates on how to cite <strong>HMMERutils</strong>.</p>
-<pre class="{r"><code><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"HMMERutils"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre>
+<pre class="{r"><code><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"HMMERutils"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 <p>Please note that the <code>HMMERutils</code> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>
 </div>
 <div class="section level2">
@@ -199,6 +198,7 @@
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+<li><a href="SUPPORT.html">Getting help</a></li>
 </ul>
 </div>
 
@@ -238,7 +238,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

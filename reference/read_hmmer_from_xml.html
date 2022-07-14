@@ -56,7 +56,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_hmmer_from_xml</span><span class="op">(</span><span class="va">xml_file_paths</span>, algorithm <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_hmmer_from_xml</span><span class="op">(</span><span class="va">xml_file_paths</span>, algorithm <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -64,13 +64,18 @@
     <dl><dt>xml_file_paths</dt>
 <dd><p>A a character vector the containing filepaths to
 XML file downloaded from HMMER.</p></dd>
+
+
 <dt>algorithm</dt>
 <dd><p>character vector of one containing the algorithm that was
 used. It can be <code>phmmer</code>, <code>hmmscan</code>, <code>hmmsearch</code>, <code>jackhammer</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An <code>AnnotatedDataFrame</code>, consisting of 2 parts, a nested DataFrame
+    
+
+<p>An <code>AnnotatedDataFrame</code>, consisting of 2 parts, a nested DataFrame
 with the search hashes  and the metadata associated to this DataFrame.
 Although all available results are available here, we recommend using the
 <code>extract_from_HMMER_data_tbl</code> function to preprocess the data. If not
@@ -79,17 +84,17 @@ indicated, the data will be processed as if it were a sequence search.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">xml_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="st">"/extdata/xml_example.xml"</span>,</span>
-<span class="r-in">    package <span class="op">=</span> <span class="st">"HMMERutils"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">read_hmmer_tbl</span> <span class="op">&lt;-</span> <span class="fu">read_hmmer_from_xml</span><span class="op">(</span><span class="va">xml_path</span>, algorithm <span class="op">=</span> <span class="st">"phmmer"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">read_hmmer_tbl</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">xml_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"/extdata/xml_example.xml"</span>,</span></span>
+<span class="r-in"><span>    package <span class="op">=</span> <span class="st">"HMMERutils"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">read_hmmer_tbl</span> <span class="op">&lt;-</span> <span class="fu">read_hmmer_from_xml</span><span class="op">(</span><span class="va">xml_path</span>, algorithm <span class="op">=</span> <span class="st">"phmmer"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">read_hmmer_tbl</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class 'AnnotatedDataFrame'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   rowNames: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   varLabels: uuid stats hits domains</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   varMetadata: labelDescription algorithm</span>
-<span class="r-in"><span class="fu">Biobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">read_hmmer_tbl</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Biobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">read_hmmer_tbl</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         labelDescription algorithm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> uuid           The unique job identifier    phmmer</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> stats                     The stats hash    phmmer</span>
@@ -109,7 +114,7 @@ indicated, the data will be processed as if it were a sequence search.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

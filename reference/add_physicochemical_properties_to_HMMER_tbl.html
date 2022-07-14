@@ -61,7 +61,7 @@ using the <code>Peptides</code> library to an <code>AnnotatedDataFrame</code></p
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_physicochemical_properties_to_HMMER_tbl</span><span class="op">(</span><span class="va">HMMER_tidy_tbl</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_physicochemical_properties_to_HMMER_tbl</span><span class="op">(</span><span class="va">HMMER_tidy_tbl</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -69,18 +69,21 @@ using the <code>Peptides</code> library to an <code>AnnotatedDataFrame</code></p
     <dl><dt>HMMER_tidy_tbl</dt>
 <dd><p>An <code>AnnotatedDataFrame</code> obtained through
 <code>extract_from_HMMER_data_tbl</code> and <code>add_fullseq_to_HMMER_tbl</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An <code>AnnotatedDataFrame</code> with new columns with the theoretical physicochemical properties</p>
+    
+
+<p>An <code>AnnotatedDataFrame</code> with new columns with the theoretical physicochemical properties</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_phmmer</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">example_phmmer_with_physicochemical_properties</span> <span class="op">&lt;-</span> <span class="va">example_phmmer</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu">add_physicochemical_properties_to_HMMER_tbl</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">example_phmmer_with_physicochemical_properties</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_phmmer</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">example_phmmer_with_physicochemical_properties</span> <span class="op">&lt;-</span> <span class="va">example_phmmer</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">add_physicochemical_properties_to_HMMER_tbl</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">example_phmmer_with_physicochemical_properties</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class 'AnnotatedDataFrame'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   rowNames: 1 2 ... 506 (506 total)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   varLabels: uuid hits.name ... properties.Acidic.y (117 total)</span>
@@ -99,7 +102,7 @@ using the <code>Peptides</code> library to an <code>AnnotatedDataFrame</code></p
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
