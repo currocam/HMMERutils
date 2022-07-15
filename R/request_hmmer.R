@@ -12,7 +12,7 @@ download_xml_file <- function(uuid, N.TRIES){
       check_error <-tryCatch(
         uuid %>%
           get_xml_url()%>%
-          utils::download.file(temp,method="auto"),
+          utils::download.file(temp,mode = "wb",method="libcurl"),
       error = identity)
     if (!inherits(check_error, "error")) {
       break }
