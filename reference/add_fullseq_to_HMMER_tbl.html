@@ -90,13 +90,16 @@ by reading fasta files.</p>
 <span class="r-in"><span>  seq_names <span class="op">=</span> <span class="st">"1efu_B"</span>,</span></span>
 <span class="r-in"><span>  dbs <span class="op">=</span> <span class="st">"pdb"</span>,</span></span>
 <span class="r-in"><span>  verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> OK (HTTP 200).</span>
 <span class="r-in"><span><span class="va">fullfasta_HMMER_tbl</span> <span class="op">&lt;-</span> <span class="va">phmmer_tbl</span><span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="extract_from_HMMER_data_tbl.html">extract_from_HMMER_data_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu">add_fullseq_to_HMMER_tbl</span><span class="op">(</span><span class="va">phmmer_tbl</span><span class="op">$</span><span class="va">fullfasta.url</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot remove file 'https://www.ebi.ac.uk/Tools/hmmer/download/5424B0DC-042A-11ED-8439-72032EF38D25/score?format=fullfasta', reason 'No such file or directory'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot remove file 'https://www.ebi.ac.uk/Tools/hmmer/download/19EDF3AA-06DD-11ED-982E-B26E2EAC1559/score?format=fullfasta', reason 'No such file or directory'</span>
 <span class="r-in"><span><span class="va">fullfasta_HMMER_tbl</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class 'AnnotatedDataFrame'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   rowNames: 1 2 ... 13 (13 total)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   rowNames: 1 2 ... 23 (23 total)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   varLabels: uuid hits.name ... hits.fullfasta (43 total)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   varMetadata: labelDescription</span>
 </code></pre></div>
@@ -113,7 +116,7 @@ by reading fasta files.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

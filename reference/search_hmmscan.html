@@ -61,7 +61,7 @@
 <span>  seq_names <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dbs <span class="op">=</span> <span class="st">"pfam"</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  N.TRIES <span class="op">=</span> <span class="fl">1</span></span>
+<span>  timeout <span class="op">=</span> <span class="fl">180</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -89,8 +89,8 @@ used databases are <code>pfam</code>, <code>tigrfam</code> <code>gene3d</code>, 
 <dd><p>A logical, if TRUE details of the download process is printed.</p></dd>
 
 
-<dt>N.TRIES</dt>
-<dd><p>An integer specifying the number of trials before a time out occurs.</p></dd>
+<dt>timeout</dt>
+<dd><p>Set maximum request time in seconds.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -115,13 +115,17 @@ to preprocess the data.</p>
 <span class="r-in"><span> seqs <span class="op">=</span> <span class="va">seqs</span>,</span></span>
 <span class="r-in"><span> dbs <span class="op">=</span> <span class="st">"pfam"</span>,</span></span>
 <span class="r-in"><span> verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> OK (HTTP 200).</span>
 <span class="r-in"><span><span class="va">hmmscan_tbl</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class 'AnnotatedDataFrame'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   HMMERqueryNames: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   varLabels: dbs uuid ... json.url (10 total)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   varLabels: seq.name dbs ... json.url (11 total)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   varMetadata: labelDescription algorithm</span>
 <span class="r-in"><span><span class="fu">Biobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">varMetadata</a></span><span class="op">(</span><span class="va">hmmscan_tbl</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                   labelDescription</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> seq.name                                     Names of sequences used in the search</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dbs                                   Names of target databases used in the search</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> uuid                                                     The unique job identifier</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> score.url                                             URL with HMMER results score</span>
@@ -133,6 +137,7 @@ to preprocess the data.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> xml.url                     An XML file formatted for machine parsing of the data.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> json.url              All the results information encoded as a single JSON string.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           algorithm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> seq.name    hmmscan</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dbs         hmmscan</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> uuid        hmmscan</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> score.url   hmmscan</span>
@@ -157,7 +162,7 @@ to preprocess the data.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
