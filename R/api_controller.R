@@ -1,12 +1,13 @@
-return_HMMER_API_search_url<- function(algoritm){
-  path <- paste("Tools/hmmer/search", algoritm, sep = "/")
+return_HMMER_API_search_url<- function(algorithm){
+  path <- paste("Tools/hmmer/search", algorithm, sep = "/")
   httr::modify_url("https://www.ebi.ac.uk/", path = path)
 }
 
-construct_query_object <- function(algoritm, db, input, timeout_in_seconds){
-  is_against_HMM_db <- algoritm == "hmmscan"
+construct_query_object <- function(algorithm, db, input, timeout_in_seconds){
+  is_against_HMM_db <- algorithm == "hmmscan"
   query_object <- list(
-    url = return_HMMER_API_search_url(algoritm),
+    algorithm = algorithm,
+    url = return_HMMER_API_search_url(algorithm),
     timeout_in_seconds = timeout_in_seconds,
     body = list(
       seq = input
@@ -23,9 +24,14 @@ construct_query_object <- function(algoritm, db, input, timeout_in_seconds){
 }
 post_HMMER_api_search <- function(query_object){
   tmp <- tempfile()
-  response <- httr::POST(
+  r <- httr::POST(
     url = query_object$url, body = query_object$body,
     httr::accept("text/xml"),
     httr::write_disk(tmp), httr::progress(),
     httr::timeout(query_object$timeout_in_seconds))
+  r$algorithm <- query_object$algorithm
+  return(r)
 }
+
+
+
