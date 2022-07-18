@@ -1,3 +1,5 @@
+testthat::skip(message = "Skip request to HMMER")
+
 aln <- c(
     "FQTWEEFSRAAEKLYLADPMKVRVVLKYRHVDGNLCIKVTDDLVC",
     "-------KYRTWEEFTRAAEKLYQADPMKVRVVLKY----RHCDG",
@@ -5,9 +7,6 @@ aln <- c(
 ) %>%
     Biostrings::AAMultipleAlignment()
 seq <- c("MTEITAAMVKELRESTGAGMMDCKN")
-
-testthat::skip(message = "Skip request to HMMER")
-
 
 test_that("hmmsearch works", {
   search_hmmsearch(
