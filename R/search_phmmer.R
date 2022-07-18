@@ -9,8 +9,7 @@
 #'  `pdb` and `alphafold`, but a complete and updated list is available at
 #'   \url{https://www.ebi.ac.uk/Tools/hmmer/}.
 #' @param verbose A logical, if TRUE details of the download process is printed.
-#' @param N.TRIES An integer specifying the number of attempts before
-#'  an error occurs.
+#' @param timeout Set maximum request time in seconds.
 #'
 #' @return An `AnnotatedDataFrame`, consisting of 2 parts, a nested DataFrame
 #'  with the search hashes, the download links of all available files and
@@ -33,10 +32,14 @@ search_phmmer <- function(
     seqs,
     seq_names = NULL,
     dbs = "swissprot",
-    N.TRIES = 1,
-    verbose = TRUE) {
+    timeout = 180,
+    verbose = FALSE) {
     seqs <- sequences_to_phmmer(seqs, seq_names)
     # all combinations of inputs
+    httr::reset_config()
+    if (verbose) {
+      httr::set_config(httr::verbose())
+    }
     tbl_list <- tidyr::expand_grid(seqs, dbs) %>%
       dplyr::mutate("seq.name" = names(.data$seqs))%>%
       dplyr::mutate(HMMER_response =purrr::map2(
@@ -44,12 +47,13 @@ search_phmmer <- function(
           algorithm = "phmmer",
           sequence = .x,
           database = .y,
-          timeout_in_seconds = 100)))%>%
+          timeout_in_seconds = timeout)))%>%
       dplyr::mutate("is_parsed_HMMER_response" = HMMER_response %>%
                       purrr::map_lgl(~is(., "parsed_HMMER_response")))%>%
       dplyr::filter(is_parsed_HMMER_response)%>%
       dplyr::select(-is_parsed_HMMER_response)
-      create_hmmer_AnnotatedDataFrame(tbl_list, algorithm = "phmmer")
+
+    create_hmmer_AnnotatedDataFrame(tbl_list, algorithm = "phmmer")
 }
 
 

@@ -29,6 +29,7 @@ post_HMMER_api_search <- function(query_object){
     httr::accept("text/xml"),
     httr::write_disk(tmp), httr::progress(),
     httr::timeout(query_object$timeout_in_seconds))
+  httr::message_for_status(r)
   r$algorithm <- query_object$algorithm
   return(r)
 }

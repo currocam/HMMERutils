@@ -89,15 +89,6 @@ test_that("It parses hmmsearch xml", {
 })
 
 
-test_that("To do", {
-  grid <- search_phmmer(seqs = c("MGPSENDPNLFVALYDFVASGDNTLSITKGEKL",
-                         "MGPSENDPNLFVALYDFVASGDNTLSITKGEKL"),
-                dbs = "pdb")
-})
-
-
-
-
 skip("Skipping Integration test")
 test_that("Returns the result for the example of phmmer", {
   construct_query_object("phmmer", db = "pdb", seq, 100)%>%
