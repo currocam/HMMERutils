@@ -1,21 +1,25 @@
-create_hmmer_AnnotatedDataFrame <- function(grid, names_seq, tbl_list, type) {
-    uuids <- purrr::flatten_chr(tbl_list$uuid)
-    df <- grid %>%
+create_hmmer_AnnotatedDataFrame <- function(tbl_list, algorithm) {
+    uuids <- tbl_list$HMMER_response %>% purrr::map_chr(~.x$uuid)
+    df <- tbl_list %>%
+      dplyr::select(seq.name, seqs,  dbs)%>%
         dplyr::mutate(
-            "seq.name" = names_seq,
             "uuid" = uuids,
-            "score.url" = purrr::flatten_chr(tbl_list$url),
-            "stats" = tbl_list$stats,
-            "hits" = tbl_list$hits,
-            "domains" = tbl_list$domains,
+            "score.url" = tbl_list$HMMER_response %>%
+              purrr::map_chr(~.x$url),
+            "stats" = tbl_list$HMMER_response%>%
+              purrr::map(~.x$stats),
+            "hits" = tbl_list$HMMER_response%>%
+              purrr::map(~.x$hits),
+            "domains" = tbl_list$HMMER_response%>%
+              purrr::map(~.x$domains),
         ) %>%
-        add_hmmer_urls(uuids, type)
+        add_hmmer_urls(uuids, algorithm)
     metaData <- retrieve_hmmer_metadata(colnames(df))
     annData <-Biobase::AnnotatedDataFrame(
         data = df[metaData$label],
         varMetadata = metaData %>%
             dplyr::select("labelDescription") %>%
-          dplyr::mutate("algorithm" = type))
+          dplyr::mutate("algorithm" = algorithm))
     annData@dimLabels <- c("HMMERqueryNames", "columnNames")
     return(annData)
 }

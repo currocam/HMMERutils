@@ -14,7 +14,7 @@ BugReports: https://support.bioconductor.org/t/HMMERutils
 biocViews: Software, Alignment, DataImport, DataRepresentation
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Suggests: 
     BiocStyle,
     broom,
@@ -56,3 +56,4 @@ Imports:
     XML
 Depends: 
     R (>= 4.1.0)
+LazyData: true

@@ -31,6 +31,8 @@ test_that("It returns correct query object for phmmer", {
       seqdb = "pdb"
     )
   )
+
+
   class(expected_query_object) <- "query_object"
   construct_query_object("phmmer", db = "pdb", seq, 100)%>%
     expect_equal(expected_query_object)
@@ -85,6 +87,16 @@ test_that("It parses hmmsearch xml", {
   parsed_response$domains%>%
     expect_snapshot_value(style = "json2")
 })
+
+
+test_that("To do", {
+  grid <- search_phmmer(seqs = c("MGPSENDPNLFVALYDFVASGDNTLSITKGEKL",
+                         "MGPSENDPNLFVALYDFVASGDNTLSITKGEKL"),
+                dbs = "pdb")
+})
+
+
+
 
 skip("Skipping Integration test")
 test_that("Returns the result for the example of phmmer", {
