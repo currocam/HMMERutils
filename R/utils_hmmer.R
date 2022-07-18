@@ -114,6 +114,13 @@ get_alignment_url <- function(uuid) {
         "/score?format=afa"
     )
 }
+get_xml_url <- function(uuid) {
+  paste0(
+    "https://www.ebi.ac.uk/Tools/hmmer/download/",
+    uuid,
+    "/score?format=xml"
+  )
+}
 
 mutate_alignment <- function(df, uuid) {
     df %>%

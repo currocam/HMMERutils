@@ -22,6 +22,7 @@
 extract_from_HMMER_data_tbl <- function(HMMER_data_tbl) {
   check_AnnotatedDataFrame(HMMER_data_tbl)
     pdata <- HMMER_data_tbl@data %>%
+      dplyr::filter(!is.na(.data$stats))%>%
       dplyr::filter(.data$stats %>%
                       purrr::map_lgl(~.x$nhits > 0))
     algorithm <- Biobase::varMetadata(HMMER_data_tbl) %>%

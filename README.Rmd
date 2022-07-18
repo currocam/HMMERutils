@@ -70,7 +70,6 @@ We can then extract this information into a tidy DataFrame, preprocess the data 
 HMMER_ABL1_data <- HMMER_ABL1_search %>%
   extract_from_HMMER_data_tbl() %>% # extract the information into a DataFrame
   add_fullseq_to_HMMER_tbl(HMMER_ABL1_search$fullfasta.url)%>% #add sequences
-  add_taxa_to_HMMER_tbl(mode = "local") %>% # add taxonomic information
   add_physicochemical_properties_to_HMMER_tbl() #calculate theoretical physical and chemical properties
 HMMER_ABL1_data
 ```
