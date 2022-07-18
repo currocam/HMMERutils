@@ -10,7 +10,7 @@
 #'  `pdb` and `alphafold`, but a complete and updated list is available at
 #'   \url{https://www.ebi.ac.uk/Tools/hmmer/}.
 #' @param verbose A logical, if TRUE details of the download process is printed.
-#' @param N.TRIES An integer specifying the number of trials before a time out occurs.
+#' @param timeout Set maximum request time in seconds.
 #'
 #' @return An `AnnotatedDataFrame`, consisting of 2 parts, a nested DataFrame
 #'  with the search hashes, the download links of all available files and
@@ -37,31 +37,35 @@ search_hmmsearch <- function(
   aln_names = NULL,
   dbs = "swissprot",
   verbose = TRUE,
-  N.TRIES = 1) {
-    # Check
+  timeout = 180) {
+  alns <- sequences_to_hmmsearch(alns, aln_names)
+  httr::reset_config()
+  if (verbose) {
+    httr::set_config(httr::verbose())
+  }
+  tbl_list <- tidyr::expand_grid(alns, dbs) %>%
+    dplyr::mutate("seq.name" = names(.data$alns))%>%
+    dplyr::mutate(HMMER_response =purrr::map2(
+      alns, dbs, ~search_in_HMMER_safely(
+        algorithm = "hmmsearch",
+        sequence = .x,
+        database = .y,
+        timeout_in_seconds = timeout)))%>%
+    dplyr::mutate("is_parsed_HMMER_response" = HMMER_response %>%
+                    purrr::map_lgl(~is(., "parsed_HMMER_response")))%>%
+    dplyr::filter(is_parsed_HMMER_response)%>%
+    dplyr::select(-is_parsed_HMMER_response)
+  create_hmmer_AnnotatedDataFrame(tbl_list, algorithm = "hmmsearch")
+}
+
+
+sequences_to_hmmsearch <- function(alns, aln_names){
   alns <- deal_with_input_aln(alns)
   if (length(alns) == length(aln_names)) {
     names(alns) <- make.unique(aln_names)
   }
-  grid <- tidyr::expand_grid(alns, dbs) %>%
-    dplyr::mutate("seq.name" = names(.data$alns))
-  tbl_list <- purrr::map2(
-      .x = grid$alns,
-      .y = grid$dbs,
-      .f = ~ {
-          request_hmmer(
-              aln = .x,
-              seqdb = .y,
-              url = "https://www.ebi.ac.uk/Tools/hmmer/search/hmmsearch",
-              verbose = verbose,
-              N.TRIES = N.TRIES
-          )
-      }
-  ) %>%
-      parse_xml_into_tbl()
-  names_seq <- NULL
-  if (!is.null(aln_names)) {
-    names_seq <- grid$seq.name
+  if (is.null(names(alns))) {
+    names(alns) <- seq(1, length(alns))
   }
-  create_hmmer_AnnotatedDataFrame(grid, names_seq, tbl_list,type = "hmmsearch")
+  return(alns)
 }

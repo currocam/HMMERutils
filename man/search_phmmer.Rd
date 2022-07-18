@@ -8,8 +8,8 @@ search_phmmer(
   seqs,
   seq_names = NULL,
   dbs = "swissprot",
-  N.TRIES = 1,
-  verbose = TRUE
+  timeout = 180,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -24,8 +24,7 @@ used databases are \code{swissprot}, \code{uniprotrefprot}, \code{uniprotkb}, \c
 \code{pdb} and \code{alphafold}, but a complete and updated list is available at
 \url{https://www.ebi.ac.uk/Tools/hmmer/}.}
 
-\item{N.TRIES}{An integer specifying the number of attempts before
-an error occurs.}
+\item{timeout}{Set maximum request time in seconds.}
 
 \item{verbose}{A logical, if TRUE details of the download process is printed.}
 }

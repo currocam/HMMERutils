@@ -22,6 +22,7 @@ Suggests:
     factoextra,
     furrr,
     future,
+    httptest,
     kableExtra,
     knitr,
     Peptides,
@@ -44,6 +45,7 @@ Imports:
     dplyr,
     ggplot2,
     graphics,
+    httr,
     magrittr,
     methods,
     purrr,
@@ -55,3 +57,4 @@ Imports:
     XML
 Depends: 
     R (>= 4.1.0)
+LazyData: true

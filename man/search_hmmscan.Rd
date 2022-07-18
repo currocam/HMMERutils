@@ -9,7 +9,7 @@ search_hmmscan(
   seq_names = NULL,
   dbs = "pfam",
   verbose = TRUE,
-  N.TRIES = 1
+  timeout = 180
 )
 }
 \arguments{
@@ -27,7 +27,7 @@ used databases are \code{pfam}, \code{tigrfam} \code{gene3d}, \code{superfamily}
 
 \item{verbose}{A logical, if TRUE details of the download process is printed.}
 
-\item{N.TRIES}{An integer specifying the number of trials before a time out occurs.}
+\item{timeout}{Set maximum request time in seconds.}
 }
 \value{
 An \code{AnnotatedDataFrame}, consisting of 2 parts, a nested DataFrame

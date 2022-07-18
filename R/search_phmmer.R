@@ -9,8 +9,7 @@
 #'  `pdb` and `alphafold`, but a complete and updated list is available at
 #'   \url{https://www.ebi.ac.uk/Tools/hmmer/}.
 #' @param verbose A logical, if TRUE details of the download process is printed.
-#' @param N.TRIES An integer specifying the number of attempts before
-#'  an error occurs.
+#' @param timeout Set maximum request time in seconds.
 #'
 #' @return An `AnnotatedDataFrame`, consisting of 2 parts, a nested DataFrame
 #'  with the search hashes, the download links of all available files and
@@ -33,34 +32,49 @@ search_phmmer <- function(
     seqs,
     seq_names = NULL,
     dbs = "swissprot",
-    N.TRIES = 1,
-    verbose = TRUE) {
-    # Check
-    seqs <- deal_with_input_sequences(seqs)
-    if (length(seqs) == length(seq_names)) {
-      names(seqs) <- make.unique(seq_names)
-    }
+    timeout = 180,
+    verbose = FALSE) {
+    seqs <- sequences_to_phmmer(seqs, seq_names)
     # all combinations of inputs
-    grid <- tidyr::expand_grid(seqs, dbs) %>%
-      dplyr::mutate("seq.name" = names(.data$seqs))
-    tbl_list <- purrr::map2(
-        .x = grid$seqs,
-        .y = grid$dbs,
-        .f = ~ {
-            request_hmmer(
-                seq = .x,
-                seqdb = .y,
-                url = "https://www.ebi.ac.uk/Tools/hmmer/search/phmmer",
-                verbose = verbose,
-                N.TRIES = N.TRIES
-            )
-        }
-    ) %>%
-        parse_xml_into_tbl()
-    names_seq <- NULL
-    if (!is.null(seq_names)) {
-      names_seq <- grid$seq.name
+    httr::reset_config()
+    if (verbose) {
+      httr::set_config(httr::verbose())
     }
-    create_hmmer_AnnotatedDataFrame(grid, names_seq, tbl_list, type = "phmmer")
+    tbl_list <- tidyr::expand_grid(seqs, dbs) %>%
+      dplyr::mutate("seq.name" = names(.data$seqs))%>%
+      dplyr::mutate(HMMER_response =purrr::map2(
+        seqs, dbs, ~search_in_HMMER_safely(
+          algorithm = "phmmer",
+          sequence = .x,
+          database = .y,
+          timeout_in_seconds = timeout)))%>%
+      dplyr::mutate("is_parsed_HMMER_response" = HMMER_response %>%
+                      purrr::map_lgl(~is(., "parsed_HMMER_response")))%>%
+      dplyr::filter(is_parsed_HMMER_response)%>%
+      dplyr::select(-is_parsed_HMMER_response)
+
+    create_hmmer_AnnotatedDataFrame(tbl_list, algorithm = "phmmer")
 }
 
+
+sequences_to_phmmer <- function(seqs, seq_names){
+  seqs <- deal_with_input_sequences(seqs)
+  if (length(seqs) == length(seq_names)) {
+    names(seqs) <- make.unique(seq_names)
+  }
+  if (is.null(names(seqs))) {
+    names(seqs) <- seq(1, length(seqs))
+  }
+  return(seqs)
+}
+
+search_in_HMMER_safely <- purrr::possibly(
+  otherwise = list(NULL),
+  function(algorithm, sequence, database, timeout_in_seconds){
+    construct_query_object(
+      algorithm,input = sequence,db = database,
+      timeout_in_seconds = timeout_in_seconds
+      ) %>%
+      post_HMMER_api_search()%>%
+      parse_response_into_tbl()
+  })
