@@ -1,29 +1,50 @@
-testthat::skip(message = "Skip request to HMMER")
-
 aln <- c(
-    "FQTWEEFSRAAEKLYLADPMKVRVVLKYRHVDGNLCIKVTDDLVC",
-    "-------KYRTWEEFTRAAEKLYQADPMKVRVVLKY----RHCDG",
-    "EEYQTWEEFARAAEKLYLTDPMKVRVVLKYRHCDGNLCMKVTDDA"
+  "FQTWEEFSRAAEKLYLADPMKVRVVLKYRHVDGNLCIKVTDDLVC",
+  "-------KYRTWEEFTRAAEKLYQADPMKVRVVLKY----RHCDG",
+  "EEYQTWEEFARAAEKLYLTDPMKVRVVLKYRHCDGNLCMKVTDDA"
 ) %>%
-    Biostrings::AAMultipleAlignment()
+  Biostrings::AAMultipleAlignment()
 seq <- c("MTEITAAMVKELRESTGAGMMDCKN")
 
-test_that("hmmsearch works", {
-  search_hmmsearch(
-    alns = aln,
-    dbs = "pdb",
-  ) %>%
-  expect_snapshot_output()
+test_that("phmmer works", {
+  httptest::with_mock_api(
+    {
+      search_phmmer(seqs = seq)%>%
+        Biobase::pData()%>%
+        expect_snapshot_output()
+    }
+  )
 })
 
-test_that("phmmer works", {
-  search_phmmer(seqs = seq)%>%
-    expect_snapshot_output()
+test_that("hmmsearch works", {
+  httptest::with_mock_api(
+    {
+      search_hmmsearch(alns = aln,dbs = "pdb") %>%
+        Biobase::pData()%>%
+        expect_snapshot_output()
+    }
+  )
+
 })
 
 test_that("hmmscan works", {
-  search_hmmscan(seq)%>%
-    expect_snapshot_output()
+  httptest::with_mock_api(
+    {
+      search_hmmscan(seq) %>%
+        Biobase::pData()%>%
+        expect_snapshot_output()
+    }
+  )
+  })
+
+
+test_that("hmmscan throws warning Bad Request when sequence database", {
+  httptest::with_mock_api(
+    {
+      HMMER_data <- search_hmmscan(seq, dbs = "pdb") %>%
+        expect_snapshot_warning()
+    }
+  )
 })
 
 
