@@ -1,7 +1,7 @@
 create_hmmer_AnnotatedDataFrame <- function(tbl_list, algorithm) {
     uuids <- tbl_list$HMMER_response %>% purrr::map_chr(~.x$uuid)
     df <- tbl_list %>%
-      dplyr::select(-HMMER_response)%>%
+      dplyr::select(-.data$HMMER_response)%>%
         dplyr::mutate(
             "uuid" = uuids,
             "score.url" = tbl_list$HMMER_response %>%
