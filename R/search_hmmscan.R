@@ -56,7 +56,7 @@ search_hmmscan <- function(
           timeout_in_seconds = timeout)))%>%
       dplyr::mutate("is_parsed_HMMER_response" = HMMER_response %>%
                       purrr::map_lgl(~is(., "parsed_HMMER_response")))%>%
-      dplyr::filter(is_parsed_HMMER_response)%>%
-      dplyr::select(-is_parsed_HMMER_response)
+      dplyr::filter(.data$is_parsed_HMMER_response)%>%
+      dplyr::select(-.data$is_parsed_HMMER_response)
     create_hmmer_AnnotatedDataFrame(tbl_list, algorithm = "hmmscan")
   }
