@@ -1,4 +1,4 @@
-testthat::skip_on_os(c("mac", "windows"))
+testthat::skip_on_ci()
 aln <- c(
   "FQTWEEFSRAAEKLYLADPMKVRVVLKYRHVDGNLCIKVTDDLVC",
   "-------KYRTWEEFTRAAEKLYQADPMKVRVVLKY----RHCDG",
