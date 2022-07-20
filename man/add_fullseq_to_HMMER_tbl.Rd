@@ -5,7 +5,7 @@
 \title{Add fullseq_fasta information information to an \code{AnnotatedDataFrame}
 by reading fasta files.}
 \usage{
-add_fullseq_to_HMMER_tbl(HMMER_tidy_tbl, fasta_files)
+add_fullseq_to_HMMER_tbl(HMMER_tidy_tbl, fasta_files = NULL, N.TRIES = 2)
 }
 \arguments{
 \item{HMMER_tidy_tbl}{An \code{AnnotatedDataFrame} obtained through
@@ -13,6 +13,8 @@ add_fullseq_to_HMMER_tbl(HMMER_tidy_tbl, fasta_files)
 
 \item{fasta_files}{A character vector containing either the download urls
 (found in the url.fullfasta column) of the files or the path to the files.}
+
+\item{N.TRIES}{An integer with the maximum number of attempts to read/download the file.}
 }
 \value{
 An \code{AnnotatedDataFrame} with a new column with the fasta sequences.
