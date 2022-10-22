@@ -19,15 +19,18 @@ Suggests:
     RefManageR,
     rmarkdown,
     sessioninfo,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    httptest (>= 4.1.0),
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
-    httptest (>= 4.1.0),
+    Biostrings,
+    dplyr,
     httr,
+    magrittr,
     purrr,
     rlang,
     tibble,
     tidyr
-Remotes:  
+Remotes: 
     nealrichardson/httptest

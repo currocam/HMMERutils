@@ -15,8 +15,7 @@ post_query <- function(query) {
        tmp <- tempfile()
        timeout_in_seconds <- query %>%
         purrr::pluck("timeout_in_seconds", .default = 120)
-        body <- query %>%
-            .[c("seq", "hmmdb", "seqdb")] %>%
+        body <- query[c("seq", "hmmdb", "seqdb")] %>%
             purrr::discard(is.null)
        r <- httr::POST(
            url = get_api_search_url(query$algorithm),
@@ -47,11 +46,11 @@ search_in_hmmer <- function(...) {
 }
 
 format_AAStringSet_into_hmmer_string <- function(AAStringSet){
+  pasteAA <- function(x){
+    paste0(">", names(x)) %>%
+      paste("\n", x, collapse = "\n")
+  }
   AAStringSet %>%
     as.character() %>%
-    {paste(
-      collapse = "\n",
-      paste0(">", names(.)),
-      "\n", .
-    )}
+    pasteAA()
 }
