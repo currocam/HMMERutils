@@ -22,3 +22,12 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Imports: 
+    httptest (>= 4.1.0),
+    httr,
+    purrr,
+    rlang,
+    tibble,
+    tidyr
+Remotes:  
+    nealrichardson/httptest
