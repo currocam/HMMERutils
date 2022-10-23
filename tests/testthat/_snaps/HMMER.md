@@ -67,3 +67,39 @@
       #   hits.kg <chr>, hits.ndom <int>, hits.extlink <chr>, hits.acc2 <chr>,
       #   hits.taxid <chr>, hits.acc <chr>, hits.taxlink <chr>, hits.desc <chr>, ...
 
+# mock phmmer with wrong input fails
+
+    Code
+      .
+    Warning <http_400>
+      Bad Request (HTTP 400).
+    Output
+      # A tibble: 1 x 4
+        algorithm uuid  stats.1 hits.1
+        <lgl>     <lgl> <lgl>   <lgl> 
+      1 NA        NA    NA      NA    
+
+# mock hmmscan with wrong input fails
+
+    Code
+      .
+    Warning <http_400>
+      Bad Request (HTTP 400).
+    Output
+      # A tibble: 1 x 4
+        algorithm uuid  stats.1 hits.1
+        <lgl>     <lgl> <lgl>   <lgl> 
+      1 NA        NA    NA      NA    
+
+# mock hmmsearch with wrong input fails
+
+    Code
+      .
+    Warning <http_400>
+      Bad Request (HTTP 400).
+    Output
+      # A tibble: 1 x 4
+        algorithm uuid  stats.1 hits.1
+        <lgl>     <lgl> <lgl>   <lgl> 
+      1 NA        NA    NA      NA    
+

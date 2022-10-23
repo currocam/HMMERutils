@@ -34,16 +34,35 @@ httptest::with_mock_api({
   })
 })
 
-testthat::skip("Not mocking yet")
 httptest::with_mock_api({
-  testthat::test_that("mock add fullseqfasta works", {
-    data <- search_in_hmmer(
+  testthat::test_that("mock phmmer with wrong input fails", {
+    search_in_hmmer(
       algorithm = "phmmer",
+      hmmdb = "pfam",
+      seq = ">Seq\nKLRVLGYHNGEWCEAQTKNGQGWVPSNYITPVNSLENSIDKHSWYHGPVSRNAAE"
+    ) %>%
+      testthat::expect_snapshot()
+  })
+})
+
+httptest::with_mock_api({
+  testthat::test_that("mock hmmscan with wrong input fails", {
+    search_in_hmmer(
+      algorithm = "hmmscan",
       seqdb = "pdb",
       seq = ">Seq\nKLRVLGYHNGEWCEAQTKNGQGWVPSNYITPVNSLENSIDKHSWYHGPVSRNAAE"
-    )
-    data %>%
-      add_sequences_to_hmmer_tbl() %>%
-      dplyr::pull("hits.fullfasta")
+    ) %>%
+      testthat::expect_snapshot()
+  })
+})
+
+httptest::with_mock_api({
+  testthat::test_that("mock hmmsearch with wrong input fails", {
+    search_in_hmmer(
+      algorithm = "hmmsearch",
+      seqdb = "pdb",
+      seq = ">Seq\nKLRVLGYHNGEWCEAQTKNGQGWVPSNYITPVNSLENSIDKHSWYHGPVSRNAAE"
+    ) %>%
+      testthat::expect_snapshot()
   })
 })
