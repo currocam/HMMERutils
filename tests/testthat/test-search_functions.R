@@ -3,8 +3,8 @@ httptest::with_mock_api({
         search_phmmer(
             seqdb = c("pdb", "pfam"),
             seq = c(
-            "KLRVLGYHNGEWCEAQTKNGQGWVPSNYITPVNSLENSIDKHSWYHGPVSRNAAE",
-            "KLRVLGYHNGEWCEAQTKNGQGWVPSNYITPVNSLENSIDKHSWYHGPVSRNAAE"
+                "KLRVLGYHNGEWCEAQTKNGQGWVPSNYITPVNSLENSIDKHSWYHGPVSRNAAE",
+                "KLRVLGYHNGEWCEAQTKNGQGWVPSNYITPVNSLENSIDKHSWYHGPVSRNAAE"
             )
         ) %>%
             testthat::expect_snapshot()

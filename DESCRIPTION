@@ -22,7 +22,8 @@ Suggests:
     testthat (>= 3.0.0),
     httptest (>= 4.1.0),
     taxizedb,
-    taxize
+    taxize,
+    tidyselect
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
@@ -30,10 +31,11 @@ Imports:
     dplyr,
     httr,
     magrittr,
+    Peptides,
     purrr,
     rlang,
+    stringr,
     tibble,
-    tidyr,
-    tidyselect
+    tidyr
 Remotes: 
     nealrichardson/httptest

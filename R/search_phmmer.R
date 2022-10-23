@@ -20,10 +20,8 @@
 #' )
 #' @export
 
-search_phmmer <- function(
-    seq, seqdb = "swissprot",
-    timeout = 180, verbose = FALSE
-    ) {
+search_phmmer <- function(seq, seqdb = "swissprot",
+    timeout = 180, verbose = FALSE) {
     httr::reset_config()
     if (verbose) {
         httr::set_config(httr::verbose())

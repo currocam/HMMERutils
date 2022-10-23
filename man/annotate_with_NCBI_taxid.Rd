@@ -26,6 +26,3 @@ A DataFrame with columns \code{taxid} and taxonomic ranks.
 Retrieve the taxonomic data for a given NCBI
 taxon ID using a local database or as remote data sources.
 }
-\examples{
-annotate_with_NCBI_taxid(7955, "species")
-}

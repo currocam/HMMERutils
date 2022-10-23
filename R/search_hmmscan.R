@@ -21,7 +21,7 @@
 #' @export
 
 search_hmmscan <- function(seq, hmmdb = "pfam",
-                           timeout = 180, verbose = FALSE) {
+    timeout = 180, verbose = FALSE) {
     httr::reset_config()
     if (verbose) {
         httr::set_config(httr::verbose())

@@ -12,8 +12,6 @@
 #'
 #' @return A DataFrame with columns `taxid` and taxonomic ranks.
 #' @export
-#' @examples
-#' annotate_with_NCBI_taxid(7955, "species")
 annotate_with_NCBI_taxid <- function(taxid, rank_vc = NULL, mode = "remote") {
     if (!requireNamespace("taxizedb", quietly = TRUE) && mode == "local") {
         stop(

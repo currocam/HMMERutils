@@ -13,17 +13,17 @@
 #' @export
 #'
 add_taxa_to_hmmer_tbl <- function(data, mode = "remote", rank_vc = NULL) {
-  inner_function <- function(x) {
-    annotate_with_NCBI_taxid(
-      taxid = unique(x$hits.taxid),
-      mode = mode, rank_vc = rank_vc
-    ) %>%
-      dplyr::rename_with(~ paste0("taxa.", .)) %>%
-      dplyr::right_join(x, by = c("taxa.taxid" = "hits.taxid"))
-  }
-  group_var <- rlang::sym("hits.taxid")
-  data %>%
-    dplyr::group_by(!!group_var) %>%
-    dplyr::group_split() %>%
-    purrr::map_dfr(~ purrr::possibly(inner_function, .)(.))
+    inner_function <- function(x) {
+        annotate_with_NCBI_taxid(
+            taxid = unique(x$hits.taxid),
+            mode = mode, rank_vc = rank_vc
+        ) %>%
+            dplyr::rename_with(~ paste0("taxa.", .)) %>%
+            dplyr::right_join(x, by = c("taxa.taxid" = "hits.taxid"))
+    }
+    group_var <- rlang::sym("hits.taxid")
+    data %>%
+        dplyr::group_by(!!group_var) %>%
+        dplyr::group_split() %>%
+        purrr::map_dfr(~ purrr::possibly(inner_function, .)(.))
 }

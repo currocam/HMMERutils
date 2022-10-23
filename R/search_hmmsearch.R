@@ -11,39 +11,30 @@
 #' @param timeout Set maximum request time in seconds.
 #'
 #' @return An Data Frame containing the results from HMMER.
-#'
-#' @examples
-#' path_to_example_aln <- system.file(
-#'   "extdata/alignment.fasta",
-#'   package = "HMMERutils")
-#' fasta <- Biostrings::readAAMultipleAlignment(path_to_example_aln)
-#' search_hmmsearch(
-#'   aln = fasta,
-#'   seqdb = "pdb",
-#'   verbose = FALSE)
 #' @export
+#' @importFrom rlang .data
 
-search_hmmsearch <- function(
-    aln, seqdb = "swissprot",
-    timeout = 180, verbose = FALSE
-    ) {
+search_hmmsearch <- function(aln, seqdb = "swissprot",
+    timeout = 180, verbose = FALSE) {
     httr::reset_config()
     if (verbose) {
         httr::set_config(httr::verbose())
     }
     hmmsearch <- purrr::possibly(search_in_hmmer, otherwise = NULL)
     # all combinations of inputs
-    seq <- ifelse(is.list(aln), ., list(aln)) %>%
-    purrr::map_chr(~Biostrings::unmasked(.) %>%
-    format_AAStringSet_into_hmmer_string())
+    seq <- ifelse(is.list(aln), aln, list(aln)) %>%
+        purrr::map_chr(function(x) {
+            Biostrings::unmasked(x) %>%
+                format_AAStringSet_into_hmmer_string()
+        })
     tidyr::expand_grid(seq, seqdb, algorithm = "hmmsearch") %>%
         dplyr::rowwise() %>%
         purrr::pmap(
             ~ hmmsearch(
-            seq = ..1,
-            seqdb = ..2,
-            algorithm = ..3,
-            timeout_in_seconds = timeout
+                seq = ..1,
+                seqdb = ..2,
+                algorithm = ..3,
+                timeout_in_seconds = timeout
             )
         ) %>%
         purrr::compact() %>%

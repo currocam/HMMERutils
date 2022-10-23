@@ -30,7 +30,7 @@ against a profile-HMM database.
 \examples{
 search_hmmscan(
     seq = "SWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSS",
-    seqdb = "pfam",
+    hmmdb = "pfam",
     verbose = FALSE
 )
 }
