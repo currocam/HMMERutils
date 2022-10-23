@@ -9,7 +9,7 @@ download_file(url)
 download_file(url)
 }
 \arguments{
-\item{a}{string with an URL.}
+\item{url}{a string with an URL.}
 }
 \description{
 Download a file using a temp file (it should work in every OS).

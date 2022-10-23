@@ -2,4 +2,6 @@
 
 export("%>%")
 export(add_sequences_to_hmmer_tbl)
+export(add_taxa_to_hmmer_tbl)
+export(annotate_with_NCBI_taxid)
 importFrom(magrittr,"%>%")
