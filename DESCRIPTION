@@ -33,6 +33,7 @@ Imports:
     purrr,
     rlang,
     tibble,
-    tidyr
+    tidyr,
+    tidyselect
 Remotes: 
     nealrichardson/httptest

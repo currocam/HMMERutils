@@ -80,11 +80,13 @@ parse_results_into_tbl <- function(results) {
 #' - timeout_in_seconds an integer with the number of
 #' seconds to wait before exits.
 search_in_hmmer <- function(...) {
-    params_into_query_list(...) %>%
-        post_query() %>%
-        httr::content() %>%
-        purrr::pluck("results") %>%
-        parse_results_into_tbl()
+    r <- params_into_query_list(...) %>%
+    post_query()
+    if (r$status != 200) { return(NULL) }
+    r  %>%
+    httr::content() %>%
+    purrr::pluck("results") %>%
+    parse_results_into_tbl()
 }
 
 #' Converts an AAStringSet into plain text so

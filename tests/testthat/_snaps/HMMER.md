@@ -74,10 +74,7 @@
     Warning <http_400>
       Bad Request (HTTP 400).
     Output
-      # A tibble: 1 x 4
-        algorithm uuid  stats.1 hits.1
-        <lgl>     <lgl> <lgl>   <lgl> 
-      1 NA        NA    NA      NA    
+      NULL
 
 # mock hmmscan with wrong input fails
 
@@ -86,10 +83,7 @@
     Warning <http_400>
       Bad Request (HTTP 400).
     Output
-      # A tibble: 1 x 4
-        algorithm uuid  stats.1 hits.1
-        <lgl>     <lgl> <lgl>   <lgl> 
-      1 NA        NA    NA      NA    
+      NULL
 
 # mock hmmsearch with wrong input fails
 
@@ -98,8 +92,5 @@
     Warning <http_400>
       Bad Request (HTTP 400).
     Output
-      # A tibble: 1 x 4
-        algorithm uuid  stats.1 hits.1
-        <lgl>     <lgl> <lgl>   <lgl> 
-      1 NA        NA    NA      NA    
+      NULL
 
