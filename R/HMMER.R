@@ -1,13 +1,13 @@
-#' Converts arguments into a list to be used as a query.
-#'
-#' @param \\dots
-#' -  algorithm algorithm to use (phmmer, hmmscan, hmmsearch or jackhmmer)
-#' - seq protein sequence as a string or an alignment
-#'  (@seealso HMMERutils::format_AAStringSet_into_hmmer_string())
-#' - hmmdb a string with a hmmdb (for hmmscan)
-#' - seqdb a string with seqdb (for phmmer, hmmsearch or jackhmmer)
-#' - timeout_in_seconds an integer with the number of
-#' seconds to wait before exits.
+# Converts arguments into a list to be used as a query.
+#
+# @param \\dots
+# -  algorithm algorithm to use (phmmer, hmmscan, hmmsearch or jackhmmer)
+# - seq protein sequence as a string or an alignment
+#  (@seealso HMMERutils::format_AAStringSet_into_hmmer_string())
+# - hmmdb a string with a hmmdb (for hmmscan)
+# - seqdb a string with seqdb (for phmmer, hmmsearch or jackhmmer)
+# - timeout_in_seconds an integer with the number of
+# seconds to wait before exits.
 params_into_query_list <- function(...) {
     dots <- rlang::list2(...)
     c("algorithm", "seq") %>%
@@ -16,17 +16,17 @@ params_into_query_list <- function(...) {
     dots
 }
 
-#' Get the HMER URL for each algorithm.
-#'
-#' @param algorithm a string with the algorithm name.
+# Get the HMER URL for each algorithm.
+#
+# @param algorithm a string with the algorithm name.
 get_api_search_url <- function(algorithm) {
     path <- paste("Tools/hmmer/search", algorithm, sep = "/")
     httr::modify_url("https://www.ebi.ac.uk/", path = path)
 }
-#' Get the HMER URL for the output files
-#'
-#' @param uuid unique identifier for each result in HMMER.
-#' @param format a string with the file extension ("fullfasta", "json", "xml"...)
+# Get the HMER URL for the output files
+#
+# @param uuid unique identifier for each result in HMMER.
+# @param format a string with the file extension ("fullfasta", "json", "xml"...)
 create_download_url_for_hmmer <- function(uuid, format) {
     paste0(
         "https://www.ebi.ac.uk/Tools/hmmer/download/",
@@ -36,9 +36,9 @@ create_download_url_for_hmmer <- function(uuid, format) {
     )
 }
 
-#' Post query to HMMER and returns the httr response.
-#'
-#' @param query a query list (@seealso HMMERutils::params_into_query_list())
+# Post query to HMMER and returns the httr response.
+#
+# @param query a query list (@seealso HMMERutils::params_into_query_list())
 post_query <- function(query) {
     tmp <- tempfile()
     timeout_in_seconds <- query %>%
@@ -55,9 +55,9 @@ post_query <- function(query) {
     return(r)
 }
 
-#' Parses results from HMMER into a tibble.
-#'
-#' @param results list with results (@seealso HMMERutils::post_query())
+# Parses results from HMMER into a tibble.
+#
+# @param results list with results (@seealso HMMERutils::post_query())
 parse_results_into_tbl <- function(results) {
     tibble::tibble(
         "algorithm" = purrr::pluck(results, "algo", .default = NA),
@@ -70,9 +70,9 @@ parse_results_into_tbl <- function(results) {
         dplyr::mutate("hits.evalue" = fix_evalue_column(.[["hits.evalue"]]))
 }
 
-#' Fix E-value column which sometimes can be a list, a character vector
-#'   or a numeric vector.
-#' @param column E.value column
+# Fix E-value column which sometimes can be a list, a character vector
+#   or a numeric vector.
+# @param column E.value column
 fix_evalue_column <- function(column) {
     if (is.list(column)) {
         column <- purrr::flatten_chr(column)
@@ -80,17 +80,17 @@ fix_evalue_column <- function(column) {
     as.numeric(column)
 }
 
-#' Post a query into HMMER for different algorithms and
-#'  returns a tibble with the results.
-#'
-#' @param \\dots
-#' -  algorithm algorithm to use (phmmer, hmmscan, hmmsearch or jackhmmer)
-#' - seq protein sequence as a string or an alignment
-#'  (@seealso HMMERutils::format_AAStringSet_into_hmmer_string())
-#' - hmmdb a string with a hmmdb (for hmmscan)
-#' - seqdb a string with seqdb (for phmmer, hmmsearch or jackhmmer)
-#' - timeout_in_seconds an integer with the number of
-#' seconds to wait before exits.
+# Post a query into HMMER for different algorithms and
+#  returns a tibble with the results.
+#
+# @param \\dots
+# -  algorithm algorithm to use (phmmer, hmmscan, hmmsearch or jackhmmer)
+# - seq protein sequence as a string or an alignment
+#  (@seealso HMMERutils::format_AAStringSet_into_hmmer_string())
+# - hmmdb a string with a hmmdb (for hmmscan)
+# - seqdb a string with seqdb (for phmmer, hmmsearch or jackhmmer)
+# - timeout_in_seconds an integer with the number of
+# seconds to wait before exits.
 search_in_hmmer <- function(...) {
     r <- params_into_query_list(...) %>%
         post_query()
@@ -103,10 +103,10 @@ search_in_hmmer <- function(...) {
         parse_results_into_tbl()
 }
 
-#' Converts an AAStringSet into plain text so
-#' HMMER can read it.
-#'
-#' @param AAStringSet an AASTRingSet from Biostrings.
+# Converts an AAStringSet into plain text so
+# HMMER can read it.
+#
+# @param AAStringSet an AASTRingSet from Biostrings.
 format_AAStringSet_into_hmmer_string <- function(AAStringSet) { # nolint
     AAStringSet %>%
         as.character() %>%
@@ -114,12 +114,4 @@ format_AAStringSet_into_hmmer_string <- function(AAStringSet) { # nolint
             paste0(">", names(x)) %>%
                 paste("\n", x, collapse = "\n")
         })
-}
-#' Download a file using a temp file (it should work in every OS).
-#'
-#' @param url a string with a URL.
-download_file <- function(url) {
-    temp <- tempfile()
-    url %>% utils::download.file(temp, mode = "wb", method = "libcurl")
-    return(temp)
 }
