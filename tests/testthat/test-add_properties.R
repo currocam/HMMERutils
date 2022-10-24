@@ -1,3 +1,4 @@
+testthat::skip("Not mocking yet for add_sequences")
 testthat::test_that("Add physicochemical properties works", {
     search_in_hmmer(
         algorithm = "phmmer",
