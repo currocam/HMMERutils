@@ -80,17 +80,16 @@ data %>%
     summarise(
       n = n(),
       "Molecular.Weigth" = mean(properties.molecular.weight, na.rm = TRUE)        )
-#> # A tibble: 8 × 3
+#> # A tibble: 7 × 3
 #>   taxa.phylum        n Molecular.Weigth
 #>   <chr>          <int>            <dbl>
 #> 1 Arthropoda         2          197779.
 #> 2 Artverviricota     3           71266.
-#> 3 Ascomycota        17          124996.
+#> 3 Ascomycota        19          126362.
 #> 4 Basidiomycota      1          139552.
 #> 5 Chordata          71           77001.
 #> 6 Evosea             3          102576.
 #> 7 Nematoda           6           55944.
-#> 8 <NA>               2          137969.
 ```
 
 ## Citation
