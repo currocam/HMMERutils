@@ -66,7 +66,18 @@ parse_results_into_tbl <- function(results) {
         "hits" = purrr::pluck(results, "hits", .default = NA)
     ) %>%
         tidyr::unnest_wider("stats", names_sep = ".") %>%
-        tidyr::unnest_wider("hits", names_sep = ".")
+        tidyr::unnest_wider("hits", names_sep = ".") %>%
+    dplyr::mutate("hits.evalue" = fix_evalue_column(.[["hits.evalue"]]))
+}
+
+#' Fix E-value column which sometimes can be a list, a character vector
+#'   or a numeric vector.
+#' @param column E.value column
+fix_evalue_column <- function(column){
+  if (is.list(column)) {
+    column <- purrr::flatten_chr(column)
+  }
+  as.numeric(column)
 }
 
 #' Post a query into HMMER for different algorithms and
