@@ -24,9 +24,11 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/currocam/utilsHMMER/branch/master/graph/badge.svg)](https://app.codecov.io/gh/currocam/utilsHMMER?branch=master)
 <!-- badges: end -->
 
-The goal of `HMMERutils` is to ...
+The goal of `HMMERutils` is to provide a bunch of convenient functions to search for homologous sequences using the HMMER API, annotate them taxonomically, calculate physicochemical properties and facilitate exploratory analysis of homologous sequence data.
 
 ## Installation instructions
+
+Not yet !
 
 Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `HMMERutils` from [Bioconductor](http://bioconductor.org/) using the following code:
 
@@ -47,26 +49,32 @@ BiocManager::install("currocam/HMMERutils")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example, eval = requireNamespace('HMMERutils')}
+```{r example, eval = requireNamespace('HMMERutils'), warning=FALSE, message=FALSE}
 library("HMMERutils")
-## basic example code
+fasta_2abl <- paste0(
+    "MGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGW",
+    "VPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISL",
+    "RYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAP"
+)
+data <- search_phmmer(seq = fasta_2abl, seqdb = "swissprot") %>%
+    add_sequences_to_hmmer_tbl() %>%
+    add_taxa_to_hmmer_tbl() %>%
+    add_physicochemical_properties_to_HMMER_tbl()
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
-summary(cars)
+```{r summary}
+library(dplyr)
+data %>%
+    filter(hits.evalue > 10^-5) %>%
+    distinct(hits.fullfasta, .keep_all = TRUE) %>%
+    group_by(taxa.phylum) %>%
+    summarise(
+      n = n(),
+      "Molecular.Weigth" = mean(properties.molecular.weight, na.rm = TRUE)        )
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
 
 ## Citation
 
@@ -90,9 +98,4 @@ Please note that the `HMMERutils` project is released with a [Contributor Code o
 * The [documentation website](http://currocam.github.io/HMMERutils) is automatically updated thanks to `r BiocStyle::CRANpkg('pkgdown')`.
 * The code is styled automatically thanks to `r BiocStyle::CRANpkg('styler')`.
 * The documentation is formatted thanks to `r BiocStyle::CRANpkg('devtools')` and `r BiocStyle::CRANpkg('roxygen2')`.
-
-For more details, check the `dev` directory.
-
-This package was developed using `r BiocStyle::Biocpkg('biocthis')`.
-
 
