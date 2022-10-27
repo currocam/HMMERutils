@@ -24,7 +24,7 @@ on:
   push:
   pull_request:
 
-name: R-CMD-check-bioc --no-check-bioc-views
+name: R-CMD-check-bioc
 
 ## These environment variables control whether to run GHA code later on that is
 ## specific to testthat, covr, and pkgdown.
@@ -262,6 +262,8 @@ jobs:
               `quit-with-status` = TRUE,
               `no-check-R-ver` = TRUE,
               `no-check-bioc-help` = TRUE
+              `no-check-bioc-views` = TRUE
+              `no-check-remotes` = TRUE
           )
         shell: Rscript {0}
 
