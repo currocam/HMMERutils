@@ -23,7 +23,8 @@ Suggests:
     httptest (>= 4.1.0),
     taxizedb,
     taxize,
-    tidyselect
+    tidyselect,
+    devtools
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
