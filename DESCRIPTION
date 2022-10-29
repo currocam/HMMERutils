@@ -38,5 +38,3 @@ Imports:
     stringr,
     tibble,
     tidyr
-Remotes: 
-    nealrichardson/httptest
