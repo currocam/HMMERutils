@@ -7,7 +7,7 @@
 #' several columns.
 #' @export
 extract_from_hmmer <- function(data, column='hits.domains'){
-
+  
   # Create copy of data
   data2 <- data
   
@@ -47,8 +47,8 @@ extract_from_hmmer <- function(data, column='hits.domains'){
   # Substitute new.column by column name and unnest column list into
   # multiple columns
   data2 <- cbind(data2,I(new.column))
-  data2 <- data2 %>% select(-c(hits.domains)) %>% 
-    rename({{column}} := new.column) %>% unnest_wider({{column}})  
+  data2 <- data2 %>% dplyr::select(-c(hits.domains)) %>% 
+    dplyr::rename({{column}} := new.column) %>% tidyr::unnest_wider({{column}})  
   
   data2
 }
