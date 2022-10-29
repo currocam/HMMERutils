@@ -9,10 +9,7 @@
 extract_from_hmmer <- function(data, column='hits.domains'){
   
   # Create copy of data
-  data2 <- data
-  
-  # Coerce to data.frame
-  data2 <- as.data.frame(data2)
+  data2 <- data.frame(data)
   
   # Save number of rows
   n.rows <- nrow(data2)
@@ -48,7 +45,12 @@ extract_from_hmmer <- function(data, column='hits.domains'){
   # multiple columns
   data2 <- cbind(data2,I(new.column))
   data2 <- data2 %>% dplyr::select(-c(hits.domains)) %>% 
-    dplyr::rename({{column}} := new.column) %>% tidyr::unnest_wider({{column}})  
+    dplyr::rename({{column}} := new.column) %>%
+    tidyr::unnest_wider({{column}},names_sep = ".")  
+  colnames(data2) <- colnames(data2) %>%
+    stringr::str_replace_all(
+      column, 
+      stringr::str_remove(column, "hits."))
   
   data2
 }
