@@ -32,13 +32,23 @@ extract_from_hmmer <- function(data, column='hits.domains'){
       
       for (el in c(2:n.elements)){
         data2[nrow(data2)+1,] <- data2[row,]
-        new.column[[length(new.column)+1]] <- 
-          data2[row,column][[1]][[el]]
+        assigned.element <- data2[row,column][[1]][[el]]
+        
+        if (is.null(assigned.element)){
+          assigned.element <- NA
+        }
+        new.column[[length(new.column)+1]] <- assigned.element
       }
     }
     
     # Access to actual row list
-    new.column[[row]] <- data2[row,column][[1]][[1]]
+    assigned.element <- data2[row,column][[1]][[1]]
+    
+    if (is.null(assigned.element)){
+      assigned.element <- NA
+    }
+    
+    new.column[[row]] <- assigned.element
   }
   
   # Substitute new.column by column name and unnest column list into
@@ -47,7 +57,8 @@ extract_from_hmmer <- function(data, column='hits.domains'){
 
   data2 <- data2 %>% dplyr::select(-c({column})) %>% 
     dplyr::rename({{column}} := new.column) %>%
-    tidyr::unnest_wider({{column}},names_sep = ".")  
+    tidyr::unnest_wider({{column}},names_sep = ".") %>%
+    select_if(~any(!is.na(.)))
 
   # Remove 'hits.' prefix from colnames
   colnames(data2) <- colnames(data2) %>%
