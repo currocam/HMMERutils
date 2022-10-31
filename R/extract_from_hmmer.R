@@ -44,13 +44,17 @@ extract_from_hmmer <- function(data, column='hits.domains'){
   # Substitute new.column by column name and unnest column list into
   # multiple columns
   data2 <- cbind(data2,I(new.column))
-  data2 <- data2 %>% dplyr::select(-c(hits.domains)) %>% 
+
+  data2 <- data2 %>% dplyr::select(-c({column})) %>% 
     dplyr::rename({{column}} := new.column) %>%
     tidyr::unnest_wider({{column}},names_sep = ".")  
+
+  # Remove 'hits.' prefix from colnames
   colnames(data2) <- colnames(data2) %>%
     stringr::str_replace_all(
       column, 
       stringr::str_remove(column, "hits."))
   
+  # Return new dataframe
   data2
 }
