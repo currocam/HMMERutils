@@ -14,7 +14,7 @@ extract_from_hmmer <- function(data, column='hits.domains'){
   if (column == 'hits.pdbs'){
     data2 <- data2 %>%
       tidyr::unnest_wider({{column}},names_sep = ".") %>%
-      select_if(~any(!is.na(.)))
+      dplyr::select_if(~any(!is.na(.)))
   }
   else{
 
@@ -65,7 +65,7 @@ extract_from_hmmer <- function(data, column='hits.domains'){
     data2 <- data2 %>% dplyr::select(-c({column})) %>% 
       dplyr::rename({{column}} := new.column) %>%
       tidyr::unnest_wider({{column}},names_sep = ".") %>%
-      select_if(~any(!is.na(.)))
+      dplyr::select_if(~any(!is.na(.)))
   }
 
   # Remove 'hits.' prefix from colnames
