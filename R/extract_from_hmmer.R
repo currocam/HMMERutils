@@ -12,9 +12,7 @@ extract_from_hmmer <- function(data, column='hits.domains'){
   data2 <- data.frame(data)
   
   if (column == 'hits.pdbs'){
-    data2 <- data2 %>%
-      tidyr::unnest_wider({{column}},names_sep = ".") %>%
-      dplyr::select_if(~any(!is.na(.)))
+    data2 <- extract_pdb_from_hmmer(data2)
   }
   else{
 
@@ -28,7 +26,7 @@ extract_from_hmmer <- function(data, column='hits.domains'){
     }
     
     # Iterate over each row of dataframe
-    for (row in c(1:n.rows)){
+    for (row in seq_len(n.rows)){
       
       # Calculate number of domains/sequences in actual row
       n.elements <- length(data2[row,column][[1]])
@@ -76,4 +74,11 @@ extract_from_hmmer <- function(data, column='hits.domains'){
   
   # Return new dataframe
   data2
+}
+
+extract_pdb_from_hmmer <- function(data){
+  column <- 'hits.pdbs'
+  data %>%
+    tidyr::unnest_wider({{column}},names_sep = ".") %>%
+    dplyr::select_if(~any(!is.na(.)))
 }
