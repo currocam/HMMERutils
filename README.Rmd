@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
 [![GitHub pulls](https://img.shields.io/github/issues-pr/currocam/HMMERutils)](https://github.com/currocam/HMMERutils/pulls)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/HMMERutils.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/HMMERutils)
-[![R-CMD-check-bioc](https://github.com/currocam/utilsHMMER/actions/workflows/R-CMD-check-bioc.yaml/badge.svg)](https://github.com/currocam/utilsHMMER/actions/workflows/R-CMD-check-bioc.yaml)
-[![Codecov test coverage](https://codecov.io/gh/currocam/utilsHMMER/branch/master/graph/badge.svg)](https://app.codecov.io/gh/currocam/utilsHMMER?branch=master)
+[![R-CMD-check-bioc](https://github.com/currocam/HMMERutils/actions/workflows/R-CMD-check-bioc.yaml/badge.svg)](https://github.com/currocam/HMMERutils/actions/workflows/R-CMD-check-bioc.yaml)
+[![Codecov test coverage](https://codecov.io/gh/currocam/HMMERutils/branch/master/graph/badge.svg)](https://app.codecov.io/gh/currocam/HMMERutils?branch=master)
 <!-- badges: end -->
 
 The goal of `HMMERutils` is to provide a bunch of convenient functions to search for homologous sequences using the HMMER API, annotate them taxonomically, calculate physicochemical properties and facilitate exploratory analysis of homologous sequence data.
