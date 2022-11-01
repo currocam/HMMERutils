@@ -72,6 +72,6 @@ httptest::with_mock_api({
     data %>%
       extract_from_hmmer("hits.pdbs") %>%
       dplyr::select(tidyselect::starts_with("pdbs")) %>%
-      testthat::fail()
+      testthat::expect_snapshot()
   })
 })
