@@ -16,7 +16,7 @@ extract_from_hmmer <- function(data, column='hits.domains'){
     
   # Initialize list with new column
   new.column <- list()
-  for (row in c(1:n.rows)){
+  for (row in seq_len(n.rows)){
     new.column[[length(new.column)+1]] <- list()
   }
     
