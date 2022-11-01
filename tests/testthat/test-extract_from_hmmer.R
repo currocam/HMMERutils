@@ -44,8 +44,9 @@ httptest::with_mock_api({
       seqdb = "pdb",
       seq = ">Seq\nKLRVLGYHNGEWCEAQTKNGQGWVPSNYITPVNSLENSIDKHSWYHGPVSRNAAE"
     )
-    data2 <- data %>%
+    data %>%
       extract_from_hmmer("hits.pdbs") %>%
+      dplyr::select(tidyselect::starts_with("pdbs")) %>%
       testthat::fail()
   })
 })
@@ -57,8 +58,9 @@ httptest::with_mock_api({
       seqdb = "pdb",
       seq = ">Seq\nKLRVLGYHNGEWCEAQTKNGQGWVPSNYITPVNSLENSIDKHSWYHGPVSRNAAE"
     )
-    data2 <- data %>%
+    data %>%
       extract_from_hmmer("hits.seqs") %>%
+      dplyr::select(tidyselect::starts_with("seqs")) %>%
       testthat::expect_snapshot()
   })
 })
@@ -67,8 +69,9 @@ httptest::with_mock_api({
   testthat::test_that("Test that extract hmmer works with hmmscan and pfam", {
     data <- Biostrings::readAAMultipleAlignment("alignment.fasta") %>%
       search_hmmsearch(seqdb = "swissprot")
-    data2 <- data %>%
+    data %>%
       extract_from_hmmer("hits.pdbs") %>%
+      dplyr::select(tidyselect::starts_with("pdbs")) %>%
       testthat::fail()
   })
 })
