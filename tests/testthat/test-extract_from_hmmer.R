@@ -37,7 +37,6 @@ httptest::with_mock_api({
   })
 })
 
-skip("Not implemented yet")
 httptest::with_mock_api({
   testthat::test_that("Test that extract hmmer works with phmmer and pdb for extract pdbs", {
     data <- search_in_hmmer(
@@ -47,7 +46,7 @@ httptest::with_mock_api({
     )
     data2 <- data %>%
       extract_from_hmmer("hits.pdbs") %>%
-      testthat::expect_no_error()
+      testthat::fail()
   })
 })
 
@@ -60,7 +59,7 @@ httptest::with_mock_api({
     )
     data2 <- data %>%
       extract_from_hmmer("hits.seqs") %>%
-      testthat::expect_no_error()
+      testthat::expect_snapshot()
   })
 })
 
@@ -70,6 +69,6 @@ httptest::with_mock_api({
       search_hmmsearch(seqdb = "swissprot")
     data2 <- data %>%
       extract_from_hmmer("hits.pdbs") %>%
-      testthat::expect_no_error()
+      testthat::fail()
   })
 })
