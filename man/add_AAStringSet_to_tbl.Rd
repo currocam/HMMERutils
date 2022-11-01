@@ -13,6 +13,9 @@ add_AAStringSet_to_tbl(fasta, data, extension)
 
 \item{extension}{a string with the desired column name}
 }
+\value{
+A tibble resulting from joining a fasta file using "hits.name" as a common column.
+}
 \description{
 Join a fasta file into a tibble using "hits.name" as a common column.
 }
