@@ -38,7 +38,7 @@ httptest::with_mock_api({
 })
 
 httptest::with_mock_api({
-  testthat::test_that("Test that extract hmmer works with phmmer and pdb for extract pdbs", {
+  testthat::test_that("Test that extract hmmer works with phmmer and pdb for extract pdbs using phmmer", {
     data <- search_in_hmmer(
       algorithm = "phmmer",
       seqdb = "pdb",
@@ -52,7 +52,7 @@ httptest::with_mock_api({
 })
 
 httptest::with_mock_api({
-  testthat::test_that("Test that extract hmmer works with phmmer and pdb for extract pdbs", {
+  testthat::test_that("Test that extract hmmer works with phmmer and pdb for extract seqs using phmmer", {
     data <- search_in_hmmer(
       algorithm = "phmmer",
       seqdb = "pdb",
@@ -66,7 +66,7 @@ httptest::with_mock_api({
 })
 
 httptest::with_mock_api({
-  testthat::test_that("Test that extract hmmer works with hmmscan and pfam", {
+  testthat::test_that("Test that extract hmmer works with hmmscan and pfam for extract pdbs", {
     data <- Biostrings::readAAMultipleAlignment("alignment.fasta") %>%
       search_hmmsearch(seqdb = "swissprot")
     data %>%
