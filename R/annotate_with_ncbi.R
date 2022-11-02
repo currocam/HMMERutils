@@ -11,6 +11,9 @@
 #'   You will not have to download the database but it is slower.
 #'
 #' @return A DataFrame with columns `taxid` and taxonomic ranks.
+#'
+#' @examples
+#' annotate_with_NCBI_taxid(7955, mode = "remote")
 #' @export
 annotate_with_NCBI_taxid <- function(taxid, rank_vc = NULL, mode = "remote") {
     if (!requireNamespace("taxizedb", quietly = TRUE) && mode == "local") {

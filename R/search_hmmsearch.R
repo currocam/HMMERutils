@@ -11,6 +11,17 @@
 #' @param timeout Set maximum request time in seconds.
 #'
 #' @return An Data Frame containing the results from HMMER.
+#' 
+#' @examples
+#' githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/alignment.fasta"
+#' download.file(githubURL,"alignment.fasta",method="curl")
+#' aln <- Biostrings::readAAMultipleAlignment("alignment.fasta")
+#' search_hmmsearch(
+#'     aln = aln,
+#'     seqdb = 'swissprot',
+#'     timeout = 180,
+#'     verbose = FALSE
+#' )
 #' @export
 #' @importFrom rlang .data
 
