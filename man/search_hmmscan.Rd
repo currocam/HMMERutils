@@ -12,9 +12,9 @@ search_hmmscan(seq, hmmdb = "pfam", timeout = 180, verbose = FALSE)
 any other object that can be converted to that.}
 
 \item{hmmdb}{A character vector containing the target databases. Frequently
-used databases are \code{pfam}, \code{tigrfam} \code{gene3d}, \code{superfamily}, \code{pirsf} and
-\code{treefam}, but a complete and updated list is available at
-\url{https://www.ebi.ac.uk/Tools/hmmer/}.}
+used databases are \code{pfam}, \code{tigrfam} \code{gene3d}, 
+\code{superfamily}, \code{pirsf} and \code{treefam}, but a complete and updated 
+list is available at \url{https://www.ebi.ac.uk/Tools/hmmer/}.}
 
 \item{timeout}{Set maximum request time in seconds.}
 

@@ -49,7 +49,8 @@
 #'  the theoretical physicochemical properties
 #' @export
 #'
-add_physicochemical_properties_to_HMMER_tbl <- function(data, colname = "hits.fullfasta") {
+add_physicochemical_properties_to_HMMER_tbl <- function(
+    data, colname = "hits.fullfasta") {
     if (!requireNamespace("Peptides", quietly = TRUE)) {
         stop("Package \"Peptides\" must be installed to use this function.",
             call. = FALSE
@@ -61,9 +62,11 @@ add_physicochemical_properties_to_HMMER_tbl <- function(data, colname = "hits.fu
         function(x) {
             calculate_peptides(x) %>%
                 dplyr::mutate(
-                    "molecular.weight" = Peptides::mw(x), "charge" = Peptides::charge(x),
+                    "molecular.weight" = Peptides::mw(x), 
+                    "charge" = Peptides::charge(x),
                     "pI" = Peptides::pI(x), "mz" = Peptides::mz(x),
-                    "aIndex" = Peptides::aIndex(x), "boman" = Peptides::boman(x),
+                    "aIndex" = Peptides::aIndex(x), 
+                    "boman" = Peptides::boman(x),
                     "hydrophobicity" = Peptides::hydrophobicity(x),
                     "instaIndex" = Peptides::instaIndex(x),
                     "STYNQW" = stringr::str_count(x, "S|T|Y|N|Q|Q") / nchar(x)
@@ -86,7 +89,8 @@ calculate_peptides <- function(y) {
                 tibble::rownames_to_column("properties") %>%
                 dplyr::rename("Percentage" = "Mole%") %>%
                 dplyr::select(c("Percentage", "properties")) %>%
-                tidyr::pivot_wider(names_from = "properties", values_from = c("Percentage")) %>%
+                tidyr::pivot_wider(names_from = "properties", 
+                values_from = c("Percentage")) %>%
                 dplyr::mutate(
                     dplyr::across(where(is.numeric), ~ .x / 100)
                 )
