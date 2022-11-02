@@ -45,8 +45,8 @@ an overall estimate of the potential of a peptide to bind to membranes or
 other proteins as receptors, to normalize it is divided by the number of
 residues. A protein have high binding potential if the index value is
 higher than 2.48.
-\item hydrophobicity: GRAVY hydrophobicity index of an amino acids sequence 
-using KyteDoolittle hydophobicity scale.
+\item hydrophobicity: GRAVY hydrophobicity index of an amino acids sequence using
+KyteDoolittle hydophobicity scale.
 \item instaIndex: Guruprasad's instability index.
 This index predicts the stability of a protein based
 on its amino acid composition, a protein whose instability

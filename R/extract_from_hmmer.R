@@ -5,6 +5,21 @@
 #'
 #' @return A DataFrame with columns `column` splitted into
 #' several columns.
+#' 
+#' @examples
+#' fasta_2abl <- paste0(
+#' "MGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGW",
+#' "VPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISL",
+#' "RYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAP"
+#' )
+#' data <- search_phmmer(seq = fasta_2abl, seqdb = "pdb") %>%
+#' add_sequences_to_hmmer_tbl() %>%
+#' add_taxa_to_hmmer_tbl() %>%
+#' add_physicochemical_properties_to_HMMER_tbl()
+#' extract_from_hammer(
+#'     data = data,
+#'     column = 'hits.domains'
+#' )
 #' @export
 extract_from_hmmer <- function(data, column='hits.domains'){
     # Create copy of data

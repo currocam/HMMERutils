@@ -12,9 +12,9 @@ search_hmmsearch(aln, seqdb = "swissprot", timeout = 180, verbose = FALSE)
 Biostrings::AAMultipleAlignment.}
 
 \item{seqdb}{A character vector containing the target databases. Frequently
-used databases are \code{swissprot}, \code{uniprotrefprot}, \code{uniprotkb}, 
-\code{ensembl}, \code{pdb} and \code{alphafold}, but a complete and updated 
-list is available at \url{https://www.ebi.ac.uk/Tools/hmmer/}.}
+used databases are \code{swissprot}, \code{uniprotrefprot}, \code{uniprotkb}, \code{ensembl},
+\code{pdb} and \code{alphafold}, but a complete and updated list is available at
+\url{https://www.ebi.ac.uk/Tools/hmmer/}.}
 
 \item{timeout}{Set maximum request time in seconds.}
 

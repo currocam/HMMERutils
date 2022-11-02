@@ -38,10 +38,13 @@ add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
 #' @param fasta a AAStringSet.
 #' @param data a tibble with "hits.name" column.
 #' @param extension a string with the desired column name
+#' @return A tibble resulting from joining a fasta file using "hits.name" as a 
+#' common column.
 add_AAStringSet_to_tbl <- function(fasta, data, extension) {
     col_name <- paste0("hits.", extension)
     x <- tibble::tibble("hits.name" = names(fasta))
     x[c(col_name)] <- as.character(fasta)
     data %>%
         dplyr::full_join(x, by = c("hits.name" = "hits.name"))
+    data
 }
