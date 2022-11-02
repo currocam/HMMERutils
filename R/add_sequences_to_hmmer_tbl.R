@@ -33,13 +33,7 @@ add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
         purrr::map_dfr(~ purrr::possibly(inner_function, .)(.))
 }
 
-#' Join a fasta file into a tibble using "hits.name" as a common column.
-#'
-#' @param fasta a AAStringSet.
-#' @param data a tibble with "hits.name" column.
-#' @param extension a string with the desired column name
-#' @return A tibble resulting from joining a fasta file using "hits.name" as a 
-#' common column.
+
 add_AAStringSet_to_tbl <- function(fasta, data, extension) {
     col_name <- paste0("hits.", extension)
     x <- tibble::tibble("hits.name" = names(fasta))
