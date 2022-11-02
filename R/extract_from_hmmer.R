@@ -7,15 +7,9 @@
 #' several columns.
 #' 
 #' @examples
-#' fasta_2abl <- paste0(
-#' "MGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGW",
-#' "VPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISL",
-#' "RYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAP"
-#' )
-#' data <- search_phmmer(seq = fasta_2abl, seqdb = "pdb") %>%
-#' add_sequences_to_hmmer_tbl() %>%
-#' add_taxa_to_hmmer_tbl() %>%
-#' add_physicochemical_properties_to_HMMER_tbl()
+#' githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/data/data_short.rds"
+#' download.file(githubURL,"short_data.rds",method="curl")
+#' data <- readRDS("short_data.rds")
 #' extract_from_hammer(
 #'     data = data,
 #'     column = 'hits.domains'
