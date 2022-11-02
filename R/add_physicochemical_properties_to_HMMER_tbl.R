@@ -47,6 +47,14 @@
 #' - Acidic: Percentage of amino acids (B + D + E + Z)
 #' @return A Data Frame with new columns with
 #'  the theoretical physicochemical properties
+#' @examples
+#' githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/data_short.rds"
+#' download.file(githubURL,"short_data.rds",method="curl")
+#' data <- readRDS("short_data.rds")
+#' add_physicochemical_properties_to_HMMER_tbl(
+#'     data = data,
+#'     colname = "hits.fullfasta"
+#' )
 #' @export
 #'
 add_physicochemical_properties_to_HMMER_tbl <- function(

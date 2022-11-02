@@ -9,6 +9,16 @@
 #'
 #' @return A DataFrame with a new column named "hits.fullfasta" or
 #'   "hits.fasta" with the sequences.
+#' 
+#' @examples
+#' githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/data_short.rds"
+#' download.file(githubURL,"short_data.rds",method="curl")
+#' data <- readRDS("short_data.rds")
+#' add_sequences_to_hmmer_tbl(
+#'     data = data,
+#'     extension = "fullfasta",
+#'     max_times = 3
+#' )
 #' @export
 #'
 add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
