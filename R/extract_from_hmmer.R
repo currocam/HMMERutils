@@ -57,15 +57,7 @@ extract_from_hmmer <- function(data, column='hits.domains'){
     data2
 }
 
-#' Aux function used to bind and unnest wider the new list column.
-#'
-#' @param data Dataframe whose column is going to be splitted.
-#' @param old.column Column to remove.
-#' @param new.column Column to add.
-#'
-#' @return A DataFrame with columns `column` splitted into
-#' several columns.
-#' @export
+
 bind_and_unnest <- function(data, old.column, new.column){
     data2 <- data.frame(data)
     data2 <- cbind(data2,I(new.column))
