@@ -157,7 +157,7 @@ jobs:
 
       - name: Set BiocVersion
         run: |
-          BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE, force = TRUE)
+          BiocManager::install(ask = FALSE)
         shell: Rscript {0}
 
       - name: Install dependencies pass 1
