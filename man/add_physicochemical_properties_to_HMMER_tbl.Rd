@@ -67,7 +67,7 @@ above 40 predicts that the protein may be unstable.
 }
 
 \examples{
-githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/data_short.rds"
+githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/master/inst/extdata/data_short.rds"
 download.file(githubURL,"short_data.rds",method="curl")
 data <- readRDS("short_data.rds")
 add_physicochemical_properties_to_HMMER_tbl(

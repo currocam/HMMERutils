@@ -25,7 +25,7 @@ Add sequences from one of the output files from HMMER
 server to a Data Frame obtained by searching in HMMER.
 }
 \examples{
-githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/data_short.rds"
+githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/master/inst/extdata/data_short.rds"
 download.file(githubURL,"short_data.rds",method="curl")
 data <- readRDS("short_data.rds")
 add_sequences_to_hmmer_tbl(
