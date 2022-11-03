@@ -8,7 +8,7 @@ from HMMER with a "hits.taxid" column.}
 add_taxa_to_hmmer_tbl(data, mode = "remote", rank_vc = NULL)
 }
 \arguments{
-\item{data}{An Data Frame obtained from search function. .}
+\item{data}{An Data Frame obtained from search function.}
 
 \item{mode}{Either "local" or "remote". If "local" you will use a local
 database instead of remote resources.  You will not have to download the
@@ -23,4 +23,14 @@ A Data Frame with new taxonomic parameters.
 \description{
 Add taxonomic information to a Data Frame obtained
 from HMMER with a "hits.taxid" column.
+}
+\examples{
+githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/data_short.rds"
+download.file(githubURL,"short_data.rds",method="curl")
+data <- readRDS("short_data.rds")
+add_taxa_to_hmmer_tbl(
+    data = data,
+    mode = "remote",
+    rank_vc = NULL
+)
 }

@@ -9,6 +9,16 @@
 #'
 #' @return A DataFrame with a new column named "hits.fullfasta" or
 #'   "hits.fasta" with the sequences.
+#' 
+#' @examples
+#' githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/data_short.rds"
+#' download.file(githubURL,"short_data.rds",method="curl")
+#' data <- readRDS("short_data.rds")
+#' add_sequences_to_hmmer_tbl(
+#'     data = data,
+#'     extension = "fullfasta",
+#'     max_times = 3
+#' )
 #' @export
 #'
 add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
@@ -33,15 +43,12 @@ add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
         purrr::map_dfr(~ purrr::possibly(inner_function, .)(.))
 }
 
-#' Join a fasta file into a tibble using "hits.name" as a common column.
-#'
-#' @param fasta a AAStringSet.
-#' @param data a tibble with "hits.name" column.
-#' @param extension a string with the desired column name
+
 add_AAStringSet_to_tbl <- function(fasta, data, extension) {
     col_name <- paste0("hits.", extension)
     x <- tibble::tibble("hits.name" = names(fasta))
     x[c(col_name)] <- as.character(fasta)
     data %>%
         dplyr::full_join(x, by = c("hits.name" = "hits.name"))
+    data
 }

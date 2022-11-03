@@ -27,3 +27,14 @@ An Data Frame containing the results from HMMER.
 Perform a hmmsearch search of a protein sequence
 against a protein sequence database.
 }
+\examples{
+githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/alignment.fasta"
+download.file(githubURL,"alignment.fasta",method="curl")
+aln <- Biostrings::readAAMultipleAlignment("alignment.fasta")
+search_hmmsearch(
+    aln = aln,
+    seqdb = 'swissprot',
+    timeout = 180,
+    verbose = FALSE
+)
+}

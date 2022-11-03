@@ -2,7 +2,7 @@
 #' Add taxonomic information to a Data Frame obtained
 #'  from HMMER with a "hits.taxid" column.
 #'
-#' @param data An Data Frame obtained from search function. .
+#' @param data An Data Frame obtained from search function. 
 #' @param rank_vc A character vector containing the desired taxonomic ranks.
 #' If empty, all available taxonomic ranges will be retrieved.
 #' @param mode Either "local" or "remote". If "local" you will use a local
@@ -10,6 +10,16 @@
 #'   database but it is slower.
 #'
 #' @return A Data Frame with new taxonomic parameters.
+#' 
+#' @examples
+#' githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/data_short.rds"
+#' download.file(githubURL,"short_data.rds",method="curl")
+#' data <- readRDS("short_data.rds")
+#' add_taxa_to_hmmer_tbl(
+#'     data = data,
+#'     mode = "remote",
+#'     rank_vc = NULL
+#' )
 #' @export
 #'
 add_taxa_to_hmmer_tbl <- function(data, mode = "remote", rank_vc = NULL) {
