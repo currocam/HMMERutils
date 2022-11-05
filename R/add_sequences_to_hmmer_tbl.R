@@ -50,5 +50,4 @@ add_AAStringSet_to_tbl <- function(fasta, data, extension) {
     x[c(col_name)] <- as.character(fasta)
     data %>%
         dplyr::full_join(x, by = c("hits.name" = "hits.name"))
-    data
 }
