@@ -19,11 +19,9 @@ several columns.
 Split a column composed of nested lists into multiple columns.
 }
 \examples{
-githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/data_short.rds"
-download.file(githubURL,"short_data.rds",method="curl")
-data <- readRDS("short_data.rds")
+data(phmmer_2abl)
 extract_from_hmmer(
-    data = data,
+    data = phmmer_2abl,
     column = 'hits.domains'
 )
 }

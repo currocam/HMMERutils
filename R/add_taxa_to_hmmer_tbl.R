@@ -12,9 +12,9 @@
 #' @return A Data Frame with new taxonomic parameters.
 #' 
 #' @examples
-#' data <- data(phmmer_2abl)
+#' data(phmmer_2abl)
 #' add_taxa_to_hmmer_tbl(
-#'     data = data,
+#'     data = phmmer_2abl,
 #'     mode = "remote",
 #'     rank_vc = NULL
 #' )

@@ -48,9 +48,9 @@
 #' @return A Data Frame with new columns with
 #'  the theoretical physicochemical properties
 #' @examples
-#' data <- data(phmmer_2abl)
+#' data(phmmer_2abl)
 #' add_physicochemical_properties_to_HMMER_tbl(
-#'     data = data,
+#'     data = phmmer_2abl,
 #'     colname = "hits.fullfasta"
 #' )
 #' @export

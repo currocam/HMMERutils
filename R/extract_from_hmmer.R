@@ -7,9 +7,9 @@
 #' several columns.
 #' 
 #' @examples
-#' data <- data(phmmer_2abl)
+#' data(phmmer_2abl)
 #' extract_from_hmmer(
-#'     data = data,
+#'     data = phmmer_2abl,
 #'     column = 'hits.domains'
 #' )
 #' @export
