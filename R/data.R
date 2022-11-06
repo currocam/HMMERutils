@@ -51,7 +51,6 @@
 #' \item{\code{hits.evalue}}{E-value of the score}      
 #' \item{\code{hits.nreported}}{Number of domains satisfying reporting thresholding}
 #' \item{\code{hits.archindex}}{}   
-#' \item{\code{hits.seqs}}{An array containing information about the 100\% redundant sequences}
 #' \item{\code{hits.acc2}}{Secondary accession of the target}
 #' }
 #'
@@ -90,11 +89,17 @@
 #' \item{\code{hits.desc}}{Description of the target}
 #' \item{\code{hits.pvalue}}{P-value of the score}      
 #' \item{\code{hits.flags}}{}
+#' \item{\code{hits.nregions}}{}
+#' \item{\code{hits.taxid}}{}
+#' \item{\code{hits.nreported}}{}
+#' \item{\code{hits.hindex}}{}
+#' \item{\code{hits.ndom}}{Total number of domains identified in this sequence}
 #' \item{\code{hits.name}}{Name of the target (sequence for phmmer/hmmsearch, HMM for hmmscan)}        
 #' \item{\code{hits.score}}{Bit score of the sequence (all domains, without correction)}       
 #' \item{\code{hits.bias}}{}
 #' \item{\code{hits.domains}}{The domain or hit hash contains the details of the match, in particular the alignment between the query and the target.}     
 #' \item{\code{hits.evalue}}{E-value of the score}      
+#' \item{\code{hits.nincluded}}{E-value of the score}      
 #' }
 #'
 #' For further details, see \url{https://hmmer-web-docs.readthedocs.io/en/latest/appendices.html}

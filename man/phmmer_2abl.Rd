@@ -54,7 +54,6 @@ A data frame with 49 variables:
 \item{\code{hits.evalue}}{E-value of the score}      
 \item{\code{hits.nreported}}{Number of domains satisfying reporting thresholding}
 \item{\code{hits.archindex}}{}   
-\item{\code{hits.seqs}}{An array containing information about the 100\% redundant sequences}
 \item{\code{hits.acc2}}{Secondary accession of the target}
 }
 
