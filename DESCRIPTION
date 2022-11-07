@@ -10,7 +10,7 @@ Description: Convenient functions search for homologous sequences using the HMME
 License: Artistic-2.0
 URL: https://github.com/currocam/HMMERutils
 BugReports: https://support.bioconductor.org/t/HMMERutils
-biocViews: Software
+biocViews: Software, ThirdPartyClient
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
