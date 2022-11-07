@@ -40,7 +40,8 @@ Imports:
     stringr,
     taxize,
     tibble,
-    tidyr
+    tidyr,
+    optparse
 Depends: 
     R (>= 2.10)
 LazyData: true
