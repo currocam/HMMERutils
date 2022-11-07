@@ -11,11 +11,9 @@
 #'   "hits.fasta" with the sequences.
 #' 
 #' @examples
-#' githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/4-extract_from_hmmer/inst/extdata/data_short.rds"
-#' download.file(githubURL,"short_data.rds",method="curl")
-#' data <- readRDS("short_data.rds")
+#' data(phmmer_2abl)
 #' add_sequences_to_hmmer_tbl(
-#'     data = data,
+#'     data = phmmer_2abl,
 #'     extension = "fullfasta",
 #'     max_times = 3
 #' )
@@ -40,7 +38,7 @@ add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
     data %>%
         dplyr::group_by(!!group_var) %>%
         dplyr::group_split() %>%
-        purrr::map_dfr(~ purrr::possibly(inner_function, .)(.))
+        purrr::map_dfr(inner_function)
 }
 
 
