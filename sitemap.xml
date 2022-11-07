@@ -28,9 +28,6 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/add_AAStringSet_to_tbl.html</loc>
-  </url>
-  <url>
     <loc>/reference/add_physicochemical_properties_to_HMMER_tbl.html</loc>
   </url>
   <url>
@@ -43,34 +40,19 @@
     <loc>/reference/annotate_with_NCBI_taxid.html</loc>
   </url>
   <url>
-    <loc>/reference/create_download_url_for_hmmer.html</loc>
+    <loc>/reference/extract_from_hmmer.html</loc>
   </url>
   <url>
-    <loc>/reference/download_file.html</loc>
-  </url>
-  <url>
-    <loc>/reference/fix_evalue_column.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_AAStringSet_into_hmmer_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_api_search_url.html</loc>
+    <loc>/reference/hmmscan_2abl.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/params_into_query_list.html</loc>
-  </url>
-  <url>
-    <loc>/reference/parse_results_into_tbl.html</loc>
+    <loc>/reference/phmmer_2abl.html</loc>
   </url>
   <url>
     <loc>/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>/reference/post_query.html</loc>
   </url>
   <url>
     <loc>/reference/read_hmmer_from_json.html</loc>
@@ -80,9 +62,6 @@
   </url>
   <url>
     <loc>/reference/search_hmmsearch.html</loc>
-  </url>
-  <url>
-    <loc>/reference/search_in_hmmer.html</loc>
   </url>
   <url>
     <loc>/reference/search_phmmer.html</loc>

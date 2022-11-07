@@ -93,6 +93,37 @@ used databases are <code>swissprot</code>, <code>uniprotrefprot</code>, <code>un
 <p>An Data Frame containing the results from HMMER.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"alignment.fasta"</span>, package<span class="op">=</span><span class="st">"HMMERutils"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/MultipleAlignment-class.html" class="external-link">readAAMultipleAlignment</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">search_hmmsearch</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      seqdb <span class="op">=</span> <span class="st">'swissprot'</span>,</span></span>
+<span class="r-in"><span>      timeout <span class="op">=</span> <span class="fl">180</span>,</span></span>
+<span class="r-in"><span>      verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 110 × 47</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    algor…¹ uuid  stats…² stats…³ stats…⁴ stats.Z stats…⁵ stats…⁶ stats…⁷ stats…⁸</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> hmmsea… 454F…       1     110 0.07     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">19</span>129     110  <span style="text-decoration: underline;">565</span>928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> hmmsea… 454F…       1     110 0.07     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">19</span>129     110  <span style="text-decoration: underline;">565</span>928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> hmmsea… 454F…       1     110 0.07     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">19</span>129     110  <span style="text-decoration: underline;">565</span>928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> hmmsea… 454F…       1     110 0.07     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">19</span>129     110  <span style="text-decoration: underline;">565</span>928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> hmmsea… 454F…       1     110 0.07     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">19</span>129     110  <span style="text-decoration: underline;">565</span>928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> hmmsea… 454F…       1     110 0.07     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">19</span>129     110  <span style="text-decoration: underline;">565</span>928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> hmmsea… 454F…       1     110 0.07     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">19</span>129     110  <span style="text-decoration: underline;">565</span>928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> hmmsea… 454F…       1     110 0.07     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">19</span>129     110  <span style="text-decoration: underline;">565</span>928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> hmmsea… 454F…       1     110 0.07     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">19</span>129     110  <span style="text-decoration: underline;">565</span>928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> hmmsea… 454F…       1     110 0.07     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">19</span>129     110  <span style="text-decoration: underline;">565</span>928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 100 more rows, 37 more variables: stats.user &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stats.domZ_setby &lt;int&gt;, stats.n_past_bias &lt;int&gt;, stats.sys &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stats.n_past_fwd &lt;int&gt;, stats.total &lt;dbl&gt;, stats.nmodels &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stats.nincluded &lt;int&gt;, stats.n_past_vit &lt;int&gt;, stats.nreported &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stats.domZ &lt;dbl&gt;, hits.archScore &lt;chr&gt;, hits.ph &lt;chr&gt;, hits.arch &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   hits.kg &lt;chr&gt;, hits.ndom &lt;int&gt;, hits.extlink &lt;chr&gt;, hits.acc2 &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   hits.taxid &lt;chr&gt;, hits.acc &lt;chr&gt;, hits.taxlink &lt;chr&gt;, hits.desc &lt;chr&gt;, …</span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

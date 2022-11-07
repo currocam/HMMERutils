@@ -90,6 +90,24 @@ You will not have to download the database but it is slower.</p></dd>
 <p>A DataFrame with columns <code>taxid</code> and taxonomic ranks.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">annotate_with_NCBI_taxid</span><span class="op">(</span><span class="fl">7955</span>, mode <span class="op">=</span> <span class="st">"remote"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No ENTREZ API key provided</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  Get one via taxize::use_entrez()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 30</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   taxid `no rank`   super…¹ clade kingdom clade.1 clade.2 clade.3 phylum subph…²</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 7955  cellular o… Eukary… Opis… Metazoa Eumeta… Bilate… Deuter… Chord… Crania…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 20 more variables: clade.4 &lt;chr&gt;, clade.5 &lt;chr&gt;, clade.6 &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   clade.7 &lt;chr&gt;, superclass &lt;chr&gt;, class &lt;chr&gt;, subclass &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   infraclass &lt;chr&gt;, clade.8 &lt;chr&gt;, `no rank.1` &lt;chr&gt;, cohort &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   subcohort &lt;chr&gt;, clade.9 &lt;chr&gt;, superorder &lt;chr&gt;, order &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   suborder &lt;chr&gt;, family &lt;chr&gt;, subfamily &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   and abbreviated variable names ¹​superkingdom, ²​subphylum</span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
