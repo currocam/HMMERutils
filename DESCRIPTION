@@ -24,7 +24,6 @@ Suggests:
     testthat (>= 3.0.0),
     httptest (>= 4.1.0),
     taxizedb,
-    taxize,
     tidyselect,
     devtools
 Config/testthat/edition: 3
@@ -39,5 +38,9 @@ Imports:
     purrr,
     rlang,
     stringr,
+    taxize,
     tibble,
     tidyr
+Depends: 
+    R (>= 2.10)
+LazyData: true

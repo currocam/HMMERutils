@@ -25,11 +25,9 @@ Add taxonomic information to a Data Frame obtained
 from HMMER with a "hits.taxid" column.
 }
 \examples{
-githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/master/inst/extdata/data_short.rds"
-download.file(githubURL,"short_data.rds",method="curl")
-data <- readRDS("short_data.rds")
+data(phmmer_2abl)
 add_taxa_to_hmmer_tbl(
-    data = data,
+    data = phmmer_2abl,
     mode = "remote",
     rank_vc = NULL
 )

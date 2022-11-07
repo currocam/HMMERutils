@@ -17,10 +17,4 @@ The result of calling \code{rhs(lhs)}.
 \description{
 See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
 }
-\examples{
-githubURL <- "https://raw.githubusercontent.com/currocam/HMMERutils/master/inst/extdata/data_short.rds"
-download.file(githubURL,"short_data.rds",method="curl")
-data <- readRDS("short_data.rds")
-data \%>\% dplyr::select(tidyselect::starts_with("pdbs"))
-}
 \keyword{internal}
