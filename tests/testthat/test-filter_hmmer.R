@@ -3,7 +3,8 @@ httptest::with_mock_api({
 
     data(phmmer_2abl)
     phmmer_2abl %>%
-      filter_hmmer(by = 'hits.evalue') %>%
+      filter_hmmer(by = "hits.evalue") %>%
+      dplyr::select("hits.evalue") %>%
       testthat::expect_snapshot()
   })
 })
@@ -14,7 +15,8 @@ httptest::with_mock_api({
 
     data(phmmer_2abl)
     phmmer_2abl %>%
-      filter_hmmer(by = 'domains.cevalue') %>%
+      filter_hmmer(by = "domains.cevalue") %>%
+      dplyr::select("domains.cevalue") %>%
       testthat::expect_snapshot()
   })
 })
@@ -24,7 +26,8 @@ httptest::with_mock_api({
 
     data(phmmer_2abl)
     phmmer_2abl %>%
-      filter_hmmer(by = 'domains.ievalue') %>%
+      filter_hmmer(by = "domains.ievalue") %>%
+      dplyr::select("domains.ievalue") %>%
       testthat::expect_snapshot()
   })
 })
