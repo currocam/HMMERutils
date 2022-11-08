@@ -6,6 +6,8 @@
 #'
 #' @return A DataFrame filtered.
 #' 
+#' @importFrom dplyr filter
+#' 
 #' @examples
 #' data(phmmer_2abl)
 #' filter_hmmer(
