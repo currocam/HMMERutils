@@ -27,6 +27,7 @@ search_phmmer <- function(seq, seqdb = "swissprot",
         httr::set_config(httr::verbose())
     }
     phmmer <- purrr::possibly(search_in_hmmer, otherwise = NULL)
+    seq <- as.character(seq)
     # all combinations of inputs
     tidyr::expand_grid(seq, seqdb, algorithm = "phmmer") %>%
         dplyr::rowwise() %>%
