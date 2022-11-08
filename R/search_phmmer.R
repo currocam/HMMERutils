@@ -2,7 +2,8 @@
 #'  against a protein sequence database.
 #'
 #' @param seq A character vector containing the sequences of the query or
-#'  any other object that can be converted to that.
+#'  any other object that can be converted to that. It can also be a URL or
+#'   the path to a FASTA file.
 #' @param seqdb A character vector containing the target databases. Frequently
 #'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`, `ensembl`,
 #'  `pdb` and `alphafold`, but a complete and updated list is available at
@@ -27,7 +28,7 @@ search_phmmer <- function(seq, seqdb = "swissprot",
         httr::set_config(httr::verbose())
     }
     phmmer <- purrr::possibly(search_in_hmmer, otherwise = NULL)
-    seq <- as.character(seq)
+    seq <- convert_input_seq(seq)
     # all combinations of inputs
     tidyr::expand_grid(seq, seqdb, algorithm = "phmmer") %>%
         dplyr::rowwise() %>%

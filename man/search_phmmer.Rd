@@ -9,7 +9,8 @@ search_phmmer(seq, seqdb = "swissprot", timeout = 180, verbose = FALSE)
 }
 \arguments{
 \item{seq}{A character vector containing the sequences of the query or
-any other object that can be converted to that.}
+any other object that can be converted to that. It can also be a URL or
+the path to a FASTA file.}
 
 \item{seqdb}{A character vector containing the target databases. Frequently
 used databases are \code{swissprot}, \code{uniprotrefprot}, \code{uniprotkb}, \code{ensembl},

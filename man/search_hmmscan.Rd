@@ -9,7 +9,8 @@ search_hmmscan(seq, hmmdb = "pfam", timeout = 180, verbose = FALSE)
 }
 \arguments{
 \item{seq}{A character vector containing the sequences of the query or
-any other object that can be converted to that.}
+any other object that can be converted to that. It can also be a URL or
+the path to a FASTA file.}
 
 \item{hmmdb}{A character vector containing the target databases. Frequently
 used databases are \code{pfam}, \code{tigrfam} \code{gene3d}, \code{superfamily}, \code{pirsf} and
