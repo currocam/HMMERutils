@@ -2,7 +2,8 @@
 #'  against a profile-HMM database.
 #'
 #' @param seq A character vector containing the sequences of the query or
-#'  any other object that can be converted to that.
+#'  any other object that can be converted to that. It can also be a URL or 
+#'  the path to a FASTA file.  
 #' @param hmmdb A character vector containing the target databases. Frequently
 #'  used databases are `pfam`, `tigrfam` `gene3d`, `superfamily`, `pirsf` and
 #'   `treefam`, but a complete and updated list is available at
@@ -26,6 +27,7 @@ search_hmmscan <- function(seq, hmmdb = "pfam",
     if (verbose) {
         httr::set_config(httr::verbose())
     }
+    seq <- convert_input_seq(seq)
     hmmscan <- purrr::possibly(search_in_hmmer, otherwise = NULL)
     # all combinations of inputs
     tidyr::expand_grid(seq, hmmdb, algorithm = "hmmscan") %>%
