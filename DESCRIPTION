@@ -26,7 +26,9 @@ Suggests:
     taxizedb,
     tidyselect,
     devtools,
-    BiocCheck
+    BiocCheck,
+    zlibbioc,
+    optparse
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
@@ -41,8 +43,7 @@ Imports:
     stringr,
     taxize,
     tibble,
-    tidyr,
-    optparse
+    tidyr
 Depends: 
     R (>= 2.10)
 LazyData: true
