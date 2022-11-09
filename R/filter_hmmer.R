@@ -30,10 +30,7 @@ filter_hmmer <- function(data, threshold = 0.0005, by = "hits.evalue"){
   }
   
   # Filter desired column
-  data2 <- data2 %>% filter(get({{by}}) < threshold)
-  
-  # Return filtered data
-  data2
+  data2 %>% dplyr::filter(get({{by}}) < threshold)
 }
 
 
