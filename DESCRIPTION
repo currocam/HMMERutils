@@ -25,7 +25,8 @@ Suggests:
     httptest (>= 4.1.0),
     taxizedb,
     tidyselect,
-    devtools
+    devtools,
+    BiocCheck
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
