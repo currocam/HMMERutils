@@ -27,7 +27,6 @@ Suggests:
     tidyselect,
     devtools,
     BiocCheck,
-    zlibbioc,
     optparse
 Config/testthat/edition: 3
 VignetteBuilder: knitr
