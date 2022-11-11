@@ -42,7 +42,7 @@ pairwise_alignment_sequence_identity <- function(
     purrr::map(
       ~calculate_percentage_sequence_identity(
         seqs[[.x]], seqs,
-        aln_type = "global", pid_type = "PID1" 
+        aln_type = aln_type, pid_type = pid_type 
         )
     ) %>%
     purrr::flatten_dbl()
