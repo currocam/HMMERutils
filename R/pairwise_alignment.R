@@ -14,7 +14,7 @@
 #' @examples
 #' data(phmmer_2abl)
 #' pairwise_alignment_sequence_identity(
-#'     seqs = phmmer_2abl$hits.fullfasta[3:6],
+#'     seqs = phmmer_2abl$hits.fullfasta[6:10],
 #'     aln_type = "overlap",
 #'     pid_type = "PID2"
 #' )
@@ -38,20 +38,30 @@ pairwise_alignment_sequence_identity <- function(
 ){
   k <- length(seqs)
   seqs <- check_seqs(seqs)
-  pids <-  seq_len(k) %>%
+  # Get all possible but unique combinations
+  pairs <- combn(seq_len(k), 2) %>%
+    t() %>%
+    as.data.frame()
+  group_var <- rlang::sym("V1")
+  pids <- pairs %>%
+    dplyr::group_by(!!group_var) %>%
+    dplyr::group_split() %>%
     purrr::map(
-      ~calculate_percentage_sequence_identity(
-        seqs[[.x]], seqs,
-        aln_type = "global", pid_type = "PID1" 
-        )
+      function(x){
+        from_index <- x$V1[[1]]
+        to_index <- x$V2
+        calculate_percentage_sequence_identity(
+          seqs[[from_index]], seqs[to_index],
+          aln_type = "global", pid_type = "PID1"
+          )
+      }
     ) %>%
     purrr::flatten_dbl()
+    
   tibble::tibble(
-    from = names(seqs) %>%
-      purrr::map(~rep(., k)) %>%
-      purrr::flatten_chr(),
-    "to" = names(seqs) %>% rep(k),
-    "PID" = pids
+    from = c(names(seqs)[pairs$V1], names(seqs)[pairs$V2]) ,
+    "to" = c(names(seqs)[pairs$V2], names(seqs)[pairs$V1]),
+    "PID" = c(pids, pids)
   )
 }
 

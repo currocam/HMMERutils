@@ -52,7 +52,7 @@ Calculate the percentage of pairwise sequence identity
 \examples{
 data(phmmer_2abl)
 pairwise_alignment_sequence_identity(
-    seqs = phmmer_2abl$hits.fullfasta[3:6],
+    seqs = phmmer_2abl$hits.fullfasta[6:10],
     aln_type = "overlap",
     pid_type = "PID2"
 )
