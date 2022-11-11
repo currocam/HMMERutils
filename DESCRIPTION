@@ -41,7 +41,8 @@ Imports:
     taxize,
     tibble,
     tidyr,
-    optparse
+    optparse,
+    methods
 Depends: 
     R (>= 2.10)
 LazyData: true
