@@ -47,13 +47,17 @@ pairwise_alignment_sequence_identity <- function(
     dplyr::group_by(!!group_var) %>%
     dplyr::group_split() %>%
     purrr::map(
-      ~calculate_percentage_sequence_identity(
-        seqs[[.x]], seqs,
-        aln_type = aln_type, pid_type = pid_type 
+      function(x){
+        from_index <- x$V1[[1]]
+        to_index <- x$V2
+        calculate_percentage_sequence_identity(
+          seqs[[from_index]], seqs[to_index],
+          aln_type = "global", pid_type = "PID1"
         )
+      }
     ) %>%
     purrr::flatten_dbl()
-    
+  
   tibble::tibble(
     from = c(names(seqs)[pairs$V1], names(seqs)[pairs$V2]) ,
     "to" = c(names(seqs)[pairs$V2], names(seqs)[pairs$V1]),
