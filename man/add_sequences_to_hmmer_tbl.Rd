@@ -24,11 +24,3 @@ A DataFrame with a new column named "hits.fullfasta" or
 Add sequences from one of the output files from HMMER
 server to a Data Frame obtained by searching in HMMER.
 }
-\examples{
-data(phmmer_2abl)
-add_sequences_to_hmmer_tbl(
-    data = phmmer_2abl,
-    extension = "fullfasta",
-    max_times = 3
-)
-}

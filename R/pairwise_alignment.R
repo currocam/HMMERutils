@@ -39,7 +39,7 @@ pairwise_alignment_sequence_identity <- function(
   k <- length(seqs)
   seqs <- check_seqs(seqs)
   # Get all possible but unique combinations
-  pairs <- combn(seq_len(k), 2) %>%
+  pairs <- utils::combn(seq_len(k), 2) %>%
     t() %>%
     as.data.frame()
   group_var <- rlang::sym("V1")
@@ -66,6 +66,64 @@ pairwise_alignment_sequence_identity <- function(
 }
 
 
+#' Plot a heatmap with the pairwise identity percentages.
+#'
+#' @param data A Data Frame obtained from pairwise_alignment_sequence_identity.
+#'
+#' @param annotation A character vector with as many elements as sequences.
+#'
+#' @return A ggplot object
+#' @export
+#'
+#' @examples
+#' data(phmmer_2abl)
+#' pairwise_sequence_identity_heatmap(
+#'     seqs = phmmer_2abl$hits.fullfasta[6:10],
+#'     aln_type = "overlap",
+#'     pid_type = "PID2"
+#' ) %>%
+#' pairwise_sequence_identity_histogram()
+pairwise_sequence_identity_heatmap <- function(data, annotation = NULL) {
+  rlang::check_installed("pheatmap")
+  seqs_names <- unique(data$from)
+  data.plot <- tibble::tibble(
+    from = seqs_names,
+    to = seqs_names,
+    PID = rep(100, length(seqs_names))
+  ) %>%
+    dplyr::bind_rows(data) %>%
+    tidyr::pivot_wider(
+      names_from = "from",
+      values_from = "PID",
+      names_repair = "minimal"
+    ) %>%
+    tibble::column_to_rownames("to")
+  data.plot[is.na(data.plot)] <- -1
+  cluster_rows <- TRUE
+  if (!is.null(annotation)) {
+    if (length(data.plot) != length(annotation)) {
+      warning(
+        "It does not match the length of the annotation ",
+        "vector with the length of the number of sequences."
+      )
+      annotation <- NULL
+    } else {
+      annotation <- data.frame(
+        "annotation" = factor(annotation)
+      )
+      rownames(annotation) <- rownames(data.plot)
+      cluster_rows <- FALSE
+    }
+  }
+  pheatmap::pheatmap(data.plot,
+                     cluster_rows = cluster_rows,
+                     annotation_row = annotation,
+                     show_rownames = FALSE,
+                     show_colnames = FALSE
+  )
+}
+
+
 calculate_percentage_sequence_identity <- function(
     x, seqs,aln_type, pid_type
 ) {
@@ -74,14 +132,44 @@ calculate_percentage_sequence_identity <- function(
 }
 check_seqs <- function(seqs){
   if (is.null(names(seqs))) {
-    warning("'seqs' has no names")
-    names(seqs) <- rep("", length(seqs))
+    warning("'seqs' has no names or some names are NA")
+    names(seqs) <- paste(".", seq_len(length(seqs)))
   }
-  names(seqs) <- make.unique(names(seqs))
+  names(seqs)[names(seqs) == ""] <- "."
+  names(seqs) <- make.unique(names(seqs),sep = "")
   if (!methods::is(seqs, "AAStringSet")) {
     seqs <- seqs %>%
       tidyr::replace_na("") %>%
       Biostrings::AAStringSet()
   }
   seqs
+}
+
+
+
+
+#' Plot a histogram with the pairwise identity percentages (without the diagonal).
+#'
+#' @param data A Data Frame obtained from pairwise_alignment_sequence_identity.
+#'
+#' @return A ggplot object
+#' @export
+#'
+#' @examples
+#' data(phmmer_2abl)
+#' pairwise_alignment_sequence_identity(
+#'     seqs = phmmer_2abl$hits.fullfasta[6:10],
+#'     aln_type = "overlap",
+#'     pid_type = "PID2"
+#' ) %>%
+#' pairwise_sequence_identity_histogram()
+pairwise_sequence_identity_histogram <- function(data) {
+  stopifnot(all(c("from", "to", "PID") %in% colnames(data))
+  )
+  data %>%
+    ggplot2::ggplot(
+      ggplot2::aes(.data$PID)
+    ) +
+    ggplot2::geom_histogram(binwidth = 1, color = "#e9ecef", alpha = 0.8) +
+    ggplot2::labs(x = "Pairwise sequence identities", y = "Number")
 }

@@ -27,7 +27,9 @@ Suggests:
     tidyselect,
     devtools,
     BiocCheck,
-    optparse
+    optparse,
+    vdiffr,
+    pheatmap
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
