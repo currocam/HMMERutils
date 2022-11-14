@@ -35,6 +35,7 @@ VignetteBuilder: knitr
 Imports: 
     Biostrings,
     dplyr,
+    ggplot2,
     httr,
     jsonlite,
     magrittr,
