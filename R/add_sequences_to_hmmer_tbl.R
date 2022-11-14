@@ -9,14 +9,6 @@
 #'
 #' @return A DataFrame with a new column named "hits.fullfasta" or
 #'   "hits.fasta" with the sequences.
-#' 
-#' @examples
-#' data(phmmer_2abl)
-#' add_sequences_to_hmmer_tbl(
-#'     data = phmmer_2abl,
-#'     extension = "fullfasta",
-#'     max_times = 3
-#' )
 #' @export
 #'
 add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
