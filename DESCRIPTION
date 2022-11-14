@@ -27,12 +27,14 @@ Suggests:
     tidyselect,
     devtools,
     BiocCheck,
-    optparse
+    optparse,
+    vdiffr
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
     Biostrings,
     dplyr,
+    ggplot2,
     httr,
     jsonlite,
     magrittr,
