@@ -19,7 +19,7 @@ Plot a heatmap with the pairwise identity percentages.
 }
 \examples{
 data(phmmer_2abl)
-pairwise_sequence_identity_heatmap(
+pairwise_alignment_sequence_identity(
     seqs = phmmer_2abl$hits.fullfasta[6:10],
     aln_type = "overlap",
     pid_type = "PID2"
