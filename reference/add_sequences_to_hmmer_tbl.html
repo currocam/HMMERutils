@@ -88,36 +88,6 @@ trials before throwing an error.</p></dd>
 "hits.fasta" with the sequences.</p>
     </div>
 
-    <div id="ref-examples">
-    <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">phmmer_2abl</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">add_sequences_to_hmmer_tbl</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    data <span class="op">=</span> <span class="va">phmmer_2abl</span>,</span></span>
-<span class="r-in"><span>    extension <span class="op">=</span> <span class="st">"fullfasta"</span>,</span></span>
-<span class="r-in"><span>    max_times <span class="op">=</span> <span class="fl">3</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 404 × 49</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    algor…¹ uuid  stats…² stats…³ stats…⁴ stats.Z stats…⁵ stats…⁶ stats…⁷ stats…⁸</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> phmmer  DCF1…       1     545 0.11     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">14</span>388     545  <span style="text-decoration: underline;">565</span>928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> phmmer  DCF1…       1     545 0.11     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">14</span>388     545  <span style="text-decoration: underline;">565</span>928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> phmmer  DCF1…       1     545 0.11     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">14</span>388     545  <span style="text-decoration: underline;">565</span>928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> phmmer  DCF1…       1     545 0.11     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">14</span>388     545  <span style="text-decoration: underline;">565</span>928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> phmmer  DCF1…       1     545 0.11     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">14</span>388     545  <span style="text-decoration: underline;">565</span>928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> phmmer  DCF1…       1     545 0.11     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">14</span>388     545  <span style="text-decoration: underline;">565</span>928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> phmmer  DCF1…       1     545 0.11     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">14</span>388     545  <span style="text-decoration: underline;">565</span>928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> phmmer  DCF1…       1     545 0.11     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">14</span>388     545  <span style="text-decoration: underline;">565</span>928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> phmmer  DCF1…       1     545 0.11     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">14</span>388     545  <span style="text-decoration: underline;">565</span>928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> phmmer  DCF1…       1     545 0.11     <span style="text-decoration: underline;">565</span>928       0   <span style="text-decoration: underline;">14</span>388     545  <span style="text-decoration: underline;">565</span>928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 394 more rows, 39 more variables: stats.user &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stats.domZ_setby &lt;int&gt;, stats.n_past_bias &lt;int&gt;, stats.sys &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stats.n_past_fwd &lt;int&gt;, stats.total &lt;dbl&gt;, stats.nmodels &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stats.nincluded &lt;int&gt;, stats.n_past_vit &lt;int&gt;, stats.nreported &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stats.domZ &lt;dbl&gt;, hits.archScore &lt;chr&gt;, hits.ph &lt;chr&gt;, hits.arch &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   hits.kg &lt;chr&gt;, hits.ndom &lt;int&gt;, hits.extlink &lt;chr&gt;, hits.acc2 &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   hits.taxid &lt;chr&gt;, hits.acc &lt;chr&gt;, hits.taxlink &lt;chr&gt;, hits.desc &lt;chr&gt;, …</span></span>
-</code></pre></div>
-    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

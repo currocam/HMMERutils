@@ -68,7 +68,8 @@ against a profile-HMM database.</p>
     <h2>Arguments</h2>
     <dl><dt>seq</dt>
 <dd><p>A character vector containing the sequences of the query or
-any other object that can be converted to that.</p></dd>
+any other object that can be converted to that. It can also be a URL or
+the path to a FASTA file.</p></dd>
 
 
 <dt>hmmdb</dt>
@@ -103,7 +104,7 @@ used databases are <code>pfam</code>, <code>tigrfam</code> <code>gene3d</code>, 
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 36</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   algori…¹ uuid  stats…² stats…³ stats…⁴ stats.Z stats…⁵ stats…⁶ stats…⁷ stats…⁸</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> hmmscan  446F…       1       1 0.06      <span style="text-decoration: underline;">19</span>632       0     316       1       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> hmmscan  6DB6…       1       1 0.06      <span style="text-decoration: underline;">19</span>632       0     316       1       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 26 more variables: stats.user &lt;dbl&gt;, stats.domZ_setby &lt;int&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stats.n_past_bias &lt;int&gt;, stats.sys &lt;dbl&gt;, stats.n_past_fwd &lt;int&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stats.total &lt;dbl&gt;, stats.nmodels &lt;int&gt;, stats.nincluded &lt;int&gt;,</span></span>
