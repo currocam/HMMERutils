@@ -28,7 +28,8 @@ Suggests:
     devtools,
     BiocCheck,
     optparse,
-    vdiffr
+    vdiffr,
+    pheatmap
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
@@ -44,7 +45,10 @@ Imports:
     stringr,
     taxize,
     tibble,
-    tidyr
+    tidyr,
+    optparse,
+    methods,
+    ggplot2
 Depends: 
     R (>= 2.10)
 LazyData: true

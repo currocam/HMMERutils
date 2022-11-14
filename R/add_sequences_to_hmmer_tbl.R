@@ -9,9 +9,17 @@
 #'
 #' @return A DataFrame with a new column named "hits.fullfasta" or
 #'   "hits.fasta" with the sequences.
-#' 
+#' @examples
+#' search_phmmer(
+#'     seq = "MTEITAAMVKELRTGAGMMDCKN",
+#'     seqdb = "pdb",
+#'     verbose = FALSE
+#' ) %>%
+#' add_sequences_to_hmmer_tbl(
+#'     extension = "fullfasta",
+#'     max_times = 3
+#' )
 #' @export
-#'
 add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
     max_times = 3) {
     stopifnot(any("uuid" %in% colnames(data)))
