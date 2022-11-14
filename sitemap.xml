@@ -55,6 +55,18 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/pairwise_alignment_sequence_identity.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pairwise_sequence_identity_heatmap.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pairwise_sequence_identity_histogram.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_fasta_headers.html</loc>
+  </url>
+  <url>
     <loc>/reference/phmmer_2abl.html</loc>
   </url>
   <url>
