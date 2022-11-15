@@ -82,6 +82,12 @@ bind_and_unnest <- function(data, old.column, new.column) {
             stringr::str_remove(old.column, "hits.")
         )
 
+    # Coerce some columns to numeric
+    to_coerce <- c("domains.ievalue", "domains.bias", "domains.cevalue",
+               "domains.oasc")
+
+    data2[to_coerce] <- lapply(data2[to_coerce], as.numeric)  
+
     # Return new dataframe
     data2
 }
