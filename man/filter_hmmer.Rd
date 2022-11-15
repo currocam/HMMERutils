@@ -24,6 +24,6 @@ data(phmmer_2abl)
 filter_hmmer(
     data = phmmer_2abl,
     threshold = 0.0005,
-    by = 'hits.evalue'
+    by = "hits.evalue"
 )
 }

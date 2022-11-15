@@ -24,7 +24,7 @@ vignette: >
 knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>",
-    crop = NULL 
+    crop = NULL
     ## https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
 )
 ```

@@ -2,7 +2,7 @@
 #' Add taxonomic information to a Data Frame obtained
 #'  from HMMER with a "hits.taxid" column.
 #'
-#' @param data An Data Frame obtained from search function. 
+#' @param data An Data Frame obtained from search function.
 #' @param rank_vc A character vector containing the desired taxonomic ranks.
 #' If empty, all available taxonomic ranges will be retrieved.
 #' @param mode Either "local" or "remote". If "local" you will use a local
@@ -10,7 +10,7 @@
 #'   database but it is slower.
 #'
 #' @return A Data Frame with new taxonomic parameters.
-#' 
+#'
 #' @examples
 #' data(phmmer_2abl)
 #' add_taxa_to_hmmer_tbl(

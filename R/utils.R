@@ -7,17 +7,19 @@ download_file <- function(url) {
     return(temp)
 }
 
-check_if_url <- function(urls){
-  purrr::map_lgl(
-    urls,
-    purrr::possibly(
-    Negate(httr::http_error),
-      otherwise = FALSE)) 
+check_if_url <- function(urls) {
+    purrr::map_lgl(
+        urls,
+        purrr::possibly(
+            Negate(httr::http_error),
+            otherwise = FALSE
+        )
+    )
 }
 
-convert_input_seq <- function(seq){
-  if (all(file.exists(seq)) || all(check_if_url(seq))){
-    seq <- Biostrings::readAAStringSet(seq) 
-  }
-  as.character(seq)
+convert_input_seq <- function(seq) {
+    if (all(file.exists(seq)) || all(check_if_url(seq))) {
+        seq <- Biostrings::readAAStringSet(seq)
+    }
+    as.character(seq)
 }

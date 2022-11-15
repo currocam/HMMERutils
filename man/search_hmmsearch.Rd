@@ -28,11 +28,11 @@ Perform a hmmsearch search of a protein sequence
 against a protein sequence database.
 }
 \examples{
-system.file("extdata", "alignment.fasta", package="HMMERutils") \%>\%
+system.file("extdata", "alignment.fasta", package = "HMMERutils") \%>\%
     Biostrings::readAAMultipleAlignment() \%>\%
     search_hmmsearch(
-      seqdb = 'swissprot',
-      timeout = 180,
-      verbose = FALSE
-)
+        seqdb = "swissprot",
+        timeout = 180,
+        verbose = FALSE
+    )
 }

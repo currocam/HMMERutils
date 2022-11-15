@@ -22,5 +22,5 @@ pairwise_alignment_sequence_identity(
     aln_type = "overlap",
     pid_type = "PID2"
 ) \%>\%
-pairwise_sequence_identity_histogram()
+    pairwise_sequence_identity_histogram()
 }

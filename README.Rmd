@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![GitHub pulls](https://img.shields.io/github/issues-pr/currocam/HMMERutils)](https://github.com/currocam/HMMERutils/pulls)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/HMMERutils.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/HMMERutils)
-[![R-CMD-check-bioc](https://github.com/currocam/HMMERutils/actions/workflows/R-CMD-check-bioc.yaml/badge.svg)](https://github.com/currocam/HMMERutils/actions/workflows/R-CMD-check-bioc.yaml)
+[![R-CMD-check-bioc](https://github.com/currocam/HMMERutils/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/currocam/HMMERutils/actions/workflows/check-bioc.yml)
 [![Codecov test coverage](https://codecov.io/gh/currocam/HMMERutils/branch/master/graph/badge.svg)](https://app.codecov.io/gh/currocam/HMMERutils?branch=master)
 <!-- badges: end -->
 
@@ -28,23 +28,12 @@ The goal of `HMMERutils` is to provide a bunch of convenient functions to search
 
 ## Installation instructions
 
-Not yet !
-
-Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `HMMERutils` from [Bioconductor](http://bioconductor.org/) using the following code:
-
-```{r 'install', eval = FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
-}
-
-BiocManager::install("HMMERutils")
-```
-
-And the development version from [GitHub](https://github.com/currocam/HMMERutils) with:
+We are still working on submitting this project to Bioconductor. Then, right now you can only install the development version from [GitHub](https://github.com/currocam/HMMERutils) with:
 
 ```{r 'install_dev', eval = FALSE}
 BiocManager::install("currocam/HMMERutils")
 ```
+
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
@@ -62,6 +51,7 @@ data <- search_phmmer(seq = fasta_2abl, seqdb = "swissprot") %>%
     add_physicochemical_properties_to_HMMER_tbl()
 ```
 
+Now, you can easily summarize the information using the well-know function from Tidyverse, integrating taxonomic information as well as theoretical protein index. 
 
 ```{r summary}
 library(dplyr)
@@ -70,11 +60,33 @@ data %>%
     distinct(hits.fullfasta, .keep_all = TRUE) %>%
     group_by(taxa.phylum) %>%
     summarise(
-      n = n(),
-      "Molecular.Weigth" = mean(properties.molecular.weight, na.rm = TRUE)        )
+        n = n(),
+        "Molecular.Weigth" = mean(properties.molecular.weight, na.rm = TRUE)
+    )
 ```
 
+You can take advantage of this library and ggplot to visualize how your expected values (per sequence and domain) are distributed and how it is related to the architecture of the protein.
 
+```{r, e-values}
+library(ggplot2)
+hmmer_evalues_cleveland_dot_plot(data) +
+    ggplot2::facet_wrap(~hits.ndom)
+```
+
+And use some handy functions to even cluster your sequences based on their pairwise identity and visualize it as a heatmap. In the following chunk of code we are: 
+
+1. Filtering the sequences based on the E-value of the best scoring domain, instead of the E-value of the whole sequence. 
+2. Calculating the pairwise sequence identity.
+3. Visualize the resulting matrix as a heatmap, annotating it using taxonomic information /architecture. 
+
+```{r, pairwise_ph}
+filtered <- filter_hmmer(data, by = "domains.ievalue")
+pairwise_identities <- pairwise_alignment_sequence_identity(filtered$hits.fullfasta)
+pairwise_sequence_identity_heatmap(pairwise_identities, filtered$hits.ph)
+```
+```{r, pairwise_arcg}
+pairwise_sequence_identity_heatmap(pairwise_identities, filtered$hits.arch)
+```
 
 ## Citation
 

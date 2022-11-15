@@ -1,1 +1,1 @@
-utils::globalVariables(c('hits.domains',':=','.'))
+utils::globalVariables(c("hits.domains", ":=", "."))

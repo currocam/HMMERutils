@@ -13,7 +13,7 @@ pulls](https://img.shields.io/github/issues-pr/currocam/HMMERutils)](https://git
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![BioC
 status](http://www.bioconductor.org/shields/build/release/bioc/HMMERutils.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/HMMERutils)
-[![R-CMD-check-bioc](https://github.com/currocam/HMMERutils/actions/workflows/R-CMD-check-bioc.yaml/badge.svg)](https://github.com/currocam/HMMERutils/actions/workflows/R-CMD-check-bioc.yaml)
+[![R-CMD-check-bioc](https://github.com/currocam/HMMERutils/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/currocam/HMMERutils/actions/workflows/check-bioc.yml)
 [![Codecov test
 coverage](https://codecov.io/gh/currocam/HMMERutils/branch/master/graph/badge.svg)](https://app.codecov.io/gh/currocam/HMMERutils?branch=master)
 <!-- badges: end -->
@@ -25,21 +25,8 @@ exploratory analysis of homologous sequence data.
 
 ## Installation instructions
 
-Not yet !
-
-Get the latest stable `R` release from
-[CRAN](http://cran.r-project.org/). Then install `HMMERutils` from
-[Bioconductor](http://bioconductor.org/) using the following code:
-
-``` r
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
-}
-
-BiocManager::install("HMMERutils")
-```
-
-And the development version from
+We are still working on submitting this project to Bioconductor. Then,
+right now you can only install the development version from
 [GitHub](https://github.com/currocam/HMMERutils) with:
 
 ``` r
@@ -63,6 +50,10 @@ data <- search_phmmer(seq = fasta_2abl, seqdb = "swissprot") %>%
     add_physicochemical_properties_to_HMMER_tbl()
 ```
 
+Now, you can easily summarize the information using the well-know
+function from Tidyverse, integrating taxonomic information as well as
+theoretical protein index.
+
 ``` r
 library(dplyr)
 #> 
@@ -78,20 +69,57 @@ data %>%
     distinct(hits.fullfasta, .keep_all = TRUE) %>%
     group_by(taxa.phylum) %>%
     summarise(
-      n = n(),
-      "Molecular.Weigth" = mean(properties.molecular.weight, na.rm = TRUE)        )
-#> # A tibble: 8 × 3
+        n = n(),
+        "Molecular.Weigth" = mean(properties.molecular.weight, na.rm = TRUE)
+    )
+#> # A tibble: 7 × 3
 #>   taxa.phylum        n Molecular.Weigth
 #>   <chr>          <int>            <dbl>
 #> 1 Arthropoda         2          197779.
 #> 2 Artverviricota     3           71266.
-#> 3 Ascomycota        19          126362.
-#> 4 Basidiomycota      1          139552.
-#> 5 Chordata          48           77901.
-#> 6 Evosea             3          102576.
-#> 7 Nematoda           6           55944.
-#> 8 <NA>              23           75039.
+#> 3 Ascomycota        16          125301.
+#> 4 Chordata          67           75855.
+#> 5 Evosea             3          102576.
+#> 6 Nematoda           6           55944.
+#> 7 <NA>               8          114911.
 ```
+
+You can take advantage of this library and ggplot to visualize how your
+expected values (per sequence and domain) are distributed and how it is
+related to the architecture of the protein.
+
+``` r
+library(ggplot2)
+hmmer_evalues_cleveland_dot_plot(data) +
+    ggplot2::facet_wrap(~hits.ndom)
+```
+
+<img src="man/figures/README-e-values-1.png" width="100%" />
+
+And use some handy functions to even cluster your sequences based on
+their pairwise identity and visualize it as a heatmap. In the following
+chunk of code we are:
+
+1.  Filtering the sequences based on the E-value of the best scoring
+    domain, instead of the E-value of the whole sequence.
+2.  Calculating the pairwise sequence identity.
+3.  Visualize the resulting matrix as a heatmap, annotating it using
+    taxonomic information /architecture.
+
+``` r
+filtered <- filter_hmmer(data, by = "domains.ievalue")
+pairwise_identities <- pairwise_alignment_sequence_identity(filtered$hits.fullfasta)
+#> Warning in check_seqs(seqs): 'seqs' has no names or some names are NA
+pairwise_sequence_identity_heatmap(pairwise_identities, filtered$hits.ph)
+```
+
+<img src="man/figures/README-pairwise_ph-1.png" width="100%" />
+
+``` r
+pairwise_sequence_identity_heatmap(pairwise_identities, filtered$hits.arch)
+```
+
+<img src="man/figures/README-pairwise_arcg-1.png" width="100%" />
 
 ## Citation
 

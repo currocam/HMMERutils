@@ -22,6 +22,6 @@ Split a column composed of nested lists into multiple columns.
 data(phmmer_2abl)
 extract_from_hmmer(
     data = phmmer_2abl,
-    column = 'hits.domains'
+    column = "hits.domains"
 )
 }

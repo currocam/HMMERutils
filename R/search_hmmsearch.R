@@ -11,15 +11,15 @@
 #' @param timeout Set maximum request time in seconds.
 #'
 #' @return An Data Frame containing the results from HMMER.
-#' 
+#'
 #' @examples
-#' system.file("extdata", "alignment.fasta", package="HMMERutils") %>%
+#' system.file("extdata", "alignment.fasta", package = "HMMERutils") %>%
 #'     Biostrings::readAAMultipleAlignment() %>%
 #'     search_hmmsearch(
-#'       seqdb = 'swissprot',
-#'       timeout = 180,
-#'       verbose = FALSE
-#' )
+#'         seqdb = "swissprot",
+#'         timeout = 180,
+#'         verbose = FALSE
+#'     )
 #' @export
 #' @importFrom rlang .data
 

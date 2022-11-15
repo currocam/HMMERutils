@@ -25,7 +25,7 @@ annotate_with_NCBI_taxid <- function(taxid, rank_vc = NULL, mode = "remote") {
     }
     if (!requireNamespace("taxize", quietly = TRUE) && mode != "local") {
         stop(
-            "Package \"taxize\" must be installed to use this function with 
+            "Package \"taxize\" must be installed to use this function with
             remote data sources.",
             call. = FALSE
         )
