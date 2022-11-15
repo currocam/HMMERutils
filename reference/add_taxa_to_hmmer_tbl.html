@@ -96,6 +96,9 @@ If empty, all available taxonomic ranges will be retrieved.</p></dd>
 <span class="r-in"><span>    mode <span class="op">=</span> <span class="st">"remote"</span>,</span></span>
 <span class="r-in"><span>    rank_vc <span class="op">=</span> <span class="cn">NULL</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 method overwritten by 'hoardr':</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   method           from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   print.cache_info httr</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No ENTREZ API key provided</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  Get one via taxize::use_entrez()</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/</span>
@@ -141,7 +144,7 @@ If empty, all available taxonomic ranges will be retrieved.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No ENTREZ API key provided</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  Get one via taxize::use_entrez()</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> See https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 25 × 93</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 25 × 92</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    taxa.taxid taxa.no …¹ taxa.…² taxa.…³ taxa.…⁴ taxa.…⁵ taxa.…⁶ taxa.…⁷ taxa.…⁸</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 10090      cellular … Eukary… Opisth… Metazoa Eumeta… Bilate… Deuter… Chorda…</span>
@@ -153,8 +156,8 @@ If empty, all available taxonomic ranges will be retrieved.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 10116      cellular … Eukary… Opisth… Metazoa Eumeta… Bilate… Deuter… Chorda…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 11776      Feline sa… Viruses Ribovi… Pararn… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      Artver…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 237561     cellular … Eukary… Opisth… Fungi   saccha… CUG-Se… Candid… Ascomy…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 15 more rows, 84 more variables: taxa.subphylum &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 237631     cellular … Eukary… Opisth… Fungi   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      Basidi…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 15 more rows, 83 more variables: taxa.subphylum &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   taxa.clade.4 &lt;chr&gt;, taxa.clade.5 &lt;chr&gt;, taxa.clade.6 &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   taxa.clade.7 &lt;chr&gt;, taxa.superclass &lt;chr&gt;, taxa.clade.8 &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   taxa.clade.9 &lt;chr&gt;, taxa.clade.10 &lt;chr&gt;, taxa.class &lt;chr&gt;,</span></span>

@@ -76,23 +76,15 @@
 <div class="section level2">
 <h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h2>
-<p>Not yet !</p>
-<p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/" class="external-link">CRAN</a>. Then install <code>HMMERutils</code> from <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> using the following code:</p>
+<p>We are still working on submitting this project to Bioconductor. Then, right now you can only install the development version from <a href="https://github.com/currocam/HMMERutils" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"HMMERutils"</span><span class="op">)</span></span></code></pre></div>
-<p>And the development version from <a href="https://github.com/currocam/HMMERutils" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"currocam/HMMERutils"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>This is a basic example which shows you how to solve a common problem:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/currocam/HMMERutils" class="external-link">"HMMERutils"</a></span><span class="op">)</span></span>
 <span><span class="va">fasta_2abl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
 <span>    <span class="st">"MGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGW"</span>,</span>
@@ -103,7 +95,8 @@
 <span>    <span class="fu"><a href="reference/add_sequences_to_hmmer_tbl.html">add_sequences_to_hmmer_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="reference/add_taxa_to_hmmer_tbl.html">add_taxa_to_hmmer_tbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="reference/add_physicochemical_properties_to_HMMER_tbl.html">add_physicochemical_properties_to_HMMER_tbl</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>Now, you can easily summarize the information using the well-know function from Tidyverse, integrating taxonomic information as well as theoretical protein index.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -118,25 +111,46 @@
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">hits.fullfasta</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">taxa.phylum</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>      n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>      <span class="st">"Molecular.Weigth"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">properties.molecular.weight</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>        <span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 8 × 3</span></span>
+<span>        n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        <span class="st">"Molecular.Weigth"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">properties.molecular.weight</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 7 × 3</span></span>
 <span><span class="co">#&gt;   taxa.phylum        n Molecular.Weigth</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;          &lt;int&gt;            &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Arthropoda         2          197779.</span></span>
 <span><span class="co">#&gt; 2 Artverviricota     3           71266.</span></span>
-<span><span class="co">#&gt; 3 Ascomycota        19          126362.</span></span>
-<span><span class="co">#&gt; 4 Basidiomycota      1          139552.</span></span>
-<span><span class="co">#&gt; 5 Chordata          48           77901.</span></span>
-<span><span class="co">#&gt; 6 Evosea             3          102576.</span></span>
-<span><span class="co">#&gt; 7 Nematoda           6           55944.</span></span>
-<span><span class="co">#&gt; 8 &lt;NA&gt;              23           75039.</span></span></code></pre></div>
+<span><span class="co">#&gt; 3 Ascomycota        16          125301.</span></span>
+<span><span class="co">#&gt; 4 Chordata          67           75855.</span></span>
+<span><span class="co">#&gt; 5 Evosea             3          102576.</span></span>
+<span><span class="co">#&gt; 6 Nematoda           6           55944.</span></span>
+<span><span class="co">#&gt; 7 &lt;NA&gt;               8          114911.</span></span></code></pre></div>
+<p>You can take advantage of this library and ggplot to visualize how your expected values (per sequence and domain) are distributed and how it is related to the architecture of the protein.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/hmmer_evalues_cleveland_dot_plot.html">hmmer_evalues_cleveland_dot_plot</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">hits.ndom</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-e-values-1.png" width="100%"></p>
+<p>And use some handy functions to even cluster your sequences based on their pairwise identity and visualize it as a heatmap. In the following chunk of code we are:</p>
+<ol style="list-style-type: decimal">
+<li>Filtering the sequences based on the E-value of the best scoring domain, instead of the E-value of the whole sequence.</li>
+<li>Calculating the pairwise sequence identity.</li>
+<li>Visualize the resulting matrix as a heatmap, annotating it using taxonomic information /architecture.</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/filter_hmmer.html">filter_hmmer</a></span><span class="op">(</span><span class="va">data</span>, by <span class="op">=</span> <span class="st">"domains.ievalue"</span><span class="op">)</span></span>
+<span><span class="va">pairwise_identities</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/pairwise_alignment_sequence_identity.html">pairwise_alignment_sequence_identity</a></span><span class="op">(</span><span class="va">filtered</span><span class="op">$</span><span class="va">hits.fullfasta</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in check_seqs(seqs): 'seqs' has no names or some names are NA</span></span>
+<span><span class="fu"><a href="reference/pairwise_sequence_identity_heatmap.html">pairwise_sequence_identity_heatmap</a></span><span class="op">(</span><span class="va">pairwise_identities</span>, <span class="va">filtered</span><span class="op">$</span><span class="va">hits.ph</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-pairwise_ph-1.png" width="100%"></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/pairwise_sequence_identity_heatmap.html">pairwise_sequence_identity_heatmap</a></span><span class="op">(</span><span class="va">pairwise_identities</span>, <span class="va">filtered</span><span class="op">$</span><span class="va">hits.arch</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-pairwise_arcg-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>Below is the citation output from using <code>citation('HMMERutils')</code> in R. Please run this yourself to check for any updates on how to cite <strong>HMMERutils</strong>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"HMMERutils"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Please note that the <code>HMMERutils</code> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>
 </div>
@@ -205,7 +219,7 @@
 <li><a href="https://github.com/currocam/HMMERutils/pulls" class="external-link"><img src="https://img.shields.io/github/issues-pr/currocam/HMMERutils" alt="GitHub pulls"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://bioconductor.org/checkResults/release/bioc-LATEST/HMMERutils" class="external-link"><img src="http://www.bioconductor.org/shields/build/release/bioc/HMMERutils.svg" alt="BioC status"></a></li>
-<li><a href="https://github.com/currocam/HMMERutils/actions/workflows/R-CMD-check-bioc.yaml" class="external-link"><img src="https://github.com/currocam/HMMERutils/actions/workflows/R-CMD-check-bioc.yaml/badge.svg" alt="R-CMD-check-bioc"></a></li>
+<li><a href="https://github.com/currocam/HMMERutils/actions/workflows/check-bioc.yml" class="external-link"><img src="https://github.com/currocam/HMMERutils/actions/workflows/check-bioc.yml/badge.svg" alt="R-CMD-check-bioc"></a></li>
 <li><a href="https://app.codecov.io/gh/currocam/HMMERutils?branch=master" class="external-link"><img src="https://codecov.io/gh/currocam/HMMERutils/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
