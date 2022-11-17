@@ -31,9 +31,13 @@ add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
     data %>%
         dplyr::group_by(!!group_var) %>%
         dplyr::group_split() %>%
-        purrr::map_dfr(inner_function)
+        purrr::map_dfr(inner_function) %>%
+        delete_na_rows
 }
 
+delete_na_rows <- function(data) {
+  data[rowSums(is.na(data)) <= nrow(data),]
+}
 
 add_AAStringSet_to_tbl <- function(fasta, data, extension) {
     col_name <- paste0("hits.", extension)

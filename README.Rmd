@@ -1,5 +1,8 @@
 ---
 output: github_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -9,26 +12,39 @@ knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>",
     fig.path = "man/figures/README-",
-    out.width = "100%"
+    out.width = "100%",
+    dpi = 200
 )
 ```
 
 # HMMERutils
 
 <!-- badges: start -->
-[![GitHub issues](https://img.shields.io/github/issues/currocam/HMMERutils)](https://github.com/currocam/HMMERutils/issues)
-[![GitHub pulls](https://img.shields.io/github/issues-pr/currocam/HMMERutils)](https://github.com/currocam/HMMERutils/pulls)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![BioC status](http://www.bioconductor.org/shields/build/release/bioc/HMMERutils.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/HMMERutils)
+
+[![GitHub
+issues](https://img.shields.io/github/issues/currocam/HMMERutils)](https://github.com/currocam/HMMERutils/issues)
+[![GitHub
+pulls](https://img.shields.io/github/issues-pr/currocam/HMMERutils)](https://github.com/currocam/HMMERutils/pulls)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![BioC
+status](http://www.bioconductor.org/shields/build/release/bioc/HMMERutils.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/HMMERutils)
 [![R-CMD-check-bioc](https://github.com/currocam/HMMERutils/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/currocam/HMMERutils/actions/workflows/check-bioc.yml)
-[![Codecov test coverage](https://codecov.io/gh/currocam/HMMERutils/branch/master/graph/badge.svg)](https://app.codecov.io/gh/currocam/HMMERutils?branch=master)
+[![Codecov test
+coverage](https://codecov.io/gh/currocam/HMMERutils/branch/master/graph/badge.svg)](https://app.codecov.io/gh/currocam/HMMERutils?branch=master)
+
 <!-- badges: end -->
 
-The goal of `HMMERutils` is to provide a bunch of convenient functions to search for homologous sequences using the HMMER API, annotate them taxonomically, calculate physicochemical properties and facilitate exploratory analysis of homologous sequence data.
+The goal of `HMMERutils` is to provide a bunch of convenient functions
+to search for homologous sequences using the HMMER API, annotate them
+taxonomically, calculate physicochemical properties and facilitate
+exploratory analysis of homologous sequence data.
 
 ## Installation instructions
 
-We are still working on submitting this project to Bioconductor. Then, right now you can only install the development version from [GitHub](https://github.com/currocam/HMMERutils) with:
+We are still working on submitting this project to Bioconductor. Then,
+right now you can only install the development version from
+[GitHub](https://github.com/currocam/HMMERutils) with:
 
 ```{r 'install_dev', eval = FALSE}
 BiocManager::install("currocam/HMMERutils")
@@ -36,7 +52,7 @@ BiocManager::install("currocam/HMMERutils")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example that shows you how to solve a common problem:
 
 ```{r example, eval = requireNamespace('HMMERutils'), warning=FALSE, message=FALSE}
 library("HMMERutils")
@@ -51,7 +67,9 @@ data <- search_phmmer(seq = fasta_2abl, seqdb = "swissprot") %>%
     add_physicochemical_properties_to_HMMER_tbl()
 ```
 
-Now, you can easily summarize the information using the well-know function from Tidyverse, integrating taxonomic information as well as theoretical protein index. 
+Now, you can easily summarize the information using the well-known
+function from [Tidyverse](https://www.tidyverse.org/), integrating
+taxonomic information as well as theoretical protein index.
 
 ```{r summary}
 library(dplyr)
@@ -61,11 +79,14 @@ data %>%
     group_by(taxa.phylum) %>%
     summarise(
         n = n(),
-        "Molecular.Weigth" = mean(properties.molecular.weight, na.rm = TRUE)
+        "Molecular.Weight" = mean(properties.molecular.weight, na.rm = TRUE)
     )
 ```
 
-You can take advantage of this library and ggplot to visualize how your expected values (per sequence and domain) are distributed and how it is related to the architecture of the protein.
+You can take advantage of this library and
+[ggplot2](https://ggplot2.tidyverse.org/)to visualize how your expected
+values (per sequence and domain) are distributed and how it is related
+to the architecture of the protein.
 
 ```{r, e-values}
 library(ggplot2)
@@ -73,41 +94,59 @@ hmmer_evalues_cleveland_dot_plot(data) +
     ggplot2::facet_wrap(~hits.ndom)
 ```
 
-And use some handy functions to even cluster your sequences based on their pairwise identity and visualize it as a heatmap. In the following chunk of code we are: 
+And use some handy functions to even cluster your sequences based on
+their pairwise identity and visualize it as a heat map. In the following
+chunk of code we are:
 
-1. Filtering the sequences based on the E-value of the best scoring domain, instead of the E-value of the whole sequence. 
-2. Calculating the pairwise sequence identity.
-3. Visualize the resulting matrix as a heatmap, annotating it using taxonomic information /architecture. 
+1.  Filtering the sequences based on the E-value of the best scoring
+    domain, instead of the E-value of the whole sequence.
+2.  Calculating the pairwise sequence identity.
+3.  Visualize the resulting matrix as a heat map, annotating it using
+    taxonomic information.
 
 ```{r, pairwise_ph}
 filtered <- filter_hmmer(data, by = "domains.ievalue")
 pairwise_identities <- pairwise_alignment_sequence_identity(filtered$hits.fullfasta)
 pairwise_sequence_identity_heatmap(pairwise_identities, filtered$hits.ph)
 ```
-```{r, pairwise_arcg}
-pairwise_sequence_identity_heatmap(pairwise_identities, filtered$hits.arch)
-```
 
 ## Citation
 
-Below is the citation output from using `citation('HMMERutils')` in R. Please
-run this yourself to check for any updates on how to cite __HMMERutils__.
+Below is the citation output from using `citation('HMMERutils')` in R.
+Please run this yourself to check for any updates on how to cite
+**HMMERutils**.
 
 ```{r 'citation', eval = requireNamespace('HMMERutils')}
 print(citation("HMMERutils"), bibtex = TRUE)
 ```
 
-Please note that the `HMMERutils` was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.
+Please note that the `HMMERutils` package was only made possible thanks
+to many other R and bioinformatics software authors, which are cited
+either in the vignettes and/or the paper(s) describing this package.
 
 ## Code of Conduct
 
-Please note that the `HMMERutils` project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
+Please note that the `HMMERutils` project is released with a
+[Contributor Code of
+Conduct](http://bioconductor.org/about/code-of-conduct/). By
+contributing to this project, you agree to abide by its terms.
 
 ## Development tools
 
-* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through `r BiocStyle::CRANpkg('usethis')`, `r BiocStyle::CRANpkg('remotes')`, and `r BiocStyle::CRANpkg('rcmdcheck')` customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and `r BiocStyle::Biocpkg('BiocCheck')`.
-* Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh) and `r BiocStyle::CRANpkg('covr')`.
-* The [documentation website](http://currocam.github.io/HMMERutils) is automatically updated thanks to `r BiocStyle::CRANpkg('pkgdown')`.
-* The code is styled automatically thanks to `r BiocStyle::CRANpkg('styler')`.
-* The documentation is formatted thanks to `r BiocStyle::CRANpkg('devtools')` and `r BiocStyle::CRANpkg('roxygen2')`.
-
+-   Continuous code testing is possible thanks to [GitHub
+    actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)
+    through `r BiocStyle::CRANpkg('usethis')`,
+    `r BiocStyle::CRANpkg('remotes')`, and
+    `r BiocStyle::CRANpkg('rcmdcheck')` customized to use
+    [Bioconductor's docker
+    containers](https://www.bioconductor.org/help/docker/) and
+    `r BiocStyle::Biocpkg('BiocCheck')`.
+-   Code coverage assessment is possible thanks to
+    [codecov](https://codecov.io/gh) and `r BiocStyle::CRANpkg('covr')`.
+-   The [documentation website](http://currocam.github.io/HMMERutils) is
+    automatically updated thanks to `r BiocStyle::CRANpkg('pkgdown')`.
+-   The code is styled automatically thanks to
+    `r BiocStyle::CRANpkg('styler')`.
+-   The documentation is formatted thanks to
+    `r BiocStyle::CRANpkg('devtools')` and
+    `r BiocStyle::CRANpkg('roxygen2')`.

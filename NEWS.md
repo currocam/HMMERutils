@@ -2,7 +2,4 @@
 
 NEW FEATURES
 
-BUG FIXES
-
-* Your bug fixes. See more details at
-<http://bioconductor.org/developers/package-guidelines/#news>.
+-   Create a minimal working version of the library HMMERutils.

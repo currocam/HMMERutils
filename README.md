@@ -16,6 +16,7 @@ status](http://www.bioconductor.org/shields/build/release/bioc/HMMERutils.svg)](
 [![R-CMD-check-bioc](https://github.com/currocam/HMMERutils/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/currocam/HMMERutils/actions/workflows/check-bioc.yml)
 [![Codecov test
 coverage](https://codecov.io/gh/currocam/HMMERutils/branch/master/graph/badge.svg)](https://app.codecov.io/gh/currocam/HMMERutils?branch=master)
+
 <!-- badges: end -->
 
 The goal of `HMMERutils` is to provide a bunch of convenient functions
@@ -35,7 +36,7 @@ BiocManager::install("currocam/HMMERutils")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example that shows you how to solve a common problem:
 
 ``` r
 library("HMMERutils")
@@ -50,9 +51,9 @@ data <- search_phmmer(seq = fasta_2abl, seqdb = "swissprot") %>%
     add_physicochemical_properties_to_HMMER_tbl()
 ```
 
-Now, you can easily summarize the information using the well-know
-function from Tidyverse, integrating taxonomic information as well as
-theoretical protein index.
+Now, you can easily summarize the information using the well-known
+function from [Tidyverse](https://www.tidyverse.org/), integrating
+taxonomic information as well as theoretical protein index.
 
 ``` r
 library(dplyr)
@@ -70,23 +71,24 @@ data %>%
     group_by(taxa.phylum) %>%
     summarise(
         n = n(),
-        "Molecular.Weigth" = mean(properties.molecular.weight, na.rm = TRUE)
+        "Molecular.Weight" = mean(properties.molecular.weight, na.rm = TRUE)
     )
 #> # A tibble: 7 × 3
-#>   taxa.phylum        n Molecular.Weigth
+#>   taxa.phylum        n Molecular.Weight
 #>   <chr>          <int>            <dbl>
 #> 1 Arthropoda         2          197779.
 #> 2 Artverviricota     3           71266.
-#> 3 Ascomycota        16          125301.
-#> 4 Chordata          67           75855.
-#> 5 Evosea             3          102576.
-#> 6 Nematoda           6           55944.
-#> 7 <NA>               8          114911.
+#> 3 Ascomycota        19          126362.
+#> 4 Basidiomycota      1          139552.
+#> 5 Chordata          71           77001.
+#> 6 Evosea             3          102576.
+#> 7 Nematoda           6           55944.
 ```
 
-You can take advantage of this library and ggplot to visualize how your
-expected values (per sequence and domain) are distributed and how it is
-related to the architecture of the protein.
+You can take advantage of this library and
+[ggplot2](https://ggplot2.tidyverse.org/)to visualize how your expected
+values (per sequence and domain) are distributed and how it is related
+to the architecture of the protein.
 
 ``` r
 library(ggplot2)
@@ -97,14 +99,14 @@ hmmer_evalues_cleveland_dot_plot(data) +
 <img src="man/figures/README-e-values-1.png" width="100%" />
 
 And use some handy functions to even cluster your sequences based on
-their pairwise identity and visualize it as a heatmap. In the following
+their pairwise identity and visualize it as a heat map. In the following
 chunk of code we are:
 
 1.  Filtering the sequences based on the E-value of the best scoring
     domain, instead of the E-value of the whole sequence.
 2.  Calculating the pairwise sequence identity.
-3.  Visualize the resulting matrix as a heatmap, annotating it using
-    taxonomic information /architecture.
+3.  Visualize the resulting matrix as a heat map, annotating it using
+    taxonomic information.
 
 ``` r
 filtered <- filter_hmmer(data, by = "domains.ievalue")
@@ -114,12 +116,6 @@ pairwise_sequence_identity_heatmap(pairwise_identities, filtered$hits.ph)
 ```
 
 <img src="man/figures/README-pairwise_ph-1.png" width="100%" />
-
-``` r
-pairwise_sequence_identity_heatmap(pairwise_identities, filtered$hits.arch)
-```
-
-<img src="man/figures/README-pairwise_arcg-1.png" width="100%" />
 
 ## Citation
 
@@ -131,9 +127,9 @@ Please run this yourself to check for any updates on how to cite
 print(citation("HMMERutils"), bibtex = TRUE)
 ```
 
-Please note that the `HMMERutils` was only made possible thanks to many
-other R and bioinformatics software authors, which are cited either in
-the vignettes and/or the paper(s) describing this package.
+Please note that the `HMMERutils` package was only made possible thanks
+to many other R and bioinformatics software authors, which are cited
+either in the vignettes and/or the paper(s) describing this package.
 
 ## Code of Conduct
 

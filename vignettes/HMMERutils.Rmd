@@ -2,8 +2,6 @@
 title: "Introduction to HMMERutils"
 author: 
   - name: Curro Campuzano Jiménez
-    affiliation:
-    - University of Aarhus
     email: campuzanocurro@gmail.com
 output: 
   BiocStyle::html_document:
@@ -16,19 +14,22 @@ date: "`r doc_date()`"
 package: "`r pkg_ver('HMMERutils')`"
 vignette: >
   %\VignetteIndexEntry{Introduction to HMMERutils}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>",
-    crop = NULL
+    crop = NULL,
+    dpi = 200
     ## https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
 )
 ```
-
 
 ```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
 ## Track time spent on making the vignette
@@ -36,6 +37,7 @@ startTime <- Sys.time()
 
 ## Bib setup
 library("RefManageR")
+library(BiocStyle)
 
 ## Write bibliography information
 bib <- c(
@@ -45,7 +47,19 @@ bib <- c(
     RefManageR = citation("RefManageR")[1],
     rmarkdown = citation("rmarkdown")[1],
     sessioninfo = citation("sessioninfo")[1],
-    testthat = citation("testthat")[1]
+    testthat = citation("testthat")[1],
+    Biostrings = citation("Biostrings")[1],
+    dplyr = citation("dplyr")[1],
+    taxize = citation("taxize")[1],
+    tibble = citation("tibble")[1],
+    tidyr = citation("tidyr")[1],
+    httptest = citation("httptest")[1],
+    taxizedb = citation("taxizedb")[1],
+    tidyselect = citation("tidyselect")[1],
+    BiocCheck = citation("BiocCheck")[1],
+    jsonlite = citation("jsonlite")[1],
+    jsonlite = citation("jsonlite")[1],
+    Peptides = citation("Peptides")[1]
 )
 ```
 
@@ -53,12 +67,14 @@ bib <- c(
 
 ## Install `HMMERutils`
 
-`R` is an open-source statistical environment which can be easily modified to 
-enhance its functionality via packages. `r Biocpkg("HMMERutils")` is a `R` 
-package available via the [Bioconductor](http://bioconductor.org) repository 
-for packages. `R` can be installed on any operating system from 
-[CRAN](https://cran.r-project.org/) after which you can install 
-`r Biocpkg("HMMERutils")` by using the following commands in your `R` session:
+`R` is an open-source statistical environment that can be easily
+modified to enhance its functionality via packages.
+`r Biocpkg("HMMERutils")` is an `R` package available via the
+[Bioconductor](http://bioconductor.org) repository for packages. `R` can
+be installed on any operating system from
+[CRAN](https://cran.r-project.org/) after which you can install
+`r Biocpkg("HMMERutils")` by using the following commands in your `R`
+session:
 
 ```{r "install", eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
@@ -73,69 +89,464 @@ BiocManager::valid()
 
 ## Required knowledge
 
-`r Biocpkg("HMMERutils")` is based on many other packages and in particular in 
-those that have implemented the infrastructure needed for dealing with protein 
-sequences data. That is, packages like `r Biocpkg("Biostrings")` .
+`r Biocpkg("HMMERutils")` is based on many other packages and in
+particular those that have implemented the infrastructure needed for
+dealing with protein sequences data. That is, packages like
+`r Biocpkg("Biostrings")` or `r Biocpkg("Peptides")`.
 
-If you are asking yourself the question "Where do I start using Bioconductor?" 
-you might be interested in 
-[this post](http://lcolladotor.github.io/2014/10/16/startbioc/#.VkOKbq6rRuU).
+If you are asking yourself the question "Where do I start using
+Bioconductor?" you might be interested in [this
+post](http://lcolladotor.github.io/2014/10/16/startbioc/#.VkOKbq6rRuU).
 
 ## Asking for help
 
-As package developers, we try to explain clearly how to use our packages and in 
-which order to use the functions. But `R` and `Bioconductor` have a steep 
-learning curve so it is critical to learn where to ask for help. The blog post 
-quoted above mentions some but we would like to highlight the 
-[Bioconductor support site](https://support.bioconductor.org/) as the main 
-resource for getting help: remember to use the `HMMERutils` tag and check 
-[the older posts](https://support.bioconductor.org/t/HMMERutils/). Other 
-alternatives are available such as creating GitHub issues and tweeting. 
-However, please note that if you want to receive help you should adhere to the 
-[posting guidelines](http://www.bioconductor.org/help/support/posting-guide/). 
-It is particularly critical that you provide a small reproducible example and 
-your session information so package developers can track down the source of the 
-error.
+As package developers, we try to explain clearly how to use our packages
+and in which order to use the functions. But `R` and `Bioconductor` have
+a steep learning curve so it is critical to learn where to ask for help.
+The blog post quoted above mentions some but we would like to highlight
+the [Bioconductor support site](https://support.bioconductor.org/) as
+the main resource for getting help: remember to use the `HMMERutils` tag
+and check [the older
+posts](https://support.bioconductor.org/t/HMMERutils/). Other
+alternatives are available such as creating GitHub issues and tweeting.
+However, please note that if you want to receive the help you should
+adhere to the [posting
+guidelines](http://www.bioconductor.org/help/support/posting-guide/). It
+is particularly critical that you provide a small reproducible example
+and your session information so package developers can track down the
+source of the error.
 
 ## Citing `HMMERutils`
 
-We hope that `r Biocpkg("HMMERutils")` will be useful for your research. Please 
-use the following information to cite the package and the overall approach. 
-Thank you!
+We hope that `r Biocpkg("HMMERutils")` will be useful for your research.
+Please use the following information to cite the package and the overall
+approach. Thank you!
 
 ```{r "citation"}
 ## Citation info
 # citation("HMMERutils")
 ```
 
-# Quick start to using to `HMMERutils`
+# Quick start using `HMMERutils`
+
+The objective of this article is to show the main functionalities of the
+utilsHMMER library using a case study. We will search for homologous
+sequences for the whole SARS-CoV-2 reference proteome.
 
 ```{r "start", message=FALSE}
 library("HMMERutils")
+library("Biostrings")
+library("dplyr")
+library("ggplot2")
 ```
 
-Edit this as you see fit =)
+### Download the SARS-CoV-2 reference proteome
 
-Here is an example of you can cite your package inside the vignette:
+First, let's read the reference proteome for the Sars_CoV-2. We will
+read the compressed file directly from UniProt with the
+`readAAStringSet` function from the `r Biocpkg("Biostrings")` library.
 
+```{r "read"}
+uniprot.url <- "https://rest.uniprot.org/uniprotkb/stream?compressed=true&format=fasta&query=%28%28proteome%3AUP000464024%29%29"
 
+sars.cov.fasta <- readAAStringSet(uniprot.url)
 
+```
+
+### Preprocess sequences and select case studies
+
+Now, we have an `AAStringSet` stored in the variable `sars.cov.fasta`
+and we can access the sequences it contains using the `$` operator and
+the sequence header. However, headers usually contain, as in this case,
+a lot of information that is not useful right now such as descriptions.
+
+```{r "headers"}
+names(sars.cov.fasta)
+```
+
+HMMERutils has a very convenient function for this purpose which is
+`parse_fasta_headers()`. Note that we use the `name` function to access
+the sequence names and the `%>%` operator to pass the result of one
+function/argument to the other in the sequence
+
+```{r "parse-headers"}
+(
+  names(sars.cov.fasta) <- names(sars.cov.fasta) %>%
+  parse_fasta_headers()
+)
+
+```
+
+We can take a look at the contents of the fasta file by "showing" it
+(calling the `show` is done implicitly):
+
+```{r "show"}
+sars.cov.fasta
+
+```
+
+Now, we are going to select a series of proteins that are of interest to
+us for this case study:
+
+```{r "select"}
+VEMP_SARS <- sars.cov.fasta$VEMP_SARS #Envelope small membrane protein
+NS8A_SARS <- sars.cov.fasta$NS8_SARS2 #ORF8 protein
+NS7B_SARS <- sars.cov.fasta$NS7B_SARS #Protein non-structural 7b
+R1AB_SARS2 <- sars.cov.fasta$R1AB_SARS2 #Replicase polyprotein 1ab OS=Severe acute respirator
+```
+
+All these proteins have in common being small in size (it will speed up
+some computational times) and represent different possibilities: we have
+from membrane proteins (which we would expect to show homology with
+other membrane proteins), proteins similar to each other (NS8A_SARS and
+NS8B_SARS), non-structural proteins, and uncharacterized proteins.
+
+### Proteins homologous to VEMP_SARS using PHMMER
+
+The most frequently used algorithm of HMMER is phmmer. This algorithm
+allows us to search for homologous sequences using a protein sequence as
+a target against protein sequence databases.
+
+We can post a query to the HMMER web server and read the data into a
+user-friendly DataFrame by using the "search\_" family of functions that
+HMMERutils provides.
+
+Let's start by searching for proteins homologous to VEMP_SARS (a
+envelope small membrane protein) against the Swissprot database
+
+```{r "phmmer_VEMP_SARS"}
+hmmer.VEMP_SARS <- search_phmmer(
+  seq = VEMP_SARS, seqdb = "swissprot", verbose = FALSE
+  )
+
+```
+
+Let's inspect the content of the new variable we have created. We have
+two types of variables: the first 21 columns give us information about
+the query *itself* (such as the algorithm or the unique identifier),
+while the rest give us information about the *content* of the query.
+
+```{r "stats"}
+glimpse(hmmer.VEMP_SARS[,1:21])
+```
+
+As you can see, all rows have the same values for all the previous
+variables. That is a deliberate decision: each row represents one
+sequence hit that we get by doing just **one** query.
+
+Most of the parameters contained in `stats` are for internal use and we
+are only interested in a small part of them. For example, by studying
+the table above, we can know that HMMER found 43 hits (`nhits`) out of a
+total of 565928 sequences available (`Z`) in the SwissProt and that a
+single HMM, Hidden Markov Model, (`nmodels`) has been used in the search
+(built from our input sequence since we are using PHMMER algorithm). In
+case you are interested in learning more about how the results data are
+structured, we invite you to read the appendix of the [HMMER web
+server](https://hmmer-web-docs.readthedocs.io/en/latest/appendices.html).
+
+Let's explore the rest of the Data Frame:
+
+```{r}
+glimpse(hmmer.VEMP_SARS[,22:47])
+```
+
+To get a detailed description of each variable, please read the
+documentation of `?phmmer_2abl` (our example data set).
+
+```{r "example", eval=FALSE}
+?phmmer_2abl
+```
+
+### Data preprocessing
+
+#### E-values
+
+First, we'll begin by studying the e-values obtained. There are several
+types of e-values, some referring to the sequence and others referring
+to the domains. But what do we mean by domains? According to the HMMER
+manual:
+
+> A target sequence that reaches this point is very likely to contain
+> one or more significant matches to the profile. These matches are
+> referred to as "*domains*", since the main use of HMMER has
+> historically been to match profile HMMs from protein domain databases
+> like Pfam, and one of HMMER's strengths is to be able to cleanly parse
+> a multidomain target sequence into its multiple nonoverlapping hits to
+> the same domain model.
+
+It is of special interest to study carefully the domain `E-value` when
+it happens that, although the full sequence `E-value` is good, none of
+the domain `E-value` reaches the significance threshold. In that case,
+what is happening is that those weak hits, none of which is good enough
+on its own, add up to raise the sequence to a high score. This may
+happen because the sequence contains several weak homologous domains, or
+it may contain a repetitive sequence that is hitting by chance.
+
+HMMERutils has a function to display all the `E-values` of the
+sequences. This function `hmmer_evalues_cleveland_dot_plot`. In this
+plot, the $−log(\text{E−value})$ is represented on the $x$ axis, and on
+the $y$ axis each of the identified sequences is represented one at a
+time. The green dots represent the E-values of the full sequence and the
+red dots the E-values of each of the domains.
+
+```{r "e-values"}
+hmmer_evalues_cleveland_dot_plot(
+  hmmer.VEMP_SARS, threshold = 10^-5
+  )
+```
+
+By looking at it, you can see at a glance, first, how many domains have
+been identified for each sequence, and then how these contribute to the
+E-value of the full sequence and how significant they are relative to
+the full sequence. In this case, as can be seen, only one domain per
+sequence has been found (probably because they are very small).
+
+As we didn't identify any "red-flag", let's filter our data taking into
+account only the hits sequence E-value. We can use the HMMERutils
+function `filter_hmmer()` to achieve this.
+
+```{r "filter"}
+(
+ hmmer.VEMP_SARS <- filter_hmmer(hmmer.VEMP_SARS,threshold = 10^-5)
+)
+```
+
+#### Adding protein sequences
+
+To download the sequences from HMMER and add them to our DataFrame, you
+can use the `add_sequences_to_hmmer_tbl()`. Notice that sequences
+associated with the *UUID* will be available in HMMER only temporarily.
+
+```{r "seqs"}
+(
+  hmmer.VEMP_SARS <- add_sequences_to_hmmer_tbl(hmmer.VEMP_SARS)
+)
+```
+
+By having the sequences as a column in our Data Frane, now we can
+preprocess it using Tidyverse "verbs". This is how we could filter the
+sequences to keep only non-redundant sequences.
+
+```{r "redundant"}
+(
+hmmer.VEMP_SARS <- hmmer.VEMP_SARS %>%
+  distinct(hits.fullfasta, .keep_all = TRUE)  
+)
+```
+
+### Data Exploration
+
+#### Taxonomic distribution
+
+Now we can explore the nature of these sequences. One aspect of great
+interest is the taxonomic distribution of these sequences. We can
+consult it because we have the `hits.taxid` parameter, which identifies
+taxonomic species. We proceed to taxonomically annotate the results
+using the `add_taxa_to_HMMER_tbl` function
+
+```{r "taxa"}
+hmmer.VEMP_SARS <- add_taxa_to_hmmer_tbl(hmmer.VEMP_SARS, mode = "local")
+```
+
+Note that we have indicated the parameter `mode = “local”` to note that
+we don't want to use remote resources. Using remote resources can be
+slow, we advise you, if the amount of sequences is considerable, to use
+the "local" option to install (only once) and then use a local database.
+
+Now, we can use all the meta library of tidyverse and ggplot2 to explore
+the data and make graphs. Let's see an example of what could be done:
+
+```{r "taxa_plot"}
+ggplot(
+  data =  hmmer.VEMP_SARS,
+  mapping = aes(x = hits.evalue, fill = taxa.subgenus)
+  ) + 
+  geom_histogram(binwidth = 10^-8)
+```
+
+#### Calculating the identity of pairwise alignments
+
+To examine the diversity of the sequences we can align all the sequences
+in pairs and then calculate the percentages of identity for each one
+using the `pairwise_alignment_sequence_identity` function.
+
+When calling this function, we need to specify which sequences we want
+to compare (as a vector of characters), the type of alignment, and the
+type of sequence identity we are going to use. In this case, we will use
+the default options: `aln_type = "global"` (align whole strings with end
+gap penalties by using the Needleman-Wunsch algorithm) and
+`pid_type = "PID1"` ( PID1=100⋅identical position aligned positions +
+internal gap positions).
+
+```{r "pairwise"}
+percentage_identities <- pairwise_alignment_sequence_identity(
+  seqs = hmmer.VEMP_SARS$hits.fullfasta,
+  aln_type = "global",
+  pid_type = "PID1"
+  
+)
+```
+
+Now, we can inspect the distribution of those values in a histogram:
+
+```{r "hist"}
+pairwise_sequence_identity_histogram(percentage_identities)
+```
+
+And, to compare this information with other parameters, a heatmap is.
+Note that we use the `taxa.subgenus` column to annotate the heatmap, for
+which we use the `annotation` argument and the `$` operator.
+
+```{r}
+pairwise_sequence_identity_heatmap(
+  percentage_identities, annotation = hmmer.VEMP_SARS$taxa.subgenus
+  )
+
+```
+
+#### Physicochemical properties
+
+We can study what the sequences we have obtained are like in more detail
+by calculating physicochemical properties based on their primary
+sequence. To do this, we can use the
+`add_physicochemical_properties_to_HMMER_tbl` function
+
+```{r "prop"}
+hmmer.VEMP_SARS <- hmmer.VEMP_SARS %>% 
+  add_physicochemical_properties_to_HMMER_tbl()
+```
+
+Let's see how are these new properties distributed along our sequences:
+
+```{r "boxplot"}
+hmmer.VEMP_SARS %>%
+  ggplot(
+    aes(x = taxa.subgenus, y = properties.molecular.weight, fill = taxa.subgenus)
+    )+
+  geom_boxplot()
+```
+
+### Proteins homologous to NS8A_SARSin SwissProt and PDB using PHMMER
+
+So far, we have been working with the results of a single search. This
+case study has allowed us to describe in depth most of the utilities of
+this library. However, the most common scenario is that we want to work
+with the results of several searches. Let's try performing a search with
+PHMMER for the sequence of NS8A_SARS against SwissProt and PDB.
+
+For this example, moreover, we will not go step by step but will show
+how HMMERutils can perform all of the above operations in a few lines of
+code. You can refer to the information regarding the `search_phmmer`
+function using `?search_phmmer` for a complete listing of options.
+
+```{r "dbs"}
+(
+  hmmer.NS8A_SARS <- search_phmmer(
+    seq = NS8A_SARS, 
+    seqdb = c("pdb", "swissprot"), 
+    verbose = FALSE
+  ) 
+)
+
+```
+
+Note that, now, the number of searches performed is 2:
+
+```{r "uuids"}
+unique(hmmer.NS8A_SARS$uuid)
+```
+
+Now, using the pipe operator, we are going to filter the sequences, read
+the sequences, annotate them taxonomically, and calculate the
+physicochemical properties of the sequences.
+
+```{r "all",warning=FALSE, message=FALSE}
+hmmer.NS8A_SARS <- hmmer.NS8A_SARS %>%
+  filter_hmmer() %>%
+  add_sequences_to_hmmer_tbl() %>%
+  add_taxa_to_hmmer_tbl(mode = "local") %>%
+  add_physicochemical_properties_to_HMMER_tbl()
+```
+
+#### Extracting nested hashes
+
+As we have searched against PDB, now we have a new column, which is
+called `hits.pdbs`. To explore the PDB files available for homologous
+sequences we can "extract" those nested rows.
+
+```{r "pdbs"}
+pdbs <- extract_from_hmmer(hmmer.NS8A_SARS, column = "hits.pdbs")
+unique(pdbs$pdbs)
+```
+
+We can do the same to study the domains (default behavior):
+
+```{r "domains"}
+domains <- extract_from_hmmer(hmmer.NS8A_SARS)
+unique(domains$domains.alisqdesc)
+```
+
+### Using hmmsearch
+
+So far, we have only used PHMMER, since it is the most used and default
+algorithm. However, HMMERutils allows us to work with all HMMER
+algorithms. Let's see how it can be used to perform a search using
+hmmsearch. This algorithm performs a sequence search in the same
+databases as PHMMER with the difference that, instead of building a
+hidden Markov model with a single sequence, it does it with an
+alignment.
+
+For this example, we will use a fake alignment (that's why we are
+creating it from a vector, instead of reading an actual file, using the
+`readAAMultipleAlignment` function.
+
+```{r}
+alignment <- AAMultipleAlignment(c(
+  "FQTWEEFSRAAEKLYLADPMKVRVVLKYRHVDGNLCIKVTDDLVCLVYRTDQAQDVKKIEKF",
+  "KYRTWEEFTRAAEKLYQADPMKVRVVLKYRHCDGNLCIKVTDDVVCLLYRTDQAQDVKKIEK",
+  "EEYQTWEEFARAAEKLYLTDPMKVRVVLKYRHCDGNLCMKVTDDAVCLQYKTDQAQDVKKVE",
+  "EEFSRAVEKLYLTDPMKVRVVLKYRHCDGNLCIKVTDNSVVSYEMRLFGVQKDNFALEHSLL",
+  "SWEEFAKAAEVLYLEDPMKCRMCTKYRHVDHKLVVKLTDNHTVLKYVTDMAQDVKKIEKLTT",
+  "FTNWEEFAKAAERLHSANPEKCRFVTKYNHTKGELVLKLTDDVVCLQYSTNQLQDVKKLEKL",
+  "SWEEFVERSVQLFRGDPNATRYVMKYRHCEGKLVLKVTDDRECLKFKTDQAQDAKKMEKLNN"
+  )
+)
+```
+
+Now, let's perform a query using hmmsearch:
+
+```{r, warning=FALSE}
+fake_data <- search_hmmsearch(alignment)
+```
+
+### Using HMMSCAN
+
+Another HMMER algorithm that can be used through HMMERutils is HMMSCAN.
+This algorithm performs a search of a protein sequence against an HMM
+database and can be used to identify domains in our sequence. Let's see
+which domains we can find in VEMP_SARS:
+
+```{r}
+(
+  scan.VEMP_SARS <- search_hmmscan(VEMP_SARS)
+)
+scan.VEMP_SARS$hits.acc
+```
 
 # Reproducibility
 
-The `r Biocpkg("HMMERutils")` package 
-`r #Citep(bib[["HMMERutils"]])` was made possible thanks to:
+The `r Biocpkg("HMMERutils")` package `r #Citep(bib[["HMMERutils"]])`
+was made possible thanks to:
 
-* R `r Citep(bib[["R"]])`
-* `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
-* `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])`
-* `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
-* `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])`
-* `r CRANpkg("sessioninfo")` `r Citep(bib[["sessioninfo"]])`
-* `r CRANpkg("testthat")` `r Citep(bib[["testthat"]])`
+-   R `r Citep(bib[["R"]])`
+-   `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
+-   `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])`
+-   `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
+-   `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])`
+-   `r CRANpkg("sessioninfo")` `r Citep(bib[["sessioninfo"]])`
+-   `r CRANpkg("testthat")` `r Citep(bib[["testthat"]])`
 
 This package was developed using `r BiocStyle::Biocpkg("biocthis")`.
-
 
 Code for creating the vignette
 
@@ -173,16 +584,15 @@ options(width = 120)
 session_info()
 ```
 
-
-
 # Bibliography
 
-This vignette was generated using `r Biocpkg("BiocStyle")` 
-`r Citep(bib[["BiocStyle"]])`
-with `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])` and `r CRANpkg("rmarkdown")` 
+This vignette was generated using `r Biocpkg("BiocStyle")`
+`r Citep(bib[["BiocStyle"]])` with `r CRANpkg("knitr")`
+`r Citep(bib[["knitr"]])` and `r CRANpkg("rmarkdown")`
 `r Citep(bib[["rmarkdown"]])` running behind the scenes.
 
-Citations made with `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`.
+Citations made with `r CRANpkg("RefManageR")`
+`r Citep(bib[["RefManageR"]])`.
 
 ```{r vignetteBiblio, results = "asis", echo = FALSE, warning = FALSE, message = FALSE}
 ## Print bibliography
