@@ -147,7 +147,7 @@ read the compressed file directly from UniProt with the
 `readAAStringSet` function from the `r Biocpkg("Biostrings")` library.
 
 ```{r "read"}
-uniprot.url <- "https://rest.uniprot.org/uniprotkb/stream?compressed=true&format=fasta&query=%28%28proteome%3AUP000464024%29%29"
+uniprot.url <- "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/UP000464024.fasta.gz"
 
 sars.cov.fasta <- readAAStringSet(uniprot.url)
 
@@ -189,10 +189,10 @@ Now, we are going to select a series of proteins that are of interest to
 us for this case study:
 
 ```{r "select"}
-VEMP_SARS <- sars.cov.fasta$VEMP_SARS #Envelope small membrane protein
-NS8A_SARS <- sars.cov.fasta$NS8_SARS2 #ORF8 protein
-NS7B_SARS <- sars.cov.fasta$NS7B_SARS #Protein non-structural 7b
-R1AB_SARS2 <- sars.cov.fasta$R1AB_SARS2 #Replicase polyprotein 1ab OS=Severe acute respirator
+VEMP_SARS <- as.character(sars.cov.fasta$VEMP_SARS) #Envelope small membrane protein
+NS8A_SARS <- as.character(sars.cov.fasta$NS8_SARS2) #ORF8 protein
+NS7B_SARS <- as.character(sars.cov.fasta$NS7B_SARS) #Protein non-structural 7b
+R1AB_SARS2 <- as.character(sars.cov.fasta$R1AB_SARS2) #Replicase polyprotein 1ab OS=Severe acute respirator
 ```
 
 All these proteins have in common being small in size (it will speed up
