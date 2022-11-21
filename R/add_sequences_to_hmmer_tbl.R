@@ -10,13 +10,6 @@
 #' @return A DataFrame with a new column named "hits.fullfasta" or
 #'   "hits.fasta" with the sequences.
 #'
-#' @examples
-#' data(phmmer_2abl)
-#' add_sequences_to_hmmer_tbl(
-#'     data = phmmer_2abl,
-#'     extension = "fullfasta",
-#'     max_times = 1
-#' )
 #' @export
 #'
 add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
@@ -43,7 +36,7 @@ add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
 }
 
 delete_na_rows <- function(data) {
-    data[rowSums(is.na(data)) <= nrow(data),]
+  data[rowSums(is.na(data)) <= nrow(data),]
 }
 
 add_AAStringSet_to_tbl <- function(fasta, data, extension) {

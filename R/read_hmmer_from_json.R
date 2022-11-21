@@ -1,15 +1,9 @@
 #' Read the results of a search with HMMER from an json file.
 #'
-#' @param file A character vector containing filepaths to
+#' @param file A a character vector the containing filepaths to
 #'   XML file downloaded from HMMER.
 #'
 #' @return A Data Frame with the results
-#' 
-#' @examples
-#' read_hmmer_from_json(
-#'     file = "inst/extdata/phmmer_2abl_no_sequences.xml"
-#' )
-#' 
 #' @export
 #'
 read_hmmer_from_json <- function(file) {

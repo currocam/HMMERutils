@@ -85,7 +85,7 @@ bind_and_unnest <- function(data, old.column, new.column) {
     # Coerce some columns to numeric
     if (old.column == "hits.domains"){
         to_coerce <- c("domains.ievalue", "domains.bias", "domains.cevalue",
-        "domains.oasc")
+               "domains.oasc")
 
         data2[to_coerce] <- lapply(data2[to_coerce], as.numeric)  
     }

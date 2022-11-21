@@ -18,7 +18,7 @@ check_if_url <- function(urls) {
 }
 
 convert_input_seq <- function(seq) {
-    seq <- as.character(seq)
+  seq <- as.character(seq)
     if (all(file.exists(seq)) || all(check_if_url(seq))) {
         seq <- Biostrings::readAAStringSet(seq)
     }

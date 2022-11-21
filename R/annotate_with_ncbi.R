@@ -19,7 +19,7 @@ annotate_with_NCBI_taxid <- function(taxid, rank_vc = NULL, mode = "remote") {
     if (!requireNamespace("taxizedb", quietly = TRUE) && mode == "local") {
         stop(
             "Package \"taxizedb\" must be installed to use this function with a
-            local database.",
+             local database.",
             call. = FALSE
         )
     }

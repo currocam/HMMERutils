@@ -6,18 +6,14 @@ Authors@R:
     person("Francisco de Borja", "Campuzano Jiménez", , 
     "campuzanocurro@gmail.com", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0001-8285-9318"))
-Description: 
-    Convenient functions search for homologous sequences
-    using the HMMER API, annotate them taxonomically, 
-    calculate physicochemical properties and facilitate 
-    exploratory analysis of homologous sequence data.
+Description: Convenient functions search for homologous sequences using the HMMER API, annotate them taxonomically, calculate physicochemical properties and facilitate exploratory analysis of homologous sequence data.
 License: Artistic-2.0
 URL: https://github.com/currocam/HMMERutils
 BugReports: https://support.bioconductor.org/t/HMMERutils
 biocViews: Software, ThirdPartyClient
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.1
 Suggests: 
     BiocStyle,
     covr,
@@ -31,6 +27,7 @@ Suggests:
     tidyselect,
     devtools,
     BiocCheck,
+    optparse,
     vdiffr,
     pheatmap
 Config/testthat/edition: 3
@@ -49,7 +46,9 @@ Imports:
     taxize,
     tibble,
     tidyr,
-    methods
+    optparse,
+    methods,
+    ggplot2
 Depends: 
     R (>= 2.10)
-LazyData: false
+LazyData: true
