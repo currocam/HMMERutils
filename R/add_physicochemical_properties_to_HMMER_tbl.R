@@ -55,7 +55,8 @@
 #' )
 #' @export
 #'
-add_physicochemical_properties_to_HMMER_tbl <- function(data, colname = "hits.fullfasta") {
+add_physicochemical_properties_to_HMMER_tbl <- function(
+    data, colname = "hits.fullfasta") {
     if (!requireNamespace("Peptides", quietly = TRUE)) {
         stop("Package \"Peptides\" must be installed to use this function.",
             call. = FALSE
