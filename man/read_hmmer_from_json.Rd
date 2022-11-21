@@ -18,7 +18,7 @@ Read the results of a search with HMMER from an json file.
 }
 \examples{
 read_hmmer_from_json(
-    file = "inst/extdata/phmmer_2abl.xml"
+    file = "inst/extdata/phmmer_2abl_no_sequences.xml"
 )
 
 }
