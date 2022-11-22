@@ -36,7 +36,8 @@
 #' @return A long DataFrame with the results.
 #' @export
 #'
-pairwise_alignment_sequence_identity <- function(seqs, aln_type = "global", pid_type = "PID1") {
+pairwise_alignment_sequence_identity <- function(seqs, aln_type = "global", 
+pid_type = "PID1") {
     k <- length(seqs)
     seqs <- check_seqs(seqs)
     # Get all possible but unique combinations
@@ -125,8 +126,9 @@ pairwise_sequence_identity_heatmap <- function(data, annotation = NULL) {
 }
 
 
-calculate_percentage_sequence_identity <- function(x, seqs, aln_type, pid_type) {
-    Biostrings::pairwiseAlignment(subject = x, pattern = seqs, type = aln_type) %>%
+calculate_percentage_sequence_identity <- function(x, seqs, aln_type, pid_type){
+    Biostrings::pairwiseAlignment(
+        subject = x, pattern = seqs, type = aln_type) %>%
         Biostrings::pid(pid_type)
 }
 check_seqs <- function(seqs) {
@@ -169,6 +171,7 @@ pairwise_sequence_identity_histogram <- function(data) {
         ggplot2::ggplot(
             ggplot2::aes(.data$PID)
         ) +
-        ggplot2::geom_histogram(binwidth = 1, color = "#e9ecef", alpha = 0.8) +
+        ggplot2::geom_histogram(binwidth = 1, color = 
+        "#e9ecef", alpha = 0.8) +
         ggplot2::labs(x = "Pairwise sequence identities", y = "Number")
 }
