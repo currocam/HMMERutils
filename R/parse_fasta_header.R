@@ -1,4 +1,5 @@
-#' Extracts the sequence identifier from the recognized fasta sequence headers.
+#' Extracts the sequence identifier from the recognized fasta sequence 
+#' headers.
 #'
 #' @param headers A vector of characters
 #'

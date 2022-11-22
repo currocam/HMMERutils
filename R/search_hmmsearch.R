@@ -4,9 +4,10 @@
 #' @param aln A Biostrings::AAMultipleAlignment or a list of
 #'   Biostrings::AAMultipleAlignment.
 #' @param seqdb A character vector containing the target databases. Frequently
-#'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`, `ensembl`,
-#'  `pdb` and `alphafold`, but a complete and updated list is available at
-#'   \url{https://www.ebi.ac.uk/Tools/hmmer/}.
+#'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`, 
+#' `ensembl`,
+#' `pdb` and `alphafold`, but a complete and updated list is available at
+#' \url{https://www.ebi.ac.uk/Tools/hmmer/}.
 #' @param verbose A logical, if TRUE details of the download process is printed.
 #' @param timeout Set maximum request time in seconds.
 #'

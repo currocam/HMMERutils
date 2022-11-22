@@ -33,7 +33,8 @@ Calculate the percentage of pairwise sequence identity
 \section{Alignment types}{
 
 \itemize{
-\item \code{global}: align whole strings with end gap penalties (Needleman-Wunsch).
+\item \code{global}: align whole strings with end gap
+penalties (Needleman-Wunsch).
 \item \code{local}: align string fragments (Smith-Waterman).
 \item \code{overlap}: align whole strings without end gap penalties.
 }
@@ -42,10 +43,12 @@ Calculate the percentage of pairwise sequence identity
 \section{Percent sequence identity}{
 
 \itemize{
-\item \code{PID1}: 100 * (identical positions) / (aligned positions + internal gap positions).
+\item \code{PID1}: 100 * (identical positions) / (aligned positions + internal
+gap positions).
 \item \code{PID2}: 100 * (identical positions) / (aligned positions).
 \item \code{PID3}: 100 * (identical positions) / (length shorter sequence).
-\item \code{PID4}: 100 * (identical positions) / (average length of the two sequences).
+\item \code{PID4}: 100 * (identical positions) / (average length of the two
+sequences).
 }
 }
 

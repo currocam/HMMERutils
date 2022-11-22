@@ -10,8 +10,8 @@
 #' \item{\code{stats.nhits}}{The number of hits found above reporting 
 #' thresholds}
 #' \item{\code{stats.elapsed}}{}
-#' \item{\code{stats.Z}}{The number of sequences or models in the target
-#'  database}
+#' \item{\code{stats.Z}}{The number of sequences or models in the target 
+#' database}
 #' \item{\code{stats.Z_setby}}{}
 #' \item{\code{stats.n_past_msv}}{}
 #' \item{\code{stats.unpacked}}{}
@@ -36,8 +36,8 @@
 #' \item{\code{hits.ndom}}{Total number of domains identified in this sequence}
 #' \item{\code{hits.extlink}}{}
 #' \item{\code{hits.fullfasta}}{Protein sequences as a character vector.}
-#' \item{\code{hits.taxid}}{The NCBI taxonomy identifier of the target 
-#' (if applicable)}
+#' \item{\code{hits.taxid}}{The NCBI taxonomy identifier of the target (if 
+#' applicable)}
 #' \item{\code{hits.acc}}{Accession of the target}
 #' \item{\code{hits.taxlink}}{}
 #' \item{\code{hits.desc}}{Description of the target}

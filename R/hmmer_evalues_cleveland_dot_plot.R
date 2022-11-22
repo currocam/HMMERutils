@@ -22,7 +22,8 @@ hmmer_evalues_cleveland_dot_plot <- function(data,
     df$domains.ievalue <- as.numeric(df$domains.ievalue)
     df <- df %>%
         dplyr::group_by(.data$uuid, .data$hits.name, .data$hits.acc) %>%
-        dplyr::mutate("best.ievalue" = min(as.numeric(.data$domains.ievalue))) %>%
+        dplyr::mutate("best.ievalue" = 
+        min(as.numeric(.data$domains.ievalue))) %>%
         dplyr::ungroup()
     df %>%
         dplyr::arrange(-log(.data$best.ievalue)) %>%
