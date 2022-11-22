@@ -27,7 +27,6 @@ Suggests:
     tidyselect,
     devtools,
     BiocCheck,
-    optparse,
     vdiffr,
     pheatmap
 Config/testthat/edition: 3
@@ -46,9 +45,7 @@ Imports:
     taxize,
     tibble,
     tidyr,
-    optparse,
-    methods,
-    ggplot2
+    methods
 Depends: 
     R (>= 2.10)
 LazyData: true
