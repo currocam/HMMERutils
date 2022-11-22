@@ -6,7 +6,11 @@ Authors@R:
     person("Francisco de Borja", "Campuzano Jiménez", , 
     "campuzanocurro@gmail.com", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0001-8285-9318"))
-Description: Convenient functions search for homologous sequences using the HMMER API, annotate them taxonomically, calculate physicochemical properties and facilitate exploratory analysis of homologous sequence data.
+Description:
+    Convenient functions search for homologous sequences 
+    using the HMMER API, annotate them taxonomically, 
+    calculate physicochemical properties and facilitate 
+    exploratory analysis of homologous sequence data.
 License: Artistic-2.0
 URL: https://github.com/currocam/HMMERutils
 BugReports: https://support.bioconductor.org/t/HMMERutils
@@ -48,4 +52,4 @@ Imports:
     methods
 Depends: 
     R (>= 2.10)
-LazyData: true
+LazyData: false
