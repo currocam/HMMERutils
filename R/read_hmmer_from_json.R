@@ -4,6 +4,11 @@
 #'   XML file downloaded from HMMER.
 #'
 #' @return A Data Frame with the results
+#' 
+#' @examples
+#' read_hmmer_from_json(
+#'     file = "inst/extdata/phmmer_2abl.xml"
+#' )
 #' @export
 #'
 read_hmmer_from_json <- function(file) {

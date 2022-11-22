@@ -36,7 +36,7 @@ add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
 }
 
 delete_na_rows <- function(data) {
-  data[rowSums(is.na(data)) <= nrow(data),]
+    data[rowSums(is.na(data)) <= nrow(data),]
 }
 
 add_AAStringSet_to_tbl <- function(fasta, data, extension) {

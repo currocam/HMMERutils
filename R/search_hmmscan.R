@@ -5,9 +5,9 @@
 #'  any other object that can be converted to that. It can also be a URL or
 #'  the path to a FASTA file.
 #' @param hmmdb A character vector containing the target databases. Frequently
-#'  used databases are `pfam`, `tigrfam` `gene3d`, `superfamily`, `pirsf` and
-#'   `treefam`, but a complete and updated list is available at
-#'   \url{https://www.ebi.ac.uk/Tools/hmmer/}.
+#'  used databases are `pfam`, `tigrfam` `gene3d`, `superfamily`, 
+#' `pirsf` and `treefam`, but a complete and updated list is available at
+#' \url{https://www.ebi.ac.uk/Tools/hmmer/}.
 #' @param verbose A logical, if TRUE details of the download process is printed.
 #' @param timeout Set maximum request time in seconds.
 #'

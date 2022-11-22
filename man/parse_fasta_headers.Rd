@@ -2,7 +2,8 @@
 % Please edit documentation in R/parse_fasta_header.R
 \name{parse_fasta_headers}
 \alias{parse_fasta_headers}
-\title{Extracts the sequence identifier from the recognized fasta sequence headers.}
+\title{Extracts the sequence identifier from the recognized fasta sequence
+headers.}
 \usage{
 parse_fasta_headers(headers)
 }
@@ -13,7 +14,8 @@ parse_fasta_headers(headers)
 A vector of characters
 }
 \description{
-Extracts the sequence identifier from the recognized fasta sequence headers.
+Extracts the sequence identifier from the recognized fasta sequence
+headers.
 }
 \examples{
 headers <- c(

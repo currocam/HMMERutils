@@ -20,15 +20,18 @@
 #' )
 #'
 #' @section Alignment types:
-#' * `global`: align whole strings with end gap penalties (Needleman-Wunsch).
+#' * `global`: align whole strings with end gap 
+#' penalties (Needleman-Wunsch).
 #' * `local`: align string fragments (Smith-Waterman).
 #' * `overlap`: align whole strings without end gap penalties.
 #'
 #' @section Percent sequence identity:
-#' * `PID1`: 100 * (identical positions) / (aligned positions + internal gap positions).
+#' * `PID1`: 100 * (identical positions) / (aligned positions + internal 
+#' gap positions).
 #' * `PID2`: 100 * (identical positions) / (aligned positions).
 #' * `PID3`: 100 * (identical positions) / (length shorter sequence).
-#' * `PID4`: 100 * (identical positions) / (average length of the two sequences).
+#' * `PID4`: 100 * (identical positions) / (average length of the two 
+#' sequences).
 #'
 #' @return A long DataFrame with the results.
 #' @export
@@ -144,7 +147,8 @@ check_seqs <- function(seqs) {
 
 
 
-#' Plot a histogram with the pairwise identity percentages (without the diagonal).
+#' Plot a histogram with the pairwise identity percentages (without the 
+#' diagonal).
 #'
 #' @param data A Data Frame obtained from pairwise_alignment_sequence_identity.
 #'

@@ -13,7 +13,8 @@ any other object that can be converted to that. It can also be a URL or
 the path to a FASTA file.}
 
 \item{seqdb}{A character vector containing the target databases. Frequently
-used databases are \code{swissprot}, \code{uniprotrefprot}, \code{uniprotkb}, \code{ensembl},
+used databases are \code{swissprot}, \code{uniprotrefprot}, \code{uniprotkb},
+\code{ensembl},
 \code{pdb} and \code{alphafold}, but a complete and updated list is available at
 \url{https://www.ebi.ac.uk/Tools/hmmer/}.}
 

@@ -13,8 +13,8 @@ any other object that can be converted to that. It can also be a URL or
 the path to a FASTA file.}
 
 \item{hmmdb}{A character vector containing the target databases. Frequently
-used databases are \code{pfam}, \code{tigrfam} \code{gene3d}, \code{superfamily}, \code{pirsf} and
-\code{treefam}, but a complete and updated list is available at
+used databases are \code{pfam}, \code{tigrfam} \code{gene3d}, \code{superfamily},
+\code{pirsf} and \code{treefam}, but a complete and updated list is available at
 \url{https://www.ebi.ac.uk/Tools/hmmer/}.}
 
 \item{timeout}{Set maximum request time in seconds.}

@@ -17,4 +17,7 @@ The result of calling \code{rhs(lhs)}.
 \description{
 See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
 }
+\examples{
+"Ceci n'est pas une pipe" \%>\% gsub("une", "un", .)
+}
 \keyword{internal}
