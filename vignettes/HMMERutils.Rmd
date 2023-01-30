@@ -345,13 +345,8 @@ taxonomic species. We proceed to taxonomically annotate the results
 using the `add_taxa_to_HMMER_tbl` function
 
 ```{r "taxa"}
-hmmer.VEMP_SARS <- add_taxa_to_hmmer_tbl(hmmer.VEMP_SARS, mode = "local")
+hmmer.VEMP_SARS <- add_taxa_to_hmmer_tbl(hmmer.VEMP_SARS)
 ```
-
-Note that we have indicated the parameter `mode = “local”` to note that
-we don't want to use remote resources. Using remote resources can be
-slow, we advise you, if the amount of sequences is considerable, to use
-the "local" option to install (only once) and then use a local database.
 
 Now, we can use all the meta library of tidyverse and ggplot2 to explore
 the data and make graphs. Let's see an example of what could be done:
