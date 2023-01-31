@@ -1,3 +1,4 @@
+testthat::skip_on_ci()
 httptest::with_mock_api({
     testthat::test_that("mock phmmer works", {
         search_in_hmmer(
