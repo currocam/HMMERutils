@@ -43,5 +43,5 @@ search_hmmscan <- function(seq, hmmdb = "pfam",
         purrr::compact()
         #dplyr::bind_rows()
 
-    as.data.frame(Reduce(function(x, y) merge(x, y, all=TRUE), lists))
+    tibble::as_tibble(Reduce(function(x, y) merge(x, y, all=TRUE), lists))
 }
