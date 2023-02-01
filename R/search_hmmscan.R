@@ -30,7 +30,7 @@ search_hmmscan <- function(seq, hmmdb = "pfam",
     seq <- convert_input_seq(seq)
     hmmscan <- purrr::possibly(search_in_hmmer, otherwise = NULL)
     # all combinations of inputs
-    tidyr::expand_grid(seq, hmmdb, algorithm = "hmmscan") %>%
+    lists <- tidyr::expand_grid(seq, hmmdb, algorithm = "hmmscan") %>%
         dplyr::rowwise() %>%
         purrr::pmap(
             ~ hmmscan(
@@ -40,6 +40,8 @@ search_hmmscan <- function(seq, hmmdb = "pfam",
                 timeout_in_seconds = timeout
             )
         ) %>%
-        purrr::compact() %>%
-        dplyr::bind_rows()
+        purrr::compact()
+        #dplyr::bind_rows()
+
+    as.data.frame(Reduce(function(x, y) merge(x, y, all=TRUE), lists))
 }
