@@ -1,0 +1,44 @@
+pandoc: '2.5'
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  HMMERutils: HMMERutils.html
+last_built: 2022-11-18T13:29Z
+
+reference:
+- title: "Methods to run searchers in the HMMER web"
+  contents:
+  - starts_with("search_hmmscan")
+  - starts_with("search_hmmsearch")
+  - starts_with("search_phmmer")
+  
+- title: "Parsering methods"
+  contents:
+  - starts_with("parse_fasta_headers")
+  - starts_with("read_hmmer_from_json")
+  - starts_with("extract_from_hmmer")
+  
+- title: "Filtering output methods"
+  contents:
+  - starts_with("filter_hmmer")
+  
+- title: "Methods to add information into the HMMER output"
+  contents:
+  - starts_with("add_physicochemical_properties_to_HMMER_tbl")
+  - starts_with("add_sequences_to_hmmer_tbl")
+  - starts_with("add_taxa_to_hmmer_tbl")
+  - starts_with("annotate_with_NCBI_taxid")
+  - starts_with("pairwise_alignment_sequence_identity")
+  
+- title: "Graphical Utilities"
+  contents:
+  - starts_with("hmmer_evalues_cleveland_dot_plot")
+  - starts_with("pairwise_sequence_identity_heatmap")
+  - starts_with("pairwise_sequence_identity_histogram")
+  
+- title: "Dataframe examples"
+  contents:
+  - starts_with("hmmscan_2abl")
+  - starts_with("phmmer_2abl")
+
+
