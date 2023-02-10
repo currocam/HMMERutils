@@ -50,7 +50,51 @@
     </div>
 
     <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
-          <h2 id="all-functions">All functions <a href="#all-functions" class="anchor" aria-hidden="true"></a></h2>
+          <h2 id="methods-to-run-searchers-in-the-hmmer-web">Methods to run searchers in the HMMER web <a href="#methods-to-run-searchers-in-the-hmmer-web" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="search_hmmscan.html">search_hmmscan()</a></code> </p>
+        </td>
+        <td><p>Perform a hmmscan search of a protein sequence
+against a profile-HMM database.</p></td>
+      </tr><tr><td>
+          <p><code><a href="search_hmmsearch.html">search_hmmsearch()</a></code> </p>
+        </td>
+        <td><p>Perform a hmmsearch search of a protein sequence
+against a protein sequence database.</p></td>
+      </tr><tr><td>
+          <p><code><a href="search_phmmer.html">search_phmmer()</a></code> </p>
+        </td>
+        <td><p>Perform a phmmer search of a protein sequence
+against a protein sequence database.</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="parsering-methods">Parsering methods <a href="#parsering-methods" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="parse_fasta_headers.html">parse_fasta_headers()</a></code> </p>
+        </td>
+        <td><p>Extracts the sequence identifier from the recognized fasta sequence
+headers.</p></td>
+      </tr><tr><td>
+          <p><code><a href="read_hmmer_from_json.html">read_hmmer_from_json()</a></code> </p>
+        </td>
+        <td><p>Read the results of a search with HMMER from an json file.</p></td>
+      </tr><tr><td>
+          <p><code><a href="extract_from_hmmer.html">extract_from_hmmer()</a></code> </p>
+        </td>
+        <td><p>Split a column composed of nested lists into multiple columns.</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="filtering-output-methods">Filtering output methods <a href="#filtering-output-methods" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="filter_hmmer.html">filter_hmmer()</a></code> </p>
+        </td>
+        <td><p>Filter dataframe depending on a column and a threshold.</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="methods-to-add-information-into-the-hmmer-output">Methods to add information into the HMMER output <a href="#methods-to-add-information-into-the-hmmer-output" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p>
         </th>
       </tr></tbody><tbody><tr><td>
@@ -74,25 +118,17 @@ from HMMER with a "hits.taxid" column.</p></td>
         <td><p>Retrieve the taxonomic data for a given NCBI
 taxon ID using a local database or as remote data sources.</p></td>
       </tr><tr><td>
-          <p><code><a href="extract_from_hmmer.html">extract_from_hmmer()</a></code> </p>
-        </td>
-        <td><p>Split a column composed of nested lists into multiple columns.</p></td>
-      </tr><tr><td>
-          <p><code><a href="filter_hmmer.html">filter_hmmer()</a></code> </p>
-        </td>
-        <td><p>Filter dataframe depending on a column and a threshold.</p></td>
-      </tr><tr><td>
-          <p><code><a href="hmmer_evalues_cleveland_dot_plot.html">hmmer_evalues_cleveland_dot_plot()</a></code> </p>
-        </td>
-        <td><p>A Cleveland dot plot with the evalues of the domains and sequences.</p></td>
-      </tr><tr><td>
-          <p><code><a href="hmmscan_2abl.html">hmmscan_2abl</a></code> </p>
-        </td>
-        <td><p>hmmscan_2abl</p></td>
-      </tr><tr><td>
           <p><code><a href="pairwise_alignment_sequence_identity.html">pairwise_alignment_sequence_identity()</a></code> </p>
         </td>
         <td><p>Calculate the percentage of pairwise sequence identity</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="graphical-utilities">Graphical Utilities <a href="#graphical-utilities" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="hmmer_evalues_cleveland_dot_plot.html">hmmer_evalues_cleveland_dot_plot()</a></code> </p>
+        </td>
+        <td><p>A Cleveland dot plot with the evalues of the domains and sequences.</p></td>
       </tr><tr><td>
           <p><code><a href="pairwise_sequence_identity_heatmap.html">pairwise_sequence_identity_heatmap()</a></code> </p>
         </td>
@@ -100,34 +136,20 @@ taxon ID using a local database or as remote data sources.</p></td>
       </tr><tr><td>
           <p><code><a href="pairwise_sequence_identity_histogram.html">pairwise_sequence_identity_histogram()</a></code> </p>
         </td>
-        <td><p>Plot a histogram with the pairwise identity percentages (without the diagonal).</p></td>
-      </tr><tr><td>
-          <p><code><a href="parse_fasta_headers.html">parse_fasta_headers()</a></code> </p>
+        <td><p>Plot a histogram with the pairwise identity percentages (without the
+diagonal).</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="dataframe-examples">Dataframe examples <a href="#dataframe-examples" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="hmmscan_2abl.html">hmmscan_2abl</a></code> </p>
         </td>
-        <td><p>Extracts the sequence identifier from the recognized fasta sequence headers.</p></td>
+        <td><p>hmmscan_2abl</p></td>
       </tr><tr><td>
           <p><code><a href="phmmer_2abl.html">phmmer_2abl</a></code> </p>
         </td>
         <td><p>phmmer_2abl</p></td>
-      </tr><tr><td>
-          <p><code><a href="read_hmmer_from_json.html">read_hmmer_from_json()</a></code> </p>
-        </td>
-        <td><p>Read the results of a search with HMMER from an json file.</p></td>
-      </tr><tr><td>
-          <p><code><a href="search_hmmscan.html">search_hmmscan()</a></code> </p>
-        </td>
-        <td><p>Perform a hmmscan search of a protein sequence
-against a profile-HMM database.</p></td>
-      </tr><tr><td>
-          <p><code><a href="search_hmmsearch.html">search_hmmsearch()</a></code> </p>
-        </td>
-        <td><p>Perform a hmmsearch search of a protein sequence
-against a protein sequence database.</p></td>
-      </tr><tr><td>
-          <p><code><a href="search_phmmer.html">search_phmmer()</a></code> </p>
-        </td>
-        <td><p>Perform a phmmer search of a protein sequence
-against a protein sequence database.</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
