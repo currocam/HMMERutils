@@ -1,8 +1,6 @@
 pandoc: '2.5'
 pkgdown: 2.0.6
 pkgdown_sha: ~
-articles:
-  HMMERutils: HMMERutils.html
 last_built: 2022-11-18T13:29Z
 
 reference:
