@@ -27,14 +27,11 @@ add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta", max_times 
         }
     )
     group_var <- rlang::sym("uuid")
-    data %>%
+    data <- data %>%
         dplyr::group_by(!!group_var) %>%
         dplyr::group_split() %>%
-        purrr::map_dfr(inner_function) %>%
-        delete_na_rows()
-}
-
-delete_na_rows <- function(data) {
+        purrr::map(inner_function) %>%
+        purrr::bind_rows()
     data[rowSums(is.na(data)) <= nrow(data), ]
 }
 

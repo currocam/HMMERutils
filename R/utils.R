@@ -7,14 +7,14 @@ download_file <- function(url) { # nolint
     return(temp)
 }
 
-check_if_url <- function(urls) {
-    purrr::map_lgl(
+check_if_url <- function(urls) { # nolint
+    purrr::map(
         urls,
         purrr::possibly(
             Negate(httr::http_error),
             otherwise = FALSE
         )
-    )
+    ) %>% as.logical()
 }
 
 convert_input_seq <- function(seq) {

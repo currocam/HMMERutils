@@ -23,5 +23,6 @@ read_hmmer_from_json <- function(file) { # nolint
                 parse_results_into_tbl()
         }
     )
-    purrr::map_dfr(.x = file, .id = "file", .f = inner_function)
+    purrr::map(.x = file, .id = "file", .f = inner_function) %>%
+        dplyr::bind_rows()
 }

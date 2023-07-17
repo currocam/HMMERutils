@@ -32,10 +32,9 @@ search_hmmsearch <- function(aln, seqdb = "swissprot", timeout = 180, verbose = 
     hmmsearch <- purrr::possibly(search_in_hmmer, otherwise = NULL) # nolint
     # all combinations of inputs
     seq <- ifelse(is.list(aln), aln, list(aln)) %>%
-        purrr::map_chr(function(x) {
-            Biostrings::unmasked(x) %>%
-                format_AAStringSet_into_hmmer_string()
-        })
+        purrr::map(\(x) Biostrings::unmasked(x) %>%
+            format_AAStringSet_into_hmmer_string()) %>%
+        as.character()
     tidyr::expand_grid(seq, seqdb, algorithm = "hmmsearch") %>%
         dplyr::rowwise() %>%
         purrr::pmap(

@@ -83,15 +83,16 @@ add_physicochemical_properties_to_HMMER_tbl <- function(data, colname = "hits.fu
     data %>%
         dplyr::group_by(!!group_var) %>%
         dplyr::group_split() %>%
-        purrr::map_dfr(function(x) {
+        purrr::map(\(x) {
             x %>% dplyr::bind_cols(inner_function(x[[colname]][[1]]))
-        })
+        }) %>%
+        dplyr::bind_rows()
 }
 
 calculate_peptides <- function(y) { # nolint
     Peptides::aaComp(y) %>%
-        purrr::map_dfr(~ {
-            as.data.frame(.x) %>%
+        purrr::map(\(x) {
+            as.data.frame(x) %>%
                 tibble::rownames_to_column("properties") %>%
                 dplyr::rename("Percentage" = "Mole%") %>%
                 dplyr::select(c("Percentage", "properties")) %>%
@@ -100,7 +101,8 @@ calculate_peptides <- function(y) { # nolint
                     values_from = c("Percentage")
                 ) %>%
                 dplyr::mutate(
-                    dplyr::across(where(is.numeric), ~ .x / 100)
+                    dplyr::across(tidyselect::where(is.numeric), ~ .x / 100)
                 )
-        })
+        }) %>%
+        dplyr::bind_rows()
 }
