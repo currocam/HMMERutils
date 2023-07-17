@@ -23,11 +23,11 @@ editor_options:
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>",
-    crop = NULL,
-    dpi = 200
-    ## https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
+  collapse = TRUE,
+  comment = "#>",
+  crop = NULL,
+  dpi = 200
+  ## https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
 )
 ```
 
@@ -41,25 +41,25 @@ library(BiocStyle)
 
 ## Write bibliography information
 bib <- c(
-    R = citation(),
-    BiocStyle = citation("BiocStyle")[1],
-    knitr = citation("knitr")[1],
-    RefManageR = citation("RefManageR")[1],
-    rmarkdown = citation("rmarkdown")[1],
-    sessioninfo = citation("sessioninfo")[1],
-    testthat = citation("testthat")[1],
-    Biostrings = citation("Biostrings")[1],
-    dplyr = citation("dplyr")[1],
-    taxize = citation("taxize")[1],
-    tibble = citation("tibble")[1],
-    tidyr = citation("tidyr")[1],
-    httptest = citation("httptest")[1],
-    taxizedb = citation("taxizedb")[1],
-    tidyselect = citation("tidyselect")[1],
-    BiocCheck = citation("BiocCheck")[1],
-    jsonlite = citation("jsonlite")[1],
-    jsonlite = citation("jsonlite")[1],
-    Peptides = citation("Peptides")[1]
+  R = citation(),
+  BiocStyle = citation("BiocStyle")[1],
+  knitr = citation("knitr")[1],
+  RefManageR = citation("RefManageR")[1],
+  rmarkdown = citation("rmarkdown")[1],
+  sessioninfo = citation("sessioninfo")[1],
+  testthat = citation("testthat")[1],
+  Biostrings = citation("Biostrings")[1],
+  dplyr = citation("dplyr")[1],
+  taxize = citation("taxize")[1],
+  tibble = citation("tibble")[1],
+  tidyr = citation("tidyr")[1],
+  httptest = citation("httptest")[1],
+  taxizedb = citation("taxizedb")[1],
+  tidyselect = citation("tidyselect")[1],
+  BiocCheck = citation("BiocCheck")[1],
+  jsonlite = citation("jsonlite")[1],
+  jsonlite = citation("jsonlite")[1],
+  Peptides = citation("Peptides")[1]
 )
 ```
 
@@ -78,7 +78,7 @@ session:
 
 ```{r "install", eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
+  install.packages("BiocManager")
 }
 
 BiocManager::install("HMMERutils")
@@ -150,7 +150,6 @@ read the compressed file directly from UniProt with the
 uniprot.url <- "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/UP000464024.fasta.gz"
 
 sars.cov.fasta <- readAAStringSet(uniprot.url)
-
 ```
 
 ### Preprocess sequences and select case studies
@@ -172,9 +171,8 @@ function/argument to the other in the sequence
 ```{r "parse-headers"}
 (
   names(sars.cov.fasta) <- names(sars.cov.fasta) %>%
-  parse_fasta_headers()
+    parse_fasta_headers()
 )
-
 ```
 
 We can take a look at the contents of the fasta file by "showing" it
@@ -182,17 +180,16 @@ We can take a look at the contents of the fasta file by "showing" it
 
 ```{r "show"}
 sars.cov.fasta
-
 ```
 
 Now, we are going to select a series of proteins that are of interest to
 us for this case study:
 
 ```{r "select"}
-VEMP_SARS <- as.character(sars.cov.fasta$VEMP_SARS2) #Envelope small membrane protein
-NS8A_SARS <- as.character(sars.cov.fasta$NS8_SARS2) #ORF8 protein
-NS7B_SARS <- as.character(sars.cov.fasta$NS7B_SARS) #Protein non-structural 7b
-R1AB_SARS2 <- as.character(sars.cov.fasta$R1AB_SARS2) #Replicase polyprotein 1ab OS=Severe acute respirator
+VEMP_SARS <- as.character(sars.cov.fasta$VEMP_SARS2) # Envelope small membrane protein
+NS8A_SARS <- as.character(sars.cov.fasta$NS8_SARS2) # ORF8 protein
+NS7B_SARS <- as.character(sars.cov.fasta$NS7B_SARS) # Protein non-structural 7b
+R1AB_SARS2 <- as.character(sars.cov.fasta$R1AB_SARS2) # Replicase polyprotein 1ab OS=Severe acute respirator
 ```
 
 All these proteins have in common being small in size (it will speed up
@@ -217,8 +214,7 @@ envelope small membrane protein) against the Swissprot database
 ```{r "phmmer_VEMP_SARS"}
 hmmer.VEMP_SARS <- search_phmmer(
   seq = VEMP_SARS, seqdb = "swissprot", verbose = FALSE
-  )
-
+)
 ```
 
 Let's inspect the content of the new variable we have created. We have
@@ -227,7 +223,7 @@ the query *itself* (such as the algorithm or the unique identifier),
 while the rest give us information about the *content* of the query.
 
 ```{r "stats"}
-glimpse(hmmer.VEMP_SARS[,1:21])
+glimpse(hmmer.VEMP_SARS[, 1:21])
 ```
 
 As you can see, all rows have the same values for all the previous
@@ -247,7 +243,7 @@ server](https://hmmer-web-docs.readthedocs.io/en/latest/appendices.html).
 Let's explore the rest of the Data Frame:
 
 ```{r}
-glimpse(hmmer.VEMP_SARS[,22:47])
+glimpse(hmmer.VEMP_SARS[, 22:47])
 ```
 
 To get a detailed description of each variable, please read the
@@ -291,8 +287,9 @@ red dots the E-values of each of the domains.
 
 ```{r "e-values"}
 hmmer_evalues_cleveland_dot_plot(
-  hmmer.VEMP_SARS, threshold = 10^-5
-  )
+  hmmer.VEMP_SARS,
+  threshold = 10^-5
+)
 ```
 
 By looking at it, you can see at a glance, first, how many domains have
@@ -307,7 +304,7 @@ function `filter_hmmer()` to achieve this.
 
 ```{r "filter"}
 (
- hmmer.VEMP_SARS <- filter_hmmer(hmmer.VEMP_SARS,threshold = 10^-5)
+  hmmer.VEMP_SARS <- filter_hmmer(hmmer.VEMP_SARS, threshold = 10^-5)
 )
 ```
 
@@ -329,8 +326,8 @@ sequences to keep only non-redundant sequences.
 
 ```{r "redundant"}
 (
-hmmer.VEMP_SARS <- hmmer.VEMP_SARS %>%
-  distinct(hits.fullfasta, .keep_all = TRUE)  
+  hmmer.VEMP_SARS <- hmmer.VEMP_SARS %>%
+    distinct(hits.fullfasta, .keep_all = TRUE)
 )
 ```
 
@@ -353,9 +350,9 @@ the data and make graphs. Let's see an example of what could be done:
 
 ```{r "taxa_plot"}
 ggplot(
-  data =  hmmer.VEMP_SARS,
+  data = hmmer.VEMP_SARS,
   mapping = aes(x = hits.evalue, fill = taxa.subgenus)
-  ) + 
+) +
   geom_histogram(binwidth = 10^-8)
 ```
 
@@ -378,7 +375,6 @@ percentage_identities <- pairwise_alignment_sequence_identity(
   seqs = hmmer.VEMP_SARS$hits.fullfasta,
   aln_type = "global",
   pid_type = "PID1"
-  
 )
 ```
 
@@ -394,9 +390,9 @@ which we use the `annotation` argument and the `$` operator.
 
 ```{r}
 pairwise_sequence_identity_heatmap(
-  percentage_identities, annotation = hmmer.VEMP_SARS$taxa.subgenus
-  )
-
+  percentage_identities,
+  annotation = hmmer.VEMP_SARS$taxa.subgenus
+)
 ```
 
 #### Physicochemical properties
@@ -407,7 +403,7 @@ sequence. To do this, we can use the
 `add_physicochemical_properties_to_HMMER_tbl` function
 
 ```{r "prop"}
-hmmer.VEMP_SARS <- hmmer.VEMP_SARS %>% 
+hmmer.VEMP_SARS <- hmmer.VEMP_SARS %>%
   add_physicochemical_properties_to_HMMER_tbl()
 ```
 
@@ -417,7 +413,7 @@ Let's see how are these new properties distributed along our sequences:
 hmmer.VEMP_SARS %>%
   ggplot(
     aes(x = taxa.subgenus, y = properties.molecular.weight, fill = taxa.subgenus)
-    )+
+  ) +
   geom_boxplot()
 ```
 
@@ -437,12 +433,11 @@ function using `?search_phmmer` for a complete listing of options.
 ```{r "dbs"}
 (
   hmmer.NS8A_SARS <- search_phmmer(
-    seq = NS8A_SARS, 
-    seqdb = c("pdb", "swissprot"), 
+    seq = NS8A_SARS,
+    seqdb = c("pdb", "swissprot"),
     verbose = FALSE
-  ) 
+  )
 )
-
 ```
 
 Note that, now, the number of searches performed is 2:
@@ -504,8 +499,7 @@ alignment <- AAMultipleAlignment(c(
   "SWEEFAKAAEVLYLEDPMKCRMCTKYRHVDHKLVVKLTDNHTVLKYVTDMAQDVKKIEKLTT",
   "FTNWEEFAKAAERLHSANPEKCRFVTKYNHTKGELVLKLTDDVVCLQYSTNQLQDVKKLEKL",
   "SWEEFVERSVQLFRGDPNATRYVMKYRHCEGKLVLKVTDDRECLKFKTDQAQDAKKMEKLNN"
-  )
-)
+))
 ```
 
 Now, let's perform a query using hmmsearch:

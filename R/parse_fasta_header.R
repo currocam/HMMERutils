@@ -1,4 +1,4 @@
-#' Extracts the sequence identifier from the recognized fasta sequence 
+#' Extracts the sequence identifier from the recognized fasta sequence
 #' headers.
 #'
 #' @param headers A vector of characters
@@ -15,7 +15,7 @@
 #' )
 #' parse_fasta_headers(headers)
 parse_fasta_headers <- function(headers) {
-    patterns <- paste(
+    patterns <- paste( # nolint
         sep = "|",
         "(?<=lcl\\|).+",
         "(?<=bbs\\|).+",

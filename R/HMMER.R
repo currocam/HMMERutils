@@ -58,7 +58,7 @@ post_query <- function(query) {
 # Parses results from HMMER into a tibble.
 #
 # @param results list with results (@seealso HMMERutils::post_query())
-parse_results_into_tbl <- function(results) {
+parse_results_into_tbl <- function(results) { # nolint
     tibble::tibble(
         "algorithm" = purrr::pluck(results, "algo", .default = NA),
         "uuid" = purrr::pluck(results, "uuid", .default = NA),
@@ -67,7 +67,7 @@ parse_results_into_tbl <- function(results) {
     ) %>%
         tidyr::unnest_wider("stats", names_sep = ".") %>%
         tidyr::unnest_wider("hits", names_sep = ".") %>%
-        dplyr::mutate("hits.evalue" = fix_evalue_column(.[["hits.evalue"]]))
+        dplyr::mutate("hits.evalue" = fix_evalue_column(.[["hits.evalue"]])) # nolint
 }
 
 # Fix E-value column which sometimes can be a list, a character vector
@@ -91,7 +91,7 @@ fix_evalue_column <- function(column) {
 # - seqdb a string with seqdb (for phmmer, hmmsearch or jackhmmer)
 # - timeout_in_seconds an integer with the number of
 # seconds to wait before exits.
-search_in_hmmer <- function(...) {
+search_in_hmmer <- function(...) { # nolint
     r <- params_into_query_list(...) %>%
         post_query()
     if (r$status != 200) {

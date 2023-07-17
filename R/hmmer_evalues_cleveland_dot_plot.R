@@ -15,18 +15,19 @@
 #'     threshold = 0.001
 #' )
 #'
-hmmer_evalues_cleveland_dot_plot <- function(data,
-    threshold = 0.001) {
+hmmer_evalues_cleveland_dot_plot <- function(data, threshold = 0.001) { # nolint
     df <- data %>%
         extract_from_hmmer()
     df$domains.ievalue <- as.numeric(df$domains.ievalue)
     df <- df %>%
-        dplyr::group_by(.data$uuid, .data$hits.name, .data$hits.acc) %>%
-        dplyr::mutate("best.ievalue" = 
-        min(as.numeric(.data$domains.ievalue))) %>%
+        dplyr::group_by(.data$uuid, .data$hits.name, .data$hits.acc) %>% # nolint
+        dplyr::mutate(
+            "best.ievalue" =
+                min(as.numeric(.data$domains.ievalue))
+        ) %>%
         dplyr::ungroup()
     df %>%
-        dplyr::arrange(-log(.data$best.ievalue)) %>%
+        dplyr::arrange(-log(.data$best.ievalue)) %>% # nolint
         ggplot2::ggplot() +
         ggplot2::geom_segment(
             ggplot2::aes(

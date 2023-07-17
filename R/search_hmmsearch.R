@@ -4,7 +4,7 @@
 #' @param aln A Biostrings::AAMultipleAlignment or a list of
 #'   Biostrings::AAMultipleAlignment.
 #' @param seqdb A character vector containing the target databases. Frequently
-#'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`, 
+#'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`,
 #' `ensembl`,
 #' `pdb` and `alphafold`, but a complete and updated list is available at
 #' \url{https://www.ebi.ac.uk/Tools/hmmer/}.
@@ -24,13 +24,12 @@
 #' @export
 #' @importFrom rlang .data
 
-search_hmmsearch <- function(aln, seqdb = "swissprot",
-    timeout = 180, verbose = FALSE) {
+search_hmmsearch <- function(aln, seqdb = "swissprot", timeout = 180, verbose = FALSE) { # nolint
     httr::reset_config()
     if (verbose) {
         httr::set_config(httr::verbose())
     }
-    hmmsearch <- purrr::possibly(search_in_hmmer, otherwise = NULL)
+    hmmsearch <- purrr::possibly(search_in_hmmer, otherwise = NULL) # nolint
     # all combinations of inputs
     seq <- ifelse(is.list(aln), aln, list(aln)) %>%
         purrr::map_chr(function(x) {
