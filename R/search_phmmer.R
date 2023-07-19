@@ -5,42 +5,48 @@
 #'  any other object that can be converted to that. It can also be a URL or
 #'   the path to a FASTA file.
 #' @param seqdb A character vector containing the target databases. Frequently
-#'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`, 
+#'  used databases are `swissprot`, `uniprotrefprot`, `uniprotkb`,
 #' `ensembl`,
 #' `pdb` and `alphafold`, but a complete and updated list is available at
 #' \url{https://www.ebi.ac.uk/Tools/hmmer/}.
 #' @param verbose A logical, if TRUE details of the download process is printed.
-#' @param timeout Set maximum request time in seconds.
+#' @param max_tries Cap the maximum number of attempts with max_tries.
 #'
 #' @return An Data Frame containing the results from HMMER.
 #'
 #' @examples
 #' search_phmmer(
-#'     seq = "MTEITAAMVKELRTGAGMMDCKN",
-#'     seqdb = "pdb",
-#'     verbose = FALSE
+#'   seq = "MTEITAAMVKELRTGAGMMDCKN",
+#'   seqdb = "pdb",
+#'   verbose = FALSE
 #' )
 #' @export
+search_phmmer <- function(seq, seqdb, max_tries = 5, verbose = TRUE) {
+  requests <- purrr::map2(
+    seq, seqdb,
+    ~ hmmer_request(
+      algo = "phmmer", seq = convert_input_seq(.x), seqdb = .y
+    )
+  )
+  if (verbose) {
+    requests <- purrr::map(requests, httr2::req_verbose)
+  }
 
-search_phmmer <- function(seq, seqdb = "swissprot",
-    timeout = 180, verbose = FALSE) {
-    httr::reset_config()
-    if (verbose) {
-        httr::set_config(httr::verbose())
+  responses <- multi_req_perform_custom(requests)
+
+  purrr::pmap(
+    list(responses, seq, seqdb),
+    ~ {
+      data <- ..1 |>
+        httr2::resp_body_json(simplifyVector = TRUE) |>
+        purrr::chuck("results", "hits") |>
+        tibble::as_tibble()
+      colnames(data) <- paste0("hits.", colnames(data))
+
+      data |>
+        dplyr::mutate(sequence_header = names(..2), database = ..3) |>
+        add_fullfasta(uuid = resp_get_uuid(..1))
     }
-    phmmer <- purrr::possibly(search_in_hmmer, otherwise = NULL)
-    seq <- convert_input_seq(seq)
-    # all combinations of inputs
-    tidyr::expand_grid(seq, seqdb, algorithm = "phmmer") %>%
-        dplyr::rowwise() %>%
-        purrr::pmap(
-            ~ phmmer(
-                seq = ..1,
-                seqdb = ..2,
-                algorithm = ..3,
-                timeout_in_seconds = timeout
-            )
-        ) %>%
-        purrr::compact() %>%
-        dplyr::bind_rows()
+  ) |>
+    dplyr::bind_rows(.id = "temporary_url")
 }

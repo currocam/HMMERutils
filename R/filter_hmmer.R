@@ -14,7 +14,7 @@
 #'     by = "hits.evalue"
 #' )
 #' @export
-filter_hmmer <- function(data, threshold = 0.0005, by = "hits.evalue") {
+filter_hmmer <- function(data, threshold = 0.0005, by = "hits.evalue") { # nolint
     data2 <- data.frame(data)
 
     # Extract type
@@ -39,18 +39,18 @@ extract_evalue_from_domains <- function(data, by = "ievalue") {
     new_evalue <- c()
 
     # Save number of rows
-    n.rows <- nrow(data2)
+    n_rows <- nrow(data2)
 
     # Iterate over all rows
-    for (row in seq_len(n.rows)) {
+    for (row in seq_len(n_rows)) {
         # Calculate number of domains in actual row
-        n.elements <- length(data2[row, "hits.domains"][[1]])
+        n_elements <- length(data2[row, "hits.domains"][[1]])
 
         lowest <- as.double(data2[row, "hits.domains"][[1]][[1]][by])
 
         # Iterate over each domain and keep lowest
-        if (n.elements > 1) {
-            for (el in seq_len(n.elements)) {
+        if (n_elements > 1) {
+            for (el in seq_len(n_elements)) {
                 element <- as.double(data2[row, "hits.domains"][[1]][[el]][by])
 
                 if (element < lowest) { # Keep lowest

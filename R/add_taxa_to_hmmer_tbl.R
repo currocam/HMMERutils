@@ -1,4 +1,3 @@
-
 #' Add taxonomic information to a Data Frame obtained
 #'  from HMMER with a "hits.taxid" column.
 #'
@@ -20,8 +19,8 @@
 #' )
 #' @export
 #'
-add_taxa_to_hmmer_tbl <- function(data, mode = "remote", rank_vc = NULL) {
-    inner_function <- function(x) {
+add_taxa_to_hmmer_tbl <- function(data, mode = "remote", rank_vc = NULL) { # nolint
+    inner_function <- function(x) { # nolint
         annotate_with_NCBI_taxid(
             taxid = unique(x$hits.taxid),
             mode = mode, rank_vc = rank_vc
@@ -33,5 +32,6 @@ add_taxa_to_hmmer_tbl <- function(data, mode = "remote", rank_vc = NULL) {
     data %>%
         dplyr::group_by(!!group_var) %>%
         dplyr::group_split() %>%
-        purrr::map_dfr(~ purrr::possibly(inner_function, .)(.))
+        purrr::map(~ purrr::possibly(inner_function, .)(.)) %>%
+        purrr::bind_rows()
 }

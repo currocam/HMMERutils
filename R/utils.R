@@ -1,20 +1,20 @@
 # Download a file using a temp file (it should work in every OS).
 #
 # @param url a string with an URL.
-download_file <- function(url) {
+download_file <- function(url) { # nolint
     temp <- tempfile()
     url %>% utils::download.file(temp, mode = "wb", method = "libcurl")
     return(temp)
 }
 
-check_if_url <- function(urls) {
-    purrr::map_lgl(
+check_if_url <- function(urls) { # nolint
+    purrr::map(
         urls,
         purrr::possibly(
             Negate(httr::http_error),
             otherwise = FALSE
         )
-    )
+    ) %>% as.logical()
 }
 
 convert_input_seq <- function(seq) {

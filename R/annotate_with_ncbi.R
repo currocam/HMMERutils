@@ -15,7 +15,7 @@
 #' @examples
 #' annotate_with_NCBI_taxid(7955, mode = "remote")
 #' @export
-annotate_with_NCBI_taxid <- function(taxid, rank_vc = NULL, mode = "remote") {
+annotate_with_NCBI_taxid <- function(taxid, rank_vc = NULL, mode = "remote") { # nolint
     if (!requireNamespace("taxizedb", quietly = TRUE) && mode == "local") {
         stop(
             "Package \"taxizedb\" must be installed to use this function with a

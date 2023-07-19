@@ -9,11 +9,11 @@ editor_options:
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>",
-    fig.path = "man/figures/README-",
-    out.width = "100%",
-    dpi = 200
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%",
+  dpi = 200
 )
 ```
 
@@ -57,14 +57,14 @@ This is a basic example that shows you how to solve a common problem:
 ```{r example, eval = requireNamespace('HMMERutils'), warning=FALSE, message=FALSE}
 library("HMMERutils")
 fasta_2abl <- paste0(
-    "MGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGW",
-    "VPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISL",
-    "RYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAP"
+  "MGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGW",
+  "VPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISL",
+  "RYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAP"
 )
 data <- search_phmmer(seq = fasta_2abl, seqdb = "swissprot") %>%
-    add_sequences_to_hmmer_tbl() %>%
-    add_taxa_to_hmmer_tbl() %>%
-    add_physicochemical_properties_to_HMMER_tbl()
+  add_sequences_to_hmmer_tbl() %>%
+  add_taxa_to_hmmer_tbl() %>%
+  add_physicochemical_properties_to_HMMER_tbl()
 ```
 
 Now, you can easily summarize the information using the well-known
@@ -74,13 +74,13 @@ taxonomic information as well as theoretical protein index.
 ```{r summary}
 library(dplyr)
 data %>%
-    filter(hits.evalue > 10^-5) %>%
-    distinct(hits.fullfasta, .keep_all = TRUE) %>%
-    group_by(taxa.phylum) %>%
-    summarise(
-        n = n(),
-        "Molecular.Weight" = mean(properties.molecular.weight, na.rm = TRUE)
-    )
+  filter(hits.evalue > 10^-5) %>%
+  distinct(hits.fullfasta, .keep_all = TRUE) %>%
+  group_by(taxa.phylum) %>%
+  summarise(
+    n = n(),
+    "Molecular.Weight" = mean(properties.molecular.weight, na.rm = TRUE)
+  )
 ```
 
 You can take advantage of this library and
@@ -91,7 +91,7 @@ to the architecture of the protein.
 ```{r, e-values}
 library(ggplot2)
 hmmer_evalues_cleveland_dot_plot(data) +
-    ggplot2::facet_wrap(~hits.ndom)
+  ggplot2::facet_wrap(~hits.ndom)
 ```
 
 And use some handy functions to even cluster your sequences based on

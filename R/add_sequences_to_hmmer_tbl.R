@@ -12,8 +12,7 @@
 #'
 #' @export
 #'
-add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
-    max_times = 3) {
+add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta", max_times = 3) { # nolint
     stopifnot(any("uuid" %in% colnames(data)))
     stopifnot(any("hits.name" %in% colnames(data)))
     inner_function <- purrr::insistently(
@@ -28,18 +27,15 @@ add_sequences_to_hmmer_tbl <- function(data, extension = "fullfasta",
         }
     )
     group_var <- rlang::sym("uuid")
-    data %>%
+    data <- data %>%
         dplyr::group_by(!!group_var) %>%
         dplyr::group_split() %>%
-        purrr::map_dfr(inner_function) %>%
-        delete_na_rows
+        purrr::map(inner_function) %>%
+        purrr::bind_rows()
+    data[rowSums(is.na(data)) <= nrow(data), ]
 }
 
-delete_na_rows <- function(data) {
-    data[rowSums(is.na(data)) <= nrow(data),]
-}
-
-add_AAStringSet_to_tbl <- function(fasta, data, extension) {
+add_AAStringSet_to_tbl <- function(fasta, data, extension) { # nolint
     col_name <- paste0("hits.", extension)
     x <- tibble::tibble("hits.name" = names(fasta))
     x[c(col_name)] <- as.character(fasta)

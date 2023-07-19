@@ -4,14 +4,14 @@
 #'   XML file downloaded from HMMER.
 #'
 #' @return A Data Frame with the results
-#' 
+#'
 #' @examples
 #' read_hmmer_from_json(
 #'     file = "inst/extdata/phmmer_2abl.xml"
 #' )
 #' @export
 #'
-read_hmmer_from_json <- function(file) {
+read_hmmer_from_json <- function(file) { # nolint
     if (is.null(names(file))) {
         names(file) <- file
     }
@@ -23,5 +23,6 @@ read_hmmer_from_json <- function(file) {
                 parse_results_into_tbl()
         }
     )
-    purrr::map_dfr(.x = file, .id = "file", .f = inner_function)
+    purrr::map(.x = file, .id = "file", .f = inner_function) %>%
+        dplyr::bind_rows()
 }

@@ -7,10 +7,10 @@
 #' \item{\code{algorithm }}{HMMER algorithm}
 #' \item{\code{uuid}}{unique hmmer identifier}
 #' \item{\code{stats.page}}{}
-#' \item{\code{stats.nhits}}{The number of hits found above reporting 
+#' \item{\code{stats.nhits}}{The number of hits found above reporting
 #' thresholds}
 #' \item{\code{stats.elapsed}}{}
-#' \item{\code{stats.Z}}{The number of sequences or models in the target 
+#' \item{\code{stats.Z}}{The number of sequences or models in the target
 #' database}
 #' \item{\code{stats.Z_setby}}{}
 #' \item{\code{stats.n_past_msv}}{}
@@ -36,7 +36,7 @@
 #' \item{\code{hits.ndom}}{Total number of domains identified in this sequence}
 #' \item{\code{hits.extlink}}{}
 #' \item{\code{hits.fullfasta}}{Protein sequences as a character vector.}
-#' \item{\code{hits.taxid}}{The NCBI taxonomy identifier of the target (if 
+#' \item{\code{hits.taxid}}{The NCBI taxonomy identifier of the target (if
 #' applicable)}
 #' \item{\code{hits.acc}}{Accession of the target}
 #' \item{\code{hits.taxlink}}{}
@@ -45,26 +45,26 @@
 #' \item{\code{hits.flags}}{}
 #' \item{\code{hits.nregions}}{Number of regions evaluated}
 #' \item{\code{hits.niseqs}}{}
-#' \item{\code{hits.name}}{Name of the target (sequence for phmmer/hmmsearch, 
+#' \item{\code{hits.name}}{Name of the target (sequence for phmmer/hmmsearch,
 #' HMM for hmmscan)}
 #' \item{\code{hits.species}}{The species name of the target (if applicable)}
-#' \item{\code{hits.score}}{Bit score of the sequence (all domains, without 
+#' \item{\code{hits.score}}{Bit score of the sequence (all domains, without
 #' correction)}
 #' \item{\code{hits.bias}}{}
 #' \item{\code{hits.sindex}}{}
-#' \item{\code{hits.nincluded}}{Number of domains satisfying inclusion 
+#' \item{\code{hits.nincluded}}{Number of domains satisfying inclusion
 #' thresholding}
 #' \item{\code{hits.domains}}{The domain or hit hash contains the details of the
 #'  match, in particular the alignment between the query and the target.}
 #' \item{\code{hits.pdbs}}{Array of pdb identifiers (which chains information)}
 #' \item{\code{hits.evalue}}{E-value of the score}
-#' \item{\code{hits.nreported}}{Number of domains satisfying reporting 
+#' \item{\code{hits.nreported}}{Number of domains satisfying reporting
 #' thresholding}
 #' \item{\code{hits.archindex}}{}
 #' \item{\code{hits.acc2}}{Secondary accession of the target}
 #' }
 #'
-#' For further details, see 
+#' For further details, see
 #' \url{https://hmmer-web-docs.readthedocs.io/en/latest/appendices.html}
 #'
 "phmmer_2abl"
@@ -78,10 +78,10 @@
 #' \item{\code{algorithm }}{HMMER algorithm}
 #' \item{\code{uuid}}{unique hmmer identifier}
 #' \item{\code{stats.page}}{}
-#' \item{\code{stats.nhits}}{The number of hits found above reporting 
+#' \item{\code{stats.nhits}}{The number of hits found above reporting
 #' thresholds}
 #' \item{\code{stats.elapsed}}{}
-#' \item{\code{stats.Z}}{The number of sequences or models in the target 
+#' \item{\code{stats.Z}}{The number of sequences or models in the target
 #' database}
 #' \item{\code{stats.Z_setby}}{}
 #' \item{\code{stats.n_past_msv}}{}
@@ -109,9 +109,9 @@
 #' \item{\code{hits.nreported}}{}
 #' \item{\code{hits.hindex}}{}
 #' \item{\code{hits.ndom}}{Total number of domains identified in this sequence}
-#' \item{\code{hits.name}}{Name of the target (sequence for phmmer/hmmsearch, 
+#' \item{\code{hits.name}}{Name of the target (sequence for phmmer/hmmsearch,
 #' HMM for hmmscan)}
-#' \item{\code{hits.score}}{Bit score of the sequence (all domains, without 
+#' \item{\code{hits.score}}{Bit score of the sequence (all domains, without
 #' correction)}
 #' \item{\code{hits.bias}}{}
 #' \item{\code{hits.domains}}{The domain or hit hash contains the details of the
@@ -120,7 +120,7 @@
 #' \item{\code{hits.nincluded}}{E-value of the score}
 #' }
 #'
-#' For further details, see 
+#' For further details, see
 #' \url{https://hmmer-web-docs.readthedocs.io/en/latest/appendices.html}
 #'
 "hmmscan_2abl"

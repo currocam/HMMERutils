@@ -5,7 +5,7 @@
 #'  any other object that can be converted to that. It can also be a URL or
 #'  the path to a FASTA file.
 #' @param hmmdb A character vector containing the target databases. Frequently
-#'  used databases are `pfam`, `tigrfam` `gene3d`, `superfamily`, 
+#'  used databases are `pfam`, `tigrfam` `gene3d`, `superfamily`,
 #' `pirsf` and `treefam`, but a complete and updated list is available at
 #' \url{https://www.ebi.ac.uk/Tools/hmmer/}.
 #' @param verbose A logical, if TRUE details of the download process is printed.
@@ -21,14 +21,13 @@
 #' )
 #' @export
 
-search_hmmscan <- function(seq, hmmdb = "pfam",
-    timeout = 180, verbose = FALSE) {
+search_hmmscan <- function(seq, hmmdb = "pfam", timeout = 180, verbose = FALSE) { # nolint
     httr::reset_config()
     if (verbose) {
         httr::set_config(httr::verbose())
     }
     seq <- convert_input_seq(seq)
-    hmmscan <- purrr::possibly(search_in_hmmer, otherwise = NULL)
+    hmmscan <- purrr::possibly(search_in_hmmer, otherwise = NULL) # nolint
     # all combinations of inputs
     lists <- tidyr::expand_grid(seq, hmmdb, algorithm = "hmmscan") %>%
         dplyr::rowwise() %>%
@@ -41,7 +40,6 @@ search_hmmscan <- function(seq, hmmdb = "pfam",
             )
         ) %>%
         purrr::compact()
-        #dplyr::bind_rows()
 
-    tibble::as_tibble(Reduce(function(x, y) merge(x, y, all=TRUE), lists))
+    tibble::as_tibble(Reduce(function(x, y) merge(x, y, all = TRUE), lists))
 }
